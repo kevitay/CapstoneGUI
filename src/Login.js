@@ -41,14 +41,14 @@ const Login = () => {
     return (
         <div className="Login">
             <form onSubmit={processLogin}>
-                <label for='username'>Username</label>
+                <label htmlFor='username'>Username</label>
                 <input type="text" name='username' id='username' value={username} onChange={usernameChange}></input>
-                <label for='password'>Password</label>
+                <label htmlFor='password'>Password</label>
                 <input type="password" name='password' id='password' value={password} onChange={passwordChange}></input>
                 <button type="submit">Login</button>
             </form>
-            <h2 class="error">{error}</h2>
-            <h2 class="success">{success}</h2>
+            <h2 className="error">{error}</h2>
+            <h2 className="success">{success}</h2>
             <pre>{token}</pre>
         </div>
     )
