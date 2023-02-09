@@ -3,6 +3,7 @@ import AccountDetails from './AccountDetails';
 import './App.css';
 import AuthContext from './AuthContext';
 import ChangePassword from './ChangePassword';
+import DisplayRoles from './DisplayRoles';
 import Login from './Login';
 import Registration from './Registration';
 
@@ -34,6 +35,7 @@ function App() {
         <AuthContext.Provider value={[authState, authDispatch]}>
           <Login></Login>
           <AccountDetails></AccountDetails>
+          <DisplayRoles></DisplayRoles>
           <Registration></Registration>
           <ChangePassword></ChangePassword>
         </AuthContext.Provider>
