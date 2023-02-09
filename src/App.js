@@ -5,8 +5,11 @@ import AuthContext from './AuthContext';
 import ChangePassword from './ChangePassword';
 import DisplayRoles from './DisplayRoles';
 import DisplayUsers from './DisplayUsers';
+import EditUserRole from './EditUserRole';
 import Login from './Login';
 import Registration from './Registration';
+import RoleListContext from './RoleListContext';
+import UserListContext from './UserListContext';
 
 const authReducer = (state, action) => {
   switch (action.type) {
@@ -25,8 +28,37 @@ const authInitialState = {
   token: '',
 }
 
+const userListReducer = (state, action) => {
+  switch(action.type) {
+    case 'setUserList':
+      return action.payload.map((user) => {
+        return user.username
+      })
+    default:
+      return state;
+  }
+}
+
+const userListInitialState = [];
+
+const roleListReducer = (state, action) => {
+  switch(action.type) {
+    case 'setRoleList':
+      return action.payload.map((role) => {
+        return role.name
+      })
+    default:
+      return state;
+  }
+}
+
+const roleListInitialState = [];
+
 function App() {
   const [authState, authDispatch] = useReducer(authReducer, authInitialState)
+  const [userListState, userListDispatch] = useReducer(userListReducer, userListInitialState);
+  const [roleListState, roleListDispatch] = useReducer(roleListReducer, roleListInitialState);
+
   return (
     <div className="App">
       <header>
@@ -34,12 +66,17 @@ function App() {
       </header>
       <section>
         <AuthContext.Provider value={[authState, authDispatch]}>
-          <Login></Login>
-          <AccountDetails></AccountDetails>
-          <DisplayRoles></DisplayRoles>
-          <DisplayUsers></DisplayUsers>
-          <Registration></Registration>
-          <ChangePassword></ChangePassword>
+          <UserListContext.Provider value={[userListState, userListDispatch]}>
+          <RoleListContext.Provider value={[roleListState, roleListDispatch]}>
+            <Login></Login>
+            <AccountDetails></AccountDetails>
+            <DisplayRoles></DisplayRoles>
+            <DisplayUsers></DisplayUsers>
+            <EditUserRole></EditUserRole>
+            <Registration></Registration>
+            <ChangePassword></ChangePassword>
+          </RoleListContext.Provider>
+          </UserListContext.Provider>
         </AuthContext.Provider>
       </section>
     </div>
