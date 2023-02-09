@@ -1,9 +1,12 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import AuthContext from "./AuthContext";
 import './Login.css';
 
 const url = 'http://auth.galvanizelaboratory.com/api/auth'
 
 const Login = () => {
+    const [authState, authDispatch] = useContext(AuthContext);
+
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [token, setToken] = useState('');
@@ -23,7 +26,9 @@ const Login = () => {
         fetch(url, headers).then((response) => {
             if(response.ok) {
                 setSuccess(`Success: Response code ${response.status}`);
-                setToken(response.headers.get('Authorization'));
+                const authToken = response.headers.get('Authorization')
+                setToken(authToken);
+                authDispatch({type: 'saveAuth', payload: {username, token: authToken}})
             } else {
                 setError(`Failure: Response Code ${response.status}`);
             }
