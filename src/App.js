@@ -1,4 +1,5 @@
 import './App.css';
+import ChangePassword from './ChangePassword';
 import Login from './Login';
 import Registration from './Registration';
 
@@ -11,6 +12,7 @@ function App() {
       <section>
         <Login></Login>
         <Registration></Registration>
+        <ChangePassword></ChangePassword>
       </section>
     </div>
   );
