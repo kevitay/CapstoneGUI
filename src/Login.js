@@ -23,6 +23,7 @@ const Login = () => {
         setError('');
         setSuccess('');
         setToken('');
+        authDispatch({type: 'saveAuth', payload: {username: '', token: ''}})
         fetch(url, headers).then((response) => {
             if(response.ok) {
                 setSuccess(`Success: Response code ${response.status}`);
