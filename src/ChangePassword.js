@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
 import AuthContext from "./AuthContext";
+import LoggingContext from "./LoggingContext";
 
 const initialChangePassword = {
     username: "",
@@ -10,11 +11,9 @@ const initialChangePassword = {
 const url = 'http://auth.galvanizelaboratory.com/api/account/passwd'
 
 const ChangePassword = () => {
-    const [authState, authDispatch] = useContext(AuthContext);
+    const [authState, ] = useContext(AuthContext);
+    const [, loggingDispatch] = useContext(LoggingContext);
     const [changePasswordDetails, setChangePasswordDetails] = useState(initialChangePassword);
-
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
 
     const processChangePassword = (e) => {
         e.preventDefault();
@@ -26,13 +25,11 @@ const ChangePassword = () => {
             },
             body: JSON.stringify(changePasswordDetails),
         }
-        setError('');
-        setSuccess('');
         fetch(url, headers).then((response) => {
             if(response.ok) {
-                setSuccess(`Success: Response code ${response.status}`);
+                loggingDispatch({type: 'log', payload: {type: 'success', message: `${headers.method} ${url} - ${response.status}`}})
             } else {
-                setError(`Failure: Response Code ${response.status}`);
+                loggingDispatch({type: 'log', payload: {type: 'error', message: `${headers.method} ${url} - ${response.status}`}})
             }
         })
     }
@@ -62,8 +59,6 @@ const ChangePassword = () => {
                 })}
                 <button type="submit">Change Password</button>
             </form>
-            <h2 className="error">{error}</h2>
-            <h2 className="success">{success}</h2>
         </div>
     )
 
