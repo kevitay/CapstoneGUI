@@ -38,7 +38,7 @@ const DisplayRoles = () => {
             setRoles(data);
             roleListDispatch({type: 'setRoleList', payload: data})
         })
-    }, [authState.token])
+    }, [authState.token, roleListDispatch])
     
     useEffect(() => {
         if(authState.username) {

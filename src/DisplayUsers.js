@@ -8,7 +8,7 @@ const initialUsers = [];
 
 const DisplayUsers = () => {
     const [authState,] = useContext(AuthContext);
-    const [userListState, userListDispatch] = useContext(UserListContext);
+    const [, userListDispatch] = useContext(UserListContext);
 
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
@@ -37,7 +37,7 @@ const DisplayUsers = () => {
             setUsers(data.userSearchResults);
             userListDispatch({type: 'setUserList', payload: data.userSearchResults})
         })
-    }, [authState.token])
+    }, [authState.token, userListDispatch])
     
     useEffect(() => {
         if(authState.username) {

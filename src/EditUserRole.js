@@ -13,8 +13,8 @@ const EditUserRole = () => {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
-    const [userListState, userListDispatch] = useContext(UserListContext);
-    const [roleListState, roleListDispatch] = useContext(RoleListContext);
+    const [userListState, ] = useContext(UserListContext);
+    const [roleListState, ] = useContext(RoleListContext);
     const [currentUser, setCurrentUser] = useState('');
     const [userDetails, setUserDetails] = useState(initialUserDetailsState)
 
