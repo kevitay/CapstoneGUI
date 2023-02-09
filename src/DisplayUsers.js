@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import AuthContext from "./AuthContext";
 
 const url = 'http://auth.galvanizelaboratory.com/api/admin/users'
@@ -6,14 +6,14 @@ const url = 'http://auth.galvanizelaboratory.com/api/admin/users'
 const initialUsers = [];
 
 const DisplayUsers = () => {
-    const [authState, authDispatch] = useContext(AuthContext);
+    const [authState,] = useContext(AuthContext);
 
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
     const [users, setUsers] = useState(initialUsers);
 
-    const getUsers = () => {
+    const getUsers = useCallback(() => {
         const headers = {
             method: 'GET',
             headers: {
@@ -34,7 +34,7 @@ const DisplayUsers = () => {
         }).then((data) => {
             setUsers(data.userSearchResults);
         })
-    }
+    }, [authState.token])
     
     useEffect(() => {
         if(authState.username) {
@@ -43,7 +43,7 @@ const DisplayUsers = () => {
             setUsers(initialUsers)
         }
 
-    }, [authState])
+    }, [authState, getUsers])
 
     return (
         <div className="DisplayUsers">
