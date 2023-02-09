@@ -1,5 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import AuthContext from "./AuthContext";
+import UserListContext from "./UserListContext";
 
 const url = 'http://auth.galvanizelaboratory.com/api/admin/users'
 
@@ -7,6 +8,7 @@ const initialUsers = [];
 
 const DisplayUsers = () => {
     const [authState,] = useContext(AuthContext);
+    const [userListState, userListDispatch] = useContext(UserListContext);
 
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
@@ -33,6 +35,7 @@ const DisplayUsers = () => {
             }
         }).then((data) => {
             setUsers(data.userSearchResults);
+            userListDispatch({type: 'setUserList', payload: data.userSearchResults})
         })
     }, [authState.token])
     
