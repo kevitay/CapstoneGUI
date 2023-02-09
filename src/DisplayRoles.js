@@ -1,5 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import AuthContext from "./AuthContext";
+import LoggingContext from "./LoggingContext";
 import RoleList from "./RoleList";
 import RoleListContext from "./RoleListContext";
 
@@ -9,10 +10,8 @@ const initialRoles = [];
 
 const DisplayRoles = () => {
     const [authState, ] = useContext(AuthContext);
+    const [, loggingDispatch] = useContext(LoggingContext);
     const [, roleListDispatch] = useContext(RoleListContext);
-
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
 
     const [roles, setRoles] = useState(initialRoles);
 
@@ -24,14 +23,15 @@ const DisplayRoles = () => {
                 'Authorization': authState.token,
             },
         }
-        setError('');
-        setSuccess('');
         fetch(url, headers).then((response) => {
+            const log = {
+                type: response.ok ? 'success' : 'error',
+                message: `${headers.method} ${url} - ${response.status}`
+            }
+            loggingDispatch({ type: 'log', payload: log })
             if(response.ok) {
-                setSuccess(`Success: Response code ${response.status}`);
                 return response.json();
             } else {
-                setError(`Failure: Response Code ${response.status}`);
                 return initialRoles;
             }
         }).then((data) => {
@@ -53,9 +53,6 @@ const DisplayRoles = () => {
         <div className="DisplayRoles">
             <h1>Display Roles</h1>
             <RoleList roles={roles}></RoleList>
-
-            <h2 className="error">{error}</h2>
-            <h2 className="success">{success}</h2>
         </div>
     )
 }

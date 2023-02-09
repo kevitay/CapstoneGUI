@@ -1,5 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import AuthContext from "./AuthContext";
+import LoggingContext from "./LoggingContext";
 import UserListContext from "./UserListContext";
 
 const url = 'http://auth.galvanizelaboratory.com/api/admin/users'
@@ -9,9 +10,7 @@ const initialUsers = [];
 const DisplayUsers = () => {
     const [authState,] = useContext(AuthContext);
     const [, userListDispatch] = useContext(UserListContext);
-
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
+    const [, loggingDispatch] = useContext(LoggingContext);
 
     const [users, setUsers] = useState(initialUsers);
 
@@ -23,14 +22,15 @@ const DisplayUsers = () => {
                 'Authorization': authState.token,
             },
         }
-        setError('');
-        setSuccess('');
         fetch(url, headers).then((response) => {
+            const log = {
+                type: response.ok ? 'success' : 'error',
+                message: `${headers.method} ${url} - ${response.status}`
+            }
+            loggingDispatch({ type: 'log', payload: log })
             if(response.ok) {
-                setSuccess(`Success: Response code ${response.status}`);
                 return response.json();
             } else {
-                setError(`Failure: Response Code ${response.status}`);
                 return {userSearchResults: initialUsers};
             }
         }).then((data) => {
@@ -55,9 +55,6 @@ const DisplayUsers = () => {
                 return (
                     <li key={index}> {user.username} - {user.firstName} {user.lastName} - {user.email}</li>)
             })}
-
-            <h2 className="error">{error}</h2>
-            <h2 className="success">{success}</h2>
         </div>
     )
 }

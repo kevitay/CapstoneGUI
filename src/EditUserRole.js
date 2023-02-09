@@ -1,5 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import AuthContext from "./AuthContext";
+import LoggingContext from "./LoggingContext";
 import RoleListContext from "./RoleListContext";
 import UserListContext from "./UserListContext";
 
@@ -9,9 +10,7 @@ const initialUserDetailsState = { roles: [] };
 
 const EditUserRole = () => {
     const [authState,] = useContext(AuthContext);
-
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
+    const [, loggingDispatch] = useContext(LoggingContext);
 
     const [userListState, ] = useContext(UserListContext);
     const [roleListState, ] = useContext(RoleListContext);
@@ -42,14 +41,15 @@ const EditUserRole = () => {
                 'Authorization': authState.token,
             },
         }
-        setError('');
-        setSuccess('');
         fetch(`${url}/users/${currentUser}`, headers).then((response) => {
+            const log = {
+                type: response.ok ? 'success' : 'error',
+                message: `${headers.method} ${url}/users/${currentUser} - ${response.status}`
+            }
+            loggingDispatch({ type: 'log', payload: log })
             if(response.ok) {
-                setSuccess(`Success: Response code ${response.status}`);
                 return response.json();
             } else {
-                setError(`Failure: Response Code ${response.status}`);
                 return initialUserDetailsState;
             }
         }).then((data) => {
@@ -66,14 +66,15 @@ const EditUserRole = () => {
                 'Authorization': authState.token,
             },
         }
-        setError('');
-        setSuccess('');
         fetch(`${url}/roles/${role}/${currentUser}`, headers).then((response) => {
+            const log = {
+                type: response.ok ? 'success' : 'error',
+                message: `${headers.method} ${url}/roles/${role}/${currentUser} - ${response.status}`
+            }
+            loggingDispatch({ type: 'log', payload: log })
             if(response.ok) {
-                setSuccess(`Success: Response code ${response.status}`);
                 return response.json();
             } else {
-                setError(`Failure: Response Code ${response.status}`);
                 return userDetails;
             }
         }).then((data) => {
@@ -90,14 +91,15 @@ const EditUserRole = () => {
                 'Authorization': authState.token,
             },
         }
-        setError('');
-        setSuccess('');
         fetch(`${url}/roles/${role}/${currentUser}`, headers).then((response) => {
+            const log = {
+                type: response.ok ? 'success' : 'error',
+                message: `${headers.method} ${url}/roles/${role}/${currentUser} - ${response.status}`
+            }
+            loggingDispatch({ type: 'log', payload: log })
             if(response.ok) {
-                setSuccess(`Success: Response code ${response.status}`);
                 getUser();
             } else {
-                setError(`Failure: Response Code ${response.status}`);
             }
         })
     }
@@ -161,8 +163,6 @@ const EditUserRole = () => {
                 </form>
             : ''
         }
-        <h2 className="error">{error}</h2>
-        <h2 className="success">{success}</h2>
         </div>
     )
 }
