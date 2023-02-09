@@ -1,17 +1,17 @@
 import { useContext, useState } from "react";
 import AuthContext from "./AuthContext";
+import LoggingContext from "./LoggingContext";
 import './Login.css';
 
 const url = 'http://auth.galvanizelaboratory.com/api/auth'
 
 const Login = () => {
-    const [authState, authDispatch] = useContext(AuthContext);
+    const [, authDispatch] = useContext(AuthContext);
+    const [, loggingDispatch] = useContext(LoggingContext);
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
     const [token, setToken] = useState('');
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
 
     const processLogin = (e) => {
         e.preventDefault();
@@ -20,18 +20,16 @@ const Login = () => {
             method: 'POST',
             body: JSON.stringify(loginRequest)
         }
-        setError('');
-        setSuccess('');
         setToken('');
         authDispatch({type: 'saveAuth', payload: {username: '', token: ''}})
         fetch(url, headers).then((response) => {
             if(response.ok) {
-                setSuccess(`Success: Response code ${response.status}`);
+                loggingDispatch({type: 'log', payload: {type: 'success', message: `${headers.method} ${url} - ${response.status}`}})
                 const authToken = response.headers.get('Authorization')
                 setToken(authToken);
                 authDispatch({type: 'saveAuth', payload: {username, token: authToken}})
             } else {
-                setError(`Failure: Response Code ${response.status}`);
+                loggingDispatch({type: 'log', payload: {type: 'error', message: `${headers.method} ${url} - ${response.status}`}})
             }
         })
     }
@@ -53,8 +51,6 @@ const Login = () => {
                 <input type="password" name='password' id='password' value={password} onChange={passwordChange}></input>
                 <button type="submit">Login</button>
             </form>
-            <h2 className="error">{error}</h2>
-            <h2 className="success">{success}</h2>
             <pre>{token}</pre>
         </div>
     )
