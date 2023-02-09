@@ -11,7 +11,7 @@ const initialChangePassword = {
 const url = 'http://auth.galvanizelaboratory.com/api/account/passwd'
 
 const ChangePassword = () => {
-    const [authState, ] = useContext(AuthContext);
+    const [authState,] = useContext(AuthContext);
     const [, loggingDispatch] = useContext(LoggingContext);
     const [changePasswordDetails, setChangePasswordDetails] = useState(initialChangePassword);
 
@@ -26,11 +26,11 @@ const ChangePassword = () => {
             body: JSON.stringify(changePasswordDetails),
         }
         fetch(url, headers).then((response) => {
-            if(response.ok) {
-                loggingDispatch({type: 'log', payload: {type: 'success', message: `${headers.method} ${url} - ${response.status}`}})
-            } else {
-                loggingDispatch({type: 'log', payload: {type: 'error', message: `${headers.method} ${url} - ${response.status}`}})
+            const log = {
+                type: response.ok ? 'success' : 'error',
+                message: `${headers.method} ${url} - ${response.status}`
             }
+            loggingDispatch({ type: 'log', payload: log })
         })
     }
 
