@@ -1,7 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "./AuthContext";
+import RoleList from "./RoleList";
 
 const url = 'http://auth.galvanizelaboratory.com/api/account'
+const initialAccountState = { user: {}, roles: []}
 
 const AccountDetails = () => {
     const [authState, authDispatch] = useContext(AuthContext);
@@ -9,7 +11,7 @@ const AccountDetails = () => {
     const [error, setError] = useState('');
     const [success, setSuccess] = useState('');
 
-    const [accountDetails, setAccountDetails] = useState({})
+    const [accountDetails, setAccountDetails] = useState(initialAccountState)
     
     const getAccountDetails = () => {
         const headers = {
@@ -27,7 +29,7 @@ const AccountDetails = () => {
                 return response.json();
             } else {
                 setError(`Failure: Response Code ${response.status}`);
-                return {};
+                return initialAccountState;
             }
         }).then((data) => {
             setAccountDetails(data);
@@ -37,12 +39,20 @@ const AccountDetails = () => {
     useEffect(() => {
         if(authState.username) {
             getAccountDetails()
+        } else {
+            setAccountDetails(initialAccountState)
         }
+
     }, [authState])
     return (
-        <div class="AccountDetails">
+        <div className="AccountDetails">
             <h1>Account Details</h1>
-            {JSON.stringify(accountDetails)}
+            <ul>
+                {Object.keys(accountDetails.user).map((key) => {
+                    return <li key={key}>{key} - {accountDetails.user[key]}</li>;
+                })}
+            </ul>
+            <RoleList roles={accountDetails.roles}></RoleList>
             <h2 className="error">{error}</h2>
             <h2 className="success">{success}</h2>
         </div>
