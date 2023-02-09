@@ -1,5 +1,6 @@
 import './App.css';
 import Login from './Login';
+import Registration from './Registration';
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       </header>
       <section>
         <Login></Login>
+        <Registration></Registration>
       </section>
     </div>
   );
