@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import AuthContext from "./AuthContext";
 
 const initialChangePassword = {
     username: "",
@@ -9,6 +10,7 @@ const initialChangePassword = {
 const url = 'http://auth.galvanizelaboratory.com/api/account/passwd'
 
 const ChangePassword = () => {
+    const [authState, authDispatch] = useContext(AuthContext);
     const [changePasswordDetails, setChangePasswordDetails] = useState(initialChangePassword);
 
     const [error, setError] = useState('');
@@ -19,7 +21,8 @@ const ChangePassword = () => {
         const headers = {
             method: 'PATCH',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
+                'Authorization': authState.token,
             },
             body: JSON.stringify(changePasswordDetails),
         }
