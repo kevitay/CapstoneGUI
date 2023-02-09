@@ -1,4 +1,5 @@
 import { useReducer } from 'react';
+import AccountDetails from './AccountDetails';
 import './App.css';
 import AuthContext from './AuthContext';
 import ChangePassword from './ChangePassword';
@@ -32,6 +33,7 @@ function App() {
       <section>
         <AuthContext.Provider value={[authState, authDispatch]}>
           <Login></Login>
+          <AccountDetails></AccountDetails>
           <Registration></Registration>
           <ChangePassword></ChangePassword>
         </AuthContext.Provider>
