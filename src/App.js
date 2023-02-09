@@ -4,6 +4,7 @@ import './App.css';
 import AuthContext from './AuthContext';
 import ChangePassword from './ChangePassword';
 import DisplayRoles from './DisplayRoles';
+import DisplayUsers from './DisplayUsers';
 import Login from './Login';
 import Registration from './Registration';
 
@@ -36,6 +37,7 @@ function App() {
           <Login></Login>
           <AccountDetails></AccountDetails>
           <DisplayRoles></DisplayRoles>
+          <DisplayUsers></DisplayUsers>
           <Registration></Registration>
           <ChangePassword></ChangePassword>
         </AuthContext.Provider>
