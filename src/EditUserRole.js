@@ -1,5 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import AuthContext from "./AuthContext";
+import RoleListContext from "./RoleListContext";
 import UserListContext from "./UserListContext";
 
 const url = 'http://auth.galvanizelaboratory.com/api/admin/users'
@@ -13,6 +14,7 @@ const EditUserRole = () => {
     const [success, setSuccess] = useState('');
 
     const [userListState, userListDispatch] = useContext(UserListContext);
+    const [roleListState, roleListDispatch] = useContext(RoleListContext);
     const [currentUser, setCurrentUser] = useState('');
     const [userDetails, setUserDetails] = useState(initialUserDetailsState)
 
@@ -55,12 +57,14 @@ const EditUserRole = () => {
         <select name="currentEditUserRole" id="currentEditUserRole" onChange={selectUser}>
             <option value="">--Please choose an option--</option>
             {userListState.map((user, index) => {
-                return <option value={user}>{user}</option>
+                return <option key={index} value={user}>{user}</option>
             })}
         </select>
 
         <h2>{currentUser}</h2>
         <p>{JSON.stringify(userDetails)}</p>
+
+        <p>{JSON.stringify(roleListState)}</p>
         <h2 className="error">{error}</h2>
         <h2 className="success">{success}</h2>
         </div>

@@ -8,6 +8,7 @@ import DisplayUsers from './DisplayUsers';
 import EditUserRole from './EditUserRole';
 import Login from './Login';
 import Registration from './Registration';
+import RoleListContext from './RoleListContext';
 import UserListContext from './UserListContext';
 
 const authReducer = (state, action) => {
@@ -40,9 +41,23 @@ const userListReducer = (state, action) => {
 
 const userListInitialState = [];
 
+const roleListReducer = (state, action) => {
+  switch(action.type) {
+    case 'setRoleList':
+      return action.payload.map((role) => {
+        return role.name
+      })
+    default:
+      return state;
+  }
+}
+
+const roleListInitialState = [];
+
 function App() {
   const [authState, authDispatch] = useReducer(authReducer, authInitialState)
   const [userListState, userListDispatch] = useReducer(userListReducer, userListInitialState);
+  const [roleListState, roleListDispatch] = useReducer(roleListReducer, roleListInitialState);
 
   return (
     <div className="App">
@@ -52,6 +67,7 @@ function App() {
       <section>
         <AuthContext.Provider value={[authState, authDispatch]}>
           <UserListContext.Provider value={[userListState, userListDispatch]}>
+          <RoleListContext.Provider value={[roleListState, roleListDispatch]}>
             <Login></Login>
             <AccountDetails></AccountDetails>
             <DisplayRoles></DisplayRoles>
@@ -59,6 +75,7 @@ function App() {
             <EditUserRole></EditUserRole>
             <Registration></Registration>
             <ChangePassword></ChangePassword>
+          </RoleListContext.Provider>
           </UserListContext.Provider>
         </AuthContext.Provider>
       </section>
