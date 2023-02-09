@@ -6,7 +6,7 @@ import ChangePassword from './ChangePassword';
 import Login from './Login';
 import Registration from './Registration';
 
-const reducer = (state, action) => {
+const authReducer = (state, action) => {
   switch (action.type) {
     case 'saveAuth':
       const copyOfState = { ...state }
@@ -18,13 +18,13 @@ const reducer = (state, action) => {
   }
 }
 
-const initialState = {
+const authInitialState = {
   username: '',
   token: '',
 }
 
 function App() {
-  const [authState, authDispatch] = useReducer(reducer, initialState)
+  const [authState, authDispatch] = useReducer(authReducer, authInitialState)
   return (
     <div className="App">
       <header>
