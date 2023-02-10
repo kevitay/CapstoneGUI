@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
-import AuthContext from "./AuthContext";
-import LoggingContext from "./LoggingContext";
+import AuthContext from "./contexts/AuthContext";
+import LoggingContext from "./contexts/LoggingContext";
 import './Login.css';
 
 const url = 'http://auth.galvanizelaboratory.com/api/auth'

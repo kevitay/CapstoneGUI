@@ -1,6 +1,6 @@
 import { useContext, useEffect, useState } from "react";
-import AuthContext from "./AuthContext";
-import LoggingContext from "./LoggingContext";
+import AuthContext from "./contexts/AuthContext";
+import LoggingContext from "./contexts/LoggingContext";
 import RoleList from "./RoleList";
 
 const url = 'http://auth.galvanizelaboratory.com/api/account'

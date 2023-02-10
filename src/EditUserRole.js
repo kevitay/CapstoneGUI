@@ -1,8 +1,8 @@
 import { useCallback, useContext, useEffect, useState } from "react";
-import AuthContext from "./AuthContext";
-import LoggingContext from "./LoggingContext";
-import RoleListContext from "./RoleListContext";
-import UserListContext from "./UserListContext";
+import AuthContext from "./contexts/AuthContext";
+import LoggingContext from "./contexts/LoggingContext";
+import RoleListContext from "./contexts/RoleListContext";
+import UserListContext from "./contexts/UserListContext";
 
 const url = 'http://auth.galvanizelaboratory.com/api/admin'
 

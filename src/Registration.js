@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import LoggingContext from "./LoggingContext";
+import LoggingContext from "./contexts/LoggingContext";
 
 const initialRegistrationState = {
     username: '',

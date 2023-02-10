@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import LoggingContext from "./LoggingContext";
+import LoggingContext from "./contexts/LoggingContext";
 
 const Log = () => {
     const [loggingState, ] = useContext(LoggingContext);
