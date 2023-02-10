@@ -1,6 +1,5 @@
 import { useContext, useEffect, useState } from "react";
 import AuthContext from "./contexts/AuthContext";
-import LoggingContext from "./contexts/LoggingContext";
 import RoleList from "./RoleList";
 
 const url = 'http://auth.galvanizelaboratory.com/api/account'
@@ -8,7 +7,6 @@ const initialAccountState = { user: {}, roles: []}
 
 const AccountDetails = () => {
     const [authState, authDispatch] = useContext(AuthContext);
-    const [, loggingDispatch] = useContext(LoggingContext);
 
     const [accountDetails, setAccountDetails] = useState(initialAccountState)
     
@@ -21,11 +19,6 @@ const AccountDetails = () => {
             },
         }
         fetch(url, headers).then((response) => {
-            const log = {
-                type: response.ok ? 'success' : 'error',
-                message: `${headers.method} ${url} - ${response.status}`
-            }
-            loggingDispatch({ type: 'log', payload: log })
             if(response.ok) {
                 return response.json();
             } else {

@@ -7,11 +7,9 @@ import DisplayRoles from './DisplayRoles';
 import DisplayUsers from './DisplayUsers';
 import EditUserRole from './EditUserRole';
 import Login from './Login';
-import LoggingContext from './contexts/LoggingContext';
 import Registration from './Registration';
 import RoleListContext from './contexts/RoleListContext';
 import UserListContext from './contexts/UserListContext';
-import Log from './Log';
 
 const authReducer = (state, action) => {
   switch (action.type) {
@@ -56,23 +54,10 @@ const roleListReducer = (state, action) => {
 
 const roleListInitialState = [];
 
-const loggingReducer = (state, action) => {
-  switch(action.type) {
-    case 'log':
-      const copyOfState = [...state].concat(action.payload)
-      return copyOfState;
-    default:
-      return state;
-  }
-}
-
-const loggingInitialState = [];
-
 function App() {
   const [authState, authDispatch] = useReducer(authReducer, authInitialState)
   const [userListState, userListDispatch] = useReducer(userListReducer, userListInitialState);
   const [roleListState, roleListDispatch] = useReducer(roleListReducer, roleListInitialState);
-  const [loggingState, loggingDispatch] = useReducer(loggingReducer, loggingInitialState)
 
   return (
     <div className="App">
@@ -81,7 +66,6 @@ function App() {
       </header>
       <section>
         <AuthContext.Provider value={[authState, authDispatch]}>
-          <LoggingContext.Provider value={[loggingState, loggingDispatch]}>
           <UserListContext.Provider value={[userListState, userListDispatch]}>
           <RoleListContext.Provider value={[roleListState, roleListDispatch]}>
             <Login></Login>
@@ -91,10 +75,8 @@ function App() {
             <EditUserRole></EditUserRole>
             <Registration></Registration>
             <ChangePassword></ChangePassword>
-            <Log></Log>
           </RoleListContext.Provider>
           </UserListContext.Provider>
-          </LoggingContext.Provider>
         </AuthContext.Provider>
       </section>
     </div>
