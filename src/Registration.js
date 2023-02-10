@@ -1,5 +1,6 @@
 import { useContext, useState } from "react";
-import { failedMessage, successMessage } from "./lib";
+import HostContext from "./contexts/HostContext";
+import { failedMessage, successMessage } from "./IdentityLib";
 
 const initialRegistrationState = {
     username: '',
@@ -9,10 +10,9 @@ const initialRegistrationState = {
     lastName: '',
 }
 
-const url = 'http://auth.galvanizelaboratory.com/api/account/register'
-
 const Registration = () => {
     const [registration, setRegistration] = useState(initialRegistrationState)
+    const host = useContext(HostContext);
     const [message, setMessage] = useState('');
 
     const processRegistration = (e) => {
@@ -24,7 +24,7 @@ const Registration = () => {
             },
             body: JSON.stringify(registration),
         }
-        fetch(url, headers).then((response) => {
+        fetch(`${host.url}/account/register`, headers).then((response) => {
             if(response.ok) {
                 setMessage(successMessage);
             } else {
@@ -45,15 +45,14 @@ const Registration = () => {
             <form onSubmit={processRegistration}>
                 {Object.keys(registration).map((key) => {
                     return (
-                        <div key={key}>
-                            <label htmlFor={key}>{key}</label>
+                        <label key={key}>{key}
                             <input type={key !== 'password' ? 'text' : 'password'}
-                                   id={`registration_${key}`}
-                                   name={key}
-                                   value={registration[key]}
-                                   onChange={inputUpdate}
+                                    id={`registration_${key}`}
+                                    name={key}
+                                    value={registration[key]}
+                                    onChange={inputUpdate}
                             ></input>
-                        </div>
+                        </label>
                     )
                 })}
                 <button type="submit">Register</button>

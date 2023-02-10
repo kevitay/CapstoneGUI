@@ -1,7 +1,8 @@
 import React from "react";
+import { url } from "../IdentityLib";
 
 const HostContext = React.createContext({
-    url: '//auth.galvanizelaboratory.com/api',
+    url: url,
 });
 
 export default HostContext;

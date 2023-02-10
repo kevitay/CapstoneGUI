@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import AuthContext from "./contexts/AuthContext";
 import HostContext from "./contexts/HostContext";
-import { failedMessage, successMessage } from "./lib";
+import { failedMessage, successMessage } from "./IdentityLib";
 
 const initialChangePassword = {
     username: "",
@@ -47,15 +47,14 @@ const ChangePassword = () => {
             <form onSubmit={processChangePassword}>
                 {Object.keys(changePasswordDetails).map((key) => {
                     return (
-                        <div key={key}>
-                            <label htmlFor={key}>{key}</label>
+                        <label key={key}>{key}
                             <input type={!key.includes('Password') ? 'text' : 'password'}
-                                   id={`change_pwd_${key}`}
-                                   name={key}
-                                   value={changePasswordDetails[key]}
-                                   onChange={inputUpdate}
+                                id={`change_pwd_${key}`}
+                                name={key}
+                                value={changePasswordDetails[key]}
+                                onChange={inputUpdate}
                             ></input>
-                        </div>
+                        </label>
                     )
                 })}
                 <button type="submit">Change Password</button>

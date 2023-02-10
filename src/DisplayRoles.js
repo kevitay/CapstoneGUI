@@ -2,7 +2,7 @@ import { useCallback, useContext, useEffect, useState } from "react";
 import AuthContext from "./contexts/AuthContext";
 import RoleList from "./RoleList";
 import RoleListContext from "./contexts/RoleListContext";
-import { apiRequestWithToken } from "./lib";
+import { apiRequestWithToken } from "./IdentityLib";
 
 const initialRoles = [];
 

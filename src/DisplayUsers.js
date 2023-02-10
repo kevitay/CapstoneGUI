@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import AuthContext from "./contexts/AuthContext";
 import UserListContext from "./contexts/UserListContext";
-import { apiRequestWithToken } from "./lib";
+import { apiRequestWithToken } from "./IdentityLib";
 
 const initialUsers = [];
 
