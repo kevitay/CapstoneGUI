@@ -3,6 +3,7 @@ kind: Service
 metadata:
   name: glab-identity-gui
 spec:
+  type: LoadBalancer
   selector:
     app: glab-identity-gui
   ports:
