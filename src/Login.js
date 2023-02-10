@@ -1,13 +1,13 @@
 import { useContext, useState } from "react";
 import AuthContext from "./contexts/AuthContext";
+import HostContext from "./contexts/HostContext";
 import LoggingContext from "./contexts/LoggingContext";
 import './Login.css';
-
-const url = 'http://auth.galvanizelaboratory.com/api/auth'
 
 const Login = () => {
     const [, authDispatch] = useContext(AuthContext);
     const [, loggingDispatch] = useContext(LoggingContext);
+    const host = useContext(HostContext);
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
@@ -18,18 +18,20 @@ const Login = () => {
         const loginRequest = { username: username, password: password }
         const headers = {
             method: 'POST',
-            body: JSON.stringify(loginRequest)
+            'Content-Type': 'application/json',
+            body: JSON.stringify(loginRequest),
         }
         setToken('');
         authDispatch({type: 'saveAuth', payload: {username: '', token: ''}})
-        fetch(url, headers).then((response) => {
+        const requestUrl = host.url + '/auth';
+        fetch(requestUrl, headers).then((response) => {
             if(response.ok) {
-                loggingDispatch({type: 'log', payload: {type: 'success', message: `${headers.method} ${url} - ${response.status}`}})
+                loggingDispatch({type: 'log', payload: {type: 'success', message: `${response.headers.method} ${response.url} - ${response.status}`}})
                 const authToken = response.headers.get('Authorization')
                 setToken(authToken);
                 authDispatch({type: 'saveAuth', payload: {username, token: authToken}})
             } else {
-                loggingDispatch({type: 'log', payload: {type: 'error', message: `${headers.method} ${url} - ${response.status}`}})
+                loggingDispatch({type: 'log', payload: {type: 'error', message: `${headers.method} ${requestUrl} - ${response.status}`}})
             }
         })
     }
