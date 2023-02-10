@@ -1,40 +1,19 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import AuthContext from "./contexts/AuthContext";
-import LoggingContext from "./contexts/LoggingContext";
 import RoleList from "./RoleList";
 import RoleListContext from "./contexts/RoleListContext";
-
-const url = 'http://auth.galvanizelaboratory.com/api/admin/roles'
+import { apiRequestWithToken } from "./lib";
 
 const initialRoles = [];
 
 const DisplayRoles = () => {
     const [authState, ] = useContext(AuthContext);
-    const [, loggingDispatch] = useContext(LoggingContext);
     const [, roleListDispatch] = useContext(RoleListContext);
 
     const [roles, setRoles] = useState(initialRoles);
 
     const getRoles = useCallback(() => {
-        const headers = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': authState.token,
-            },
-        }
-        fetch(url, headers).then((response) => {
-            const log = {
-                type: response.ok ? 'success' : 'error',
-                message: `${headers.method} ${url} - ${response.status}`
-            }
-            loggingDispatch({ type: 'log', payload: log })
-            if(response.ok) {
-                return response.json();
-            } else {
-                return initialRoles;
-            }
-        }).then((data) => {
+        apiRequestWithToken('GET', 'admin/roles', authState.token, initialRoles, (data) => {
             setRoles(data);
             roleListDispatch({type: 'setRoleList', payload: data})
         })
