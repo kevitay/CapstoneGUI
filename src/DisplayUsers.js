@@ -18,9 +18,9 @@ const DisplayUsers = () => {
         })
     }, [authState.token, userListDispatch])
 
-    const deleteUser = (e, username) => {
-        apiRequestWithToken('DELETE', `admin/users/${username}`, authState.token, {})
-    }
+    // const deleteUser = (e, username) => {
+    //     apiRequestWithToken('DELETE', `admin/users/${username}`, authState.token, {})
+    // }
     
     useEffect(() => {
         if(authState.username) {
