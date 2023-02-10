@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: glab-identity-gui
+  labels:
+    app: glab-identity-gui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: glab-identity-gui
+  template:
+    metadata:
+      labels:
+        app: glab-identity-gui
+    spec:
+      imagePullSecrets: # Be sure the token name matches what you created on K8s
+          - name: glab-identity-gui-token
+      containers:
+        - name: glab-identity-gui
+          image: $IMAGE
+          imagePullPolicy: Alway
+          ports:
+            - containerPort: 80

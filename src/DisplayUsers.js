@@ -18,9 +18,9 @@ const DisplayUsers = () => {
         })
     }, [authState.token, userListDispatch])
 
-    const deleteUser = (e, username) => {
-        apiRequestWithToken('DELETE', `admin/users/${username}`, authState.token, {})
-    }
+    // const deleteUser = (e, username) => {
+    //     apiRequestWithToken('DELETE', `admin/users/${username}`, authState.token, {})
+    // }
     
     useEffect(() => {
         if(authState.username) {
@@ -38,7 +38,7 @@ const DisplayUsers = () => {
                 return (
                     <div key={index}>
                         <li key={index}> {user.username} - {user.firstName} {user.lastName} - {user.email}</li>
-                        <button onClick={(e) => deleteUser(e, user.username)}>Delete</button>
+                        {/* <button onClick={(e) => deleteUser(e, user.username)}>Delete</button> */}
                     </div>
                 )
             })}

@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: glab-identity-gui
+spec:
+  selector:
+    app: glab-identity-gui
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
