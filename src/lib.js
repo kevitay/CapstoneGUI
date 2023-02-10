@@ -1,4 +1,4 @@
-const url = 'http://auth.galvanizelaboratory.com/api'
+const url = '//auth.galvanizelaboratory.com/api'
 
 const apiRequestWithTokenWithData = (method, resource, token, data, failedData, callback) => {
     const requestHeaders = {
@@ -26,4 +26,4 @@ const apiRequestWithToken = (method, resource, token, failedData, callback) => {
 const successMessage = "✅"
 const failedMessage = "🔴"
 
-export { apiRequestWithToken, apiRequestWithTokenWithData, successMessage, failedMessage }
+export { apiRequestWithToken, apiRequestWithTokenWithData, successMessage, failedMessage, url }
