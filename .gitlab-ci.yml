@@ -44,6 +44,10 @@ build:
       when: on_success
       policy: pull-push
 
+  only:
+    refs:
+      - main
+      - merge_requests
   # global cache settings are inherited to grab `node_modules`
   script:
     - npm ci --cache .npm --prefer-offline
