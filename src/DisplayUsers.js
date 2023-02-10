@@ -17,6 +17,10 @@ const DisplayUsers = () => {
             userListDispatch({type: 'setUserList', payload: data.userSearchResults})
         })
     }, [authState.token, userListDispatch])
+
+    const deleteUser = (e, username) => {
+        apiRequestWithToken('DELETE', `admin/users/${username}`, authState.token, {})
+    }
     
     useEffect(() => {
         if(authState.username) {
@@ -32,7 +36,11 @@ const DisplayUsers = () => {
             <h1>Display Users</h1>
             { users.map((user, index) => {
                 return (
-                    <li key={index}> {user.username} - {user.firstName} {user.lastName} - {user.email}</li>)
+                    <div key={index}>
+                        <li key={index}> {user.username} - {user.firstName} {user.lastName} - {user.email}</li>
+                        <button onClick={(e) => deleteUser(e, user.username)}>Delete</button>
+                    </div>
+                )
             })}
         </div>
     )
