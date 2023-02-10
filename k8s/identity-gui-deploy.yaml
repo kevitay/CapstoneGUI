@@ -19,6 +19,6 @@ spec:
       containers:
         - name: glab-identity-gui
           image: $IMAGE
-          imagePullPolicy: Alway
+          imagePullPolicy: Always
           ports:
             - containerPort: 80
