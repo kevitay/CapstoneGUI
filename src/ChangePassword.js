@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import AuthContext from "./contexts/AuthContext";
-import LoggingContext from "./contexts/LoggingContext";
+import { apiRequestWithTokenWithData } from "./lib";
 
 const initialChangePassword = {
     username: "",
@@ -8,30 +8,14 @@ const initialChangePassword = {
     newPassword: ""
 }
 
-const url = 'http://auth.galvanizelaboratory.com/api/account/passwd'
-
 const ChangePassword = () => {
     const [authState,] = useContext(AuthContext);
-    const [, loggingDispatch] = useContext(LoggingContext);
     const [changePasswordDetails, setChangePasswordDetails] = useState(initialChangePassword);
 
     const processChangePassword = (e) => {
         e.preventDefault();
-        const headers = {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': authState.token,
-            },
-            body: JSON.stringify(changePasswordDetails),
-        }
-        fetch(url, headers).then((response) => {
-            const log = {
-                type: response.ok ? 'success' : 'error',
-                message: `${headers.method} ${url} - ${response.status}`
-            }
-            loggingDispatch({ type: 'log', payload: log })
-        })
+        const data = JSON.stringify(changePasswordDetails);
+        apiRequestWithTokenWithData('PATCH', 'account/passwd', authState.token, data);
     }
 
     const inputUpdate = (e) => {

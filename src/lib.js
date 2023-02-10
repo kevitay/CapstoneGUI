@@ -1,15 +1,16 @@
 const url = 'http://auth.galvanizelaboratory.com/api'
 
-const apiRequestWithToken = (method, resource, token, failedData, callback) => {
-    const headers = {
+const apiRequestWithTokenWithData = (method, resource, token, data, failedData, callback) => {
+    const requestHeaders = {
         method: method,
         headers: {
             'Content-Type': 'application/json',
             'Authorization': token,
         },
     }
+    if(data) { requestHeaders.body = data; }
     const resourceUrl = `${url}/${resource}`
-    fetch(resourceUrl, headers).then((response) => {
+    fetch(resourceUrl, requestHeaders).then((response) => {
         if(response.ok) {
             return response.json();
         } else {
@@ -18,4 +19,8 @@ const apiRequestWithToken = (method, resource, token, failedData, callback) => {
     }).then(callback)
 };
 
-export { apiRequestWithToken }
+const apiRequestWithToken = (method, resource, token, failedData, callback) => {
+    apiRequestWithTokenWithData(method, resource, token, undefined, failedData, callback)
+};
+
+export { apiRequestWithToken, apiRequestWithTokenWithData }
