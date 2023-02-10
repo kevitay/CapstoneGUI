@@ -1,16 +1,13 @@
 import { useCallback, useContext, useEffect, useState } from "react";
 import AuthContext from "./contexts/AuthContext";
-import LoggingContext from "./contexts/LoggingContext";
 import RoleListContext from "./contexts/RoleListContext";
 import UserListContext from "./contexts/UserListContext";
-
-const url = 'http://auth.galvanizelaboratory.com/api/admin'
+import { apiRequestWithToken } from "./lib";
 
 const initialUserDetailsState = { roles: [] };
 
 const EditUserRole = () => {
     const [authState,] = useContext(AuthContext);
-    const [, loggingDispatch] = useContext(LoggingContext);
 
     const [userListState, ] = useContext(UserListContext);
     const [roleListState, ] = useContext(RoleListContext);
@@ -34,74 +31,21 @@ const EditUserRole = () => {
     }
 
     const getUser = useCallback(() => {
-        const headers = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': authState.token,
-            },
-        }
-        fetch(`${url}/users/${currentUser}`, headers).then((response) => {
-            const log = {
-                type: response.ok ? 'success' : 'error',
-                message: `${headers.method} ${url}/users/${currentUser} - ${response.status}`
-            }
-            loggingDispatch({ type: 'log', payload: log })
-            if(response.ok) {
-                return response.json();
-            } else {
-                return initialUserDetailsState;
-            }
-        }).then((data) => {
+        apiRequestWithToken('GET', 'users/' + currentUser, authState.token, initialUserDetailsState, (data) => {
             setUserDetails(data);
             setSelectedRoles(data.roles.map(r => r.name))
-        })
+        } )
     }, [authState.token, currentUser])
 
     const putRole = (role) => {
-        const headers = {
-            method: 'PUT',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': authState.token,
-            },
-        }
-        fetch(`${url}/roles/${role}/${currentUser}`, headers).then((response) => {
-            const log = {
-                type: response.ok ? 'success' : 'error',
-                message: `${headers.method} ${url}/roles/${role}/${currentUser} - ${response.status}`
-            }
-            loggingDispatch({ type: 'log', payload: log })
-            if(response.ok) {
-                return response.json();
-            } else {
-                return userDetails;
-            }
-        }).then((data) => {
+        apiRequestWithToken('PUT', `roles/${role}/${currentUser}`, authState.token, userDetails, (data) => {
             setUserDetails(data);
             setSelectedRoles(data.roles.map(r => r.name))
         })
     }
 
     const deleteRole = (role) => {
-        const headers = {
-            method: 'DELETE',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': authState.token,
-            },
-        }
-        fetch(`${url}/roles/${role}/${currentUser}`, headers).then((response) => {
-            const log = {
-                type: response.ok ? 'success' : 'error',
-                message: `${headers.method} ${url}/roles/${role}/${currentUser} - ${response.status}`
-            }
-            loggingDispatch({ type: 'log', payload: log })
-            if(response.ok) {
-                getUser();
-            } else {
-            }
-        })
+        apiRequestWithToken('DELETE', `roles/${role}/${currentUser}`, authState.token, {})
     }
 
     const updateRoles = (e) => {
