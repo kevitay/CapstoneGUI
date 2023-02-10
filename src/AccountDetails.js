@@ -1,16 +1,17 @@
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import AuthContext from "./contexts/AuthContext";
+import HostContext from "./contexts/HostContext";
 import RoleList from "./RoleList";
 
-const url = 'http://auth.galvanizelaboratory.com/api/account'
 const initialAccountState = { user: {}, roles: []}
 
 const AccountDetails = () => {
-    const [authState, authDispatch] = useContext(AuthContext);
+    const [authState, ] = useContext(AuthContext);
+    const host = useContext(HostContext);
 
     const [accountDetails, setAccountDetails] = useState(initialAccountState)
     
-    const getAccountDetails = () => {
+    const getAccountDetails = useCallback(() => {
         const headers = {
             method: 'GET',
             headers: {
@@ -18,7 +19,7 @@ const AccountDetails = () => {
                 'Authorization': authState.token,
             },
         }
-        fetch(url, headers).then((response) => {
+        fetch(`${host.url}/account`, headers).then((response) => {
             if(response.ok) {
                 return response.json();
             } else {
@@ -27,7 +28,7 @@ const AccountDetails = () => {
         }).then((data) => {
             setAccountDetails(data);
         })
-    }
+    }, [authState.token, host.url])
     
     useEffect(() => {
         if(authState.username) {
@@ -36,7 +37,7 @@ const AccountDetails = () => {
             setAccountDetails(initialAccountState)
         }
 
-    }, [authState])
+    }, [authState, getAccountDetails])
     return (
         <div className="AccountDetails">
             <h1>Account Details</h1>
