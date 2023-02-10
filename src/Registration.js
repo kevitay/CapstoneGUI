@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import LoggingContext from "./LoggingContext";
 
 const initialRegistrationState = {
     username: '',
@@ -12,8 +13,7 @@ const url = 'http://auth.galvanizelaboratory.com/api/account/register'
 
 const Registration = () => {
     const [registration, setRegistration] = useState(initialRegistrationState)
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
+    const [, loggingDispatch] = useContext(LoggingContext);
 
     const processRegistration = (e) => {
         e.preventDefault();
@@ -24,14 +24,12 @@ const Registration = () => {
             },
             body: JSON.stringify(registration),
         }
-        setError('');
-        setSuccess('');
         fetch(url, headers).then((response) => {
-            if(response.ok) {
-                setSuccess(`Success: Response code ${response.status}`);
-            } else {
-                setError(`Failure: Response Code ${response.status}`);
+            const log = {
+                type: response.ok ? 'success' : 'error',
+                message: `${headers.method} ${url} - ${response.status}`
             }
+            loggingDispatch({ type: 'log', payload: log })
         })
     }
 
@@ -60,8 +58,6 @@ const Registration = () => {
                 })}
                 <button type="submit">Login</button>
             </form>
-            <h2 className="error">{error}</h2>
-            <h2 className="success">{success}</h2>
         </div>
     )
 }
