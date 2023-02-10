@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: glab-identity-gui
+  labels:
+    app: glab-identity-gui
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: glab-identity-gui
+  template:
+    metadata:
+      labels:
+        app: glab-identity-gui
+    spec:
+      containers:
+        - name: glab-identity-gui
+          image: $IMAGE
+          ports:
+            - containerPort: 80

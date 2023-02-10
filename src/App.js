@@ -64,7 +64,7 @@ function App() {
   return (
     <div className="App">
       <header>
-        <h1>glab Identity GUI</h1>
+        <h1>gLab Identity GUI</h1>
       </header>
       <section>
         <AuthContext.Provider value={[authState, authDispatch]}>
