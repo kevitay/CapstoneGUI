@@ -1,4 +1,5 @@
 import { useContext, useState } from "react";
+import HostContext from "./contexts/HostContext";
 import { failedMessage, successMessage } from "./lib";
 
 const initialRegistrationState = {
@@ -9,10 +10,9 @@ const initialRegistrationState = {
     lastName: '',
 }
 
-const url = 'http://auth.galvanizelaboratory.com/api/account/register'
-
 const Registration = () => {
     const [registration, setRegistration] = useState(initialRegistrationState)
+    const host = useContext(HostContext);
     const [message, setMessage] = useState('');
 
     const processRegistration = (e) => {
@@ -24,7 +24,7 @@ const Registration = () => {
             },
             body: JSON.stringify(registration),
         }
-        fetch(url, headers).then((response) => {
+        fetch(`${host.url}/account/register`, headers).then((response) => {
             if(response.ok) {
                 setMessage(successMessage);
             } else {
