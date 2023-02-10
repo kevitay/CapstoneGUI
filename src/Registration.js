@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { failedMessage, successMessage } from "./lib";
 
 const initialRegistrationState = {
     username: '',
@@ -12,8 +13,7 @@ const url = 'http://auth.galvanizelaboratory.com/api/account/register'
 
 const Registration = () => {
     const [registration, setRegistration] = useState(initialRegistrationState)
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
+    const [message, setMessage] = useState('');
 
     const processRegistration = (e) => {
         e.preventDefault();
@@ -24,13 +24,11 @@ const Registration = () => {
             },
             body: JSON.stringify(registration),
         }
-        setError('');
-        setSuccess('');
         fetch(url, headers).then((response) => {
             if(response.ok) {
-                setSuccess(`Success: Response code ${response.status}`);
+                setMessage(successMessage);
             } else {
-                setError(`Failure: Response Code ${response.status}`);
+                setMessage(failedMessage);
             }
         })
     }
@@ -58,10 +56,9 @@ const Registration = () => {
                         </div>
                     )
                 })}
-                <button type="submit">Login</button>
+                <button type="submit">Register</button>
+                <span>{message}</span>
             </form>
-            <h2 className="error">{error}</h2>
-            <h2 className="success">{success}</h2>
         </div>
     )
 }

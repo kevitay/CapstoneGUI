@@ -1,43 +1,26 @@
 import { useCallback, useContext, useEffect, useState } from "react";
-import AuthContext from "./AuthContext";
-import UserListContext from "./UserListContext";
-
-const url = 'http://auth.galvanizelaboratory.com/api/admin/users'
+import AuthContext from "./contexts/AuthContext";
+import UserListContext from "./contexts/UserListContext";
+import { apiRequestWithToken } from "./lib";
 
 const initialUsers = [];
 
 const DisplayUsers = () => {
     const [authState,] = useContext(AuthContext);
-    const [userListState, userListDispatch] = useContext(UserListContext);
-
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
+    const [, userListDispatch] = useContext(UserListContext);
 
     const [users, setUsers] = useState(initialUsers);
 
     const getUsers = useCallback(() => {
-        const headers = {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': authState.token,
-            },
-        }
-        setError('');
-        setSuccess('');
-        fetch(url, headers).then((response) => {
-            if(response.ok) {
-                setSuccess(`Success: Response code ${response.status}`);
-                return response.json();
-            } else {
-                setError(`Failure: Response Code ${response.status}`);
-                return {userSearchResults: initialUsers};
-            }
-        }).then((data) => {
+        apiRequestWithToken('GET', 'admin/users', authState.token, initialUsers, (data) => {
             setUsers(data.userSearchResults);
             userListDispatch({type: 'setUserList', payload: data.userSearchResults})
         })
-    }, [authState.token])
+    }, [authState.token, userListDispatch])
+
+    const deleteUser = (e, username) => {
+        apiRequestWithToken('DELETE', `admin/users/${username}`, authState.token, {})
+    }
     
     useEffect(() => {
         if(authState.username) {
@@ -53,11 +36,12 @@ const DisplayUsers = () => {
             <h1>Display Users</h1>
             { users.map((user, index) => {
                 return (
-                    <li key={index}> {user.username} - {user.firstName} {user.lastName} - {user.email}</li>)
+                    <div key={index}>
+                        <li key={index}> {user.username} - {user.firstName} {user.lastName} - {user.email}</li>
+                        <button onClick={(e) => deleteUser(e, user.username)}>Delete</button>
+                    </div>
+                )
             })}
-
-            <h2 className="error">{error}</h2>
-            <h2 className="success">{success}</h2>
         </div>
     )
 }

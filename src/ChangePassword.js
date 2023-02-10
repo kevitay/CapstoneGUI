@@ -1,5 +1,7 @@
 import { useContext, useState } from "react";
-import AuthContext from "./AuthContext";
+import AuthContext from "./contexts/AuthContext";
+import HostContext from "./contexts/HostContext";
+import { failedMessage, successMessage } from "./lib";
 
 const initialChangePassword = {
     username: "",
@@ -7,34 +9,30 @@ const initialChangePassword = {
     newPassword: ""
 }
 
-const url = 'http://auth.galvanizelaboratory.com/api/account/passwd'
-
 const ChangePassword = () => {
-    const [authState, authDispatch] = useContext(AuthContext);
+    const [authState,] = useContext(AuthContext);
+    const host = useContext(HostContext);
+    const [message, setMessage] = useState('');
     const [changePasswordDetails, setChangePasswordDetails] = useState(initialChangePassword);
-
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
 
     const processChangePassword = (e) => {
         e.preventDefault();
+        const data = JSON.stringify(changePasswordDetails);
         const headers = {
-            method: 'PATCH',
-            headers: {
-                'Content-Type': 'application/json',
-                'Authorization': authState.token,
-            },
-            body: JSON.stringify(changePasswordDetails),
-        }
-        setError('');
-        setSuccess('');
-        fetch(url, headers).then((response) => {
+             method: 'PATCH',
+             headers: {
+                 'Content-Type': 'application/json',
+                 'Authorization': authState.token,
+             },
+             body: data,
+         }
+         fetch(`${host.url}/account/passwd`, headers).then((response) => {
             if(response.ok) {
-                setSuccess(`Success: Response code ${response.status}`);
+                setMessage(successMessage)
             } else {
-                setError(`Failure: Response Code ${response.status}`);
+                setMessage(failedMessage);
             }
-        })
+         })
     }
 
     const inputUpdate = (e) => {
@@ -61,9 +59,8 @@ const ChangePassword = () => {
                     )
                 })}
                 <button type="submit">Change Password</button>
+                <span>{message}</span>
             </form>
-            <h2 className="error">{error}</h2>
-            <h2 className="success">{success}</h2>
         </div>
     )
 

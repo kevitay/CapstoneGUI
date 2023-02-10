@@ -1,5 +1,5 @@
 import { useContext, useEffect, useState } from "react";
-import AuthContext from "./AuthContext";
+import AuthContext from "./contexts/AuthContext";
 import RoleList from "./RoleList";
 
 const url = 'http://auth.galvanizelaboratory.com/api/account'
@@ -7,9 +7,6 @@ const initialAccountState = { user: {}, roles: []}
 
 const AccountDetails = () => {
     const [authState, authDispatch] = useContext(AuthContext);
-
-    const [error, setError] = useState('');
-    const [success, setSuccess] = useState('');
 
     const [accountDetails, setAccountDetails] = useState(initialAccountState)
     
@@ -21,14 +18,10 @@ const AccountDetails = () => {
                 'Authorization': authState.token,
             },
         }
-        setError('');
-        setSuccess('');
         fetch(url, headers).then((response) => {
             if(response.ok) {
-                setSuccess(`Success: Response code ${response.status}`);
                 return response.json();
             } else {
-                setError(`Failure: Response Code ${response.status}`);
                 return initialAccountState;
             }
         }).then((data) => {
@@ -53,8 +46,6 @@ const AccountDetails = () => {
                 })}
             </ul>
             <RoleList roles={accountDetails.roles}></RoleList>
-            <h2 className="error">{error}</h2>
-            <h2 className="success">{success}</h2>
         </div>
     )
 }
