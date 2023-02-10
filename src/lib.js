@@ -23,4 +23,7 @@ const apiRequestWithToken = (method, resource, token, failedData, callback) => {
     apiRequestWithTokenWithData(method, resource, token, undefined, failedData, callback)
 };
 
-export { apiRequestWithToken, apiRequestWithTokenWithData }
+const successMessage = "✅"
+const failedMessage = "🔴"
+
+export { apiRequestWithToken, apiRequestWithTokenWithData, successMessage, failedMessage }

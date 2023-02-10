@@ -1,6 +1,7 @@
 import { useContext, useState } from "react";
 import AuthContext from "./contexts/AuthContext";
-import { apiRequestWithTokenWithData } from "./lib";
+import HostContext from "./contexts/HostContext";
+import { failedMessage, successMessage } from "./lib";
 
 const initialChangePassword = {
     username: "",
@@ -10,12 +11,28 @@ const initialChangePassword = {
 
 const ChangePassword = () => {
     const [authState,] = useContext(AuthContext);
+    const host = useContext(HostContext);
+    const [message, setMessage] = useState('');
     const [changePasswordDetails, setChangePasswordDetails] = useState(initialChangePassword);
 
     const processChangePassword = (e) => {
         e.preventDefault();
         const data = JSON.stringify(changePasswordDetails);
-        apiRequestWithTokenWithData('PATCH', 'account/passwd', authState.token, data);
+        const headers = {
+             method: 'PATCH',
+             headers: {
+                 'Content-Type': 'application/json',
+                 'Authorization': authState.token,
+             },
+             body: data,
+         }
+         fetch(`${host.url}/account/passwd`, headers).then((response) => {
+            if(response.ok) {
+                setMessage(successMessage)
+            } else {
+                setMessage(failedMessage);
+            }
+         })
     }
 
     const inputUpdate = (e) => {
@@ -42,6 +59,7 @@ const ChangePassword = () => {
                     )
                 })}
                 <button type="submit">Change Password</button>
+                <span>{message}</span>
             </form>
         </div>
     )
