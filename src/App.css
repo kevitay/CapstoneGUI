@@ -1,0 +1,79 @@
+:root {
+    --orange: #EF6E47;
+    --white: #FFFFFF;
+    --navy: #0D0F4A;
+    --lightorange: #FFA364;
+    --lightgray: #E0EAF8;
+
+}
+
+input[type=text], input[type=password], select {
+    padding: 1em;
+    margin: 0.5em;
+    border: 1px solid #ccc;
+    border-radius: 0.25em;
+    box-sizing: border-box;
+}
+
+input[type=submit], button[type=submit] {
+    /* width: 100%; */
+    background-color: var(--navy);
+    color: var(--white);
+    padding: 1em;
+    margin: 0.5em;
+    border: none;
+    border-radius: 0.25em;
+    cursor: pointer;
+}
+
+input[type=submit]:hover, button[type=submit]:hover {
+    background-color: var(--lightorange);
+    color: var(--navy);
+}
+
+form {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+form label {
+    display: flex;
+    /* justify-content: flex-end; */
+    align-items: center;
+}
+
+div {
+    border-radius: 0.5em;
+    background-color: #f2f2f2;
+    padding: 1em;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: var(--navy);
+}
+
+nav li {
+    float: left;
+}
+
+nav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+}
+
+/* Change the link color to #111 (black) on hover */
+nav li a:hover {
+    background-color: var(--lightorange);
+}
+
+nav li.active {
+    background-color: var(--orange);
+}

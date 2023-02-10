@@ -1,5 +1,5 @@
 import React from "react";
-import { url } from "../lib";
+import { url } from "../IdentityLib";
 
 const HostContext = React.createContext({
     url: url,

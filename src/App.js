@@ -1,4 +1,6 @@
 import { useReducer } from 'react';
+import { Routes, Route, Link } from "react-router-dom";
+
 import AccountDetails from './AccountDetails';
 import './App.css';
 import AuthContext from './contexts/AuthContext';
@@ -68,13 +70,28 @@ function App() {
         <AuthContext.Provider value={[authState, authDispatch]}>
           <UserListContext.Provider value={[userListState, userListDispatch]}>
           <RoleListContext.Provider value={[roleListState, roleListDispatch]}>
-            <Login></Login>
-            <AccountDetails></AccountDetails>
-            <DisplayRoles></DisplayRoles>
-            <DisplayUsers></DisplayUsers>
-            <EditUserRole></EditUserRole>
-            <Registration></Registration>
-            <ChangePassword></ChangePassword>
+          <div>
+          <nav>
+            <ul>
+              <li className="active"><Link to="/">Login</Link></li>
+              <li><Link to="/accountDetails">Details</Link></li>
+              <li><Link to="/displayRoles">Roles</Link></li>
+              <li><Link to="/displayUsers">Users</Link></li>
+              <li><Link to="/editUserRole">Edit</Link></li>
+              <li><Link to="/change-password">Password</Link></li>
+              <li><Link to="/registration">Register</Link></li>
+            </ul>
+          </nav>
+          </div>
+            <Routes>
+              <Route path="/" element={<Login />} />
+              <Route path="/accountDetails" element={<AccountDetails />} />
+              <Route path="/displayRoles" element={<DisplayRoles />} />
+              <Route path="/displayUsers" element={<DisplayUsers />} />
+              <Route path="/editUserRole" element={<EditUserRole />} />
+              <Route path="/change-password" element={<ChangePassword />} />
+              <Route path="/registration" element={<Registration />} />
+            </Routes>
           </RoleListContext.Provider>
           </UserListContext.Provider>
         </AuthContext.Provider>

@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import HostContext from "./contexts/HostContext";
-import { failedMessage, successMessage } from "./lib";
+import { failedMessage, successMessage } from "./IdentityLib";
 
 const initialRegistrationState = {
     username: '',
@@ -45,15 +45,14 @@ const Registration = () => {
             <form onSubmit={processRegistration}>
                 {Object.keys(registration).map((key) => {
                     return (
-                        <div key={key}>
-                            <label htmlFor={key}>{key}</label>
+                        <label key={key}>{key}
                             <input type={key !== 'password' ? 'text' : 'password'}
-                                   id={`registration_${key}`}
-                                   name={key}
-                                   value={registration[key]}
-                                   onChange={inputUpdate}
+                                    id={`registration_${key}`}
+                                    name={key}
+                                    value={registration[key]}
+                                    onChange={inputUpdate}
                             ></input>
-                        </div>
+                        </label>
                     )
                 })}
                 <button type="submit">Register</button>

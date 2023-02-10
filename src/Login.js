@@ -1,7 +1,7 @@
 import { useContext, useState } from "react";
 import AuthContext from "./contexts/AuthContext";
 import HostContext from "./contexts/HostContext";
-import { failedMessage, successMessage } from "./lib";
+import { failedMessage, successMessage } from "./IdentityLib";
 import './Login.css';
 
 const Login = () => {
@@ -48,10 +48,12 @@ const Login = () => {
         <div className="Login">
             <h1>Login</h1>
             <form onSubmit={processLogin}>
-                <label htmlFor='username'>Username</label>
-                <input type="text" name='username' id='username' value={username} onChange={usernameChange}></input>
-                <label htmlFor='password'>Password</label>
-                <input type="password" name='password' id='password' value={password} onChange={passwordChange}></input>
+                <label>Username
+                    <input type="text" name='username' id='username' value={username} onChange={usernameChange}></input>
+                </label>
+                <label>Password
+                    <input type="password" name='password' id='password' value={password} onChange={passwordChange}></input>
+                </label>
                 <button type="submit">Login</button>
                 <span>{message}</span>
             </form>
