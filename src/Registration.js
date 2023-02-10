@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { failedMessage, successMessage } from "./lib";
 
 const initialRegistrationState = {
