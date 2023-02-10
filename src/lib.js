@@ -1,4 +1,4 @@
-const url = 'http://auth.galvanizelaboratory.com/api/admin'
+const url = 'http://auth.galvanizelaboratory.com/api'
 
 const apiRequestWithToken = (method, resource, token, failedData, callback) => {
     const headers = {

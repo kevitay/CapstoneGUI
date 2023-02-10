@@ -31,21 +31,21 @@ const EditUserRole = () => {
     }
 
     const getUser = useCallback(() => {
-        apiRequestWithToken('GET', 'users/' + currentUser, authState.token, initialUserDetailsState, (data) => {
+        apiRequestWithToken('GET', 'admin/users/' + currentUser, authState.token, initialUserDetailsState, (data) => {
             setUserDetails(data);
             setSelectedRoles(data.roles.map(r => r.name))
         } )
     }, [authState.token, currentUser])
 
     const putRole = (role) => {
-        apiRequestWithToken('PUT', `roles/${role}/${currentUser}`, authState.token, userDetails, (data) => {
+        apiRequestWithToken('PUT', `admin/roles/${role}/${currentUser}`, authState.token, userDetails, (data) => {
             setUserDetails(data);
             setSelectedRoles(data.roles.map(r => r.name))
         })
     }
 
     const deleteRole = (role) => {
-        apiRequestWithToken('DELETE', `roles/${role}/${currentUser}`, authState.token, {})
+        apiRequestWithToken('DELETE', `admin/roles/${role}/${currentUser}`, authState.token, {})
     }
 
     const updateRoles = (e) => {
