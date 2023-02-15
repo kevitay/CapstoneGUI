@@ -3,13 +3,12 @@ import AuthContext from "./contexts/AuthContext";
 import RoleListContext from "./contexts/RoleListContext";
 import { apiRequestWithTokenWithData } from "./IdentityLib";
 
+const initialRoleState = { "name": "", "description": "" };
+
 const AddRole = () => {
     const [authState,] = useContext(AuthContext);
     const [, roleListDispatch] = useContext(RoleListContext);
-    const [role, setRole] = useState({
-        "name": "",
-        "description": ""
-      })
+    const [role, setRole] = useState(initialRoleState)
 
     const saveRole = (e) => {
         e.preventDefault();
@@ -20,6 +19,7 @@ const AddRole = () => {
                 payload: data,
             }
             roleListDispatch(action)
+            setRole(initialRoleState);
         })
     }
 
