@@ -89,15 +89,21 @@ function App() {
   useEffect(() => {
     if(authState.username)
       setUser(`Logged in as ${authState.username}`)
-    else
+    else {
       setUser("Logged out")
+    }
   }, [authState])
+
+  const logout = (e) => {
+    authDispatch({type: 'saveAuth', payload: {username: '', token: ''}})
+  }
 
   return (
     <div className="App">
       <header>
         <h1>gLab Identity GUI</h1>
         <h2>{user}</h2>
+        { authState.username ? <a onClick={logout}>logout</a> : ''}
       </header>
       <section>
         <AuthContext.Provider value={[authState, authDispatch]}>
