@@ -9,13 +9,10 @@ const initialRoles = [];
 
 const DisplayRoles = () => {
     const [authState, ] = useContext(AuthContext);
-    const [, roleListDispatch] = useContext(RoleListContext);
-
-    const [roles, setRoles] = useState(initialRoles);
+    const [roleListState, roleListDispatch] = useContext(RoleListContext);
 
     const getRoles = useCallback(() => {
         apiRequestWithToken('GET', 'admin/roles', authState.token, initialRoles, (data) => {
-            setRoles(data);
             roleListDispatch({type: 'setRoleList', payload: data})
         })
     }, [authState.token, roleListDispatch])
@@ -24,7 +21,7 @@ const DisplayRoles = () => {
         if(authState.username) {
             getRoles()
         } else {
-            setRoles(initialRoles)
+            roleListDispatch({type: 'setRoleList', payload: initialRoles})
         }
 
     }, [authState, getRoles])
@@ -33,7 +30,7 @@ const DisplayRoles = () => {
         <div className="DisplayRoles">
             <AddRole></AddRole>
             <h1>Display Roles</h1>
-            <RoleList roles={roles}></RoleList>
+            <RoleList roles={roleListState}></RoleList>
         </div>
     )
 }

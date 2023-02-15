@@ -48,6 +48,13 @@ const roleListReducer = (state, action) => {
   switch(action.type) {
     case 'setRoleList':
       return action.payload;
+    case 'addRoleToList':
+      // make a copy
+      const copyOfState = [...state];
+      // update the copy
+      const combinedState = copyOfState.concat(action.payload);
+      // return the copy
+      return combinedState;
     default:
       return state;
   }
