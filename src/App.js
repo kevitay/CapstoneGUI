@@ -1,5 +1,5 @@
 import { useReducer } from 'react';
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route, NavLink } from "react-router-dom";
 
 import AccountDetails from './AccountDetails';
 import './App.css';
@@ -56,6 +56,16 @@ const roleListReducer = (state, action) => {
 
 const roleListInitialState = [];
 
+const links = [
+  { name: 'Login', path: '/' },
+  { name: 'Details', path: '/accountDetails' },
+  { name: 'Roles', path: '/displayRoles' },
+  { name: 'Users', path: '/displayUsers' },
+  { name: 'Edit', path: '/editUserRole' },
+  { name: 'Password', path: '/changePassword' },
+  { name: 'Register', path: '/registration' },
+]
+
 function App() {
   const [authState, authDispatch] = useReducer(authReducer, authInitialState)
   const [userListState, userListDispatch] = useReducer(userListReducer, userListInitialState);
@@ -73,13 +83,9 @@ function App() {
           <div>
           <nav>
             <ul>
-              <li className="active"><Link to="/">Login</Link></li>
-              <li><Link to="/accountDetails">Details</Link></li>
-              <li><Link to="/displayRoles">Roles</Link></li>
-              <li><Link to="/displayUsers">Users</Link></li>
-              <li><Link to="/editUserRole">Edit</Link></li>
-              <li><Link to="/change-password">Password</Link></li>
-              <li><Link to="/registration">Register</Link></li>
+              { links.map((link, index) => {
+                return <li key={index}><NavLink className={({isActive}) => isActive ? 'active' : ''} to={link.path}>{link.name}</NavLink></li>
+              })}
             </ul>
           </nav>
           </div>
