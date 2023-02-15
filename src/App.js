@@ -1,5 +1,5 @@
 import { useReducer } from 'react';
-import { Routes, Route, NavLink } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import AccountDetails from './AccountDetails';
 import './App.css';
@@ -13,6 +13,7 @@ import Registration from './Registration';
 import RoleListContext from './contexts/RoleListContext';
 import UserListContext from './contexts/UserListContext';
 import DisplayRole from './DisplayRole';
+import Navigation from './Navigation';
 
 const authReducer = (state, action) => {
   switch (action.type) {
@@ -70,13 +71,13 @@ const roleListReducer = (state, action) => {
 const roleListInitialState = [];
 
 const links = [
-  { name: 'Login', path: '/' },
-  { name: 'Details', path: '/accountDetails' },
-  { name: 'Roles', path: '/displayRoles' },
-  { name: 'Users', path: '/displayUsers' },
-  { name: 'Edit', path: '/editUserRole' },
-  { name: 'Password', path: '/changePassword' },
-  { name: 'Register', path: '/registration' },
+  { name: 'Login', path: '/', component: <Login /> },
+  { name: 'Details', path: '/accountDetails', component: <AccountDetails /> },
+  { name: 'Roles', path: '/displayRoles', component: <DisplayRoles /> },
+  { name: 'Users', path: '/displayUsers', component: <DisplayUsers /> },
+  { name: 'Edit', path: '/editUserRole', component: <EditUserRole /> },
+  { name: 'Password', path: '/changePassword', component: <ChangePassword /> },
+  { name: 'Register', path: '/registration', component: <Registration /> },
 ]
 
 function App() {
@@ -93,24 +94,12 @@ function App() {
         <AuthContext.Provider value={[authState, authDispatch]}>
           <UserListContext.Provider value={[userListState, userListDispatch]}>
           <RoleListContext.Provider value={[roleListState, roleListDispatch]}>
-          <div>
-          <nav>
-            <ul>
-              { links.map((link, index) => {
-                return <li key={index}><NavLink className={({isActive}) => isActive ? 'active' : ''} to={link.path}>{link.name}</NavLink></li>
-              })}
-            </ul>
-          </nav>
-          </div>
+          <Navigation links={links} />
             <Routes>
-              <Route path="/" element={<Login />} />
-              <Route path="/accountDetails" element={<AccountDetails />} />
-              <Route path="/displayRoles" element={<DisplayRoles />} />
-              <Route path="/displayRoles/:roleName" element={<DisplayRole />} />
-              <Route path="/displayUsers" element={<DisplayUsers />} />
-              <Route path="/editUserRole" element={<EditUserRole />} />
-              <Route path="/changePassword" element={<ChangePassword />} />
-              <Route path="/registration" element={<Registration />} />
+              {links.map(link => {
+                return <Route path={link.path} element={link.component} />
+              })}
+              <Route path={'/displayRoles/:roleName'} element={<DisplayRole />} />
             </Routes>
           </RoleListContext.Provider>
           </UserListContext.Provider>
