@@ -95,7 +95,7 @@ function App() {
               <Route path="/displayRoles" element={<DisplayRoles />} />
               <Route path="/displayUsers" element={<DisplayUsers />} />
               <Route path="/editUserRole" element={<EditUserRole />} />
-              <Route path="/change-password" element={<ChangePassword />} />
+              <Route path="/changePassword" element={<ChangePassword />} />
               <Route path="/registration" element={<Registration />} />
             </Routes>
           </RoleListContext.Provider>
