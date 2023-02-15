@@ -1,7 +1,7 @@
 import React, { useContext, useState } from "react";
-import AuthContext from "./contexts/AuthContext";
-import RoleListContext from "./contexts/RoleListContext";
-import { apiRequestWithTokenWithData } from "./IdentityLib";
+import AuthContext from "../contexts/AuthContext";
+import RoleListContext from "../contexts/RoleListContext";
+import { apiRequestWithTokenWithData } from "../IdentityLib";
 
 const initialRoleState = { "name": "", "description": "" };
 

@@ -5,14 +5,14 @@ import AccountDetails from './AccountDetails';
 import './App.css';
 import AuthContext from './contexts/AuthContext';
 import ChangePassword from './ChangePassword';
-import DisplayRoles from './DisplayRoles';
+import DisplayRoles from './Roles/DisplayRoles';
 import DisplayUsers from './DisplayUsers';
-import EditUserRole from './EditUserRole';
+import EditUserRole from './Roles/EditUserRole';
 import Login from './Login';
 import Registration from './Registration';
 import RoleListContext from './contexts/RoleListContext';
 import UserListContext from './contexts/UserListContext';
-import DisplayRole from './DisplayRole';
+import DisplayRole from './Roles/DisplayRole';
 import Navigation from './Navigation';
 
 const authReducer = (state, action) => {
