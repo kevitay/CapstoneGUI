@@ -3,6 +3,7 @@ import AuthContext from "./contexts/AuthContext";
 import RoleList from "./RoleList";
 import RoleListContext from "./contexts/RoleListContext";
 import { apiRequestWithToken } from "./IdentityLib";
+import AddRole from "./AddRole";
 
 const initialRoles = [];
 
@@ -30,6 +31,7 @@ const DisplayRoles = () => {
 
     return (
         <div className="DisplayRoles">
+            <AddRole></AddRole>
             <h1>Display Roles</h1>
             <RoleList roles={roles}></RoleList>
         </div>
