@@ -46,9 +46,7 @@ const userListInitialState = [];
 const roleListReducer = (state, action) => {
   switch(action.type) {
     case 'setRoleList':
-      return action.payload.map((role) => {
-        return role.name
-      })
+      return action.payload;
     default:
       return state;
   }
