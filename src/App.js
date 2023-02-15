@@ -103,7 +103,7 @@ function App() {
       <header>
         <h1>gLab Identity GUI</h1>
         <h2>{user}</h2>
-        { authState.username ? <a onClick={logout}>logout</a> : ''}
+        { authState.username ? <button onClick={logout}>logout</button> : ''}
       </header>
       <section>
         <AuthContext.Provider value={[authState, authDispatch]}>
