@@ -4,8 +4,8 @@ import RoleListContext from "./contexts/RoleListContext";
 import { apiRequestWithTokenWithData } from "./IdentityLib";
 
 const AddRole = () => {
-    const [authState, authDispatch] = useContext(AuthContext);
-    const [roleListState, roleListDispatch] = useContext(RoleListContext);
+    const [authState,] = useContext(AuthContext);
+    const [, roleListDispatch] = useContext(RoleListContext);
     const [role, setRole] = useState({
         "name": "",
         "description": ""
@@ -24,8 +24,6 @@ const AddRole = () => {
             }
             roleListDispatch(action)
         })
-
-
     }
 
     const inputChange = (e) => {

@@ -3,11 +3,10 @@ import { Link } from "react-router-dom"
 import AuthContext from "./contexts/AuthContext";
 import HostContext from "./contexts/HostContext";
 import RoleListContext from "./contexts/RoleListContext";
-import { apiRequestWithToken } from "./IdentityLib";
 
 const RoleDetails = ({role}) => {
-    const [authState, authDispatch] = useContext(AuthContext);
-    const [roleListState, roleListDispatch] = useContext(RoleListContext);
+    const [authState, ] = useContext(AuthContext);
+    const [, roleListDispatch] = useContext(RoleListContext);
     const host = useContext(HostContext);
 
     const deleteRole = (e) => {

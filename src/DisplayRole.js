@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom"
 import RoleDetails from "./RoleDetails";
 
 const DisplayRole = () => {
-    const [roleListState, roleListDispatch] = useContext(RoleListContext);
+    const [roleListState,] = useContext(RoleListContext);
     const [role, setRole] = useState({})
     const {roleName} = useParams();
 
@@ -16,7 +16,7 @@ const DisplayRole = () => {
                 }
             });
         }
-    }, [roleName])
+    }, [roleName, roleListState, setRole])
 
     return (
         <div className="DisplayRole">

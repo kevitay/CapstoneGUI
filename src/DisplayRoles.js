@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import AuthContext from "./contexts/AuthContext";
 import RoleList from "./RoleList";
 import RoleListContext from "./contexts/RoleListContext";
@@ -24,7 +24,7 @@ const DisplayRoles = () => {
             roleListDispatch({type: 'setRoleList', payload: initialRoles})
         }
 
-    }, [authState, getRoles])
+    }, [authState, getRoles, roleListDispatch])
 
     return (
         <div className="DisplayRoles">
