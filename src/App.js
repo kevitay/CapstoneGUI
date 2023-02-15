@@ -12,6 +12,7 @@ import Login from './Login';
 import Registration from './Registration';
 import RoleListContext from './contexts/RoleListContext';
 import UserListContext from './contexts/UserListContext';
+import DisplayRole from './DisplayRole';
 
 const authReducer = (state, action) => {
   switch (action.type) {
@@ -91,6 +92,7 @@ function App() {
               <Route path="/" element={<Login />} />
               <Route path="/accountDetails" element={<AccountDetails />} />
               <Route path="/displayRoles" element={<DisplayRoles />} />
+              <Route path="/displayRoles/:roleName" element={<DisplayRole />} />
               <Route path="/displayUsers" element={<DisplayUsers />} />
               <Route path="/editUserRole" element={<EditUserRole />} />
               <Route path="/changePassword" element={<ChangePassword />} />
