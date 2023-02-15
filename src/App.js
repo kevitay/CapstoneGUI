@@ -1,4 +1,4 @@
-import { useReducer } from 'react';
+import { useEffect, useReducer, useState } from 'react';
 import { Routes, Route } from "react-router-dom";
 
 import AccountDetails from './AccountDetails';
@@ -84,11 +84,20 @@ function App() {
   const [authState, authDispatch] = useReducer(authReducer, authInitialState)
   const [userListState, userListDispatch] = useReducer(userListReducer, userListInitialState);
   const [roleListState, roleListDispatch] = useReducer(roleListReducer, roleListInitialState);
+  const [user, setUser] = useState("");
+
+  useEffect(() => {
+    if(authState.username)
+      setUser(`Logged in as ${authState.username}`)
+    else
+      setUser("Logged out")
+  }, [authState])
 
   return (
     <div className="App">
       <header>
         <h1>gLab Identity GUI</h1>
+        <h2>{user}</h2>
       </header>
       <section>
         <AuthContext.Provider value={[authState, authDispatch]}>
