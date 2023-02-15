@@ -10,14 +10,11 @@ const AddRole = () => {
         "name": "",
         "description": ""
       })
-    const [result, setResult] = useState({})
 
     const saveRole = (e) => {
         e.preventDefault();
         const resource = "admin/roles";
         apiRequestWithTokenWithData("POST", resource, authState.token, JSON.stringify(role), {}, (data) => {
-            // successful POST
-            setResult(data);
             const action = {
                 type: 'addRoleToList',
                 payload: data,
@@ -37,7 +34,6 @@ const AddRole = () => {
     return (
         <div className="AddRole">
             <h1>Add Role</h1>
-            <pre>{JSON.stringify(result)}</pre>
             <form onSubmit={saveRole}>
                 Name:
                 <input name="name" value={role.name} onChange={inputChange} />
