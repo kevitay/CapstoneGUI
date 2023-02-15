@@ -10,7 +10,6 @@ const Login = () => {
 
     const [username, setUsername] = useState('')
     const [password, setPassword] = useState('')
-    const [token, setToken] = useState('');
     const [message, setMessage] = useState('');
 
     const processLogin = (e) => {
@@ -21,15 +20,15 @@ const Login = () => {
             'Content-Type': 'application/json',
             body: JSON.stringify(loginRequest),
         }
-        setToken('');
         authDispatch({type: 'saveAuth', payload: {username: '', token: ''}})
         const requestUrl = host.url + '/auth';
         fetch(requestUrl, headers).then((response) => {
             if(response.ok) {
                 const authToken = response.headers.get('Authorization')
-                setMessage(successMessage)
-                setToken(authToken);
-                authDispatch({type: 'saveAuth', payload: {username, token: authToken}})
+                setMessage(successMessage);
+                authDispatch({type: 'saveAuth', payload: {username, token: authToken}});
+                setUsername('');
+                setPassword('');
             } else {
                 setMessage(failedMessage);
             }
@@ -57,7 +56,6 @@ const Login = () => {
                 <button type="submit">Login</button>
                 <span>{message}</span>
             </form>
-            <pre>{token}</pre>
         </div>
     )
 }
