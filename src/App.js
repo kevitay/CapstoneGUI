@@ -45,16 +45,23 @@ const userListReducer = (state, action) => {
 const userListInitialState = [];
 
 const roleListReducer = (state, action) => {
+      // make a copy
+  const copyOfState = [...state];
   switch(action.type) {
     case 'setRoleList':
       return action.payload;
     case 'addRoleToList':
-      // make a copy
-      const copyOfState = [...state];
-      // update the copy
-      const combinedState = copyOfState.concat(action.payload);
-      // return the copy
-      return combinedState;
+      // return the updated copy
+      return copyOfState.concat(action.payload);
+    case 'removeRole':
+      // return the updated copy
+      return copyOfState.filter((existingRole) => {
+        if(existingRole.name === action.payload.name) {
+          return false;
+        } else {
+          return true;
+        }
+      });
     default:
       return state;
   }
