@@ -15,7 +15,7 @@ input[type=text], input[type=password], select {
     box-sizing: border-box;
 }
 
-input[type=submit], button[type=submit] {
+input[type=submit], button[type=submit], button {
     /* width: 100%; */
     background-color: var(--navy);
     color: var(--white);
@@ -26,7 +26,7 @@ input[type=submit], button[type=submit] {
     cursor: pointer;
 }
 
-input[type=submit]:hover, button[type=submit]:hover {
+input[type=submit]:hover, button[type=submit]:hover, button:hover {
     background-color: var(--lightorange);
     color: var(--navy);
 }
@@ -74,6 +74,6 @@ nav li a:hover {
     background-color: var(--lightorange);
 }
 
-nav li.active {
+nav li a.active {
     background-color: var(--orange);
 }
