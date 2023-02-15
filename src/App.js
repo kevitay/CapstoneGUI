@@ -12,6 +12,7 @@ import Login from './Login';
 import Registration from './Registration';
 import RoleListContext from './contexts/RoleListContext';
 import UserListContext from './contexts/UserListContext';
+import DisplayRole from './DisplayRole';
 
 const authReducer = (state, action) => {
   switch (action.type) {
@@ -44,11 +45,23 @@ const userListReducer = (state, action) => {
 const userListInitialState = [];
 
 const roleListReducer = (state, action) => {
+      // make a copy
+  const copyOfState = [...state];
   switch(action.type) {
     case 'setRoleList':
-      return action.payload.map((role) => {
-        return role.name
-      })
+      return action.payload;
+    case 'addRoleToList':
+      // return the updated copy
+      return copyOfState.concat(action.payload);
+    case 'removeRole':
+      // return the updated copy
+      return copyOfState.filter((existingRole) => {
+        if(existingRole.name === action.payload.name) {
+          return false;
+        } else {
+          return true;
+        }
+      });
     default:
       return state;
   }
@@ -93,6 +106,7 @@ function App() {
               <Route path="/" element={<Login />} />
               <Route path="/accountDetails" element={<AccountDetails />} />
               <Route path="/displayRoles" element={<DisplayRoles />} />
+              <Route path="/displayRoles/:roleName" element={<DisplayRole />} />
               <Route path="/displayUsers" element={<DisplayUsers />} />
               <Route path="/editUserRole" element={<EditUserRole />} />
               <Route path="/changePassword" element={<ChangePassword />} />

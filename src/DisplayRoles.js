@@ -1,20 +1,18 @@
-import { useCallback, useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect } from "react";
 import AuthContext from "./contexts/AuthContext";
 import RoleList from "./RoleList";
 import RoleListContext from "./contexts/RoleListContext";
 import { apiRequestWithToken } from "./IdentityLib";
+import AddRole from "./AddRole";
 
 const initialRoles = [];
 
 const DisplayRoles = () => {
     const [authState, ] = useContext(AuthContext);
-    const [, roleListDispatch] = useContext(RoleListContext);
-
-    const [roles, setRoles] = useState(initialRoles);
+    const [roleListState, roleListDispatch] = useContext(RoleListContext);
 
     const getRoles = useCallback(() => {
         apiRequestWithToken('GET', 'admin/roles', authState.token, initialRoles, (data) => {
-            setRoles(data);
             roleListDispatch({type: 'setRoleList', payload: data})
         })
     }, [authState.token, roleListDispatch])
@@ -23,15 +21,16 @@ const DisplayRoles = () => {
         if(authState.username) {
             getRoles()
         } else {
-            setRoles(initialRoles)
+            roleListDispatch({type: 'setRoleList', payload: initialRoles})
         }
 
-    }, [authState, getRoles])
+    }, [authState, getRoles, roleListDispatch])
 
     return (
         <div className="DisplayRoles">
+            <AddRole></AddRole>
             <h1>Display Roles</h1>
-            <RoleList roles={roles}></RoleList>
+            <RoleList roles={roleListState}></RoleList>
         </div>
     )
 }

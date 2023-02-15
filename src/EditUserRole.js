@@ -53,14 +53,15 @@ const EditUserRole = () => {
 
         const activeRoles = userDetails.roles.map(r => r.name);
         roleListState.forEach((definedRole) => {
-            if(selectedRoles.includes(definedRole) && activeRoles.includes(definedRole)) {
+            let definedRoleName = definedRole.name;
+            if(selectedRoles.includes(definedRoleName) && activeRoles.includes(definedRoleName)) {
                 // NOOP - Role already associated
-            } else if(selectedRoles.includes(definedRole) && !activeRoles.includes(definedRole)) {
+            } else if(selectedRoles.includes(definedRoleName) && !activeRoles.includes(definedRoleName)) {
                 // ADD ROLE
-                putRole(definedRole);
-            } else if(!selectedRoles.includes(definedRole) && activeRoles.includes(definedRole)) {
+                putRole(definedRoleName);
+            } else if(!selectedRoles.includes(definedRoleName) && activeRoles.includes(definedRoleName)) {
                 // REMOVE ROLE
-                deleteRole(definedRole);
+                deleteRole(definedRoleName);
             } else {
                 // NOOP - Role not selected
             }
@@ -98,8 +99,8 @@ const EditUserRole = () => {
                             return (
                                 <option
                                     key={index}
-                                    value={role}
-                                >{role}</option>
+                                    value={role.name}
+                                >{role.name} - {role.description}</option>
                             )
                         })}
                     </select>
