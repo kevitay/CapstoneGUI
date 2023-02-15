@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import AuthContext from "./contexts/AuthContext";
 import HostContext from "./contexts/HostContext";
 import RoleListContext from "./contexts/RoleListContext";
@@ -8,6 +8,7 @@ const RoleDetails = ({role}) => {
     const [authState, ] = useContext(AuthContext);
     const [, roleListDispatch] = useContext(RoleListContext);
     const host = useContext(HostContext);
+    const navigate = useNavigate();
 
     const deleteRole = (e) => {
         // make our DELETE API call
@@ -29,6 +30,8 @@ const RoleDetails = ({role}) => {
                 };
                 // Dispatch to the roleListContext that the record was removed
                 roleListDispatch(action)
+                navigate('/displayRoles');
+
             } else {
                 // log errors
             }
