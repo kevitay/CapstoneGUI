@@ -20,7 +20,8 @@ const RoleDetails = ({role}) => {
             },
         }
         
-        const resourceUrl = `${host.url}/admin/roles/${role.name.split('_')[1]}`
+
+        const resourceUrl = `${host.url}/admin/roles/${role.name.replace('ROLE_', "")}`
         fetch(resourceUrl, requestHeaders).then((response) => {
             if(response.ok) {
                 console.log("Deleted Role")
