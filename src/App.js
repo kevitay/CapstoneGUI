@@ -111,8 +111,8 @@ function App() {
           <RoleListContext.Provider value={[roleListState, roleListDispatch]}>
           <Navigation links={links} />
             <Routes>
-              {links.map(link => {
-                return <Route path={link.path} element={link.component} />
+              {links.map((link, index) => {
+                return <Route key={index} path={link.path} element={link.component} />
               })}
               <Route path={'/displayRoles/:roleName'} element={<DisplayRole />} />
             </Routes>
