@@ -35,10 +35,14 @@ const AddRole = () => {
         <div className="AddRole">
             <h1>Add Role</h1>
             <form onSubmit={saveRole}>
-                Name:
-                <input name="name" value={role.name} onChange={inputChange} />
-                Description:
-                <input name="description" value={role.description} onChange={inputChange} />
+                <label>
+                    Name:
+                    <input type="text" name="name" value={role.name} onChange={inputChange} />
+                </label>
+                <label>
+                    Description:
+                    <input type="text" name="description" value={role.description} onChange={inputChange} />
+                </label>
                 <button type="submit">Save Role</button>
             </form>
         </div>
