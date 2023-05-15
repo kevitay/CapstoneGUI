@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom"
-import AuthContext from "../../contexts/AuthContext";
-import HostContext from "../../contexts/HostContext";
-import RoleListContext from "../../contexts/RoleListContext";
+import AuthContext from "../Contexts/AuthContext";
+import HostContext from "../Contexts/HostContext";
+import RoleListContext from "../Contexts/RoleListContext";
 
 const RoleDetails = ({role}) => {
     const [authState, ] = useContext(AuthContext);

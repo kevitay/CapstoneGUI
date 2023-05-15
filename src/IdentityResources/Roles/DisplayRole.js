@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react"
-import RoleListContext from "../../contexts/RoleListContext";
+import RoleListContext from "../Contexts/RoleListContext";
 import { useParams } from "react-router-dom"
 import RoleDetails from "./RoleDetails";
 

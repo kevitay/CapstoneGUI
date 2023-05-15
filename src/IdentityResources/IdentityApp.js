@@ -3,15 +3,15 @@ import { Routes, Route } from "react-router-dom";
 
 import AccountDetails from './AccountDetails';
 import './IdentityApp.css';
-import AuthContext from '../contexts/AuthContext';
+import AuthContext from './Contexts/AuthContext';
 import ChangePassword from './ChangePassword';
 import DisplayRoles from './Roles/DisplayRoles';
 import DisplayUsers from './DisplayUsers';
 import EditUserRole from './Roles/EditUserRole';
 import Login from './Login';
 import Registration from './Registration';
-import RoleListContext from '../contexts/RoleListContext';
-import UserListContext from '../contexts/UserListContext';
+import RoleListContext from './Contexts/RoleListContext';
+import UserListContext from './Contexts/UserListContext';
 import DisplayRole from './Roles/DisplayRole';
 import Navigation from './Navigation';
 

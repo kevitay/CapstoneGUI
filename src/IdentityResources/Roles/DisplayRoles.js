@@ -1,6 +1,6 @@
 import { useCallback, useContext, useEffect } from "react";
-import AuthContext from "../../contexts/AuthContext";
-import RoleListContext from "../../contexts/RoleListContext";
+import AuthContext from "../Contexts/AuthContext";
+import RoleListContext from "../Contexts/RoleListContext";
 import { apiRequestWithToken } from "../IdentityLib";
 import AddRole from "./AddRole";
 import { Link } from "react-router-dom";
@@ -33,7 +33,7 @@ const DisplayRoles = () => {
             <ul>
                 {roleListState.map(role => {
                     return (
-                        <li><Link to={`${role.name}`}>{role.name}</Link></li>
+                        <li key={role.name}><Link to={`${role.name}`}>{role.name}</Link></li>
                     )
                 })}
             </ul>
