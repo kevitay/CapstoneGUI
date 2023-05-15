@@ -1,5 +1,4 @@
-// const url = '//auth.galvanizelaboratory.com/api'
-const url = '//localhost:9100/api'
+const url = '//auth.galvanizelaboratory.com/api'
 
 const apiRequestWithTokenWithData = (method, resource, token, data, failedData, callback) => {
     const requestHeaders = {
