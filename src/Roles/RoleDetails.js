@@ -31,7 +31,7 @@ const RoleDetails = ({role}) => {
                 };
                 // Dispatch to the roleListContext that the record was removed
                 roleListDispatch(action)
-                navigate('/displayRoles');
+                navigate('displayRoles');
 
             } else {
                 // log errors
@@ -43,7 +43,7 @@ const RoleDetails = ({role}) => {
         <div className="RoleDetails">
             <ul>
                 <li>
-                    Name - <Link to={`/displayRoles/${role.name}`}>{role.name}</Link>
+                    Name - <Link to={`displayRoles/${role.name}`}>{role.name}</Link>
                 </li>
                 <li>
                     Description - {role.description}

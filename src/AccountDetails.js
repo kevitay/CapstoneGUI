@@ -45,8 +45,15 @@ const AccountDetails = () => {
                 {Object.keys(accountDetails.user).map((key) => {
                     return <li key={key}>{key} - {accountDetails.user[key]}</li>;
                 })}
+                <li>
+                Roles
+                    <ul>
+                        {accountDetails.roles.map((role, index) => {
+                            return <li key={index}>{role.name}</li>;
+                        })}
+                    </ul>
+                </li>
             </ul>
-            <RoleList roles={accountDetails.roles}></RoleList>
         </div>
     )
 }

@@ -33,7 +33,7 @@ const DisplayRoles = () => {
             <ul>
                 {roleListState.map(role => {
                     return (
-                        <li><Link to={`/displayRoles/${role.name}`}>{role.name}</Link></li>
+                        <li><Link to={`${role.name}`}>{role.name}</Link></li>
                     )
                 })}
             </ul>
