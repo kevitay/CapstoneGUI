@@ -2,17 +2,17 @@ import { useEffect, useReducer, useState } from 'react';
 import { Routes, Route } from "react-router-dom";
 
 import AccountDetails from './AccountDetails';
-import './App.css';
-import AuthContext from './contexts/AuthContext';
+import './IdentityApp.css';
+import AuthContext from '../contexts/AuthContext';
 import ChangePassword from './ChangePassword';
-import DisplayRoles from './Roles/DisplayRoles';
+import DisplayRoles from '../Roles/DisplayRoles';
 import DisplayUsers from './DisplayUsers';
-import EditUserRole from './Roles/EditUserRole';
+import EditUserRole from '../Roles/EditUserRole';
 import Login from './Login';
 import Registration from './Registration';
-import RoleListContext from './contexts/RoleListContext';
-import UserListContext from './contexts/UserListContext';
-import DisplayRole from './Roles/DisplayRole';
+import RoleListContext from '../contexts/RoleListContext';
+import UserListContext from '../contexts/UserListContext';
+import DisplayRole from '../Roles/DisplayRole';
 import Navigation from './Navigation';
 
 const authReducer = (state, action) => {

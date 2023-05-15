@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import HostContext from "./contexts/HostContext";
+import HostContext from "../contexts/HostContext";
 import { failedMessage, successMessage } from "./IdentityLib";
 
 const initialRegistrationState = {

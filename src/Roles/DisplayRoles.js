@@ -1,7 +1,7 @@
 import { useCallback, useContext, useEffect } from "react";
 import AuthContext from "../contexts/AuthContext";
 import RoleListContext from "../contexts/RoleListContext";
-import { apiRequestWithToken } from "../IdentityLib";
+import { apiRequestWithToken } from "../IdentityResources/IdentityLib";
 import AddRole from "./AddRole";
 import { Link } from "react-router-dom";
 

@@ -1,7 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from "react";
-import AuthContext from "./contexts/AuthContext";
-import HostContext from "./contexts/HostContext";
-import RoleList from "./Roles/RoleList";
+import AuthContext from "../contexts/AuthContext";
+import HostContext from "../contexts/HostContext";
 
 const initialAccountState = { user: {}, roles: []}
 

@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
-import AuthContext from "./contexts/AuthContext";
-import HostContext from "./contexts/HostContext";
+import AuthContext from "../contexts/AuthContext";
+import HostContext from "../contexts/HostContext";
 import { failedMessage, successMessage } from "./IdentityLib";
 
 const initialChangePassword = {
