@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom"
-import AuthContext from "../contexts/AuthContext";
-import HostContext from "../contexts/HostContext";
-import RoleListContext from "../contexts/RoleListContext";
+import AuthContext from "../Contexts/AuthContext";
+import HostContext from "../Contexts/HostContext";
+import RoleListContext from "../Contexts/RoleListContext";
 
 const RoleDetails = ({role}) => {
     const [authState, ] = useContext(AuthContext);
@@ -31,7 +31,7 @@ const RoleDetails = ({role}) => {
                 };
                 // Dispatch to the roleListContext that the record was removed
                 roleListDispatch(action)
-                navigate('/displayRoles');
+                navigate('displayRoles');
 
             } else {
                 // log errors
@@ -43,7 +43,7 @@ const RoleDetails = ({role}) => {
         <div className="RoleDetails">
             <ul>
                 <li>
-                    Name - <Link to={`/displayRoles/${role.name}`}>{role.name}</Link>
+                    Name - <Link to={`displayRoles/${role.name}`}>{role.name}</Link>
                 </li>
                 <li>
                     Description - {role.description}

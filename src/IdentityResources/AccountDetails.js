@@ -1,7 +1,6 @@
 import { useCallback, useContext, useEffect, useState } from "react";
-import AuthContext from "./contexts/AuthContext";
-import HostContext from "./contexts/HostContext";
-import RoleList from "./Roles/RoleList";
+import AuthContext from "./Contexts/AuthContext";
+import HostContext from "./Contexts/HostContext";
 
 const initialAccountState = { user: {}, roles: []}
 
@@ -45,8 +44,15 @@ const AccountDetails = () => {
                 {Object.keys(accountDetails.user).map((key) => {
                     return <li key={key}>{key} - {accountDetails.user[key]}</li>;
                 })}
+                <li>
+                Roles
+                    <ul>
+                        {accountDetails.roles.map((role, index) => {
+                            return <li key={index}>{role.name}</li>;
+                        })}
+                    </ul>
+                </li>
             </ul>
-            <RoleList roles={accountDetails.roles}></RoleList>
         </div>
     )
 }
