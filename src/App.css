@@ -4,14 +4,13 @@
     --navy: #0D0F4A;
     --lightorange: #FFA364;
     --lightgray: #E0EAF8;
-
 }
 
-body {
+.IdentityApp div {
     background-color: var(--lightgray);
 }
 
-input[type=text], input[type=password], select {
+.IdentityApp input[type=text], .IdentityApp input[type=password], .IdentityApp select {
     padding: 1em;
     margin: 0.5em;
     border: 1px solid #ccc;
@@ -19,7 +18,7 @@ input[type=text], input[type=password], select {
     box-sizing: border-box;
 }
 
-input[type=submit], button[type=submit], button {
+.IdentityApp input[type=submit], .IdentityApp button[type=submit], .IdentityApp button {
     /* width: 100%; */
     background-color: var(--navy);
     color: var(--white);
@@ -30,29 +29,29 @@ input[type=submit], button[type=submit], button {
     cursor: pointer;
 }
 
-input[type=submit]:hover, button[type=submit]:hover, button:hover {
+.IdentityApp input[type=submit]:hover, .IdentityApp button[type=submit]:hover, .IdentityApp button:hover {
     background-color: var(--lightorange);
     color: var(--navy);
 }
 
-form {
+.IdentityApp form {
     display: flex;
     justify-content: center;
     flex-direction: column;
 }
 
-form label {
+.IdentityApp form label {
     display: flex;
     /* justify-content: flex-end; */
     align-items: center;
 }
 
-div {
+.IdentityApp div {
     border-radius: 0.5em;
     padding: 1em;
 }
 
-nav ul {
+.IdentityApp nav ul {
     list-style-type: none;
     margin: 0;
     padding: 0;
@@ -60,11 +59,11 @@ nav ul {
     background-color: var(--navy);
 }
 
-nav li {
+.IdentityApp nav li {
     float: left;
 }
 
-nav li a {
+.IdentityApp nav li a {
     display: block;
     color: white;
     text-align: center;
@@ -73,10 +72,10 @@ nav li a {
 }
 
 /* Change the link color to #111 (black) on hover */
-nav li a:hover {
+.IdentityApp nav li a:hover {
     background-color: var(--lightorange);
 }
 
-nav li a.active {
+.IdentityApp nav li a.active {
     background-color: var(--orange);
 }

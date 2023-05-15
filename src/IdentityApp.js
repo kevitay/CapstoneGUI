@@ -99,7 +99,7 @@ function IdentityApp() {
   }
 
   return (
-    <div className="App">
+    <div className="IdentityApp">
       <header>
         <h1>gLab Identity GUI</h1>
         <h2>{user}</h2>
