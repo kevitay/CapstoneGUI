@@ -81,7 +81,7 @@ dockerize:
 
 deploy:
   stage: deploy
-  image: registry.gitlab.com/stfa-ase-oct-2022/source-repos/base-aws-eks-image:latest
+  image: $BASE_AWS_EKS_IMAGE
   only:
     refs: # We only want to deploy after we build the image
       - main
