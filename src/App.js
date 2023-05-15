@@ -13,11 +13,21 @@ function App() {
             <h1>App</h1>
             <nav>
                 <ul>
+                    <li>
                     <NavLink to={'/identity'}>Identity</NavLink>
+                    </li>
+                    <li>
                     <NavLink to={'/serviceOne'}>Service One</NavLink>
+                    </li>
+                    <li>
                     <NavLink to={'/serviceTwo'}>Service Two</NavLink>
+                    </li>
+                    <li>
                     <NavLink to={'/serviceThree'}>Service Three</NavLink>
+                    </li>
+                    <li>
                     <NavLink to={'/serviceFour'}>Service Four</NavLink>
+                    </li>
                 </ul>
             </nav>
             <Routes>
