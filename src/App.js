@@ -1,6 +1,6 @@
 import React from "react";
 import IdentityApp from "./IdentityResources/IdentityApp";
-import ServiceOneApp from "./ServiceOneResources/ServiceOneApp";
+import Event from "./ServiceOneResources/Event";
 import ServiceTwoApp from "./ServiceTwoResources/ServiceTwoApp";
 import ServiceThreeApp from "./ServiceThreeResources/ServiceThreeApp";
 import ServiceFourApp from "./ServiceFourResources/ServiceFourApp";
@@ -18,7 +18,7 @@ function App() {
                     <NavLink to={'/'}>Home</NavLink>
                     </li>
                     <li>
-                    <NavLink to={'/serviceOne'}>Service One</NavLink>
+                    <NavLink to={'/serviceOne'}>Event</NavLink>
                     </li>
                     <li>
                     <NavLink to={'/serviceTwo'}>Service Two</NavLink>
@@ -36,7 +36,7 @@ function App() {
             </nav>
             <Routes>
                 <Route path={'/'} element={<Home />}></Route>
-                <Route path={'/serviceOne/*'} element={<ServiceOneApp />}></Route>
+                <Route path={'/serviceOne/*'} element={<Event />}></Route>
                 <Route path={'/serviceTwo/*'} element={<ServiceTwoApp />}></Route>
                 <Route path={'/serviceThree/*'} element={<ServiceThreeApp />}></Route>
                 <Route path={'/serviceFour/*'} element={<ServiceFourApp />}></Route>

@@ -1,11 +1,14 @@
 import React from "react";
 
-function ServiceOneApp() {
+//react event
+export default function Event() {
+
+    
+
     return (
-        <div className="ServiceOneApp">
-            <h1>Service One</h1>
+        <div>
+        <h1>Hello World, Im the event component</h1>
         </div>
     )
 }
 
-export default ServiceOneApp;
