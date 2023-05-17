@@ -1,4 +1,5 @@
 import React from "react";
+import EventList from './EventList';
 import OrganizerControl from './OrganizerControl';
 
 //react event
@@ -61,6 +62,9 @@ export default function Event() {
         </div>
         <div>
           <OrganizerControl />
+        </div>
+        <div>
+          <EventList />
         </div>
       </div>
     );
