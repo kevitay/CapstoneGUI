@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function OrganizerControl() {
+function OrganizerControl() {
 
   return (
     <div>
@@ -13,3 +13,5 @@ export default function OrganizerControl() {
   );
 
 }
+
+export default OrganizerControl;

@@ -1,4 +1,5 @@
 import React from "react";
+import OrganizerControl from './OrganizerControl';
 
 //react event
 export default function Event() {
@@ -35,31 +36,33 @@ export default function Event() {
     // decide to display locations {possibly add google map integration}
 
     return (
-        <div>
+      <div>
         <h1>Hello World, Im the event component</h1>
         <div className="eventDetails">
-        <h1>{eventJson.name}</h1>
-        <h3>{eventJson.organization} | {eventJson.type}</h3>
-        <p>{eventJson.description}</p>
+          <h1>{eventJson.name}</h1>
+          <h3>
+            {eventJson.organization} | {eventJson.type}
+          </h3>
+          <p>{eventJson.description}</p>
         </div>
-        <div>
-            <OrganizerControl />
-        </div>    
         <div className="locationDetails">
-            <h2>When and Where</h2>
-                <h3>Start Time: {eventJson.startDateTime}</h3>
-                <h3>End Time: {eventJson.endDateTime}</h3>
-                <h3>Start Location: {eventJson.startLocation.startName}</h3>
-                <h3>End Location: {eventJson.endLocation.endName}</h3>
+          <h2>When and Where</h2>
+          <h3>Start Time: {eventJson.startDateTime}</h3>
+          <h3>End Time: {eventJson.endDateTime}</h3>
+          <h3>Start Location: {eventJson.startLocation.startName}</h3>
+          <h3>End Location: {eventJson.endLocation.endName}</h3>
         </div>
         <div className="baseCost">
-            <h3>Base Cost: ${eventJson.base_cost}</h3>
+          <h3>Base Cost: ${eventJson.base_cost}</h3>
         </div>
         {/* other components go here */}
         <div className="totalCost">
-            <h3>Total Cost: ${eventJson.total_cost}</h3>
+          <h3>Total Cost: ${eventJson.total_cost}</h3>
         </div>
+        <div>
+          <OrganizerControl />
         </div>
-    )
+      </div>
+    );
 }
 
