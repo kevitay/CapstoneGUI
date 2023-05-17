@@ -52,6 +52,10 @@ export default function Event() {
         <div className="baseCost">
             <h3>Base Cost: ${eventJson.base_cost}</h3>
         </div>
+        {/* other components go here */}
+        <div className="totalCost">
+            <h3>Total Cost: ${eventJson.total_cost}</h3>
+        </div>
         </div>
     )
 }
