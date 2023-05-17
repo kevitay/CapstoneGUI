@@ -28,6 +28,7 @@ export default function Activity() {
             <h1>ACTIVITY COMPONENT</h1>
             <h2>{activityJson.activity.ActivityName}</h2>
             <p>{activityJson.activity.Description}</p>
+            <p>Activity Start Time:{activityJson.activity.StartTime}</p>
         </div>
     )
 }; 

@@ -3,8 +3,8 @@ import Activity from "./Activity";
 
 function Itinerary() {
     return (
-        <div className="Itinerary">
-
+        <div>
+            <Activity></Activity>
         </div>
     )
 }
