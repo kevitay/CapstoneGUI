@@ -1,10 +1,11 @@
 import React from "react";
+import './EventParticipant.css';
 import EventParticipantData from "./EventParticipantData";
 
 function EventParticipant() {
     return (
         <div className="EventParticipant">
-            <table>
+            <table className="participant-data-table">
                 <tr>
                     <th></th>
                     <th>Name</th>
