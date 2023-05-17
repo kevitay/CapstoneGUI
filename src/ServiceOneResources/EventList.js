@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from 'react';
 
+const eventsJson = require("./events.json")
 export default function EventList() {
 
      const [eventList, setEventList] = useState([]);
@@ -9,20 +10,30 @@ export default function EventList() {
        getEvents();
      }, []);
 
+     // function getEvents() {
+     //      fetch('./events.json')
+     //           .then((response) => response.json())
+     //           .then((response) => {
+     //                setEventList(response);
+     //           })
+     //     .catch((err) => console.error(err));
+     // }
+
      function getEvents() {
-          fetch('./events.json')
-               .then((response) => response.json())
-               .then((response) => {
-                    console.log(response);
-                    setEventList(response);
-          })
-         .catch((err) => console.error(err));
-     }
+          setEventList(eventsJson);
+          // TODO needs to be put into fetch call
+               // fetch(eventsJson)
+               //      .then((response) => {
+               //           console.log(response)
+               //           response.json()
+               //      })
+               //   .then(PUT SET HERE);
+          }
 
     return(
         <div className="userEvents">
         {eventList.map((event) => {
-          return <div>
+          return <div key={event.id}>
             <h2>{event.name}</h2>
             <h2>{event.startDateTime}</h2>
             <h2>{event.startLocation.startName}</h2>

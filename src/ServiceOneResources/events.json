@@ -1,5 +1,6 @@
 [
   {
+    "id": 1,
     "creatorId": "aabbcc1234",
     "organization": "Phils Buds",
     "name": "St. Patricks Bar Crawl '01",
@@ -28,6 +29,7 @@
     "isPublic": false
   },
   {
+    "id": 2,
     "creatorId": "aabbcc1235",
     "organization": "SFs",
     "name": "Team Build",
@@ -50,6 +52,7 @@
     "isPublic": false
   },
   {
+    "id": 3,
     "creatorId": "ccbbaac123",
     "organization": "Kevins org",
     "name": "Birthday  bash",
