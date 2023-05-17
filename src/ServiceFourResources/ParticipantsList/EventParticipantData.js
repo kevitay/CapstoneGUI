@@ -4,7 +4,7 @@ function EventParticipantData({participant}) {
     return (
         <tr className="EventParticipantData">
             <td className="profile-picture">
-                <img alt="Profile Picture" src="https://placehold.co/100x100"></img>
+                <img alt="Profile Pic" src="https://placehold.co/100x100"></img>
             </td>
             <td className="participant-name">
                 <p>{participant.FirstName + " " + participant.LastName}</p>
