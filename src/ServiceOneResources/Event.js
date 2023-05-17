@@ -38,7 +38,7 @@ export default function Event() {
 
     return (
       <div>
-        <h1>Hello World, Im the event component</h1>
+        {/* <h1>Hello World, Im the event component</h1> */}
         <div className="eventDetails">
           <h1>{eventJson.name}</h1>
           <h3>
