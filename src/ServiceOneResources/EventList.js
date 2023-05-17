@@ -1,7 +1,8 @@
 import React from "react";
 
-export default function EventList(){
 
+export default function EventList(){
+    
     const eventList = [{
         "creatorId": "aabbcc1234",
         "organization": "Phils Buds",
@@ -82,6 +83,16 @@ export default function EventList(){
     }]
 
     return(
-        <div></div>
+        <div className="userEvents">
+        {eventList.map((event) => {
+          return <div>
+            <h2>{event.name}</h2>
+            <h2>{event.startDateTime}</h2>
+            <h2>{event.startLocation.startName}</h2>
+            <h2>{event.type}</h2>
+            <hr></hr>
+          </div>
+        })}
+      </div>
     )
 }

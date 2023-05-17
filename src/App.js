@@ -1,6 +1,7 @@
 import React from "react";
 import IdentityApp from "./IdentityResources/IdentityApp";
 import Event from "./ServiceOneResources/Event";
+import EventList from "./ServiceOneResources/EventList";
 import ServiceTwoApp from "./ServiceTwoResources/ServiceTwoApp";
 import ServiceThreeApp from "./ServiceThreeResources/ServiceThreeApp";
 import ServiceFourApp from "./ServiceFourResources/ServiceFourApp";
@@ -34,6 +35,7 @@ function App() {
                     </li>
                 </ul>
             </nav>
+            <EventList/>
             <Routes>
                 <Route path={'/'} element={<Home />}></Route>
                 <Route path={'/serviceOne/*'} element={<Event />}></Route>
