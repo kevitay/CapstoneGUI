@@ -1,21 +1,21 @@
 import React from "react";
 
-function EventParticipantData() {
+function EventParticipantData({participant}) {
     return (
         <tr className="EventParticipantData">
             <td className="profile-picture">
                 <img alt="Profile Picture" src="https://placehold.co/100x100"></img>
             </td>
-            <td className="partipant-name">
-                <p>John Doe</p>
+            <td className="participant-name">
+                <p>{participant.FirstName + " " + participant.LastName}</p>
             </td>
             <td className="city-state">
-                <p>Nowhere, Illinois</p>
+                <p>{participant.City + ", " + participant.State}</p>
             </td>
-            <td>Going</td>
-            <td>Driving</td>
-            <td>2</td>
-            <td>Yes</td>
+            <td>{participant.Status}</td>
+            <td>{participant.Driving}</td>
+            <td>{participant.SeatsAvailable}</td>
+            <td>{participant.RoomBooked}</td>
         </tr>
     )
 }
