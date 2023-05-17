@@ -2,7 +2,7 @@ import React from "react";
 
 function EventFilter() {
     return (
-        <div className="EventFilter">
+        <div className="EventFilter">            
         </div>
     )
 }
