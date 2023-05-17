@@ -30,6 +30,7 @@ export default function Event() {
         "status": "planned",
         "isPublic": false	
     }
+
     //need to parse dates and times
     // decide to display locations {possibly add google map integration}
 
@@ -47,6 +48,9 @@ export default function Event() {
                 <h3>End Time: {eventJson.endDateTime}</h3>
                 <h3>Start Location: {eventJson.startLocation.startName}</h3>
                 <h3>End Location: {eventJson.endLocation.endName}</h3>
+        </div>
+        <div className="baseCost">
+            <h3>Base Cost: ${eventJson.base_cost}</h3>
         </div>
         </div>
     )
