@@ -42,6 +42,9 @@ export default function Event() {
         <h3>{eventJson.organization} | {eventJson.type}</h3>
         <p>{eventJson.description}</p>
         </div>
+        <div>
+            <OrganizerControl />
+        </div>    
         <div className="locationDetails">
             <h2>When and Where</h2>
                 <h3>Start Time: {eventJson.startDateTime}</h3>
