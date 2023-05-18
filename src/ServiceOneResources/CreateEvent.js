@@ -2,7 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 
 
-function CreateEvent(props) {
+function CreateEvent() {
 
   const [eventName, setName] = useState('');
   const [organization, setOrganization] = useState('');
@@ -13,6 +13,35 @@ function CreateEvent(props) {
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
  
+  function postNewEvent(eventName, organization, description, eventType, startLocation, endLocation, startTime, endTime){
+    fetch("https://jsonplaceholder.typicode.com/todos", {
+  method: "POST",
+  body: JSON.stringify({
+    name: eventName,
+    organization: organization,
+    description: description,
+    type: eventType,
+    startDateTime: startTime,
+    endDateTime: endTime,
+    startLocation: {
+      name:startLocation
+      //need to add address fields 
+    },
+    endLocation: {
+      name: endLocation
+      //need to add address fields 
+    }
+    
+    
+  }),
+  headers: {
+    "Content-type": "application/json; charset=UTF-8"
+  }
+})
+  .then((response) => response.json())
+  .then((json) => console.log(json));
+  }
+
    return (
      <div className="eventSubmit">
        <h2>Create A New Event</h2>
@@ -22,7 +51,7 @@ function CreateEvent(props) {
          className="eventForm"
          onSubmit={(e) => {
            e.preventDefault();
-           props.event(eventName, organization, description, eventType, startLocation, endLocation, startTime, endTime);
+          //  props.event(eventName, organization, description, eventType, startLocation, endLocation, startTime, endTime);
            setName('');
            setOrganization('');
            setDescription('');
@@ -31,6 +60,7 @@ function CreateEvent(props) {
            setEndLocation('');
            setStartTime('');
            setEndTime('');
+           postNewEvent(eventName, organization, description, eventType, startLocation, endLocation, startTime, endTime);
          }}
        >
          <label>Event Name</label>
@@ -59,11 +89,11 @@ function CreateEvent(props) {
          <input type="text" name="endLocation" value={endLocation} onChange={(e) => setEndLocation(e.target.value)} />
          <br />
          <br />
-         <label for="startTime">Start Time</label>
+         <label htmlFor="startTime">Start Time</label>
          <input type="datetime-local" id="startTime" name="startTime" value={startTime} onChange={(e) => setStartTime(e.target.value)} required></input>
          <br />
          <br />
-         <label for="endTime">End Time</label>
+         <label htmlFor="endTime">End Time</label>
          <input type="datetime-local" id="endTime" name="endTime" value={endTime} onChange={(e) => setEndTime(e.target.value)} required></input>
          <br />
          <br />
