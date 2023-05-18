@@ -121,6 +121,7 @@ function CreateEvent() {
 
          <label htmlFor="startState">State</label>
          <select name="startState" id="startState" value={startState} onChange={(e) => setStartState(e.target.value)} required>
+           <option value="">Select state</option>
            <option value="AL">Alabama</option>
            <option value="AK">Alaska</option>
            <option value="AZ">Arizona</option>
@@ -192,12 +193,13 @@ function CreateEvent() {
          <br />
 
          <label>City </label>
-         <input type="text" name="endCity" value={endCity} onChange={(e) => setEndCity(e.target.value)} required />
+         <input type="text" name="endCity" value={endCity} onChange={(e) => setEndCity(e.target.value)} />
          <br />
          <br />
 
          <label htmlFor="endState">State</label>
-         <select name="endState" id="endState" value={endState} onChange={(e) => setEndState(e.target.value)} required>
+         <select name="endState" id="endState" value={endState} onChange={(e) => setEndState(e.target.value)} >
+           <option value="">Select state</option>
            <option value="AL">Alabama</option>
            <option value="AK">Alaska</option>
            <option value="AZ">Arizona</option>
