@@ -8,12 +8,20 @@ function CreateEvent() {
   const [organization, setOrganization] = useState('');
   const [description, setDescription] = useState('');
   const [eventType, setEventType] = useState('');
-  const [startLocation, setStartLocation] = useState('');
-  const [endLocation, setEndLocation] = useState('');
+  const [startLocationName, setStartLocationName] = useState('');
+  const [startAddress, setStartAddress] = useState('');
+  const [startZip, setStartZip] = useState('');
+  const [startState, setStartState] = useState('');
+  const [startCity, setStartCity] = useState('');
+  const [endLocationName, setEndLocationName] = useState('');
+  const [endAddress, setEndAddress] = useState('');
+  const [endZip, setEndZip] = useState('');
+  const [endState, setEndState] = useState('');
+  const [endCity, setEndCity] = useState('');
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
  
-  function postNewEvent(eventName, organization, description, eventType, startLocation, endLocation, startTime, endTime){
+  function postNewEvent(eventName, organization, description, eventType, startLocationName, startAddress, startZip, startState, startCity, endLocationName,endAddress,endZip, endState, endCity, startTime, endTime){
     fetch("https://jsonplaceholder.typicode.com/todos", {
   method: "POST",
   body: JSON.stringify({
@@ -24,11 +32,18 @@ function CreateEvent() {
     startDateTime: startTime,
     endDateTime: endTime,
     startLocation: {
-      name:startLocation
-      //need to add address fields 
+      name:startLocationName,
+      address:startAddress,
+      city: startCity,
+      state:startState,
+      zipCode: startZip
     },
     endLocation: {
-      name: endLocation
+      name: endLocationName,
+      address:endAddress,
+      city: endCity,
+      state:endState,
+      zipCode: endZip
       //need to add address fields 
     }
     
@@ -56,11 +71,19 @@ function CreateEvent() {
            setOrganization('');
            setDescription('');
            setEventType('');
-           setStartLocation('');
-           setEndLocation('');
+           setStartLocationName('');
+           setStartAddress('');
+           setStartCity('');
+           setStartState('');
+           setStartZip('');
+           setEndLocationName('');
+           setEndAddress('');
+           setEndCity('');
+           setEndState('');
+           setEndZip('');
            setStartTime('');
            setEndTime('');
-           postNewEvent(eventName, organization, description, eventType, startLocation, endLocation, startTime, endTime);
+           postNewEvent(eventName, organization, description, eventType, startLocationName, startAddress, startZip, startState, startCity, endLocationName,endAddress,endZip, endState, endCity, startTime, endTime);
          }}
        >
          <label>Event Name</label>
@@ -81,14 +104,160 @@ function CreateEvent() {
          <br />
          <br />
 
-         <label>Start Location</label>
-         <input type="text" name="startLocation" value={startLocation} onChange={(e) => setStartLocation(e.target.value)} required />
+         <label>Start Location Name </label>
+         <input type="text" name="startLocationName" value={startLocationName} onChange={(e) => setStartLocationName(e.target.value)} required />
          <br />
          <br />
-         <label>End Location</label>
-         <input type="text" name="endLocation" value={endLocation} onChange={(e) => setEndLocation(e.target.value)} />
+
+         <label>Address </label>
+         <input type="text" name="startAddress" value={startAddress} onChange={(e) => setStartAddress(e.target.value)} required />
          <br />
          <br />
+
+         <label>City </label>
+         <input type="text" name="startCity" value={startCity} onChange={(e) => setStartCity(e.target.value)} required />
+         <br />
+         <br />
+
+         <label htmlFor="startState">State</label>
+         <select name="startState" id="startState" value={startState} onChange={(e) => setStartState(e.target.value)} required>
+           <option value="AL">Alabama</option>
+           <option value="AK">Alaska</option>
+           <option value="AZ">Arizona</option>
+           <option value="AR">Arkansas</option>
+           <option value="CA">California</option>
+           <option value="CO">Colorado</option>
+           <option value="CT">Connecticut</option>
+           <option value="DE">Delaware</option>
+           <option value="DC">District Of Columbia</option>
+           <option value="FL">Florida</option>
+           <option value="GA">Georgia</option>
+           <option value="HI">Hawaii</option>
+           <option value="ID">Idaho</option>
+           <option value="IL">Illinois</option>
+           <option value="IN">Indiana</option>
+           <option value="IA">Iowa</option>
+           <option value="KS">Kansas</option>
+           <option value="KY">Kentucky</option>
+           <option value="LA">Louisiana</option>
+           <option value="ME">Maine</option>
+           <option value="MD">Maryland</option>
+           <option value="MA">Massachusetts</option>
+           <option value="MI">Michigan</option>
+           <option value="MN">Minnesota</option>
+           <option value="MS">Mississippi</option>
+           <option value="MO">Missouri</option>
+           <option value="MT">Montana</option>
+           <option value="NE">Nebraska</option>
+           <option value="NV">Nevada</option>
+           <option value="NH">New Hampshire</option>
+           <option value="NJ">New Jersey</option>
+           <option value="NM">New Mexico</option>
+           <option value="NY">New York</option>
+           <option value="NC">North Carolina</option>
+           <option value="ND">North Dakota</option>
+           <option value="OH">Ohio</option>
+           <option value="OK">Oklahoma</option>
+           <option value="OR">Oregon</option>
+           <option value="PA">Pennsylvania</option>
+           <option value="RI">Rhode Island</option>
+           <option value="SC">South Carolina</option>
+           <option value="SD">South Dakota</option>
+           <option value="TN">Tennessee</option>
+           <option value="TX">Texas</option>
+           <option value="UT">Utah</option>
+           <option value="VT">Vermont</option>
+           <option value="VA">Virginia</option>
+           <option value="WA">Washington</option>
+           <option value="WV">West Virginia</option>
+           <option value="WI">Wisconsin</option>
+           <option value="WY">Wyoming</option>
+         </select>
+         <br />
+         <br />
+
+         <label>Zip Code </label>
+         <input type="text" name="startZip" value={startZip} onChange={(e) => setStartZip(e.target.value)} required />
+         <br />
+         <br />
+
+         <label>End Location Name </label>
+         <input type="text" name="endLocationName" value={endLocationName} onChange={(e) => setEndLocationName(e.target.value)} />
+         <br />
+         <br />
+
+         <label>Address </label>
+         <input type="text" name="endAddress" value={endAddress} onChange={(e) => setEndAddress(e.target.value)} />
+         <br />
+         <br />
+
+         <label>City </label>
+         <input type="text" name="endCity" value={endCity} onChange={(e) => setEndCity(e.target.value)} required />
+         <br />
+         <br />
+
+         <label htmlFor="endState">State</label>
+         <select name="endState" id="endState" value={endState} onChange={(e) => setEndState(e.target.value)} required>
+           <option value="AL">Alabama</option>
+           <option value="AK">Alaska</option>
+           <option value="AZ">Arizona</option>
+           <option value="AR">Arkansas</option>
+           <option value="CA">California</option>
+           <option value="CO">Colorado</option>
+           <option value="CT">Connecticut</option>
+           <option value="DE">Delaware</option>
+           <option value="DC">District Of Columbia</option>
+           <option value="FL">Florida</option>
+           <option value="GA">Georgia</option>
+           <option value="HI">Hawaii</option>
+           <option value="ID">Idaho</option>
+           <option value="IL">Illinois</option>
+           <option value="IN">Indiana</option>
+           <option value="IA">Iowa</option>
+           <option value="KS">Kansas</option>
+           <option value="KY">Kentucky</option>
+           <option value="LA">Louisiana</option>
+           <option value="ME">Maine</option>
+           <option value="MD">Maryland</option>
+           <option value="MA">Massachusetts</option>
+           <option value="MI">Michigan</option>
+           <option value="MN">Minnesota</option>
+           <option value="MS">Mississippi</option>
+           <option value="MO">Missouri</option>
+           <option value="MT">Montana</option>
+           <option value="NE">Nebraska</option>
+           <option value="NV">Nevada</option>
+           <option value="NH">New Hampshire</option>
+           <option value="NJ">New Jersey</option>
+           <option value="NM">New Mexico</option>
+           <option value="NY">New York</option>
+           <option value="NC">North Carolina</option>
+           <option value="ND">North Dakota</option>
+           <option value="OH">Ohio</option>
+           <option value="OK">Oklahoma</option>
+           <option value="OR">Oregon</option>
+           <option value="PA">Pennsylvania</option>
+           <option value="RI">Rhode Island</option>
+           <option value="SC">South Carolina</option>
+           <option value="SD">South Dakota</option>
+           <option value="TN">Tennessee</option>
+           <option value="TX">Texas</option>
+           <option value="UT">Utah</option>
+           <option value="VT">Vermont</option>
+           <option value="VA">Virginia</option>
+           <option value="WA">Washington</option>
+           <option value="WV">West Virginia</option>
+           <option value="WI">Wisconsin</option>
+           <option value="WY">Wyoming</option>
+         </select>
+         <br />
+         <br />
+
+         <label>Zip Code </label>
+         <input type="text" name="endZip" value={endZip} onChange={(e) => setEndZip(e.target.value)} />
+         <br />
+         <br />
+         
          <label htmlFor="startTime">Start Time</label>
          <input type="datetime-local" id="startTime" name="startTime" value={startTime} onChange={(e) => setStartTime(e.target.value)} required></input>
          <br />
