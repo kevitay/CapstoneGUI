@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import EventParticipant from "./EventParticipant";
 import EventFilter from "./EventFilter";
 
@@ -64,11 +64,14 @@ function PartipantsList() {
     ];
 
     const [userState, setUserState] = useState(user);
+    useEffect(() => {
+    }, [userState]);
+
 
     return (
         <div className="ParticipantsList">
             <h1>Participants List</h1>
-            <EventFilter></EventFilter>
+            <EventFilter userData={userState} setUserState={setUserState}></EventFilter>
             <EventParticipant userData={userState}></EventParticipant>
         </div>
     )
