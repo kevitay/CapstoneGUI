@@ -1,4 +1,5 @@
 import React from "react";
+import EventList from './EventList';
 import OrganizerControl from './OrganizerControl';
 
 //react event
@@ -37,7 +38,7 @@ export default function Event() {
 
     return (
       <div>
-        <h1>Hello World, Im the event component</h1>
+        {/* <h1>Hello World, Im the event component</h1> */}
         <div className="eventDetails">
           <h1>{eventJson.name}</h1>
           <h3>
@@ -61,6 +62,9 @@ export default function Event() {
         </div>
         <div>
           <OrganizerControl />
+        </div>
+        <div>
+          <EventList />
         </div>
       </div>
     );
