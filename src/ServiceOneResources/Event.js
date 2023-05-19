@@ -85,8 +85,8 @@ function dateFormatter(dateTime){
         zipCode: 61761
     },
     participantListId: "1",
-    base_cost: "50",
-    total_cost: "50",
+    base_cost: 50,
+    total_cost: 50,
     status: "planned",
     isPublic: false
   };

@@ -50,10 +50,10 @@ export default function EventList() {
         <div className="userEvents">
         {eventList.map((event) => {
           return <div key={event.id}>
-            <h2>{event.name}</h2>
-            <h2>{dateFormatter(event.startDateTime)}</h2>
-            <h2>{event.startLocation.startName}</h2>
-            <h2>{event.type}</h2>
+            <h2>Event Name: {event.name}</h2>
+            <h2>Time:{dateFormatter(event.startDateTime)} - {dateFormatter(event.endDateTime)}</h2>
+            <h2>Location: {event.startLocation.name}</h2>
+            <h2>Type: {event.type}</h2>
             <hr></hr>
           </div>
         })}
