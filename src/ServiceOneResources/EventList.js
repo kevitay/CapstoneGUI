@@ -2,10 +2,10 @@ import React from "react";
 import { useState, useEffect } from 'react';
 import EventBrief from "./EventBrief";
 
-const eventsJson = require("./events.json")
+// const eventsJson = require("./events.json")
 export default function EventList() {
 
-     const [eventList, setEventList] = useState([]);
+     const [eventsList, setEventList] = useState([]);
 
 
      useEffect(() => {
@@ -22,21 +22,28 @@ export default function EventList() {
      // }
 
      function getEvents() {
-          setEventList(eventsJson);
+          // setEventList(eventsJson);
           // TODO needs to be put into fetch call
-               // fetch(eventsJson)
-               //      .then((response) => {
-               //           console.log(response)
-               //           response.json()
-               //      })
-               //   .then(PUT SET HERE);
+          var requestOptions = {
+               method: 'GET',
+               mode: 'cors'
+             };
+
+             
+             fetch("http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event", requestOptions)
+               .then(response => response.json())
+                .then(response => setEventList(response.eventList))
+               .then(response => console.log(response))
+               .catch(error => console.log('error', error));
           }
+          console.log(eventsList)
 
     return(
         <div className="userEvents">
-        {eventList.map((event) => {
+        {eventsList.map((event) => {
           return <EventBrief event={event} key={event.id} />
         })}
       </div>
+      
     )
 }

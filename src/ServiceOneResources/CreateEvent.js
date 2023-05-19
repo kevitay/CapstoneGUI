@@ -22,7 +22,7 @@ function CreateEvent() {
   const [endTime, setEndTime] = useState('');
  
   function postNewEvent(eventName, organization, description, eventType, startLocationName, startAddress, startZip, startState, startCity, endLocationName,endAddress,endZip, endState, endCity, startTime, endTime){
-    fetch("https://jsonplaceholder.typicode.com/todos", {
+    fetch("http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event", {
   method: "POST",
   body: JSON.stringify({
     name: eventName,
