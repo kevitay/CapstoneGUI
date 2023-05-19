@@ -39,10 +39,14 @@ export default function EventList() {
           console.log(eventsList)
 
     return(
+     <div>
+          <h1>Event List Component</h1>
+          <hr></hr>
         <div className="userEvents">
         {eventsList.map((event) => {
           return <EventBrief event={event} key={event.id} />
         })}
+      </div>
       </div>
       
     )
