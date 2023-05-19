@@ -1,7 +1,7 @@
 import React from "react";
 import EventList from './EventList';
 import OrganizerControl from './OrganizerControl';
-import { useState, useEffect } from 'react';
+// import { useState, useEffect } from 'react';
 
 
 
@@ -11,30 +11,46 @@ import { useState, useEffect } from 'react';
 export default function Event() {
 
   // const [event, setEvent] = useState({});
-  const [formattedDate, setFormattedDate] = useState('');
+  // const [formattedDate, setFormattedDate] = useState('');
   
-  useEffect(() => {
-    const startDateTime = event.startDateTime;
-    const date = new Date(startDateTime);
-    // Extracting date components
-    let hours = date.getHours();
-    const minutes = date.getMinutes();
-    const month = date.getMonth() + 1; // Months are zero-based, so adding 1
-    const day = date.getDate();
-    const year = date.getFullYear();
-    // Converting to 12-hour format
-    let amPm = 'AM';
-    if (hours >= 12) {
-      amPm = 'PM';
-      if (hours > 12) {
-        hours -= 12;
-      }
-    }
+  // useEffect(() => {
+  //   const startDateTime = event.startDateTime;
+  //   const date = new Date(startDateTime);
+  //   // Extracting date components
+  //   let hours = date.getHours();
+  //   const minutes = date.getMinutes();
+  //   const month = date.getMonth() + 1; // Months are zero-based, so adding 1
+  //   const day = date.getDate();
+  //   const year = date.getFullYear();
+  //   // Converting to 12-hour format
+  //   let amPm = 'AM';
+  //   if (hours >= 12) {
+  //     amPm = 'PM';
+  //     if (hours > 12) {
+  //       hours -= 12;
+  //     }
+  //   }
 
-    const formattedDate = `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} ${amPm}`;
+  //   const formattedDate = `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} ${amPm}`;
 
-    setFormattedDate(formattedDate);
-    }, []);
+  //   setFormattedDate(formattedDate);
+  //   }, []);
+function dateFormatter(dateTime){
+  const date = new Date(dateTime);
+  // Extracting date components
+  let hours = date.getHours();
+  const minutes = date.getMinutes();
+  const month = date.getMonth() + 1; // Months are zero-based, so adding 1
+  const day = date.getDate();
+  const year = date.getFullYear();
+  // Converting to 12-hour format
+  let amPm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12 || 12;
+
+  return `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} ${amPm}`;
+
+  }
+
 
   // function getEventById() {
   //      fetch('/api/events/{id}')
@@ -47,32 +63,32 @@ export default function Event() {
 
 
   const event = {
-    creatorId: 'aabbcc1234',
-    organization: 'Phils Buds',
+    creatorId: "aabbcc1234",
+    organization: "Phils Buds",
     name: "St. Patricks Bar Crawl '01",
-    type: 'Social',
+    type: "Social",
     description: "Phil's 21st Birthday Pub Crawl",
-    startDateTime: '2001-01-01T16:00-04:00',
-    endDateTime: '2001-01-02T02:00-04:00',
+    startDateTime: "2001-01-01@1:00:00",
+    endDateTime: "2001-01-02@00:00:00",
     startLocation: {
-      startName: "Phil's Tiki Bar",
-      Address: '123 Example St',
-      City: 'Normal',
-      State: 'IL',
-      ZipCode: 61761,
+        name: "Phil's Tiki Bar",
+        address: "123 Example St",
+        city: "Normal",
+        state: "IL",
+        zipCode: 61761
     },
     endLocation: {
-      endName: "Greg's Oldtowne Tavern",
-      Address: '123 Example St',
-      City: 'Normal',
-      State: 'IL',
-      ZipCode: 61761,
+        name: "Greg's Oldtowne Tavern",
+        address: "123 Example St",
+        city: "Normal",
+        state: "IL",
+        zipCode: 61761
     },
-    participantListId: '1',
-    base_cost: '50',
-    total_cost: '50',
-    status: 'planned',
-    isPublic: false,
+    participantListId: "1",
+    base_cost: "50",
+    total_cost: "50",
+    status: "planned",
+    isPublic: false
   };
 
   //need to parse dates and times
@@ -89,8 +105,8 @@ export default function Event() {
       </div>
       <div className="locationDetails">
         <h2>When and Where</h2>
-        <h3>Start Time: {formattedDate}</h3>
-        <h3>End Time: {event.endDateTime}</h3>
+        <h3>Start Time: {dateFormatter(event.startDateTime)}</h3>
+        <h3>End Time: {dateFormatter(event.endDateTime)}</h3>
         <h3>Start Location: {event.startLocation.startName}</h3>
         <h3>End Location: {event.endLocation.endName}</h3>
       </div>

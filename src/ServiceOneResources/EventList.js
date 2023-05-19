@@ -6,6 +6,22 @@ export default function EventList() {
 
      const [eventList, setEventList] = useState([]);
 
+     function dateFormatter(dateTime){
+          const date = new Date(dateTime);
+          // Extracting date components
+          let hours = date.getHours();
+          const minutes = date.getMinutes();
+          const month = date.getMonth() + 1; // Months are zero-based, so adding 1
+          const day = date.getDate();
+          const year = date.getFullYear();
+          // Converting to 12-hour format
+          let amPm = hours >= 12 ? "PM" : "AM";
+            hours = hours % 12 || 12;
+        
+          return `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} ${amPm}`;
+        
+          }
+
      useEffect(() => {
        getEvents();
      }, []);
@@ -35,7 +51,7 @@ export default function EventList() {
         {eventList.map((event) => {
           return <div key={event.id}>
             <h2>{event.name}</h2>
-            <h2>{event.startDateTime}</h2>
+            <h2>{dateFormatter(event.startDateTime)}</h2>
             <h2>{event.startLocation.startName}</h2>
             <h2>{event.type}</h2>
             <hr></hr>
