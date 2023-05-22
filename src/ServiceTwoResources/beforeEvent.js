@@ -1,45 +1,78 @@
-import React, { useState } from "react";
+import React, { useReducer, useState } from "react";
 
 
 function BeforeEvent(){
+
 const [packingList, setPackingList] = useState([])
 const [itemInput, setItemInput] = useState('')
-const [requiredItems, setRequiredItems] = useState([]);
+//const [requiredItems, setRequiredItems] = useState([]);
+// const [itemToUpdate, updateItems] = useReducer(setItemInput, updateItem);
+//const [packingListItem, deletePackingListItem] = useState('');
 
 const handleInputChange = (event) => {
     setItemInput(event.target.value);
+    // updateItems(event.target.value);
+    // deleteItem(event.target.value);
 };
 const handleCheckboxChange = (index)=>{
-    const updatedRequiredItems = [...requiredItems];
-    updatedRequiredItems[index] = !updatedRequiredItems[index];
-    setRequiredItems(updatedRequiredItems);
+    const newPackingList = packingList.map((item) => ({...item}));
+    newPackingList[index].required = !newPackingList[index].required;
+    console.log(newPackingList);
+    setPackingList(newPackingList);
 }
 const addItem = () => {
-    setPackingList([...packingList, itemInput]);
-    setRequiredItems([...requiredItems, false]);
+    setPackingList([...packingList, {name:itemInput, required:false}]);
+    //setRequiredItems([...requiredItems, false]);
     setItemInput(''); // Clears the input field
   };
+
+const updateItem = () => {
+    // itemToUpdate([...itemInput, updateItems]);
+    // updateItems([...setItemInput, true]);
+    // setItemInput(updateItems);
+};
+
+const deleteItem = () => {
+    // const newPackingList = [...packingList];
+    // const indexToDelete = newPackingList.indexOf(itemInput); 
+    const newPackingList = packingList.filter((item) => item.name !== itemInput);
+    setPackingList(newPackingList);
+    setItemInput('');     
+
+}
 
 return (
     <div>
         <ul>
             {packingList.map((item, index) => (
                 <li key={index}>
-                    {item}
+                    {item.name}
                     <label>
                     <input
                     type="checkbox"
-                    checked={requiredItems[index]}
+                    checked={item.required}
                     onChange={()=> handleCheckboxChange(index)}/>
                     Required </label>
                     </li>
             ))}
+        
+            <li>
+                <input type="text" value={itemInput} onChange={handleInputChange} />
+                <button onClick={addItem}>
+                Add Item
+                </button>
+                <button onClick={deleteItem}>
+                Delete Item
+                </button>
+            </li>
+            <li>
+                <input type="text" onChange={handleInputChange} />
+                <button onClick={updateItem}>
+                Update Item
+                </button>
+            </li>
         </ul>
-        <input type="text" value={itemInput} onChange={handleInputChange} />
-        <button onClick={addItem}>
-            Add Item
-        </button>
-    </div>
+     </div>
 )
 
 }
