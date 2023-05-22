@@ -7,10 +7,18 @@ function Itinerary() {
     setData(Activities);
   }, []);
   return (
-    <div>
-      {data.activities?.map((item) => (
-        <p key={item.ID}>{item.ActivityName}</p>
-      ))}
+    <div className="Itinerary">
+        <h2>Event 1 Itinerary</h2>
+        <ul className="ActivityList">
+            {
+                data.activities?.map((item) => (
+                <li className="Activity" key={item.ID}>
+                    <p>{item.ActivityName}</p>
+                </li>
+                ))
+            }
+        </ul>
+      
     </div>
   );
 }
