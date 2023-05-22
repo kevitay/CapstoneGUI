@@ -43,7 +43,6 @@ export default function EventBrief({ event }, setEventList ) {
         <button onClick={
           () => {
             handleDeleteEvent(event.id)
-            setEventList()
           }
         }
         >Delete Event</button>
