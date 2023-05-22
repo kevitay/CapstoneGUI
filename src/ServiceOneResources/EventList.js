@@ -36,7 +36,7 @@ const { state, dispatch } = useContext(EventContext)
           <hr></hr>
         <div className="userEvents">
         {state.eventsList.map((event) => {
-          return <EventBrief event={event} key={event.id} eventList ={dispatch} />
+          return <EventBrief event={event} key={event.id} />
         })}
       </div>
       </div>
