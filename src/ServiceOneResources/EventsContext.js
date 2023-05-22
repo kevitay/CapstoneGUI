@@ -23,6 +23,11 @@ const eventReducer = (state, action) => {
         //we are only keeping events that don't match the id from the payload
         eventsList: state.eventsList.filter((event) => event.id !== action.payload),
       };
+    case 'ADD_EVENT':
+      return {
+         ...state,
+         eventsList: [...state.eventsList, action.payload]
+      };
     default:
       return state;
   }

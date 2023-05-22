@@ -1,6 +1,6 @@
 import React from 'react';
-import { useState } from 'react';
-
+import { useState, useContext} from 'react';
+import { EventContext } from "./EventsContext";
 
 function CreateEvent() {
 
@@ -20,6 +20,8 @@ function CreateEvent() {
   const [endCity, setEndCity] = useState('');
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
+
+  const { dispatch } = useContext(EventContext);
  
   function postNewEvent(eventName, organization, description, eventType, startLocationName, startAddress, startZip, startState, startCity, endLocationName,endAddress,endZip, endState, endCity, startTime, endTime){
   
@@ -35,25 +37,25 @@ function CreateEvent() {
     myHeaders.append('Content-Type', 'application/json');
 
     var raw = JSON.stringify({
-      name: 'TestName Kevin 4',
-      organization: 'SDI Tier 3',
-      description: 'Bday Celebration',
-      type: 'Party',
-      startDateTime: '2001-01-01@16:00:00',
-      endDateTime: '2001-01-02@02:00:00',
+      name: eventName,
+      organization: organization,
+      description: description,
+      type: eventType,
+      startDateTime: newStartTime + ":00",
+      endDateTime: newEndTime + ":00",
       startLocation: {
-        name: 'Wild Wings',
-        address: '123 Main',
-        city: 'Normal',
-        state: 'IL',
-        zipCode: '61761',
+        name: startLocationName,
+        address: startAddress,
+        city: startCity,
+        state: startState,
+        zipCode: startZip,
       },
       endLocation: {
-        name: '',
-        address: '',
-        city: '',
-        state: '',
-        zipCode: null,
+        name: endLocationName,
+        address: endAddress,
+        city: endCity,
+        state: endState,
+        zipCode: endZip,
       },
     });
 
@@ -65,8 +67,9 @@ function CreateEvent() {
     };
 
     fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event', requestOptions)
-      .then((response) => response.text())
-      .then((result) => console.log(result))
+      .then((response) => response.json())
+      .then((result) => {dispatch({type: 'ADD_EVENT', payload: result})
+        ;console.log(result)})
       .catch((error) => console.log('error', error));
     
    }
