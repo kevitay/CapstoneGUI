@@ -1,12 +1,14 @@
 import React from "react";
 import EventList from './EventList';
 import OrganizerControl from './OrganizerControl';
-// import { useState, useEffect } from 'react';
+import { useContext } from "react";
+import { EventContext } from "./EventsContext";
 
 
 //react event
-export default function Event() {
+export default function Event({event}) {
 
+  // const { state } = useContext(EventContext)
  
 function dateFormatter(dateTime){
   const date = new Date(dateTime);
@@ -35,34 +37,34 @@ function dateFormatter(dateTime){
   // }
 
 
-  const event = {
-    creatorId: "aabbcc1234",
-    organization: "Phils Buds",
-    name: "St. Patricks Bar Crawl '01",
-    type: "Social",
-    description: "Phil's 21st Birthday Pub Crawl",
-    startDateTime: "2001-01-01@1:00:00",
-    endDateTime: "2001-01-02@00:00:00",
-    startLocation: {
-        name: "Phil's Tiki Bar",
-        address: "123 Example St",
-        city: "Normal",
-        state: "IL",
-        zipCode: 61761
-    },
-    endLocation: {
-        name: "Greg's Oldtowne Tavern",
-        address: "123 Example St",
-        city: "Normal",
-        state: "IL",
-        zipCode: 61761
-    },
-    participantListId: "1",
-    base_cost: 50,
-    total_cost: 50,
-    status: "planned",
-    isPublic: false
-  };
+  // const event = {
+  //   creatorId: "aabbcc1234",
+  //   organization: "Phils Buds",
+  //   name: "St. Patricks Bar Crawl '01",
+  //   type: "Social",
+  //   description: "Phil's 21st Birthday Pub Crawl",
+  //   startDateTime: "2001-01-01@1:00:00",
+  //   endDateTime: "2001-01-02@00:00:00",
+  //   startLocation: {
+  //       name: "Phil's Tiki Bar",
+  //       address: "123 Example St",
+  //       city: "Normal",
+  //       state: "IL",
+  //       zipCode: 61761
+  //   },
+  //   endLocation: {
+  //       name: "Greg's Oldtowne Tavern",
+  //       address: "123 Example St",
+  //       city: "Normal",
+  //       state: "IL",
+  //       zipCode: 61761
+  //   },
+  //   participantListId: "1",
+  //   base_cost: 50,
+  //   total_cost: 50,
+  //   status: "planned",
+  //   isPublic: false
+  // };
 
   //need to parse dates and times
   // decide to display locations {possibly add google map integration}
@@ -92,9 +94,6 @@ function dateFormatter(dateTime){
       </div>
       <div>
         <OrganizerControl />
-      </div>
-      <div>
-        <EventList />
       </div>
     </div>
   );

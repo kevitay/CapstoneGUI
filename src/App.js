@@ -8,6 +8,7 @@ import { NavLink, Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import CreateEvent from './ServiceOneResources/CreateEvent';
 import { EventProvider } from './ServiceOneResources/EventsContext';
+import EventList from "./ServiceOneResources/EventList";
 
 function App() {
     
@@ -43,7 +44,8 @@ function App() {
             element={
               <>
                 <EventProvider>
-                  <Event />
+                  <EventList />
+                  {/* <Event /> */}
                   <CreateEvent />
                 </EventProvider>
               </>

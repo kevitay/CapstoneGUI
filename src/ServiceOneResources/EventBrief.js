@@ -1,6 +1,8 @@
 import React from "react";
+import Event from "./Event";
 import { useContext } from "react";
 import { EventContext } from "./EventsContext";
+import { Route, Routes, useNavigate } from "react-router-dom";
 
 
 
@@ -8,7 +10,8 @@ import { EventContext } from "./EventsContext";
 
 export default function EventBrief({ event } ) {
   
-  const { dispatch } = useContext(EventContext)
+  const { dispatch } = useContext(EventContext);
+  const navigate = useNavigate();
 
   function handleDeleteEvent(id) {
     // console.log(id);
@@ -35,6 +38,10 @@ export default function EventBrief({ event } ) {
         return `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} ${amPm}`;
       
         }
+        ///ServiceOneResources/Event
+       function navigateToEvent() {
+        navigate('./Event')
+       } 
 
     return (
       <div key={event.id}>
@@ -45,6 +52,7 @@ export default function EventBrief({ event } ) {
         </h2>
         <h2>Location: {event.startLocation.name}</h2>
         <h2>Type: {event.type}</h2>
+        <button onClick={() => {navigateToEvent()}}>View Event</button>
         <button onClick={
           () => {
             handleDeleteEvent(event.id)
@@ -52,6 +60,9 @@ export default function EventBrief({ event } ) {
         }
         >Delete Event</button>
         <hr></hr>
+        <Routes>
+          <Route path="/Event" element={<Event event={event}/>} />
+        </Routes>
       </div>
     );
 }
