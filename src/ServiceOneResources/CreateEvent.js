@@ -69,7 +69,7 @@ function CreateEvent() {
       .then((result) => console.log(result))
       .catch((error) => console.log('error', error));
     
-   } // End postEvent
+   }
 
    return (
      <div className="eventSubmit">
@@ -192,7 +192,7 @@ function CreateEvent() {
          <br />
 
          <label>Zip Code </label>
-         <input type="number" name="startZip" value={startZip} onChange={(e) => setStartZip(e.target.value)} required />
+         <input type="text" name="startZip" value={startZip} onChange={(e) => setStartZip(e.target.value)} required />
          <br />
          <br />
 
@@ -270,7 +270,7 @@ function CreateEvent() {
          <br />
 
          <label>Zip Code </label>
-         <input type="number" name="endZip" value={endZip} onChange={(e) => setEndZip(e.target.value)} />
+         <input type="text" name="endZip" value={endZip} onChange={(e) => setEndZip(e.target.value)} />
          <br />
          <br />
          
