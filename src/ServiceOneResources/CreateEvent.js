@@ -23,42 +23,70 @@ function CreateEvent() {
  
   function postNewEvent(eventName, organization, description, eventType, startLocationName, startAddress, startZip, startState, startCity, endLocationName,endAddress,endZip, endState, endCity, startTime, endTime){
   
-    startTime = startTime.replaceAll("T", "@");
-    endTime = endTime.replaceAll("T", "@");
+    console.log(startTime);
+    console.log(endTime);
+    let newStartTime = startTime.replaceAll('T', '@');
+    let newEndTime = endTime.replaceAll('T', '@');
+
+    console.log(newStartTime);
+    console.log(newEndTime);
+    
   
-    fetch("http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event", {
-  method: "POST",
-  body: JSON.stringify({
-    name: eventName,
-    organization: organization,
-    description: description,
-    type: eventType,
-    startDateTime: startTime,
-    endDateTime: endTime,
-    startLocation: {
-      name:startLocationName,
-      address:startAddress,
-      city: startCity,
-      state:startState,
-      zipCode: startZip
-    },
-    endLocation: {
-      name: endLocationName,
-      address:endAddress,
-      city: endCity,
-      state:endState,
-      zipCode: endZip
-    }
+  //   fetch("http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event", {
+  // method: "POST",
+  // body: JSON.stringify({
+  //   name: eventName,
+  //   organization: organization,
+  //   description: description,
+  //   type: eventType,
+  //   startDateTime: newStartTime,
+  //   endDateTime: newEndTime,
+  //   startLocation: {
+  //     name:startLocationName,
+  //     address:startAddress,
+  //     city: startCity,
+  //     state:startState,
+  //     zipCode: startZip
+  //   },
+  //   endLocation: {
+  //     name: endLocationName,
+  //     address:endAddress,
+  //     city: endCity,
+  //     state:endState,
+  //     zipCode: endZip
+  //   }
     
-    
-  }),
-  headers: {
-    "Content-type": "application/json; charset=UTF-8"
-  }
-})
-  .then((response) => response.json())
-  .then((json) => console.log(json));
-  }
+        fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event', {
+          method: 'POST',
+          body: JSON.stringify({
+            "name": eventName,
+            "organization": organization,
+            "description": description,
+            "type": eventType,
+            "startDateTime": newStartTime,
+            "endDateTime": newEndTime,
+            "startLocation": {
+              "name": startLocationName,
+              "address": startAddress,
+              "city": startCity,
+              "state": startState,
+              "zipCode": Number(startZip),
+            },
+            "endLocation": {
+              "name": endLocationName,
+              "address": endAddress,
+              "city": endCity,
+              "state": endState,
+              "zipCode": Number(endZip),
+            },
+          }),
+          headers: {
+            'Content-type': 'application/json; charset=UTF-8',
+          },
+        })
+          .then((response) => response.json())
+          .then((json) => console.log(json));
+   }
 
    return (
      <div className="eventSubmit">
@@ -181,7 +209,7 @@ function CreateEvent() {
          <br />
 
          <label>Zip Code </label>
-         <input type="text" name="startZip" value={startZip} onChange={(e) => setStartZip(e.target.value)} required />
+         <input type="number" name="startZip" value={startZip} onChange={(e) => setStartZip(e.target.value)} required />
          <br />
          <br />
 
@@ -259,7 +287,7 @@ function CreateEvent() {
          <br />
 
          <label>Zip Code </label>
-         <input type="text" name="endZip" value={endZip} onChange={(e) => setEndZip(e.target.value)} />
+         <input type="number" name="endZip" value={endZip} onChange={(e) => setEndZip(e.target.value)} />
          <br />
          <br />
          
