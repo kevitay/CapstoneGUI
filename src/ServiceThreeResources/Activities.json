@@ -1,0 +1,62 @@
+
+    {"activities":
+        [
+            {
+            "ActivityName": "Lunch",
+            "ID": 123,
+            "Description": "This is the activity description",
+            "Indoor": true,
+            "ImageURL": "www.example.com/image",
+            "ImportantReminder": "Don't forget to bring cash!",
+            "GroupSize": 3,
+            "Mandatory": false, 
+            "Price": 120, 
+            "Type": "Music",
+            "URL": "www.example.com",
+            "Address": "123 Example St",
+            "City": "Normal",
+            "State": "IL",
+            "ZipCode": 61761,
+            "StartTime": "1999-05-19T14:00:00-03:00",
+            "EndTime": "2023-05-16T16:00:00-03:00" 
+            },
+            {
+            "ActivityName": "Dinner",
+            "ID": 456,
+            "Description": "This is the activity description",
+            "Indoor": true,
+            "ImageURL": "www.example.com/image",
+            "ImportantReminder": "Don't forget to bring cash!",
+            "GroupSize": 3,
+            "Mandatory": false, 
+            "Price": 120, 
+            "Type": "Music",
+            "URL": "www.example.com",
+            "Address": "123 Example St",
+            "City": "Normal",
+            "State": "IL",
+            "ZipCode": 61761,
+            "StartTime": "1999-05-19T14:00:00-03:00",
+            "EndTime": "2023-05-17T16:00:00-03:00" 
+            }, 
+            {
+            "ActivityName": "Dessert",
+            "ID": 789,
+            "Description": "This is the activity description",
+            "Indoor": true,
+            "ImageURL": "www.example.com/image",
+            "ImportantReminder": "Don't forget to bring cash!",
+            "GroupSize": 3,
+            "Mandatory": false, 
+            "Price": 120, 
+            "Type": "Music",
+            "URL": "www.example.com",
+            "Address": "123 Example St",
+            "City": "Normal",
+            "State": "IL",
+            "ZipCode": 61761,
+            "StartTime": "2019-05-03T14:00:00-03:00",
+            "EndTime": "2023-05-16T16:00:00-03:00" 
+            }
+        ]
+    }
