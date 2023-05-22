@@ -1,12 +1,17 @@
-import React from "react";
-import Activity from "./Activity";
+import React, { useEffect, useState } from "react";
+import Activities from "./Activities.json";
 
 function Itinerary() {
-    return (
-        <div>
-            <Activity></Activity>
-        </div>
-    )
+  const [data, setData] = useState([]);
+  useEffect(() => {
+    setData(Activities);
+  }, []);
+  return (
+    <div>
+      {data.activities?.map((item) => (
+        <p key={item.ID}>{item.ActivityName}</p>
+      ))}
+    </div>
+  );
 }
-
-export default Itinerary; 
+export default Itinerary;
