@@ -2,7 +2,19 @@ import React from "react"
 
 
 
-export default function EventBrief({event}) {
+export default function EventBrief({ event }) {
+  
+
+  function handleDeleteEvent(id) {
+    // console.log(id);
+    fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/' + id, {
+      method: 'DELETE',
+    })
+      .catch(error => console.log(error)
+        
+      );
+  }
+
     function dateFormatter(dateTime){
         const date = new Date(dateTime);
         // Extracting date components
@@ -20,12 +32,17 @@ export default function EventBrief({event}) {
         }
 
     return (
-        <div key={event.id}>
-            <h2>Event Name: {event.name}</h2>
-            <h2>Time:{dateFormatter(event.startDateTime)} - {dateFormatter(event.endDateTime)}</h2>
-            <h2>Location: {event.startLocation.name}</h2>
-            <h2>Type: {event.type}</h2>
-            <hr></hr>
-          </div>
-    )
+      <div key={event.id}>
+        <h2>Event Name: {event.name}</h2>
+        {/* <h2>{event.id}</h2> */}
+        <h2>
+          Time:{dateFormatter(event.startDateTime)} - {dateFormatter(event.endDateTime)}
+        </h2>
+        <h2>Location: {event.startLocation.name}</h2>
+        <h2>Type: {event.type}</h2>
+        <button  onClick = { () => handleDeleteEvent(event.id) }
+        >Delete Event</button>
+        <hr></hr>
+      </div>
+    );
 }
