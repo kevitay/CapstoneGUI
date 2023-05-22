@@ -3,7 +3,7 @@ import React from "react";
 
 
 
-export default function EventBrief({ event }, setEventList ) {
+export default function EventBrief({ event } ) {
   
 
   function handleDeleteEvent(id) {

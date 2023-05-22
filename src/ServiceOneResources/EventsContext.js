@@ -8,10 +8,10 @@ export const EventContext = createContext();
 
 const eventReducer = (state, action) => {
   switch (action.type) {
-    case 'ADD_EVENT':
+    case 'SET_EVENTS':
       return {
         ...state,
-        eventsList: [...state.eventsList, action.payload],
+        eventsList:  action.payload
       };
     case 'DELETE_EVENT':
       return {
@@ -24,6 +24,8 @@ const eventReducer = (state, action) => {
 };
 
 export const EventProvider = ({ children }) => {
+
   const [state, dispatch] = useReducer(eventReducer, initialState);
+
   return <EventContext.Provider value={{ state, dispatch }}>{children}</EventContext.Provider>;
 };

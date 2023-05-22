@@ -4,37 +4,10 @@ import OrganizerControl from './OrganizerControl';
 // import { useState, useEffect } from 'react';
 
 
-
-
-
 //react event
 export default function Event() {
 
-  // const [event, setEvent] = useState({});
-  // const [formattedDate, setFormattedDate] = useState('');
-  
-  // useEffect(() => {
-  //   const startDateTime = event.startDateTime;
-  //   const date = new Date(startDateTime);
-  //   // Extracting date components
-  //   let hours = date.getHours();
-  //   const minutes = date.getMinutes();
-  //   const month = date.getMonth() + 1; // Months are zero-based, so adding 1
-  //   const day = date.getDate();
-  //   const year = date.getFullYear();
-  //   // Converting to 12-hour format
-  //   let amPm = 'AM';
-  //   if (hours >= 12) {
-  //     amPm = 'PM';
-  //     if (hours > 12) {
-  //       hours -= 12;
-  //     }
-  //   }
-
-  //   const formattedDate = `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} ${amPm}`;
-
-  //   setFormattedDate(formattedDate);
-  //   }, []);
+ 
 function dateFormatter(dateTime){
   const date = new Date(dateTime);
   // Extracting date components
