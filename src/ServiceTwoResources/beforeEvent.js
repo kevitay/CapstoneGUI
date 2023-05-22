@@ -5,15 +5,11 @@ function BeforeEvent(){
 
 const [packingList, setPackingList] = useState([])
 const [itemInput, setItemInput] = useState('')
-//const [requiredItems, setRequiredItems] = useState([]);
-// const [itemToUpdate, updateItems] = useReducer(setItemInput, updateItem);
-//const [packingListItem, deletePackingListItem] = useState('');
 
 const handleInputChange = (event) => {
     setItemInput(event.target.value);
-    // updateItems(event.target.value);
-    // deleteItem(event.target.value);
-};
+    };
+
 const handleCheckboxChange = (index)=>{
     const newPackingList = packingList.map((item) => ({...item}));
     newPackingList[index].required = !newPackingList[index].required;
@@ -22,7 +18,6 @@ const handleCheckboxChange = (index)=>{
 }
 const addItem = () => {
     setPackingList([...packingList, {name:itemInput, required:false}]);
-    //setRequiredItems([...requiredItems, false]);
     setItemInput(''); // Clears the input field
   };
 
@@ -33,11 +28,9 @@ const updateItem = () => {
 };
 
 const deleteItem = () => {
-    // const newPackingList = [...packingList];
-    // const indexToDelete = newPackingList.indexOf(itemInput); 
     const newPackingList = packingList.filter((item) => item.name !== itemInput);
     setPackingList(newPackingList);
-    setItemInput('');     
+    setItemInput('');   
 
 }
 
