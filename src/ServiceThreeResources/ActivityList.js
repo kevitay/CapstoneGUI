@@ -1,7 +1,7 @@
 import React from "react";
 import ActivitySummary from "./ActivitySummary";
 
-export default function ActivityList({activityList}) {
+export default function ActivityList({activityList, setActivity}) {
     const activities = activityList.activities; 
     // console.log(activities)
     const dateObject = {}; 
@@ -21,9 +21,8 @@ export default function ActivityList({activityList}) {
 
     return (
         <div>
-            <h2>Activity List Component</h2>
             <ul>
-                {dateArray.map(date => <div><h2>{date}</h2>{dateObject[date].sort((a,b) => Date.parse(a.StartTime) - Date.parse(b.StartTime)).map((item, index) => <ActivitySummary key={index} activity ={item}/>)}</div>)}
+                {dateArray.map(date => <div><h2>{date}</h2>{dateObject[date].sort((a,b) => Date.parse(a.StartTime) - Date.parse(b.StartTime)).map((item, index) => <ActivitySummary key={index} activity = {item} setActivity = {setActivity}/>)}</div>)}
             </ul>
         </div>
     ); 
