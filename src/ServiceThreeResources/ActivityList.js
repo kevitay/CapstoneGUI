@@ -22,7 +22,7 @@ export default function ActivityList({activityList}) {
     return (
         <div>
             <ul>
-                {dateArray.map(date => <div><h2>{date}</h2>{dateObject[date].map((item, index) => <ActivitySummary key={index} activity ={item}/>)}</div>)}
+                {dateArray.map(date => <div><h2>{date}</h2>{dateObject[date].sort((a,b) => Date.parse(a.StartTime) - Date.parse(b.StartTime)).map((item, index) => <ActivitySummary key={index} activity ={item}/>)}</div>)}
             </ul>
         </div>
     ); 
