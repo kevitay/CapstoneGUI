@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 import EventBrief from "./EventBrief";
 
 // const eventsJson = require("./events.json")
+//This component is to display our EventList, inside the return is an EventBrief that organizes the data from the fetch call to display only a brief summary.
 export default function EventList() {
 
      const [eventsList, setEventList] = useState([]);
@@ -11,15 +12,6 @@ export default function EventList() {
      useEffect(() => {
        getEvents();
      }, []);
-
-     // function getEvents() {
-     //      fetch('./events.json')
-     //           .then((response) => response.json())
-     //           .then((response) => {
-     //                setEventList(response);
-     //           })
-     //     .catch((err) => console.error(err));
-     // }
 
      function getEvents() {
           // setEventList(eventsJson);
