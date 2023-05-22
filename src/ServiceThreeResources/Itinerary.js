@@ -3,11 +3,12 @@ import Activities from "./Activities.json";
 import ActivityList from "./ActivityList";
 
 function Itinerary() {
-  const [data, setData] = useState([]);
+//   const [data, setData] = useState([]);
 
-  useEffect(() => {
-    setData(Activities);
-  }, []);
+//   useEffect(() => {
+//     setData(Activities);
+//   }, [data]);
+const data = Activities; 
 
   return (
     <div className="Itinerary">
