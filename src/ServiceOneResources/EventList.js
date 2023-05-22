@@ -28,8 +28,7 @@ export default function EventList() {
                method: 'GET',
                mode: 'cors'
              };
-
-             
+         
              fetch("http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event", requestOptions)
                .then(response => response.json())
                 .then(response => setEventList(response.eventList))
@@ -44,7 +43,7 @@ export default function EventList() {
           <hr></hr>
         <div className="userEvents">
         {eventsList.map((event) => {
-          return <EventBrief event={event} key={event.id} />
+          return <EventBrief event={event} key={event.id} getevents={ setEventList } />
         })}
       </div>
       </div>

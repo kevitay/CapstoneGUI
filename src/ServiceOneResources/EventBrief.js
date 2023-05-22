@@ -1,8 +1,9 @@
-import React from "react"
+import React from "react";
 
 
 
-export default function EventBrief({ event }) {
+
+export default function EventBrief({ event }, setEventList ) {
   
 
   function handleDeleteEvent(id) {
@@ -10,8 +11,7 @@ export default function EventBrief({ event }) {
     fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/' + id, {
       method: 'DELETE',
     })
-      .catch(error => console.log(error)
-        
+      .catch(error => console.log(error)        
       );
   }
 
@@ -40,7 +40,12 @@ export default function EventBrief({ event }) {
         </h2>
         <h2>Location: {event.startLocation.name}</h2>
         <h2>Type: {event.type}</h2>
-        <button  onClick = { () => handleDeleteEvent(event.id) }
+        <button onClick={
+          () => {
+            handleDeleteEvent(event.id)
+            setEventList()
+          }
+        }
         >Delete Event</button>
         <hr></hr>
       </div>
