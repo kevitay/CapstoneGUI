@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ActivitySummary from "./ActivitySummary";
 
-export default function ActivityList({activityList, setActivity}) {
+export default function ActivityList({activityList, setActivity, setDateArray}) {
     const activities = activityList.activities; 
     // console.log(activities)
     const dateObject = {}; 
@@ -17,6 +17,11 @@ export default function ActivityList({activityList, setActivity}) {
     };
 
     dateArray.sort(); 
+    
+    useEffect(()=> {
+        setDateArray(dateArray)
+    }, []); 
+
     // console.log(dateObject); 
 
     return (
