@@ -20,6 +20,7 @@ function EventParticipant() {
         getParticipants();
       },[]);
 
+      // TODO : Integration piece with Event team to GET Event ID 
     //   useEffect(() => {
     //     getEventId();
     //   },[]);
@@ -28,9 +29,8 @@ function EventParticipant() {
 
       function getParticipants(){
         setLoadState(true); 
-        fetch("http://a53e50bf576c64141b52293976658417-1117441751.us-west-2.elb.amazonaws.com/api/participants/all", requestOptions)
+        fetch("http://a53e50bf576c64141b52293976658417-1117441751.us-west-2.elb.amazonaws.com/api/participants?eventId=b2d0d4b2-f97a-11ed-be56-0242ac120001", requestOptions)
         .then(response => response.json())
-        // .then(response => console.log(response))
         .then(result => {
             setEventParticipants(result.eventParticipants)
         })
@@ -49,7 +49,6 @@ function EventParticipant() {
                     <th>Status</th>
                     <th>Driving?</th>
                     <th>Seats Available?</th>
-                    <th>Room Booked?</th>
                 </tr>
                 {loading ? "": participantState.map((user) => (<EventParticipantData participant={user}/>))}
             </table>
