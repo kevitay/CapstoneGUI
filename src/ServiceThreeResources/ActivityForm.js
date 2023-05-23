@@ -1,10 +1,15 @@
 import React from "react";
 
 
-export default function ActivityForm() {
+export default function ActivityForm({setForm}) {
+    function handleSubmit(event) {
+        event.preventDefault();
+        setForm(false); 
+    }
+
     return (
         <div>
-            <form>
+            <form onSubmit={(event) => handleSubmit(event)}>
                 <label>Activity Name
                 <input label="Activity Name" required/>
                 </label>
