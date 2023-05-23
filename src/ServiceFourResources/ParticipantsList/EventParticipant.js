@@ -1,9 +1,6 @@
-import React,  {useEffect,  useReducer, useState, useContext }  from "react";
+import React,  {useEffect, useState }  from "react";
 import './EventParticipant.css';
 import EventParticipantData from "./EventParticipantData";
-
-
-
 
 function EventParticipant() {
 
@@ -15,10 +12,6 @@ function EventParticipant() {
       const [loading, setLoadState] = useState(false);
     //   const [eventId, setEventId] = useState('b2d0d4b2-f97a-11ed-be56-0242ac120002');
     
-      useEffect(() => {
-        console.log("useeffect running")
-        getParticipants();
-      },[]);
 
       // TODO : Integration piece with Event team to GET Event ID 
     //   useEffect(() => {
@@ -38,6 +31,12 @@ function EventParticipant() {
         .then(setLoadState(false))
         .catch(error => console.log('error', error));
       }
+
+      useEffect(() => {
+        console.log("useeffect running")
+        getParticipants();
+      },[]);
+
     
     return (
         <div className="EventParticipant">
