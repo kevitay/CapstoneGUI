@@ -1,6 +1,9 @@
 import React from 'react';
 import { useState, useContext} from 'react';
 import { EventContext } from "./EventsContext";
+import Address from './Address';
+
+const emptyAddress = {'name':'','address':'','city':'','state':'','zipCode':''};
 
 function CreateEvent() {
 
@@ -8,22 +11,24 @@ function CreateEvent() {
   const [organization, setOrganization] = useState('');
   const [description, setDescription] = useState('');
   const [eventType, setEventType] = useState('');
-  const [startLocationName, setStartLocationName] = useState('');
-  const [startAddress, setStartAddress] = useState('');
-  const [startZip, setStartZip] = useState('');
-  const [startState, setStartState] = useState('');
-  const [startCity, setStartCity] = useState('');
-  const [endLocationName, setEndLocationName] = useState('');
-  const [endAddress, setEndAddress] = useState('');
-  const [endZip, setEndZip] = useState('');
-  const [endState, setEndState] = useState('');
-  const [endCity, setEndCity] = useState('');
+  const [startLocation, setStartLocation] = useState(emptyAddress);
+  const [endLocation, setEndLocation] = useState(emptyAddress);
+  // const [startLocationName, setStartLocationName] = useState('');
+  // const [startAddress, setStartAddress] = useState('');
+  // const [startZip, setStartZip] = useState('');
+  // const [startState, setStartState] = useState('');
+  // const [startCity, setStartCity] = useState('');
+  // const [endLocationName, setEndLocationName] = useState('');
+  // const [endAddress, setEndAddress] = useState('');
+  // const [endZip, setEndZip] = useState('');
+  // const [endState, setEndState] = useState('');
+  // const [endCity, setEndCity] = useState('');
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
 
   const { dispatch } = useContext(EventContext);
  
-  function postNewEvent(eventName, organization, description, eventType, startLocationName, startAddress, startZip, startState, startCity, endLocationName,endAddress,endZip, endState, endCity, startTime, endTime){
+  function postNewEvent(eventName, organization, description, eventType, startLocation, endLocation, startTime, endTime){
   
     // console.log(startTime);
     // console.log(endTime);
@@ -43,20 +48,8 @@ function CreateEvent() {
       type: eventType,
       startDateTime: newStartTime + ":00",
       endDateTime: newEndTime + ":00",
-      startLocation: {
-        name: startLocationName,
-        address: startAddress,
-        city: startCity,
-        state: startState,
-        zipCode: startZip,
-      },
-      endLocation: {
-        name: endLocationName,
-        address: endAddress,
-        city: endCity,
-        state: endState,
-        zipCode: endZip,
-      },
+      startLocation: startLocation,
+      endLocation: endLocation
     });
 
     var requestOptions = {
@@ -68,8 +61,8 @@ function CreateEvent() {
 
     fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event', requestOptions)
       .then((response) => response.json())
-      .then((result) => {dispatch({type: 'ADD_EVENT', payload: result})
-        ;console.log(result)})
+      .then((result) => {dispatch({type: 'ADD_EVENT', payload: result});
+        console.log(result)})
       .catch((error) => console.log('error', error));
     
    }
@@ -88,19 +81,11 @@ function CreateEvent() {
            setOrganization('');
            setDescription('');
            setEventType('');
-           setStartLocationName('');
-           setStartAddress('');
-           setStartCity('');
-           setStartState('');
-           setStartZip('');
-           setEndLocationName('');
-           setEndAddress('');
-           setEndCity('');
-           setEndState('');
-           setEndZip('');
+           setStartLocation(emptyAddress);
+           setEndLocation(emptyAddress);
            setStartTime('');
            setEndTime('');
-           postNewEvent(eventName, organization, description, eventType, startLocationName, startAddress, startZip, startState, startCity, endLocationName,endAddress,endZip, endState, endCity, startTime, endTime);
+           postNewEvent(eventName, organization, description, eventType, startLocation, endLocation, startTime, endTime);
          }}
        >
          <label>Event Name</label>
@@ -122,7 +107,10 @@ function CreateEvent() {
          <br />
 
          <label>Start Location Name </label>
-         <input type="text" name="startLocationName" value={startLocationName} onChange={(e) => setStartLocationName(e.target.value)} required />
+         <Address location={startLocation} setLocation={(e) => setStartLocation()}></Address>
+         <label>End Location Name </label>
+         <Address location={endLocation} setLocation={(e) =>setEndLocation()}></Address>
+         {/* <input type="text" name="startLocationName" value={startLocationName} onChange={(e) => setStartLocationName(e.target.value)} required />
          <br />
          <br />
 
@@ -275,7 +263,7 @@ function CreateEvent() {
          <label>Zip Code </label>
          <input type="text" name="endZip" value={endZip} onChange={(e) => setEndZip(e.target.value)} />
          <br />
-         <br />
+         <br /> */}
          
          <label htmlFor="startTime">Start Time</label>
          <input type="datetime-local" id="startTime" name="startTime" value={startTime} onChange={(e) => setStartTime(e.target.value)} required></input>
