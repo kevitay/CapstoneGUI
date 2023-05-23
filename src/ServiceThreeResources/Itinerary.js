@@ -27,12 +27,16 @@ return (
     <div className="Itinerary">
         <h2 style={{color:'red'}}>Create Itinerary Component</h2>
         <CreateNewItinerary itineraryJSON = {itineraryJSON} setItineraryJSON= {setItineraryJSON}/>
+
         <h2 style={{color:'red'}}>Create Activity Component</h2>
         <CreateNewActivity itineraryJSON = {itineraryJSON} setItineraryJSON= {setItineraryJSON}/>
+
         <h2 style={{color: 'red'}}>Date Selector Component</h2>
         <DateSelector dateArray = {dateArray} setButtonDate = {setButtonDate}/>
+
         <h2 style={{color: 'red'}}>Activity List Component</h2>
         <ActivityList activityList = {Activities} setActivity = {setActivity} setDateArray = {setDateArray} buttonDate={buttonDate} ></ActivityList> 
+        
         <h2 style={{color: 'red'}}>Activity Details Component</h2>
         <ActivityDetails activity={activity}/> 
     </div>
