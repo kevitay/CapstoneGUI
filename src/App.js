@@ -45,7 +45,6 @@ function App() {
               <>
                 <EventProvider>
                   <EventList />
-                  {/* <Event /> */}
                   <CreateEvent />
                 </EventProvider>
               </>
