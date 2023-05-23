@@ -1,24 +1,40 @@
 import React from 'react';
 
 function Address({location, setLocation}) {
-return(
+
+  const handleChange = (e) => {
+    console.log(location.name);
+    console.log(e);
+    console.log(e.target.value);
+    console.log(e.target.id);
+    const newValue = e.target.value;
+    const newID = e.target.id;
+
+    let updatedLocation = {...location, [newID]: newValue};
+    console.log(updatedLocation);
+    setLocation(updatedLocation);
+  }
+
+  return(
     <>
-        <input type="text" name="locationName" value={location.name} onChange={(e) => setLocation.name(e.target.value)} required />
+        {/* <input type="text" name="locationName" value={location.name} onChange={(e) => setLocation.name(e.target.value)} required /> */}
+        <input type="text" id="name" value={location.name} onChange={handleChange} required />
+        
         <br />
         <br />
 
         <label>Address </label>
-        <input type="text" name="address" value={location.address} onChange={(e) => setLocation.address(e.target.value)} required />
+        <input type="text" id="address" value={location.address} onChange={handleChange} required />
         <br />
         <br />
 
         <label>City </label>
-        <input type="text" name="city" value={location.city} onChange={(e) => setLocation(...location, e.target.value)} required />
+        <input type="text" id="city" value={location.city} onChange={handleChange} required />
         <br />
         <br />
 
         <label htmlFor="locState">State</label>
-        <select name="locState" id="locState" value={location.state} onChange={(e) => setLocation[location.state](e.target.value)} required>
+        <select id="state" value={location.state} onChange={handleChange} required>
         <option value="">Select state</option>
         <option value="AL">Alabama</option>
         <option value="AK">Alaska</option>
@@ -75,8 +91,8 @@ return(
         <br />
         <br />
 
-        <label>Zip Code </label>
-        <input type="text" name="zip" value={location.zip} onChange={(e) => setLocation.zip(e.target.value)} required />
+        <label>Zip Code</label>
+        <input type="text" id="zipCode" value={location.zip} onChange={handleChange} required />
         <br />
         <br />
     </>

@@ -3,7 +3,7 @@ import { useState, useContext} from 'react';
 import { EventContext } from "./EventsContext";
 import Address from './Address';
 
-const emptyAddress = {'name':'','address':'','city':'','state':'','zipCode':''};
+const emptyAddress = {name:'',address:'',city:'',state:'',zipCode:''};
 
 function CreateEvent() {
 
@@ -107,9 +107,9 @@ function CreateEvent() {
          <br />
 
          <label>Start Location Name </label>
-         <Address location={startLocation} setLocation={(e) => setStartLocation()}></Address>
+         <Address location={startLocation} setLocation={setStartLocation}></Address>
          <label>End Location Name </label>
-         <Address location={endLocation} setLocation={(e) =>setEndLocation()}></Address>
+         <Address location={endLocation} setLocation={setEndLocation}></Address>
          {/* <input type="text" name="startLocationName" value={startLocationName} onChange={(e) => setStartLocationName(e.target.value)} required />
          <br />
          <br />
