@@ -1,8 +1,10 @@
 import React from "react";
 
 
-export default function ActivityForm({setForm}) {
+export default function ActivityForm({setForm, itineraryJSON, setItineraryJSON}) {
     let activityJSON = {}; 
+    
+    console.log("Activity Form", itineraryJSON)
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -12,9 +14,13 @@ export default function ActivityForm({setForm}) {
         for (let [key, value] of formData.entries()) {
             activityJSON[key] = value; 
         }
+
+        const itinerary = itineraryJSON; 
+        itinerary.activities.push(activityJSON); 
+        setItineraryJSON(itinerary); 
     }
 
-    console.log("final activity JSON", activityJSON)
+    // console.log("final activity JSON", activityJSON)
 
     return (
         <div>
