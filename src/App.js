@@ -51,6 +51,7 @@ function App() {
               </>
             }
           ></Route>
+          <Route path={'/serviceOne/event/:id'} element={<Event />}></Route>
           <Route path={'/serviceTwo/*'} element={<ServiceTwoApp />}></Route>
           <Route path={'/serviceThree/*'} element={<ServiceThreeApp />}></Route>
           <Route path={'/serviceFour/*'} element={<ServiceFourApp />}></Route>

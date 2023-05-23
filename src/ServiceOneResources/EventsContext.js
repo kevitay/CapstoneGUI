@@ -15,7 +15,7 @@ const eventReducer = (state, action) => {
     case 'SET_EVENTS':
       return {
         ...state,
-        eventsList:  action.payload
+        eventsList: action.payload
       };
     case 'DELETE_EVENT':
       return {

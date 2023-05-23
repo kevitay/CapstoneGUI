@@ -3,12 +3,20 @@ import EventList from './EventList';
 import OrganizerControl from './OrganizerControl';
 import { useContext } from "react";
 import { EventContext } from "./EventsContext";
-
+import { useParams } from 'react-router-dom';
 
 //react event
-export default function Event({event}) {
+export default function Event() {
 
-  // const { state } = useContext(EventContext)
+  const { state } = useContext(EventContext);
+
+  let { id } = useParams();
+
+  let currentEvent = state.eventsList.id;
+
+  console.log(id);
+  console.log(currentEvent);
+ 
  
 function dateFormatter(dateTime){
   const date = new Date(dateTime);
@@ -26,52 +34,9 @@ function dateFormatter(dateTime){
 
   }
 
-
-  // function getEventById() {
-  //      fetch('/api/events/{id}')
-  //           .then((response) => response.json())
-  //           .then((response) => {
-  //                setEvent(response);
-  //           })
-  //     .catch((err) => console.error(err));
-  // }
-
-
-  // const event = {
-  //   creatorId: "aabbcc1234",
-  //   organization: "Phils Buds",
-  //   name: "St. Patricks Bar Crawl '01",
-  //   type: "Social",
-  //   description: "Phil's 21st Birthday Pub Crawl",
-  //   startDateTime: "2001-01-01@1:00:00",
-  //   endDateTime: "2001-01-02@00:00:00",
-  //   startLocation: {
-  //       name: "Phil's Tiki Bar",
-  //       address: "123 Example St",
-  //       city: "Normal",
-  //       state: "IL",
-  //       zipCode: 61761
-  //   },
-  //   endLocation: {
-  //       name: "Greg's Oldtowne Tavern",
-  //       address: "123 Example St",
-  //       city: "Normal",
-  //       state: "IL",
-  //       zipCode: 61761
-  //   },
-  //   participantListId: "1",
-  //   base_cost: 50,
-  //   total_cost: 50,
-  //   status: "planned",
-  //   isPublic: false
-  // };
-
-  //need to parse dates and times
-  // decide to display locations {possibly add google map integration}
-
   return (
     <div>
-      <div className="eventDetails">
+      {/* <div className="eventDetails">
         <h1>{event.name}</h1>
         <h3>
           {event.organization} | {event.type}
@@ -88,13 +53,12 @@ function dateFormatter(dateTime){
       <div className="baseCost">
         <h3>Base Cost: ${event.base_cost}</h3>
       </div>
-      {/* other components go here */}
       <div className="totalCost">
         <h3>Total Cost: ${event.total_cost}</h3>
       </div>
       <div>
         <OrganizerControl />
-      </div>
+      </div>  */}
     </div>
   );
 }
