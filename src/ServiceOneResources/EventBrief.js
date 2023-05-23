@@ -48,7 +48,8 @@ export default function EventBrief({ event }) {
       </h2>
       <h2>Location: {event.startLocation.name}</h2>
       <h2>Type: {event.type}</h2>
-      <a href={`http://localhost:3000/serviceOne/event/${event.id}`} rel='noopener noreferrer'>
+      {/* This should work when we deploy but might error out if path changes */}
+      <a href={`/serviceOne/event/${event.id}`} rel='noopener noreferrer'>
         <Button>View Event</Button>
       </a>
 
