@@ -1,4 +1,4 @@
-import React from "react";
+import React,  {useEffect,  useReducer, useState, useContext }  from "react";
 import './EventParticipant.css';
 import EventParticipantData from "./EventParticipantData";
 
@@ -6,65 +6,39 @@ import EventParticipantData from "./EventParticipantData";
 
 
 function EventParticipant() {
-    let user = [
-        {
-            "FirstName": "Cody",
-            "LastName": "Vasey",
-            "PhoneNumber": "5555555555",
-            "City" : "Nowhere", 
-            "State" : "IL",
-            "Email": "cody.vasey.kros@statefarm.com",
-            "EmergencyContactInfo": {
-                "FirstName": "Bree",
-                "LastName": "Vasey",
-                "PhoneNumber": "4444444444",
-                "Email": "bree@icloud.com",
-            },
-            "Status" : "Going", 
-            "Driving" : "Yes",
-            "SeatsAvailable" : "2", 
-            "RoomBooked" : "Yes"
 
-        },
-        {
-            "FirstName": "Cody",
-            "LastName": "Vasey",
-            "PhoneNumber": "5555555555",
-            "City" : "Nowhere", 
-            "State" : "IL",
-            "Email": "cody.vasey.kros@statefarm.com",
-            "EmergencyContactInfo": {
-                "FirstName": "Bree",
-                "LastName": "Vasey",
-                "PhoneNumber": "4444444444",
-                "Email": "bree@icloud.com",
-            },
-            "Status" : "Going", 
-            "Driving" : "Yes",
-            "SeatsAvailable" : "2", 
-            "RoomBooked" : "Yes"
+    var requestOptions = {
+        method: 'GET',
+      };
 
-        },
-        {
-            "FirstName": "Cody",
-            "LastName": "Vasey",
-            "PhoneNumber": "5555555555",
-            "City" : "Nowhere", 
-            "State" : "IL",
-            "Email": "cody.vasey.kros@statefarm.com",
-            "EmergencyContactInfo": {
-                "FirstName": "Bree",
-                "LastName": "Vasey",
-                "PhoneNumber": "4444444444",
-                "Email": "bree@icloud.com",
-            },
-            "Status" : "Going", 
-            "Driving" : "Yes",
-            "SeatsAvailable" : "2", 
-            "RoomBooked" : "Yes"
+      const [participantState, setEventParticipants] = useState([]);
+      const [loading, setLoadState] = useState(false);
+    //   const [eventId, setEventId] = useState('b2d0d4b2-f97a-11ed-be56-0242ac120002');
+    
+      useEffect(() => {
+        console.log("useeffect running")
+        getParticipants();
+      },[]);
 
-        }
-       ]
+    //   useEffect(() => {
+    //     getEventId();
+    //   },[]);
+
+    //   function getEventId(){}
+
+      function getParticipants(){
+        setLoadState(true); 
+        fetch("http://a53e50bf576c64141b52293976658417-1117441751.us-west-2.elb.amazonaws.com/api/participants/all", requestOptions)
+        .then(response => response.json())
+        // .then(response => console.log(response))
+        .then(result => {
+            setEventParticipants(result.eventParticipants)
+        })
+        .then(result => console.log("participant log", result))
+        .then(setLoadState(false))
+        .catch(error => console.log('error', error));
+      }
+    
     return (
         <div className="EventParticipant">
             <table className="participant-data-table">
@@ -77,7 +51,7 @@ function EventParticipant() {
                     <th>Seats Available?</th>
                     <th>Room Booked?</th>
                 </tr>
-                {user.map((user) => (<EventParticipantData participant={user}/>))}
+                {loading ? "": participantState.map((user) => (<EventParticipantData participant={user}/>))}
             </table>
         </div>
     )
