@@ -165,7 +165,7 @@ export default function ActivityForm({setForm}) {
                 </label>
                 <br/>
 
-                <input type="submit"></input>
+                <input value="Save Activity" type="submit"></input>
             </form>
         </div>
     )
