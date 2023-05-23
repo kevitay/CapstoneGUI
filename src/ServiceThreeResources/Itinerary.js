@@ -13,13 +13,15 @@ function Itinerary() {
 
 const [activity, setActivity] = useState({}); 
 const [dateArray, setDateArray] = useState([]); 
+const [buttonDate, setButtonDate] = useState("");
+
 
 return (
     <div className="Itinerary">
         <h2 style={{color: 'red'}}>Date Selector Component</h2>
-        <DateSelector dateSelector = {dateArray}/>
+        <DateSelector dateArray = {dateArray} setButtonDate = {setButtonDate}/>
         <h2 style={{color: 'red'}}>Activity List Component</h2>
-        <ActivityList activityList = {Activities} setActivity = {setActivity} setDateArray = {setDateArray} ></ActivityList> 
+        <ActivityList activityList = {Activities} setActivity = {setActivity} setDateArray = {setDateArray} buttonDate={buttonDate} ></ActivityList> 
         <h2 style={{color: 'red'}}>Activity Details Component</h2>
         <ActivityDetails activity={activity}/> 
     </div>

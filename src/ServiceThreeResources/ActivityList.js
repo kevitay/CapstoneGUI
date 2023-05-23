@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import ActivitySummary from "./ActivitySummary";
 
-export default function ActivityList({activityList, setActivity, setDateArray}) {
+export default function ActivityList({activityList, setActivity, setDateArray, buttonDate}) {
     const activities = activityList.activities; 
     // console.log(activities)
     const dateObject = {}; 
@@ -17,6 +17,10 @@ export default function ActivityList({activityList, setActivity, setDateArray}) 
     };
 
     dateArray.sort(); 
+
+    // function filterDates(date){
+    //     dateArray.filter(date)
+    // }
     
     useEffect(()=> {
         setDateArray(dateArray)
@@ -24,10 +28,15 @@ export default function ActivityList({activityList, setActivity, setDateArray}) 
 
     // console.log(dateObject); 
 
+
     return (
         <div>
             <ul>
-                {dateArray.map(date => <li key={date}><h2>{date}</h2>{dateObject[date].sort((a,b) => Date.parse(a.StartTime) - Date.parse(b.StartTime)).map((item, index) => <ActivitySummary key={index} activity = {item} setActivity = {setActivity}/>)}</li>)}
+                {buttonDate === "" ? dateArray.map(date => 
+                    <li key={date}><h2>{date}</h2>{dateObject[date].sort((a,b) => Date.parse(a.StartTime) - Date.parse(b.StartTime)).map((item, index) => <ActivitySummary key={index} activity = {item} setActivity = {setActivity}/>)}</li> 
+                    ) : dateArray.map(date => date === buttonDate &&
+                        <li key={date}><h2>{date}</h2>{dateObject[date].sort((a,b) => Date.parse(a.StartTime) - Date.parse(b.StartTime)).map((item, index) => <ActivitySummary key={index} activity = {item} setActivity = {setActivity}/>)}</li> 
+                        ) }
             </ul>
         </div>
     ); 
