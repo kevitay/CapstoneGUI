@@ -25,13 +25,13 @@ function CreateEvent() {
  
   function postNewEvent(eventName, organization, description, eventType, startLocationName, startAddress, startZip, startState, startCity, endLocationName,endAddress,endZip, endState, endCity, startTime, endTime){
   
-    console.log(startTime);
-    console.log(endTime);
+    // console.log(startTime);
+    // console.log(endTime);
     let newStartTime = startTime.replaceAll('T', '@');
     let newEndTime = endTime.replaceAll('T', '@');
 
-    console.log(newStartTime);
-    console.log(newEndTime);
+    // console.log(newStartTime);
+    // console.log(newEndTime);
     
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');

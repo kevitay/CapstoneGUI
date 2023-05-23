@@ -24,11 +24,12 @@ const { state, dispatch } = useContext(EventContext)
              fetch("http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event", requestOptions)
                .then(response => response.json())
                 .then(response => {dispatch({ type: 
-               'SET_EVENTS', payload: response.eventList}); console.log(response.eventList)})
-               .then(response => console.log(response))
+               'SET_EVENTS', payload: response.eventList});
+               //  console.log(response.eventList)
+               })
                .catch(error => console.log('error', error));
           }
-          console.log(state.eventsList)
+          // console.log(state.eventsList)
 
     return(
      <div>
