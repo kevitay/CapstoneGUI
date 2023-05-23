@@ -2,24 +2,34 @@ import React from "react";
 
 
 export default function ActivityForm({setForm}) {
+    const activityJSON = {}; 
+
     function handleSubmit(event) {
         event.preventDefault();
         setForm(false); 
+        
+        const formData = new FormData(event.currentTarget);
+        for (let [key, value] of formData.entries()) {
+            activityJSON[key] = value; 
+        }
     }
+
+    console.log("final activity JSON", activityJSON)
 
     return (
         <div>
             <form onSubmit={(event) => handleSubmit(event)}>
                 <label>Activity Name
-                <input label="Activity Name" required/>
+                <input name= "ActivityName" label="Activity Name" required/>
                 </label>
                 <br/>
 
                 <label>Description
-                <input label="Description"/>
+                <input name="Description" label="Description"/>
                 </label>
                 <br/>
 
+                {/* TODO make sure this works with our form */}
                 <label>Outdoor
                 <input name="door" type="radio" label="Outdoor"/>
                 </label>
@@ -29,30 +39,31 @@ export default function ActivityForm({setForm}) {
                 <br/>
                 
                 <label>Image URL
-                <input label="Image URL"/>
+                <input name="ImageURL" label="Image URL"/>
                 </label>
                 <br/>
                 
                 <label>Important Reminder
-                <input label="Important Reminder"/>
+                <input name="ImportantReminder" label="Important Reminder"/>
                 </label>
                 <br/>
                 
                 <label>Group Size
-                <input type="number" label="Group Size"/>
+                <input name="GroupSize" type="number" label="Group Size"/>
                 </label>
                 <br/>
                 
                 <label>Mandatory
-                <input type="checkbox" label="Mandatory"/>
+                <input name="Mandatory" type="checkbox" label="Mandatory"/>
                 </label>
                 <br/>
                 
                 <label>Price
-                <input type="number" label="Price"/>
+                <input name="Price" type="number" label="Price"/>
                 </label>
                 <br/>
                 
+                {/* TODO make sure this works with our form */}
                 <label>Type
                 <select label="Activity Name">
                     <option value="Music">Music</option>
@@ -68,20 +79,21 @@ export default function ActivityForm({setForm}) {
                 <br/>
                 
                 <label>Event URL
-                <input label="Event URL"/>
+                <input name="URL" label="Event URL"/>
                 </label>
                 <br/>
                 
                 <label>Address
-                <input label="Address"/>
+                <input name="Address" label="Address"/>
                 </label>
                 <br/>
                 
                 <label>City
-                <input label="City"/>
+                <input name="City" label="City"/>
                 </label>
                 <br/>
                 
+                {/* TODO make sure this works with our form */}
                 <label>State
                 <select label="State">
                 <option value="AL">Alabama</option>
@@ -140,17 +152,17 @@ export default function ActivityForm({setForm}) {
                 <br/>
                 
                 <label>Zip Code
-                <input type="number" label="Zip Code"/>
+                <input name="ZipCode" type="number" label="Zip Code"/>
                 </label>
                 <br/>
                 
                 <label>Start Time
-                <input type="datetime-local" label="Start Time" required/>
+                <input name="StartTime" type="datetime-local" label="Start Time" required/>
                 </label>
                 <br/>
                 
                 <label>End Time
-                <input type="datetime-local" label="End Time"/>
+                <input name="EndTime" type="datetime-local" label="End Time"/>
                 </label>
                 <br/>
 
