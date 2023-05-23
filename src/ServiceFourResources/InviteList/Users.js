@@ -1,11 +1,6 @@
-import React,  {useEffect,  useReducer, useState, useContext }  from "react";
+import React,  {useEffect, useState }  from "react";
 import './InviteList.css';
 import UserData from "./UserData"; 
-
-
-
-
-// http://a53e50bf576c64141b52293976658417-1117441751.us-west-2.elb.amazonaws.com/api/users
 
 function Users() {
 
@@ -16,10 +11,6 @@ function Users() {
 
       const [userState, setUser] = useState([]);
       const [loading, setLoadState] = useState(false);
-    
-      useEffect(() => {
-        getUsers();
-      },[]);
 
       function getUsers(){
         setLoadState(true); 
@@ -32,6 +23,10 @@ function Users() {
         .then(setLoadState(false))
         .catch(error => console.log('error', error));
       }
+
+      useEffect(() => {
+        getUsers();
+      },[]);
 
     return (
     <div className="Users">
