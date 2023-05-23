@@ -1,17 +1,20 @@
 import React from "react";
 import Event from "./Event";
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import { EventContext } from "./EventsContext";
 import { Route, Routes, useNavigate } from "react-router-dom";
 
-
-
-
-
-export default function EventBrief({ event } ) {
+export default function EventBrief({ event }) {
+  
+  const [currentEvent, setCurrentEvent] = useState({});
   
   const { dispatch } = useContext(EventContext);
   const navigate = useNavigate();
+
+  function handleCurrentEvent(event) {
+    setCurrentEvent(event);
+    console.log(currentEvent);
+  }
 
   function handleDeleteEvent(id) {
     // console.log(id);
@@ -40,7 +43,7 @@ export default function EventBrief({ event } ) {
         }
         ///ServiceOneResources/Event
        function navigateToEvent() {
-        navigate('./Event')
+        navigate('./Event' + "/" + event.id)
        } 
 
     return (
@@ -52,7 +55,10 @@ export default function EventBrief({ event } ) {
         </h2>
         <h2>Location: {event.startLocation.name}</h2>
         <h2>Type: {event.type}</h2>
-        <button onClick={() => {navigateToEvent()}}>View Event</button>
+        <button onClick={() => {
+          handleCurrentEvent(event);
+          navigateToEvent(event)
+        }}>View Event</button>
         <button onClick={
           () => {
             handleDeleteEvent(event.id)
@@ -60,9 +66,6 @@ export default function EventBrief({ event } ) {
         }
         >Delete Event</button>
         <hr></hr>
-        <Routes>
-          <Route path="/Event" element={<Event event={event}/>} />
-        </Routes>
       </div>
     );
 }

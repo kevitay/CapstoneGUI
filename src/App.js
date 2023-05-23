@@ -21,7 +21,7 @@ function App() {
               <NavLink to={'/'}>Home</NavLink>
             </li>
             <li>
-              <NavLink to={'/serviceOne'}>Event</NavLink>
+              <NavLink to={'/serviceOne'}>Event List</NavLink>
             </li>
             <li>
               <NavLink to={'/serviceTwo'}>Service Two</NavLink>
