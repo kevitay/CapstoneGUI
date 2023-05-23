@@ -5,7 +5,10 @@ function BeforeEvent(){
 
 const [packingList, setPackingList] = useState([])
 const [itemInput, setItemInput] = useState('')
-
+const [show, setShow] = useState(true)
+// const hideButton = () => {
+//     setShow(false);
+//}
 const handleInputChange = (event) => {
     setItemInput(event.target.value);
     };
@@ -18,6 +21,7 @@ const handleCheckboxChange = (index)=>{
 }
 const addItem = () => {
     setPackingList([...packingList, {name:itemInput, required:false}]);
+    setShow(true);
     setItemInput(''); // Clears the input field
   };
 
@@ -51,9 +55,12 @@ return (
         
             <li>
                 <input type="text" value={itemInput} onChange={handleInputChange} />
-                <button onClick={addItem}>
+                { show &&
+                    <button onClick={
+                    addItem
+                }>
                 Add Item
-                </button>
+                </button>}
                 <button onClick={deleteItem}>
                 Delete Item
                 </button>
