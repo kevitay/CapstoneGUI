@@ -27,7 +27,7 @@ export default function ActivityList({activityList, setActivity, setDateArray}) 
     return (
         <div>
             <ul>
-                {dateArray.map(date => <div><h2>{date}</h2>{dateObject[date].sort((a,b) => Date.parse(a.StartTime) - Date.parse(b.StartTime)).map((item, index) => <ActivitySummary key={index} activity = {item} setActivity = {setActivity}/>)}</div>)}
+                {dateArray.map(date => <li key={date}><h2>{date}</h2>{dateObject[date].sort((a,b) => Date.parse(a.StartTime) - Date.parse(b.StartTime)).map((item, index) => <ActivitySummary key={index} activity = {item} setActivity = {setActivity}/>)}</li>)}
             </ul>
         </div>
     ); 
