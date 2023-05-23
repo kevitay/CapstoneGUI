@@ -19,13 +19,6 @@ export default function EventBrief({ event }) {
       .catch((error) => console.log(error));
   }
 
-  // ///ServiceOneResources/Event
-  // function viewEventDetails(event) {
-  //  url = url + event.id
-  //   console.log(url)
-  //   // navigate('./Event' + "/" + id)
-  // }
-
   function dateFormatter(dateTime) {
     const date = new Date(dateTime);
     // Extracting date components
@@ -43,7 +36,7 @@ export default function EventBrief({ event }) {
       .padStart(2, "0")}:${minutes.toString().padStart(2, "0")} ${amPm}`;
   }
 
-  function Button({children}) {
+  function Button({ children }) {
     return <button>{children}</button>;
   }
   return (
@@ -55,14 +48,11 @@ export default function EventBrief({ event }) {
       </h2>
       <h2>Location: {event.startLocation.name}</h2>
       <h2>Type: {event.type}</h2>
-      <a
-      href={`http://localhost:3000/serviceOne/event/${event.id}`}rel="noopener noreferrer">
-      <Button>
-        View Event
-      </Button>
+      <a href={`http://localhost:3000/serviceOne/event/${event.id}`} rel='noopener noreferrer'>
+        <Button>View Event</Button>
       </a>
 
-          <button
+      <button
         onClick={() => {
           handleDeleteEvent(event.id);
         }}
