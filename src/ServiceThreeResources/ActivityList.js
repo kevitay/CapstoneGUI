@@ -12,7 +12,7 @@ export default function ActivityList({setDisplayActivityDetails, setDateArray, b
             dateObject[currentActivityDate].push(activities[i])
         } else {
             dateObject[currentActivityDate] = [activities[i]]
-            dateArray.push(activities[i].StartTime.slice(0,10))
+            dateArray.push(currentActivityDate)
         }
     };
 
