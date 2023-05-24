@@ -20,8 +20,6 @@ export default function ActivityForm({setForm, itineraryJSON, setItineraryJSON})
         setItineraryJSON(itinerary); 
     }
 
-    // console.log("final activity JSON", activityJSON)
-
     return (
         <div>
             <form onSubmit={(event) => handleSubmit(event)}>
