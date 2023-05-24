@@ -9,7 +9,7 @@ function PartipantsList() {
             "FirstName": "Cody",
             "LastName": "Vasey",
             "PhoneNumber": "5555555555",
-            "City": "Nowhere",
+            "City": "Normal",
             "State": "IL",
             "Email": "cody.vasey.kros@statefarm.com",
             "EmergencyContactInfo": {
@@ -28,7 +28,7 @@ function PartipantsList() {
             "FirstName": "Cody",
             "LastName": "Vasey",
             "PhoneNumber": "5555555555",
-            "City": "Nowhere",
+            "City": "Normal",
             "State": "IL",
             "Email": "cody.vasey.kros@statefarm.com",
             "EmergencyContactInfo": {
@@ -37,9 +37,9 @@ function PartipantsList() {
                 "PhoneNumber": "4444444444",
                 "Email": "bree@icloud.com",
             },
-            "Status": "Going",
+            "Status": "Not Going",
             "Driving": "Yes",
-            "SeatsAvailable": "2",
+            "SeatsAvailable": "1",
             "RoomBooked": "Yes"
 
         },
@@ -47,7 +47,7 @@ function PartipantsList() {
             "FirstName": "Cody",
             "LastName": "Vasey",
             "PhoneNumber": "5555555555",
-            "City": "Nowhere",
+            "City": "Bloomington",
             "State": "IL",
             "Email": "cody.vasey.kros@statefarm.com",
             "EmergencyContactInfo": {
@@ -58,12 +58,13 @@ function PartipantsList() {
             },
             "Status": "Going",
             "Driving": "Yes",
-            "SeatsAvailable": "2",
+            "SeatsAvailable": "7",
             "RoomBooked": "Yes"
         }
     ];
 
     const [userState, setUserState] = useState(user);
+
     useEffect(() => {
     }, [userState]);
 
