@@ -1,12 +1,8 @@
 import React from 'react';
-import { useContext } from "react";
 import DeleteEvent from "./DeleteEvent";
-// import { EventContext } from "./EventsContext";
-
  
-
-function OrganizerControl({ dispatchEvent }) {
-  // const { dispatch } = useContext(EventContext); 
+function OrganizerControl({ event }) {
+   
   return (
     <div>
       <h2>Organizer Controls</h2>
@@ -16,7 +12,7 @@ function OrganizerControl({ dispatchEvent }) {
       <label htmlFor="participants">Show Participants</label>
       <button>Edit Event</button>
       <button>Cancel Event</button>
-      <DeleteEvent dispatch={dispatchEvent}/> 
+      <DeleteEvent /> 
     </div>
 );
 

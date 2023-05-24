@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import OrganizerControl from "./OrganizerControl";
 import { useParams } from "react-router-dom";
+import DeleteEvent from "./DeleteEvent";
 
 //react event
 export default function Event() {
@@ -75,7 +76,7 @@ export default function Event() {
         <h3>Total Cost: ${currentEvent.total_cost}</h3>
       </div>
       <div>
-        <OrganizerControl />
+        <OrganizerControl event={currentEvent}/>
       </div>
     </div>
   );

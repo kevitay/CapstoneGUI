@@ -25,7 +25,7 @@ export default function EventBrief({ event }) {
   }
   return (
     <div key={event.id}>
-      <h2>Event Name: {event.name}</h2>
+      <h2>Event Name: {event.username}</h2>
       {/* <h2>{event.id}</h2> */}
       <h2>
         Time:{dateFormatter(event.startDateTime)} - {dateFormatter(event.endDateTime)}
