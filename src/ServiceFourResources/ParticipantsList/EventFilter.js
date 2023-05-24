@@ -5,6 +5,7 @@ import StatusFilter from "./StatusFilter";
 import DrivingFilter from "./DrivingFilter";
 import SeatsFilter from "./SeatsFilter";
 import RoomFilter from "./RoomFilter";
+import DropDownFilter from "./DropDownFilter";
 
 function EventFilter( { userState, setUserState }) {
     return (
@@ -16,7 +17,7 @@ function EventFilter( { userState, setUserState }) {
                 <th><NameSearch/></th>
             </div>
             <div className="LocationFilter">
-                <th><LocationFilter/></th>
+                <th><DropDownFilter dataToFilter={userState}></DropDownFilter></th>
             </div>
             <div className="StatusFilter">
                 <th><StatusFilter/></th>
