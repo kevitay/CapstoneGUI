@@ -2,14 +2,12 @@ import React from "react";
 import { useEffect, useContext } from 'react';
 import EventBrief from "./EventBrief";
 import { EventContext } from "./EventsContext";
-import { useLocation } from "react-router-dom";
 
 // const eventsJson = require("./events.json")
 //This component is to display our EventList, inside the return is an EventBrief that organizes the data from the fetch call to display only a brief summary.
 export default function EventList() {
-
 const { state, dispatch } = useContext(EventContext)
-const location = useLocation();
+
   useEffect(() => {
            function getEvents() {
              // setEventList(eventsJson);
