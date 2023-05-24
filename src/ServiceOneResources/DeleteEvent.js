@@ -3,7 +3,6 @@ import {useState} from "react";
  
 export default function DeleteEvent({id}) {
     let [deleteStatus, setDeleteStatus] = useState("preDelete");
-    // let { id } = useParams();
   
     function handleDeleteEvent() {
      console.log(id);
