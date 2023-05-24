@@ -30,7 +30,7 @@ const location = useLocation();
 
 
        getEvents();
-     }, [location.pathname]);
+     }, [dispatch]);
 
 
           // console.log(state.eventsList)

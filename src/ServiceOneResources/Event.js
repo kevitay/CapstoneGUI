@@ -7,6 +7,9 @@ import { useParams } from "react-router-dom";
 export default function Event() {
   const [currentEvent, setCurrentEvent] = useState(null);
 
+    let { id } = useParams();
+    console.log(id);
+
   useEffect(() => {
       function getEventById() {
         // setEventList(eventsJson);
@@ -24,12 +27,8 @@ export default function Event() {
     }
     
     getEventById();
-  }, []);
-
-  let { id } = useParams();
-  console.log(id)
-
-
+    // eslint-disable-line react-hooks/exhaustive-deps
+    }, [id]);
 
   function dateFormatter(dateTime) {
     const date = new Date(dateTime);
