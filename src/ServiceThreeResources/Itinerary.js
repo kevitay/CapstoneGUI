@@ -73,7 +73,7 @@ const [itineraryJSON, setItineraryJSON] = useState(defaultItineraryForTesting);
 useEffect(()=> {
   console.log("Itinerary ", itineraryJSON)
 }, [itineraryJSON]); 
-const [activity, setActivity] = useState({}); 
+const [displayActivityDetails, setDisplayActivityDetails] = useState({}); 
 const [dateArray, setDateArray] = useState([]); 
 const [buttonDate, setButtonDate] = useState("");
 const [closeActivityDetailsButton, setCloseActivityDetailsButton] = useState(false); 
@@ -92,10 +92,10 @@ return (
         <DateSelector dateArray = {dateArray} setButtonDate = {setButtonDate}/>
 
         <h2 style={{color: 'red'}}>Activity List Component</h2>
-        <ActivityList setActivity = {setActivity} setDateArray = {setDateArray} buttonDate={buttonDate} setCloseActivityDetailsButton = {setCloseActivityDetailsButton} itineraryJSON = {itineraryJSON} ></ActivityList> 
+        <ActivityList setDisplayActivityDetails = {setDisplayActivityDetails} setDateArray = {setDateArray} buttonDate={buttonDate} setCloseActivityDetailsButton = {setCloseActivityDetailsButton} itineraryJSON = {itineraryJSON} ></ActivityList> 
         
         <h2 style={{color: 'red'}}>Activity Details Component</h2>
-        <ActivityDetails activity={activity} setActivity = {setActivity} closeActivityDetailsButton = {closeActivityDetailsButton} setCloseActivityDetailsButton = {setCloseActivityDetailsButton}/> 
+        <ActivityDetails displayActivityDetails={displayActivityDetails} setDisplayActivityDetails = {setDisplayActivityDetails} closeActivityDetailsButton = {closeActivityDetailsButton} setCloseActivityDetailsButton = {setCloseActivityDetailsButton}/> 
     </div>
   );
 }

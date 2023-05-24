@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import ActivitySummary from "./ActivitySummary";
 
-export default function ActivityList({setActivity, setDateArray, buttonDate, setCloseActivityDetailsButton, itineraryJSON}) {
+export default function ActivityList({setDisplayActivityDetails, setDateArray, buttonDate, setCloseActivityDetailsButton, itineraryJSON}) {
     const activities = itineraryJSON.activities; 
     // console.log(activities)
     const dateObject = {}; 
@@ -33,7 +33,7 @@ export default function ActivityList({setActivity, setDateArray, buttonDate, set
         <div>
             <ul>
                 {dateArray.map(date => (buttonDate === "" ? true : date === buttonDate) &&
-                        <li key={date}><h2>{date}</h2>{dateObject[date].sort((a,b) => Date.parse(a.StartTime) - Date.parse(b.StartTime)).map((item, index) => <ActivitySummary key={index} activity = {item} setActivity = {setActivity} setCloseActivityDetailsButton = {setCloseActivityDetailsButton}/>)}</li> 
+                        <li key={date}><h2>{date}</h2>{dateObject[date].sort((a,b) => Date.parse(a.StartTime) - Date.parse(b.StartTime)).map((item, index) => <ActivitySummary key={index} activity = {item} setDisplayActivityDetails = {setDisplayActivityDetails} setCloseActivityDetailsButton = {setCloseActivityDetailsButton}/>)}</li> 
                         ) }
             </ul>
         </div>
