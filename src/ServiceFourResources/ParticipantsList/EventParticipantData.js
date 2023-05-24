@@ -7,15 +7,14 @@ function EventParticipantData({participant}) {
                 <img alt="Profile Pic" src="https://placehold.co/100x100"></img>
             </td>
             <td className="participant-name">
-                <p>{participant.FirstName + " " + participant.LastName}</p>
+                <p>{participant.user.firstName + " " + participant.user.lastName}</p>
             </td>
             <td className="city-state">
-                <p>{participant.City + ", " + participant.State}</p>
+                <p>{participant.user.city + ", " + participant.user.state}</p>
             </td>
-            <td>{participant.Status}</td>
-            <td>{participant.Driving}</td>
-            <td>{participant.SeatsAvailable}</td>
-            <td>{participant.RoomBooked}</td>
+            <td>{participant.status}</td>
+            <td>{participant.carpool ? "Yes": "No"}</td>
+            <td>{participant.seatsAvail}</td>
         </tr>
     )
 }

@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-function DropDownFilter({ filterOn, filterName, userState, dataToFilter, setUserState }) {
+function DropDownFilter({ filterOn, filterName, userState, dataToFilter, setEventParticipants }) {
 
     const uniqueData = [...new Set(dataToFilter)];
 
@@ -15,22 +15,22 @@ function DropDownFilter({ filterOn, filterName, userState, dataToFilter, setUser
         if (!category) return;
         if (filterOn === 'location') {
             const categories = userState.filter(x => x.City + ', ' + x.State === category);
-            setUserState(categories);
+            setEventParticipants(categories);
         } else if (filterOn === 'status') {
             const categories = userState.filter(x => x.Status === category);
-            setUserState(categories);
+            setEventParticipants(categories);
         } else if (filterOn === 'driving') {
             const categories = userState.filter(x => x.Driving === category);
-            setUserState(categories);
+            setEventParticipants(categories);
         } else if (filterOn === 'seats') {
             const categories = userState.filter(x => x.SeatsAvailable === category);
-            setUserState(categories);
+            setEventParticipants(categories);
         }
 
         //props.reducer({ type: 'eventList', payload: categories })
     };
 
-    useEffect(() => { console.log(uniqueData) }, []);
+    useEffect(() => { console.log("Unique DataSet" + uniqueData) }, []);
 
     return (
         <div>
