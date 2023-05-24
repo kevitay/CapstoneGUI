@@ -5,7 +5,7 @@ import React, {useState} from "react";
 function AddListItem({onAddItem}) {
     const [itemInput, setItemInput] = useState('');
     const [required, setRequired] = useState(false);
-    const [count, setCount] = useState([]);
+    const [count, setCount] = useState(1);
     
 
     const handleInputChange = (event) => {
@@ -17,11 +17,10 @@ function AddListItem({onAddItem}) {
     };
 
     const handleCountChange=(event) => {
-       let value = event.target.value
-        if(typeof value === number) {
-           setCount(value);
-        }
-    }
+       let value = parseInt(event.target.value);
+        if(typeof value === 'number') {
+           setCount(value);}
+   }
 
     const addItem = () => {
      if(itemInput !== "") {
@@ -29,21 +28,20 @@ function AddListItem({onAddItem}) {
         onAddItem(newItem);
         setRequired(false);
         setItemInput(''); 
-     };
+        };
+    };
 
-          };
-    return(<div>
-
+    return (
+    <div>
     <input type="text" value={itemInput} onChange={handleInputChange} />
-        <input type="number" value={count} onChange={handleCountChange} />
-        <label>
+        <input type="number" value={count} onChange={handleCountChange}/>
+            <label>
             <input
               type="checkbox" checked={required}
               onChange={handleCheckboxChange}
             />
             Required
           </label>  
-
                     <button onClick={
                     addItem
                 }>
