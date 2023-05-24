@@ -2,20 +2,18 @@ import React, { useEffect } from "react";
 import ActivitySummary from "./ActivitySummary";
 
 export default function ActivityList({setDisplayActivityDetails, setDateArray, buttonDate, setCloseActivityDetailsButton, itineraryJSON}) {
-    const activities = itineraryJSON.activities; 
-    // console.log(activities)
     const dateObject = {}; 
     const dateArray = []; 
-    for(let i = 0; i < activities.length; i++) {
-        const currentActivityDate = activities[i].StartTime.slice(0,10); 
+    for(let i = 0; i < itineraryJSON.activities.length; i++) {
+        const currentActivityDate = itineraryJSON.activities[i].StartTime.slice(0,10); 
         if(dateObject[currentActivityDate]) {
-            dateObject[currentActivityDate].push(activities[i])
+            dateObject[currentActivityDate].push(itineraryJSON.activities[i])
         } else {
-            dateObject[currentActivityDate] = [activities[i]]
+            dateObject[currentActivityDate] = [itineraryJSON.activities[i]]
             dateArray.push(currentActivityDate)
         }
     };
-
+    
     dateArray.sort(); 
 
     // function filterDates(date){
