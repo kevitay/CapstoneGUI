@@ -38,7 +38,7 @@ return (
         <ActivityList activityList = {Activities} setActivity = {setActivity} setDateArray = {setDateArray} buttonDate={buttonDate} ></ActivityList> 
         
         <h2 style={{color: 'red'}}>Activity Details Component</h2>
-        <ActivityDetails activity={activity}/> 
+        <ActivityDetails activity={activity} setActivity = {setActivity}/> 
     </div>
   );
 }
