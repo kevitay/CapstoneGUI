@@ -1,12 +1,13 @@
 import React from 'react';
 import { useState, useContext} from 'react';
+import AuthContext from "../IdentityResources/Contexts/AuthContext";
 import { EventContext } from "./EventsContext";
 import Address from './Address';
+import Login from '../IdentityResources/Login';
 
 const emptyAddress = {name:'',address:'',city:'',state:'',zipCode:''};
 
 function CreateEvent() {
-
   const [eventName, setName] = useState('');
   const [organization, setOrganization] = useState('');
   const [description, setDescription] = useState('');
@@ -17,9 +18,10 @@ function CreateEvent() {
   const [endTime, setEndTime] = useState('');
 
   const { dispatch } = useContext(EventContext);
+  const [authState,] = useContext(AuthContext);
  
-  function postNewEvent(eventName, organization, description, eventType, startLocation, endLocation, startTime, endTime){
-  
+  //function postNewEvent(eventName, organization, description, eventType, startLocation, endLocation, startTime, endTime){
+  function postNewEvent(){
     // console.log(startTime);
     // console.log(endTime);
     let newStartTime = startTime.replaceAll('T', '@');
@@ -32,6 +34,7 @@ function CreateEvent() {
     myHeaders.append('Content-Type', 'application/json');
 
     var raw = JSON.stringify({
+      creatorID: authState.username,
       name: eventName,
       organization: organization,
       description: description,
@@ -59,6 +62,7 @@ function CreateEvent() {
 
    return (
      <div className="eventSubmit">
+       {(!authState.token)?(<Login></Login>):(<></>)}
        <h2>Create A New Event</h2>
        <form
          action=""
@@ -75,7 +79,8 @@ function CreateEvent() {
            setEndLocation(emptyAddress);
            setStartTime('');
            setEndTime('');
-           postNewEvent(eventName, organization, description, eventType, startLocation, endLocation, startTime, endTime);
+           postNewEvent();
+           //postNewEvent(eventName, organization, description, eventType, startLocation, endLocation, startTime, endTime);
          }}
        >
          <label>Event Name</label>
@@ -109,7 +114,7 @@ function CreateEvent() {
          <input type="datetime-local" id="endTime" name="endTime" value={endTime} onChange={(e) => setEndTime(e.target.value)} required></input>
          <br />
          <br />
-         <button type="submit">Submit</button>
+         <button disabled={!authState.token} type="submit">Submit</button>
        </form>
      </div>
    );
