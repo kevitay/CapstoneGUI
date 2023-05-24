@@ -92,7 +92,7 @@ return (
         <DateSelector dateArray = {dateArray} setButtonDate = {setButtonDate}/>
 
         <h2 style={{color: 'red'}}>Activity List Component</h2>
-        <ActivityList activityList = {itineraryJSON} setActivity = {setActivity} setDateArray = {setDateArray} buttonDate={buttonDate} setCloseActivityDetailsButton = {setCloseActivityDetailsButton} itineraryJSON = {itineraryJSON} ></ActivityList> 
+        <ActivityList setActivity = {setActivity} setDateArray = {setDateArray} buttonDate={buttonDate} setCloseActivityDetailsButton = {setCloseActivityDetailsButton} itineraryJSON = {itineraryJSON} ></ActivityList> 
         
         <h2 style={{color: 'red'}}>Activity Details Component</h2>
         <ActivityDetails activity={activity} setActivity = {setActivity} closeActivityDetailsButton = {closeActivityDetailsButton} setCloseActivityDetailsButton = {setCloseActivityDetailsButton}/> 
