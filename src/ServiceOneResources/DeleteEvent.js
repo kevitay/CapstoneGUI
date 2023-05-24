@@ -16,7 +16,7 @@ export default function DeleteEvent({id}) {
         method: "DELETE",
       }
     )
-      // .then((response) => alert("Success- Event" + id + "Deleted"))
+     .then((response) => alert("Success- Event " + id + " Deleted"))
      .then((response) => setDeleteStatus("deleted"))
       .catch((error) => console.log(error));
   }  
