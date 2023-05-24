@@ -20,6 +20,7 @@ useEffect(()=> {
 const [activity, setActivity] = useState({}); 
 const [dateArray, setDateArray] = useState([]); 
 const [buttonDate, setButtonDate] = useState("");
+const [closeActivityDetailsButton, setCloseActivityDetailsButton] = useState(false); 
 
 
 
@@ -35,10 +36,10 @@ return (
         <DateSelector dateArray = {dateArray} setButtonDate = {setButtonDate}/>
 
         <h2 style={{color: 'red'}}>Activity List Component</h2>
-        <ActivityList activityList = {Activities} setActivity = {setActivity} setDateArray = {setDateArray} buttonDate={buttonDate} ></ActivityList> 
+        <ActivityList activityList = {Activities} setActivity = {setActivity} setDateArray = {setDateArray} buttonDate={buttonDate} setCloseActivityDetailsButton = {setCloseActivityDetailsButton} ></ActivityList> 
         
         <h2 style={{color: 'red'}}>Activity Details Component</h2>
-        <ActivityDetails activity={activity} setActivity = {setActivity}/> 
+        <ActivityDetails activity={activity} setActivity = {setActivity} closeActivityDetailsButton = {closeActivityDetailsButton} setCloseActivityDetailsButton = {setCloseActivityDetailsButton}/> 
     </div>
   );
 }
