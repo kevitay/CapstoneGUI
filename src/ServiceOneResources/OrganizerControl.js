@@ -1,7 +1,8 @@
 import React from 'react';
-
-function OrganizerControl() {
-
+import DeleteEvent from "./DeleteEvent";
+ 
+function OrganizerControl({ event }) {
+   
   return (
     <div>
       <h2>Organizer Controls</h2>
@@ -11,8 +12,9 @@ function OrganizerControl() {
       <label htmlFor="participants">Show Participants</label>
       <button>Edit Event</button>
       <button>Cancel Event</button>
+      <DeleteEvent id={event.id}/> 
     </div>
-  );
+);
 
 }
 
