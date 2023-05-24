@@ -3,23 +3,16 @@ import React from 'react';
 function Address({location, setLocation}) {
 
   const handleChange = (e) => {
-    console.log(location.name);
-    console.log(e);
-    console.log(e.target.value);
-    console.log(e.target.id);
     const newValue = e.target.value;
     const newID = e.target.id;
 
     let updatedLocation = {...location, [newID]: newValue};
-    console.log(updatedLocation);
     setLocation(updatedLocation);
   }
 
   return(
     <>
-        {/* <input type="text" name="locationName" value={location.name} onChange={(e) => setLocation.name(e.target.value)} required /> */}
         <input type="text" id="name" value={location.name} onChange={handleChange} required />
-        
         <br />
         <br />
 
@@ -96,7 +89,7 @@ function Address({location, setLocation}) {
         <br />
         <br />
     </>
-)
+  )
 }
 
 export default Address;
