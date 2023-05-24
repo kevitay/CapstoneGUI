@@ -1,10 +1,5 @@
 import React, { useEffect } from "react";
 import NameSearch from "./NameSearch";
-import LocationFilter from "./LocationFilter";
-import StatusFilter from "./StatusFilter";
-import DrivingFilter from "./DrivingFilter";
-import SeatsFilter from "./SeatsFilter";
-import RoomFilter from "./RoomFilter";
 import DropDownFilter from "./DropDownFilter";
 
 function EventFilter({ userData, setUserState }) {
