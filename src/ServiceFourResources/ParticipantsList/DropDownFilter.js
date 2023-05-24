@@ -14,16 +14,21 @@ function DropDownFilter({ filterOn, filterName, userState, dataToFilter, setEven
     const handleFilter = (category) => {
         if (!category) return;
         if (filterOn === 'location') {
-            const categories = userState.filter(x => x.City + ', ' + x.State === category);
+            const categories = userState.filter(x => x.user.city + ', ' + x.user.state === category);
             setEventParticipants(categories);
         } else if (filterOn === 'status') {
-            const categories = userState.filter(x => x.Status === category);
+            const categories = userState.filter(x => x.status === category);
             setEventParticipants(categories);
         } else if (filterOn === 'driving') {
-            const categories = userState.filter(x => x.Driving === category);
-            setEventParticipants(categories);
+            if (category === 'Yes') {
+                const categories = userState.filter(x => x.carpool === true);
+                setEventParticipants(categories);
+            } else {
+                const categories = userState.filter(x => x.carpool === false);
+                setEventParticipants(categories);
+            }
         } else if (filterOn === 'seats') {
-            const categories = userState.filter(x => x.SeatsAvailable === category);
+            const categories = userState.filter(x => x.seatsAvail == category);
             setEventParticipants(categories);
         }
 
