@@ -1,6 +1,5 @@
 import React from "react";
 import {useState} from "react";
-import { useParams } from "react-router-dom";
  
 export default function DeleteEvent({id}) {
     let [deleteStatus, setDeleteStatus] = useState("preDelete");
