@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import ActivitySummary from "./ActivitySummary";
 
-export default function ActivityList({activityList, setActivity, setDateArray, buttonDate, setCloseActivityDetailsButton}) {
+export default function ActivityList({activityList, setActivity, setDateArray, buttonDate, setCloseActivityDetailsButton, itineraryJSON}) {
     const activities = activityList.activities; 
     // console.log(activities)
     const dateObject = {}; 
@@ -24,7 +24,7 @@ export default function ActivityList({activityList, setActivity, setDateArray, b
     
     useEffect(()=> {
         setDateArray(dateArray)
-    }, []); 
+    }, [itineraryJSON]); 
 
     // console.log(dateObject); 
 

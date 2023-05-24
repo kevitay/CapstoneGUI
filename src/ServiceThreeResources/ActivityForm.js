@@ -3,8 +3,6 @@ import React from "react";
 
 export default function ActivityForm({setForm, itineraryJSON, setItineraryJSON}) {
     let activityJSON = {}; 
-    
-    console.log("Activity Form", itineraryJSON)
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -16,7 +14,9 @@ export default function ActivityForm({setForm, itineraryJSON, setItineraryJSON})
         }
 
         const itinerary = itineraryJSON; 
+
         itinerary.activities.push(activityJSON); 
+
         setItineraryJSON(itinerary); 
     }
 

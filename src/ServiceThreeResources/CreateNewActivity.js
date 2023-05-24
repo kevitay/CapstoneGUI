@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import ActivityForm from "./ActivityForm";
 
 export default function CreateNewActivity({itineraryJSON, setItineraryJSON}) {
-    console.log("Create new activity", itineraryJSON)
     const [form, setForm] = useState(false);
     return (
         <div>
