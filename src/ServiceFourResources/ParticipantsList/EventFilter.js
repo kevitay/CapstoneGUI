@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import NameSearch from "./NameSearch";
 import DropDownFilter from "./DropDownFilter";
 
@@ -6,10 +6,13 @@ function EventFilter({ originalState, participantState, setEventParticipants }) 
 
     useEffect(() => { console.log(participantState) }, []);
 
+    const [resetStatus, setResetStatus] = useState(false);
+
     function stateReset(e) {
-        console.log(originalState)
+        setResetStatus(!resetStatus);
+        console.log(originalState);
         e.preventDefault();
-        setEventParticipants(originalState)
+        setEventParticipants(originalState);
     }
 
     return (
@@ -20,16 +23,16 @@ function EventFilter({ originalState, participantState, setEventParticipants }) 
                         <NameSearch participantState={participantState} setEventParticipants={setEventParticipants} />
                     </th>
                     <th className="LocationFilter">
-                        <DropDownFilter filterOn={"location"} filterName={"Location"} participantState={participantState} dataToFilter={participantState.map(x => x.city + ', ' + x.state)} setEventParticipants={setEventParticipants}></DropDownFilter>
+                        <DropDownFilter resetStatus={resetStatus} filterOn={"location"} filterName={"Location"} participantState={participantState} dataToFilter={participantState.map(x => x.city + ', ' + x.state)} setEventParticipants={setEventParticipants}></DropDownFilter>
                     </th>
                     <th className="StatusFilter">
-                        <DropDownFilter filterOn={"status"} filterName={"Status"} participantState={participantState} dataToFilter={participantState.map(x => x.status.toLowerCase())} setEventParticipants={setEventParticipants}></DropDownFilter>
+                        <DropDownFilter resetStatus={resetStatus} filterOn={"status"} filterName={"Status"} participantState={participantState} dataToFilter={participantState.map(x => x.status.toLowerCase())} setEventParticipants={setEventParticipants}></DropDownFilter>
                     </th>
                     <th className="DrivingFilter">
-                        <DropDownFilter filterOn={"driving"} filterName={"Driving?"} participantState={participantState} dataToFilter={['Yes', 'No']} setEventParticipants={setEventParticipants}></DropDownFilter>
+                        <DropDownFilter resetStatus={resetStatus} filterOn={"driving"} filterName={"Driving?"} participantState={participantState} dataToFilter={['Yes', 'No']} setEventParticipants={setEventParticipants}></DropDownFilter>
                     </th>
                     <th className="SeatsFilter">
-                        <DropDownFilter filterOn={"seats"} filterName={"Seats Available"} participantState={participantState} dataToFilter={participantState.map(x => x.seatsAvail)} setEventParticipants={setEventParticipants}></DropDownFilter>
+                        <DropDownFilter resetStatus={resetStatus} filterOn={"seats"} filterName={"Seats Available"} participantState={participantState} dataToFilter={participantState.map(x => x.seatsAvail)} setEventParticipants={setEventParticipants}></DropDownFilter>
                     </th>
                 </tr>
             </table>

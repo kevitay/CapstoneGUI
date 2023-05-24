@@ -1,15 +1,19 @@
-import React, { useEffect } from "react";
+import React, { useState, useEffect } from "react";
 
-function DropDownFilter({ filterOn, filterName, participantState, dataToFilter, setEventParticipants }) {
+function DropDownFilter({ resetStatus, filterOn, filterName, participantState, dataToFilter, setEventParticipants }) {
+
 
     const uniqueData = [...new Set(dataToFilter)];
+    const [filterState, setFilterState] = useState(filterName);
 
     const captureCategory = (event) => {
-        event.preventDefault()
-        const newValue = event.target.value;
-        console.log(newValue)
-        handleFilter(newValue);
+        event.preventDefault();
+        const filterVal = event.target.value;
+        handleFilter(filterVal);
+        setFilterState(filterVal);
     }
+
+    useEffect(() => { setFilterState(filterName) }, [resetStatus]);
 
     const handleFilter = (category) => {
         if (!category) return;
@@ -40,8 +44,8 @@ function DropDownFilter({ filterOn, filterName, participantState, dataToFilter, 
     return (
         <div>
             <form>
-                <select onChange={(e) => captureCategory(e)}>
-                    <option selected value='' defaultValue={filterName}>{filterName}</option>
+                <select value={filterState} name={filterState} onChange={(e) => captureCategory(e)}>
+                    <option hidden={true} selected value='' defaultValue={filterName}>{filterName}</option>
                     {uniqueData.map((option) => (
                         <option value={option}>{option}</option>
                     ))}
