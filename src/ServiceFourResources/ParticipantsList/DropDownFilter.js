@@ -41,7 +41,7 @@ function DropDownFilter({ filterOn, filterName, participantState, dataToFilter, 
         <div>
             <form>
                 <select onChange={(e) => captureCategory(e)}>
-                    <option selected value=''>{filterName}</option>
+                    <option selected value='' defaultValue={filterName}>{filterName}</option>
                     {uniqueData.map((option) => (
                         <option value={option}>{option}</option>
                     ))}
