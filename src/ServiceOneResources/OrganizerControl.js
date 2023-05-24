@@ -12,7 +12,7 @@ function OrganizerControl({ event }) {
       <label htmlFor="participants">Show Participants</label>
       <button>Edit Event</button>
       <button>Cancel Event</button>
-      <DeleteEvent /> 
+      <DeleteEvent id={event.id}/> 
     </div>
 );
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import OrganizerControl from "./OrganizerControl";
 import { useParams } from "react-router-dom";
-import DeleteEvent from "./DeleteEvent";
+
 
 //react event
 export default function Event() {

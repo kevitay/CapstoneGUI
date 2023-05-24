@@ -1,32 +1,32 @@
 import React from "react";
+import {useState} from "react";
 import { useParams } from "react-router-dom";
  
-export default function DeleteEvent() {
-   
-    let { id } = useParams();
+export default function DeleteEvent({id}) {
+    let [deleteStatus, setDeleteStatus] = useState("preDelete");
+    // let { id } = useParams();
   
     function handleDeleteEvent() {
-    // console.log(id);
-    fetch(
+     console.log(id);
+    setDeleteStatus("pending");
+     fetch(
       "http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/" +
         id,
       {
         method: "DELETE",
       }
     )
-      .then((response) => console.log("Success- Event" + id + "Deleted"))
+      // .then((response) => alert("Success- Event" + id + "Deleted"))
+     .then((response) => setDeleteStatus("deleted"))
       .catch((error) => console.log(error));
   }  
-    return (    
-      <a href={`/serviceOne/`} rel='noopener noreferrer'>
-        <button        
-          onClick={() => {
-            handleDeleteEvent();
-          }}
-          >
-          Delete Event
-        </button>
-      </a>     
+    return (
+      <> 
+      {(deleteStatus === "preDelete") ? (<button onClick={() => {handleDeleteEvent() }}>Delete Event</button>):(<></>)}
+      {(deleteStatus === "pending") ? (<p>Deleting...</p>) : (<></>)}
+      {(deleteStatus === "deleted") ? (<a href={`/serviceOne/`} rel='noopener noreferrer'>
+        <button>Return to Events </button></a>):(<></>) }
+      </> 
     );  
 }
 
