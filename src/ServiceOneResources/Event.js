@@ -2,35 +2,33 @@ import React, { useState, useEffect } from "react";
 import OrganizerControl from "./OrganizerControl";
 import { useParams } from "react-router-dom";
 
+
 //react event
 export default function Event() {
   const [currentEvent, setCurrentEvent] = useState(null);
 
+    let { id } = useParams();
+    console.log(id);
+
   useEffect(() => {
+      function getEventById() {
+        // setEventList(eventsJson);
+        // TODO needs to be put into fetch call
+        var requestOptions = {
+          method: 'GET',
+          mode: 'cors',
+        };
+
+        fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/' + id, requestOptions)
+          .then((response) => response.json())
+          .then((response) => setCurrentEvent(response))
+          .then((response) => console.log(response))
+          .catch((error) => console.log('error', error));
+    }
+    
     getEventById();
-  }, []);
-
-  let { id } = useParams();
-  console.log(id)
-
-  function getEventById() {
-    // setEventList(eventsJson);
-    // TODO needs to be put into fetch call
-    var requestOptions = {
-      method: "GET",
-      mode: "cors",
-    };
-
-    fetch(
-      "http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/" +
-        id,
-      requestOptions
-    )
-      .then((response) => response.json())
-      .then((response) => setCurrentEvent(response))
-      .then((response) => console.log(response))
-      .catch((error) => console.log("error", error));
-  }
+    // eslint-disable-line react-hooks/exhaustive-deps
+    }, [id]);
 
   function dateFormatter(dateTime) {
     const date = new Date(dateTime);
@@ -75,7 +73,7 @@ export default function Event() {
         <h3>Total Cost: ${currentEvent.total_cost}</h3>
       </div>
       <div>
-        <OrganizerControl />
+        <OrganizerControl event={currentEvent}/>
       </div>
     </div>
   );
