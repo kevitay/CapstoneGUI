@@ -3,6 +3,7 @@ import React from 'react';
 import { useState, useContext} from 'react';
 import { EventContext } from "./EventsContext";
 import Address from './Address';
+import { useLocation } from 'react-router-dom';
 
 const emptyAddress = {name:'',address:'',city:'',state:'',zipCode:''};
 
@@ -19,6 +20,9 @@ function EditEvent() {
   const [endTime, setEndTime] = useState('');
 
   const { dispatch } = useContext(EventContext);
+  const location = useLocation();
+  const state = location.state;
+  console.log(state)
  
   function postNewEvent(eventName, organization, description, eventType, eventCost, startLocation, endLocation, startTime, endTime) {
     // console.log(startTime);
