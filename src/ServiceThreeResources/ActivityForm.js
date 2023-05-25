@@ -13,7 +13,7 @@ export default function ActivityForm({setForm, itineraryJSON, setItineraryJSON})
             activityJSON[key] = value; 
         }
 
-        const itinerary = itineraryJSON; 
+        const itinerary = {...itineraryJSON}; 
 
         itinerary.activities.push(activityJSON); 
 
