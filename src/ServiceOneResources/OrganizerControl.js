@@ -2,7 +2,7 @@ import React from 'react';
 import DeleteEvent from "./DeleteEvent";
 import CancelEvent from './CancelEvent';
  
-function OrganizerControl({ event }) {
+function OrganizerControl({ event, setCurrentEvent } ) {
   return (
     <div>
       <h2>Organizer Controls</h2>
@@ -11,7 +11,7 @@ function OrganizerControl({ event }) {
       <input type="checkbox" id="participants" name="participants" value="participants"></input>
       <label htmlFor="participants">Show Participants</label>
       <button>Edit Event</button>
-      <CancelEvent id={event.id} />
+      <CancelEvent event={event} setCurrentEvent={setCurrentEvent} />
       <DeleteEvent id={event.id} />
     </div>
   );

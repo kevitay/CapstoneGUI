@@ -78,7 +78,7 @@ export default function Event() {
         <h3>Total Cost: ${currentEvent.total_cost}</h3>
       </div>
       <div>
-        <OrganizerControl event={currentEvent} />
+        <OrganizerControl event={ currentEvent } setCurrentEvent={ setCurrentEvent } />
       </div>
     </div>
   );
