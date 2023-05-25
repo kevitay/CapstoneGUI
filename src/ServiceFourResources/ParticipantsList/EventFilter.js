@@ -4,8 +4,6 @@ import DropDownFilter from "./DropDownFilter";
 
 function EventFilter({ originalState, participantState, setEventParticipants }) {
 
-    useEffect(() => { console.log(participantState) }, []);
-
     const [resetStatus, setResetStatus] = useState(false);
 
     function stateReset(e) {
