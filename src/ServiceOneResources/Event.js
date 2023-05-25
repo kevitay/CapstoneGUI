@@ -7,9 +7,9 @@ import { useParams } from "react-router-dom";
 export default function Event() {
   const [currentEvent, setCurrentEvent] = useState(null);
 
-  const updateState = (newState) => {
-    setCurrentEvent(newState);
-  };
+  // const updateState = (newState) => {
+  //   setCurrentEvent(newState);
+  // };
 
     let { id } = useParams();
     console.log(id);
@@ -78,7 +78,7 @@ export default function Event() {
         <h3>Total Cost: ${currentEvent.total_cost}</h3>
       </div>
       <div>
-        <OrganizerControl event={currentEvent} updateState={updateState} />
+        <OrganizerControl event={currentEvent} />
       </div>
     </div>
   );
