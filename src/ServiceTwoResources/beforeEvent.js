@@ -27,25 +27,22 @@ var requestOptions = {
 };
 
 fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist", requestOptions)
-  .then(response => response.text())  
-  .then(result => console.log(result))
+  .then(response => response.json())
+  .then(result => setPackingList([...packingList, result]))
   .catch(error => console.log('error', error));
-    setPackingList([...packingList, item]);
 };
 
-
-
-  const handleUpdateItem = (item) => {
+  const handleUpdateItem = (item, itemIndex) => {
     // Implement the logic for updating the item at the specified index
     var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
 var raw = JSON.stringify({
-  "eventId": "3",
+  "id": item.id,
   "type": "packing list",
-  "description": "swimsuit",
-  "required": true,
-  "quantity": 3
+  "description": item.description,
+  "required": item.required,
+  "quantity": item.count
 });
 
 var requestOptions = {
@@ -56,11 +53,19 @@ var requestOptions = {
   id: 23,
 };
 
-fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist/34", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
+fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist/" + item.id, requestOptions)
+  .then(response => response.json())
+  .then(result => {
+    //make copy of existing package
+    let newList = [...packingList];
+    //find item by id
+    //let itemIndex = newList.findIndex( listItem => listItem.id === item.id);
+    //update or replace the item
+    newList[itemIndex] = result; 
+    //set new packing list
+    setPackingList(newList);
+  })
   .catch(error => console.log('error', error));
-  setPackingList([...packingList, item]);
   };
 
   const handleDeleteItem = (index) => {
