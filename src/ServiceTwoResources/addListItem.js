@@ -32,22 +32,48 @@ function AddListItem({onAddItem}) {
     };
 
     return (
+        // <table>
+        //     <thead>
+        //     <tr>
+        //         <th>Name</th>
+        //         <th>Quantity</th>
+        //         <th>Required</th>
+        //     </tr>
+        //     </thead>
+        //     <tbody>
+        //     <input type="text" label="name" value={itemInput} onChange={handleInputChange}  />
+        //     <input type="number" value={count} onChange={handleCountChange}/>
+        //              <input
+        //    type="checkbox" checked={required}
+        //      onChange={handleCheckboxChange}/>
+        //     </tbody>
+        //                <button onClick={
+        //             addItem
+        //         }>
+        //         Add Item
+        //         </button>
+
+        // </table>
     <div>
-    <input type="text" value={itemInput} onChange={handleInputChange} />
-        <input type="number" value={count} onChange={handleCountChange}/>
-            <label>
-            <input
-              type="checkbox" checked={required}
-              onChange={handleCheckboxChange}
+    <label>
+    <input type="text" label="name" value={itemInput} onChange={handleInputChange}  />
+       
+        </label>
+           <input type="number" value={count} onChange={handleCountChange}/>
+           <label>
+             <input
+            type="checkbox" checked={required}
+             onChange={handleCheckboxChange}
             />
-            Required
-          </label>  
-                    <button onClick={
+         Required
+       </label>  
+                   <button onClick={
                     addItem
-                }>
+                 }>
                 Add Item
-                </button>
+                 </button>
     </div>) 
+    
 }
 
 export default AddListItem

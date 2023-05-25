@@ -50,7 +50,6 @@ var requestOptions = {
   headers: myHeaders,
   body: raw,
   redirect: 'follow',
-  id: 23,
 };
 
 fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist/" + item.id, requestOptions)
