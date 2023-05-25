@@ -1,6 +1,6 @@
 import React from 'react';
 
-function CancelEvent({status}, {id}) {
+function CancelEvent({id}) {
   var myHeaders = new Headers();
   myHeaders.append('Content-Type', 'application/json');
 

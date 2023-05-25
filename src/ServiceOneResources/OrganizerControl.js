@@ -11,7 +11,7 @@ function OrganizerControl({ event }) {
       <label htmlFor="public">Public Event</label>
       <input type="checkbox" id="participants" name="participants" value="participants"></input>
       <label htmlFor="participants">Show Participants</label>
-      <EditEvent id={ event.id } />
+      <button>Edit Event</button>
       <CancelEvent id={event.id} />
       <DeleteEvent id={event.id}/> 
     </div>
