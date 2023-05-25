@@ -1,7 +1,6 @@
 import React from "react";
 
 function EventParticipantData({participant}) {
-    console.log(participant.carpool)
     return (
         <tr className="EventParticipantData">
             <td className="profile-picture">
