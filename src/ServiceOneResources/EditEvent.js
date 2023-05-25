@@ -1,3 +1,4 @@
+
 import React from 'react';
 import { useState, useContext} from 'react';
 import { EventContext } from "./EventsContext";
@@ -5,8 +6,8 @@ import Address from './Address';
 
 const emptyAddress = {name:'',address:'',city:'',state:'',zipCode:''};
 
-function CreateEvent() {
-
+function EditEvent() {
+// i want to 
   const [eventName, setName] = useState('');
   const [organization, setOrganization] = useState('');
   const [description, setDescription] = useState('');
@@ -45,7 +46,7 @@ function CreateEvent() {
     });
 
     var requestOptions = {
-      method: 'POST',
+      method: 'PUT',
       headers: myHeaders,
       body: raw,
       redirect: 'follow',
@@ -62,7 +63,7 @@ function CreateEvent() {
 
    return (
      <div className="eventSubmit">
-       <h2>Create A New Event</h2>
+       <h2>Edit Event</h2>
        <form
          action=""
          method="POST"
@@ -123,4 +124,4 @@ function CreateEvent() {
    );
 }
 
-export default CreateEvent;
+export default EditEvent;

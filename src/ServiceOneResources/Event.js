@@ -26,7 +26,6 @@ export default function Event() {
         fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/' + id, requestOptions)
           .then((response) => response.json())
           .then((response) => setCurrentEvent(response))
-          .then((response) => console.log(response))
           .catch((error) => console.log('error', error));
     }
     
@@ -53,7 +52,7 @@ export default function Event() {
 
   //using an if statement to handle the async setCurrentEvent could also use {(currentEvent) ? (<div>…</div>) :( <></>)}
   if (!currentEvent) return null;
-
+  console.log(currentEvent);
   return (
     <div>
       <div className="eventDetails">
@@ -72,10 +71,7 @@ export default function Event() {
         <h3>End Location: {currentEvent.endLocation.name}</h3>
       </div>
       <div className="baseCost">
-        <h3>Base Cost: ${currentEvent.base_cost}</h3>
-      </div>
-      <div className="totalCost">
-        <h3>Total Cost: ${currentEvent.total_cost}</h3>
+        <h3>Base Cost: ${currentEvent.baseCost}</h3>
       </div>
       <div>
         <OrganizerControl event={ currentEvent } setCurrentEvent={ setCurrentEvent } />

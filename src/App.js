@@ -9,6 +9,7 @@ import Home from "./Home";
 import CreateEvent from './ServiceOneResources/CreateEvent';
 import { EventProvider } from './ServiceOneResources/EventsContext';
 import EventList from "./ServiceOneResources/EventList";
+import EditEvent from "./ServiceOneResources/EditEvent";
 
 function App() {
   
@@ -37,25 +38,27 @@ function App() {
             </li>
           </ul>
         </nav>
+        <EventProvider>
         <Routes>
           <Route path={'/'} element={<Home />}></Route>
           <Route
             path={'/serviceOne/*'}
             element={
               <>
-                <EventProvider>
                   <EventList />
                   <CreateEvent />
-                </EventProvider>
               </>
             }
           ></Route>
           <Route path={'/serviceOne/event/:id'} element={<Event />}></Route>
+          <Route path={'/serviceOne/createEvent'} element={<CreateEvent />}></Route>
+          <Route path={'/serviceOne/editEvent/:id'} element={<EditEvent />}></Route>
           <Route path={'/serviceTwo/*'} element={<ServiceTwoApp />}></Route>
           <Route path={'/serviceThree/*'} element={<ServiceThreeApp />}></Route>
           <Route path={'/serviceFour/*'} element={<ServiceFourApp />}></Route>
           <Route path={'/identity/*'} element={<IdentityApp />}></Route>
         </Routes>
+        </EventProvider>
       </div>
     );
 }
