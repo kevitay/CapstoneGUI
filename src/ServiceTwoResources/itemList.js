@@ -15,9 +15,9 @@ return (
          <tbody>
       {items.map((item, index) => (
         <tr key={index}>
-          <td>{item.item}</td>
-          <td>{item.required + "" }</td>
-          <td>{item.count}</td>
+          <td><input type="text" value={item.item}></input></td>
+          <td><input type="text" value={item.required + "" }></input></td>
+          <td><input type="text" value={item.count}></input></td>
           <td>
           <button onClick={() => onUpdateItem(index)}>Update</button>
           <button onClick={() => onDeleteItem(index)}>Delete</button>
