@@ -13,7 +13,7 @@ function DropDownFilter({ resetStatus, filterOn, filterName, participantState, d
         setFilterState(filterVal);
     }
 
-    useEffect(() => { setFilterState(filterName) }, [resetStatus]);
+    useEffect(() => { setFilterState(filterName) }, [filterName, resetStatus]);
 
     const handleFilter = (category) => {
         if (!category) return;
@@ -32,14 +32,12 @@ function DropDownFilter({ resetStatus, filterOn, filterName, participantState, d
                 setEventParticipants(categories);
             }
         } else if (filterOn === 'seats') {
-            const categories = participantState.filter(x => x.seatsAvail == category);
+            const categories = participantState.filter(x => x.seatsAvail.toString() === category.toString());
             setEventParticipants(categories);
         }
 
         //props.reducer({ type: 'eventList', payload: categories })
     };
-
-    useEffect(() => { console.log("Unique DataSet" + uniqueData) }, []);
 
     return (
         <div>
