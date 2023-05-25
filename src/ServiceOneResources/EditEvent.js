@@ -1,15 +1,17 @@
 
 import React from 'react';
-import { useState, useContext} from 'react';
-import { EventContext } from "./EventsContext";
+import { useState} from 'react';
 import Address from './Address';
 import { useLocation } from 'react-router-dom';
 
 const emptyAddress = {name:'',address:'',city:'',state:'',zipCode:''};
 
 function EditEvent() {
+ const location = useLocation();
+ const state = location.state;
+//   console.log(state)
 // i want to 
-  const [eventName, setName] = useState('');
+  const [eventName, setName] = useState(state.name);
   const [organization, setOrganization] = useState('');
   const [description, setDescription] = useState('');
   const [eventType, setEventType] = useState('');
@@ -19,10 +21,6 @@ function EditEvent() {
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
 
-  const { dispatch } = useContext(EventContext);
-  const location = useLocation();
-  const state = location.state;
-  console.log(state)
  
   function postNewEvent(eventName, organization, description, eventType, eventCost, startLocation, endLocation, startTime, endTime) {
     // console.log(startTime);
@@ -58,10 +56,6 @@ function EditEvent() {
 
     fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event', requestOptions)
       .then((response) => response.json())
-      .then((result) => {
-        dispatch({ type: 'ADD_EVENT', payload: result });
-        console.log(result);
-      })
       .catch((error) => console.log('error', error));
   }
 
@@ -88,24 +82,24 @@ function EditEvent() {
          }}
        >
          <label>Event Name</label>
-         <input type="text" name="eventName" value={eventName} onChange={(e) => setName(e.target.value)} required />
+         <input type="text" name="eventName" value={eventName} onChange={(e) => setName(e.target.value)} />
          <br />
          <br />
          <label>Organization</label>
-         <input type="text" name="organization" value={organization} onChange={(e) => setOrganization(e.target.value)} required />
+         <input type="text" name="organization" value={organization} onChange={(e) => setOrganization(e.target.value)}  />
          <br />
          <br />
          <label>Event Type</label>
-         <input type="text" name="eventType" value={eventType} onChange={(e) => setEventType(e.target.value)} required />
+         <input type="text" name="eventType" value={eventType} onChange={(e) => setEventType(e.target.value)}  />
          <br />
          <br />
          <label>Event Cost</label>
-         <input type="text" name="eventCost" value={eventCost} onChange={(e) => setEventCost(e.target.value)} required />
+         <input type="text" name="eventCost" value={eventCost} onChange={(e) => setEventCost(e.target.value)} />
          <br />
          <br />
          <label>Event Description</label>
          <br />
-         <textarea name="description" rows="6" cols="33" value={description} onChange={(e) => setDescription(e.target.value)} required />
+         <textarea name="description" rows="6" cols="33" value={description} onChange={(e) => setDescription(e.target.value)} />
          <br />
          <br />
 
