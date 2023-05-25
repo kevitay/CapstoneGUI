@@ -24,7 +24,7 @@ function EventParticipant() {
             method: 'GET'
         };
         setLoadState(true);
-        fetch("http://a53e50bf576c64141b52293976658417-1117441751.us-west-2.elb.amazonaws.com/api/participants?eventId=1", requestOptions)
+        fetch("http://a53e50bf576c64141b52293976658417-1117441751.us-west-2.elb.amazonaws.com/api/participants?eventId=b2d0d4b2-f97a-11ed-be56-0242ac120001", requestOptions)
         .then(response => response.json())
         .then(result => {
             setEventParticipants(result.eventParticipants)
