@@ -85,7 +85,7 @@ function Address({location, setLocation}) {
         <br />
 
         <label>Zip Code</label>
-        <input type="text" id="zipCode" value={location.zip} onChange={handleChange} required />
+        <input type="text" id="zipCode" value={location.zipCode} onChange={handleChange} required />
         <br />
         <br />
     </>
