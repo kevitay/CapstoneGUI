@@ -68,18 +68,18 @@ fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws
   .catch(error => console.log('error', error));
   };
 
-  const handleDeleteItem = (index) => {
+  const handleDeleteItem = (item, itemIndex) => {
 
     var myHeaders = new Headers();
 myHeaders.append("Content-Type", "application/json");
 
 var raw = JSON.stringify({
-  "eventId": "381f2e4c-ba8c-4204-a4fc-c1874fcbc375",
-  "type": "packing list",
-  "description": "swimsuit",
-  "required": false,
-  "quantity": 1
-});
+    "id": item.id,
+    "type": "packing list",
+    "description": item.description,
+    "required": item.required,
+    "quantity": item.count
+  });
 
 var requestOptions = {
   method: 'DELETE',
@@ -88,12 +88,12 @@ var requestOptions = {
   redirect: 'follow'
 };
 
-fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist/34", requestOptions)
+fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist/" + item.id, requestOptions)
   .then(response => response.text())  
   .then(result => console.log(result))
   .catch(error => console.log('error', error));
     const updatedPackingList = [...packingList];
-    updatedPackingList.splice(index, 1);
+    updatedPackingList.splice(itemIndex, 1);
     setPackingList(updatedPackingList);
   };
   return (

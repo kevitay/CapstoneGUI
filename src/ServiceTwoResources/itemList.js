@@ -20,7 +20,7 @@ return (
           <td><input type="text" value={item.quantity}></input></td>
           <td>
           <button onClick={() => onUpdateItem(item, index)}>Update</button>
-          <button onClick={() => onDeleteItem(item)}>Delete</button>
+          <button onClick={() => onDeleteItem(item, index)}>Delete</button>
         </td>
         </tr>
       ))}
