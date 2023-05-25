@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useReducer } from "react";
 import OrganizerControl from "./OrganizerControl";
 import { useParams } from "react-router-dom";
 

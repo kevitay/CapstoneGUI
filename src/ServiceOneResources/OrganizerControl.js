@@ -1,5 +1,6 @@
 import React from 'react';
 import DeleteEvent from "./DeleteEvent";
+import EditEvent from './EditEvent';
  
 function OrganizerControl({ event }) {
    
@@ -10,8 +11,8 @@ function OrganizerControl({ event }) {
       <label htmlFor="public">Public Event</label>
       <input type="checkbox" id="participants" name="participants" value="participants"></input>
       <label htmlFor="participants">Show Participants</label>
-      <button>Edit Event</button>
-      <button>Cancel Event</button>
+      <EditEvent id={ event.id } />
+      <CancelEvent id={event.id} />
       <DeleteEvent id={event.id}/> 
     </div>
 );
