@@ -20,10 +20,10 @@ function EventFilter({ originalState, participantState, setEventParticipants }) 
             <table>
                 <tr>
                     <th className="NameSearch">
-                        <NameSearch participantState={participantState} setEventParticipants={setEventParticipants} />
+                        <NameSearch resetStatus={resetStatus} participantState={participantState} setEventParticipants={setEventParticipants} />
                     </th>
                     <th className="LocationFilter">
-                        <DropDownFilter resetStatus={resetStatus} filterOn={"location"} filterName={"Location"} participantState={participantState} dataToFilter={participantState.map(x => x.city + ', ' + x.state)} setEventParticipants={setEventParticipants}></DropDownFilter>
+                        <DropDownFilter resetStatus={resetStatus} filterOn={"location"} filterName={"Location"} participantState={participantState} dataToFilter={participantState.map(x => x.user.city + ', ' + x.user.state)} setEventParticipants={setEventParticipants}></DropDownFilter>
                     </th>
                     <th className="StatusFilter">
                         <DropDownFilter resetStatus={resetStatus} filterOn={"status"} filterName={"Status"} participantState={participantState} dataToFilter={participantState.map(x => x.status.toLowerCase())} setEventParticipants={setEventParticipants}></DropDownFilter>
