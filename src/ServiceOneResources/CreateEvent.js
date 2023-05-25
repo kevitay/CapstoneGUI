@@ -11,6 +11,7 @@ function CreateEvent() {
   const [organization, setOrganization] = useState('');
   const [description, setDescription] = useState('');
   const [eventType, setEventType] = useState('');
+  const [eventCost, setEventCost] = useState('');
   const [startLocation, setStartLocation] = useState(emptyAddress);
   const [endLocation, setEndLocation] = useState(emptyAddress);
   const [startTime, setStartTime] = useState('');
@@ -18,8 +19,7 @@ function CreateEvent() {
 
   const { dispatch } = useContext(EventContext);
  
-  function postNewEvent(eventName, organization, description, eventType, startLocation, endLocation, startTime, endTime){
-  
+  function postNewEvent(eventName, organization, description, eventType, eventCost, startLocation, endLocation, startTime, endTime) {
     // console.log(startTime);
     // console.log(endTime);
     let newStartTime = startTime.replaceAll('T', '@');
@@ -27,7 +27,7 @@ function CreateEvent() {
 
     // console.log(newStartTime);
     // console.log(newEndTime);
-    
+
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -36,10 +36,11 @@ function CreateEvent() {
       organization: organization,
       description: description,
       type: eventType,
-      startDateTime: newStartTime + ":00",
-      endDateTime: newEndTime + ":00",
+      baseCost: eventCost,
+      startDateTime: newStartTime + ':00',
+      endDateTime: newEndTime + ':00',
       startLocation: startLocation,
-      endLocation: endLocation
+      endLocation: endLocation,
     });
 
     var requestOptions = {
@@ -51,11 +52,12 @@ function CreateEvent() {
 
     fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event', requestOptions)
       .then((response) => response.json())
-      .then((result) => {dispatch({type: 'ADD_EVENT', payload: result});
-        console.log(result)})
+      .then((result) => {
+        dispatch({ type: 'ADD_EVENT', payload: result });
+        console.log(result);
+      })
       .catch((error) => console.log('error', error));
-    
-   }
+  }
 
    return (
      <div className="eventSubmit">
@@ -66,16 +68,17 @@ function CreateEvent() {
          className="eventForm"
          onSubmit={(e) => {
            e.preventDefault();
-          //  props.event(eventName, organization, description, eventType, startLocation, endLocation, startTime, endTime);
+           //  props.event(eventName, organization, description, eventType, startLocation, endLocation, startTime, endTime);
            setName('');
            setOrganization('');
            setDescription('');
            setEventType('');
+           setEventCost('');
            setStartLocation(emptyAddress);
            setEndLocation(emptyAddress);
            setStartTime('');
            setEndTime('');
-           postNewEvent(eventName, organization, description, eventType, startLocation, endLocation, startTime, endTime);
+           postNewEvent(eventName, organization, description, eventType, eventCost, startLocation, endLocation, startTime, endTime);
          }}
        >
          <label>Event Name</label>
@@ -90,17 +93,21 @@ function CreateEvent() {
          <input type="text" name="eventType" value={eventType} onChange={(e) => setEventType(e.target.value)} required />
          <br />
          <br />
+         <label>Event Cost</label>
+         <input type="text" name="eventCost" value={eventCost} onChange={(e) => setEventCost(e.target.value)} required />
+         <br />
+         <br />
          <label>Event Description</label>
          <br />
          <textarea name="description" rows="6" cols="33" value={description} onChange={(e) => setDescription(e.target.value)} required />
          <br />
          <br />
 
-         <label>Start Location Name </label>
+         <label>Start Location Name</label>
          <Address location={startLocation} setLocation={setStartLocation}></Address>
-         <label>End Location Name </label>
+         <label>End Location Name</label>
          <Address location={endLocation} setLocation={setEndLocation}></Address>
-                  
+
          <label htmlFor="startTime">Start Time</label>
          <input type="datetime-local" id="startTime" name="startTime" value={startTime} onChange={(e) => setStartTime(e.target.value)} required></input>
          <br />
