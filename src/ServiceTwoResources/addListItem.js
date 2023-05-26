@@ -35,7 +35,7 @@ function AddListItem({onAddItem}) {
     return (
     <tr>
     <td><input type="text" value={itemInput} onChange={handleInputChange} /></td>
-        <td><input type="number" value={count} onChange={handleCountChange}/></td> 
+        <td><input type="number" min="1" value={count} onChange={handleCountChange}/></td> 
         <td>
             <input
               type="checkbox" checked={required}

@@ -1,7 +1,7 @@
 import React from "react";
 
 function ItemList({ items, setPackingList, onDeleteItem }) {
-  const handleUpdateItem = (item, itemIndex) => {
+  const handleUpdateItem = (item) => {
     // Implement the logic for updating the item at the specified index
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -30,7 +30,7 @@ function ItemList({ items, setPackingList, onDeleteItem }) {
         //find item by id
         //let itemIndex = newList.findIndex( listItem => listItem.id === item.id);
         //update or replace the item
-        newList[itemIndex] = result;
+        newList[item.id] = result;
         //set new packing list
         setPackingList(newList);
       })
@@ -38,29 +38,33 @@ function ItemList({ items, setPackingList, onDeleteItem }) {
   };
 
   console.log(items);
-  
-  let editList;
-  const onChangeInput = (e, itemId) => {
+
+  const onChangeInput = (e, index) => {
     const { name, value } = e.target
 
-    editList = items.map((item) =>
-      item.itemId === itemId && name ? { ...item, [name]: value } : item)
+    // editList = items.map((item) =>
+    //   item.itemId === itemId && name ? { ...item, [name]: value } : item
+    // )
+    let editList = [...items];
+    editList[index][name]=value;
+    console.log(editList);
+    setPackingList(editList);
   }
 
   const onUpdateItem = () => {
-    setPackingList(editList)
+    // handleUpdateItem
   }
 
   return (
     <>
-      {items.map((item) => (
+      {items.map((item, index) => (
         <tr key={item.id}>
-          <td><input type="text" value={item.description} onChange={(e) => onChangeInput(e, item.id)}></input></td>
-          <td><input type="number" value={item.quantity} onChange={(e) => onChangeInput(e, item.id)}></input></td>
-          <td><input type="checkbox" checked={item.required} onChange={(e) => onChangeInput(e, item.id)}></input></td>
+          <td><input type="text" value={item.description} onChange={(e) => onChangeInput(e, index)}></input></td>
+          <td><input type="number" min="1" value={item.quantity} onChange={(e) => onChangeInput(e, index)}></input></td>
+          <td><input type="checkbox" checked={item.required} onChange={(e) => onChangeInput(e, index)}></input></td>
           <td>
-            <button onClick={() => onUpdateItem()}>Update Item</button>
-            <button onClick={() => onDeleteItem(item)}>Delete Item</button>
+            <button onClick={() => onUpdateItem(item, index)}>Update Item</button>
+            <button onClick={() => onDeleteItem(item, index)}>Delete Item</button>
           </td>
         </tr>
       ))}
