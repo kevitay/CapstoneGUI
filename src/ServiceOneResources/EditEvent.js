@@ -24,6 +24,7 @@ function EditEvent() {
 
  
   async function postNewEvent(eventName, organization, description, eventType, eventCost, startLocation, endLocation, startTime, endTime) {
+    console.log("Hello post")
     // console.log(startTime);
     // console.log(endTime);
     let newStartTime = startTime.replaceAll('T', '@');
@@ -59,14 +60,15 @@ function EditEvent() {
       .then((response) => response.json())
       .catch((error) => console.log('error', error));
       // will have to delete if we add other components
-      await routeToEvent();
+    
+    
+    await routeToEvent();
 
   }
 
   // will have to delete if we add other components
-async function routeToEvent(){
+  async function routeToEvent(){
   window.location.replace(`/serviceOne/event/${id}`)
-  
 }
    
 
@@ -93,7 +95,6 @@ async function routeToEvent(){
            setEndTime('');
            postNewEvent(eventName, organization, description, eventType, eventCost, startLocation, endLocation, startTime, endTime);
           // will have to delete if we add other components
-           routeToEvent();
          }}
        >
          <label>Event Name</label>
