@@ -2,8 +2,9 @@
 import React from 'react';
 import { useState} from 'react';
 import Address from './Address';
-import { useLocation } from 'react-router-dom';
+import { Route, useLocation } from 'react-router-dom';
 import { useParams } from 'react-router-dom';
+import Event from './Event';
 
 const emptyAddress = {name:'',address:'',city:'',state:'',zipCode:''};
 
@@ -24,12 +25,11 @@ function EditEvent() {
   const [endTime, setEndTime] = useState(oldEndTime);
 
  
-  function postNewEvent(eventName, organization, description, eventType, eventCost, startLocation, endLocation, startTime, endTime) {
+  async function postNewEvent(eventName, organization, description, eventType, eventCost, startLocation, endLocation, startTime, endTime) {
     // console.log(startTime);
     // console.log(endTime);
     let newStartTime = startTime.replaceAll('T', '@');
     let newEndTime = endTime.replaceAll('T', '@');
-
     // console.log(newStartTime);
     // console.log(newEndTime);
 
@@ -57,10 +57,20 @@ function EditEvent() {
       redirect: 'follow',
     };
 
-    fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/'+ id, requestOptions)
+      fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/'+ id, requestOptions)
       .then((response) => response.json())
       .catch((error) => console.log('error', error));
+      // will have to delete if we add other components
+      await routeToEvent();
+
   }
+
+  // will have to delete if we add other components
+async function routeToEvent(){
+  window.location.replace(`/serviceOne/event/${id}`)
+  
+}
+   
 
    return (
      <div className="eventSubmit">
@@ -84,6 +94,8 @@ function EditEvent() {
            setStartTime('');
            setEndTime('');
            postNewEvent(eventName, organization, description, eventType, eventCost, startLocation, endLocation, startTime, endTime);
+          // will have to delete if we add other components
+           routeToEvent();
          }}
        >
          <label>Event Name</label>
