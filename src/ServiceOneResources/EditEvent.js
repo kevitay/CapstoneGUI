@@ -3,14 +3,16 @@ import React from 'react';
 import { useState} from 'react';
 import Address from './Address';
 import { useLocation } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 
 const emptyAddress = {name:'',address:'',city:'',state:'',zipCode:''};
 
 function EditEvent() {
- const location = useLocation();
- const state = location.state;
-//   console.log(state)
-// i want to 
+  let { id } = useParams();
+  const location = useLocation();
+  const state = location.state;
+  let oldStartTime = state.startDateTime.replaceAll('@', 'T');
+  let oldEndTime = state.endDateTime.replaceAll('@', 'T');
   const [eventName, setName] = useState(state.name);
   const [organization, setOrganization] = useState(state.organization);
   const [description, setDescription] = useState(state.description);
@@ -18,8 +20,8 @@ function EditEvent() {
   const [eventCost, setEventCost] = useState(state.baseCost);
   const [startLocation, setStartLocation] = useState(state.startLocation);
   const [endLocation, setEndLocation] = useState(state.endLocation);
-  const [startTime, setStartTime] = useState(state.startTime);
-  const [endTime, setEndTime] = useState(state.endTime);
+  const [startTime, setStartTime] = useState(oldStartTime);
+  const [endTime, setEndTime] = useState(oldEndTime);
 
  
   function postNewEvent(eventName, organization, description, eventType, eventCost, startLocation, endLocation, startTime, endTime) {
@@ -64,10 +66,12 @@ function EditEvent() {
        <h2>Edit Event</h2>
        <form
          action=""
-         method="POST"
+         method=""
          className="eventForm"
          onSubmit={(e) => {
            e.preventDefault();
+           console.log(startTime);
+           console.log(endTime);
            //  props.event(eventName, organization, description, eventType, startLocation, endLocation, startTime, endTime);
            setName('');
            setOrganization('');
@@ -86,11 +90,11 @@ function EditEvent() {
          <br />
          <br />
          <label>Organization</label>
-         <input type="text" name="organization" value={organization} onChange={(e) => setOrganization(e.target.value)}  />
+         <input type="text" name="organization" value={organization} onChange={(e) => setOrganization(e.target.value)} />
          <br />
          <br />
          <label>Event Type</label>
-         <input type="text" name="eventType" value={eventType} onChange={(e) => setEventType(e.target.value)}  />
+         <input type="text" name="eventType" value={eventType} onChange={(e) => setEventType(e.target.value)} />
          <br />
          <br />
          <label>Event Cost</label>
@@ -118,6 +122,9 @@ function EditEvent() {
          <br />
          <button type="submit">Submit</button>
        </form>
+       <a href={`/serviceOne/event/${id}`} rel="noopener noreferrer">
+         <button>Cancel</button>
+       </a>
      </div>
    );
 }
