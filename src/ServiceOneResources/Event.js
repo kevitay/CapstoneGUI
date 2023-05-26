@@ -12,7 +12,7 @@ export default function Event() {
   const [userIsOwner, setUserIsOwner] = useState(false);
 
     let { id } = useParams();
-    console.log(id);
+    // console.log(id);
 
   useEffect(() => {
       function getEventById() {
@@ -36,10 +36,10 @@ export default function Event() {
 
   useEffect(()=> {
     if (currentEvent !== null) {
-      console.log(currentEvent);
-      console.log("Event obj creator: " + currentEvent.creatorID);
-      console.log(authState);
-      console.log("UserAuth: " + authState.username);
+      // console.log(currentEvent);
+      // console.log("Event obj creator: " + currentEvent.creatorID);
+      // console.log(authState);
+      // console.log("UserAuth: " + authState.username);
       if (authState.username !== null && (authState.username === currentEvent.creatorID)) {
         setUserIsOwner(true);
       }
