@@ -37,6 +37,7 @@ function EditEvent() {
     myHeaders.append('Content-Type', 'application/json');
 
     var raw = JSON.stringify({
+      id: id,
       name: eventName,
       organization: organization,
       description: description,
@@ -56,7 +57,7 @@ function EditEvent() {
       redirect: 'follow',
     };
 
-    fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event', requestOptions)
+    fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/'+ id, requestOptions)
       .then((response) => response.json())
       .catch((error) => console.log('error', error));
   }
