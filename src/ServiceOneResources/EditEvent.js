@@ -2,7 +2,7 @@
 import React from 'react';
 import { useState} from 'react';
 import Address from './Address';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 
 const emptyAddress = {name:'',address:'',city:'',state:'',zipCode:''};
 
