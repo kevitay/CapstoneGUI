@@ -12,14 +12,14 @@ function EditEvent() {
 //   console.log(state)
 // i want to 
   const [eventName, setName] = useState(state.name);
-  const [organization, setOrganization] = useState('');
-  const [description, setDescription] = useState('');
-  const [eventType, setEventType] = useState('');
-  const [eventCost, setEventCost] = useState('');
-  const [startLocation, setStartLocation] = useState(emptyAddress);
-  const [endLocation, setEndLocation] = useState(emptyAddress);
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
+  const [organization, setOrganization] = useState(state.organization);
+  const [description, setDescription] = useState(state.description);
+  const [eventType, setEventType] = useState(state.type);
+  const [eventCost, setEventCost] = useState(state.baseCost);
+  const [startLocation, setStartLocation] = useState(state.startLocation);
+  const [endLocation, setEndLocation] = useState(state.endLocation);
+  const [startTime, setStartTime] = useState(state.startTime);
+  const [endTime, setEndTime] = useState(state.endTime);
 
  
   function postNewEvent(eventName, organization, description, eventType, eventCost, startLocation, endLocation, startTime, endTime) {
