@@ -9,101 +9,77 @@ function BeforeEvent() {
 
   const handleAddItem = (item) => {
     var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Content-Type", "application/json");
 
-var raw = JSON.stringify({
-  "eventId": '3',
-  "type": "packing list",
-  "description": item.item,
-  "required": item.required,
-  "quantity": item.count
-});
+    var raw = JSON.stringify({
+      "eventId": '3',
+      "type": "packing list",
+      "description": item.item,
+      "required": item.required,
+      "quantity": item.count
+    });
 
-var requestOptions = {
-  method: 'POST',
-  headers: myHeaders,
-  body: raw,
-  redirect: 'follow'
-};
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
 
-fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist", requestOptions)
-  .then(response => response.json())
-  .then(result => setPackingList([...packingList, result]))
-  .catch(error => console.log('error', error));
-};
-
-  const handleUpdateItem = (item, itemIndex) => {
-    // Implement the logic for updating the item at the specified index
-    var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
-
-var raw = JSON.stringify({
-  "id": item.id,
-  "type": "packing list",
-  "description": item.description,
-  "required": item.required,
-  "quantity": item.count
-});
-
-var requestOptions = {
-  method: 'PUT',
-  headers: myHeaders,
-  body: raw,
-  redirect: 'follow',
-  id: 23,
-};
-
-fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist/" + item.id, requestOptions)
-  .then(response => response.json())
-  .then(result => {
-    //make copy of existing package
-    let newList = [...packingList];
-    //find item by id
-    //let itemIndex = newList.findIndex( listItem => listItem.id === item.id);
-    //update or replace the item
-    newList[itemIndex] = result; 
-    //set new packing list
-    setPackingList(newList);
-  })
-  .catch(error => console.log('error', error));
+    fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist", requestOptions)
+      .then(response => response.json())
+      .then(result => setPackingList([...packingList, result]))
+      .catch(error => console.log('error', error));
   };
 
-  const handleDeleteItem = (index) => {
+  const handleDeleteItem = (itemId) => {
 
     var myHeaders = new Headers();
-myHeaders.append("Content-Type", "application/json");
+    myHeaders.append("Content-Type", "application/json");
 
-var raw = JSON.stringify({
-  "eventId": "381f2e4c-ba8c-4204-a4fc-c1874fcbc375",
-  "type": "packing list",
-  "description": "swimsuit",
-  "required": false,
-  "quantity": 1
-});
+    var raw = JSON.stringify({
+      "eventId": "381f2e4c-ba8c-4204-a4fc-c1874fcbc375",
+      "type": "packing list",
+      "description": "swimsuit",
+      "required": false,
+      "quantity": 1
+    });
 
-var requestOptions = {
-  method: 'DELETE',
-  headers: myHeaders,
-  body: raw,
-  redirect: 'follow'
-};
+    var requestOptions = {
+      method: 'DELETE',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
 
-fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist/34", requestOptions)
-  .then(response => response.text())  
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
+    fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist/34", requestOptions)
+      .then(response => response.text())
+      .then(result => console.log(result))
+      .catch(error => console.log('error', error));
     const updatedPackingList = [...packingList];
-    updatedPackingList.splice(index, 1);
+    updatedPackingList.splice(itemId, 1);
     setPackingList(updatedPackingList);
   };
   return (
     <div>
-      <AddListItem onAddItem={handleAddItem} />
-      <ItemList
-        items={packingList}
-        onUpdateItem={handleUpdateItem}
-        onDeleteItem={handleDeleteItem}
-      />
+      <table>
+        <thead>
+          <tr>
+            <th>Description</th>
+            <th>Quantity</th>
+            <th>Required</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <AddListItem onAddItem={handleAddItem} />
+          <ItemList
+            items={packingList}
+            setPackingList={setPackingList}
+            onDeleteItem={handleDeleteItem}
+          />
+        </tbody>
+      </table>
     </div>
   );
 }

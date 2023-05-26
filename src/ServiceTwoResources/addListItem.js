@@ -28,26 +28,26 @@ function AddListItem({onAddItem}) {
         onAddItem(newItem);
         setRequired(false);
         setItemInput(''); 
+        setCount(1);
         };
     };
 
     return (
-    <div>
-    <input type="text" value={itemInput} onChange={handleInputChange} />
-        <input type="number" value={count} onChange={handleCountChange}/>
-            <label>
+    <tr>
+    <td><input type="text" value={itemInput} onChange={handleInputChange} /></td>
+        <td><input type="number" value={count} onChange={handleCountChange}/></td> 
+        <td>
             <input
               type="checkbox" checked={required}
               onChange={handleCheckboxChange}
             />
-            Required
-          </label>  
-                    <button onClick={
+            </td>
+          <td><button onClick={
                     addItem
                 }>
                 Add Item
-                </button>
-    </div>) 
+                </button></td>
+    </tr>) 
 }
 
 export default AddListItem
