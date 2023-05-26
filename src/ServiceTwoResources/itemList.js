@@ -1,31 +1,70 @@
 import React from "react";
 
-function ItemList({ items, onUpdateItem, onDeleteItem }) {
-     console.log(items);
-return (
-    <table> 
-      <thead> 
-        <tr>
-          <th>name</th>
-          <th>required</th>
-          <th>count</th>
-          <th></th>
-        </tr>
-         </thead>
-         <tbody>
-      {items.map((item, index) => (
-        <tr key={index}>
-          <td><input type="text" value={item.description}></input></td>
-          <td><input type="text" value={item.required + "" }></input></td>
-          <td><input type="text" value={item.quantity}></input></td>
+function ItemList({ items, setPackingList, onDeleteItem }) {
+  const handleUpdateItem = (item, itemIndex) => {
+    // Implement the logic for updating the item at the specified index
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var raw = JSON.stringify({
+      "id": item.id,
+      "type": "packing list",
+      "description": item.description,
+      "required": item.required,
+      "quantity": item.count
+    });
+
+    var requestOptions = {
+      method: 'PUT',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow',
+      id: 23,
+    };
+
+    fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist/" + item.id, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+        //make copy of existing package
+        let newList = [...items];
+        //find item by id
+        //let itemIndex = newList.findIndex( listItem => listItem.id === item.id);
+        //update or replace the item
+        newList[itemIndex] = result;
+        //set new packing list
+        setPackingList(newList);
+      })
+      .catch(error => console.log('error', error));
+  };
+
+  console.log(items);
+  
+  let editList;
+  const onChangeInput = (e, itemId) => {
+    const { name, value } = e.target
+
+    editList = items.map((item) =>
+      item.itemId === itemId && name ? { ...item, [name]: value } : item)
+  }
+
+  const onUpdateItem = () => {
+    setPackingList(editList)
+  }
+
+  return (
+    <>
+      {items.map((item) => (
+        <tr key={item.id}>
+          <td><input type="text" value={item.description} onChange={(e) => onChangeInput(e, item.id)}></input></td>
+          <td><input type="number" value={item.quantity} onChange={(e) => onChangeInput(e, item.id)}></input></td>
+          <td><input type="checkbox" checked={item.required} onChange={(e) => onChangeInput(e, item.id)}></input></td>
           <td>
-          <button onClick={() => onUpdateItem(item, index)}>Update</button>
-          <button onClick={() => onDeleteItem(item, index)}>Delete</button>
-        </td>
+            <button onClick={() => onUpdateItem()}>Update Item</button>
+            <button onClick={() => onDeleteItem(item)}>Delete Item</button>
+          </td>
         </tr>
       ))}
-      </tbody>
-    </table>
-)
+    </>
+  )
 };
 export default ItemList;
