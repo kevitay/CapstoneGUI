@@ -1,7 +1,7 @@
 import React from "react";
 
 function ItemList({ items, setPackingList, onDeleteItem }) {
-  const handleUpdateItem = (item) => {
+  const handleUpdateItem = (item, index) => {
     // Implement the logic for updating the item at the specified index
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -30,7 +30,7 @@ function ItemList({ items, setPackingList, onDeleteItem }) {
         //find item by id
         //let itemIndex = newList.findIndex( listItem => listItem.id === item.id);
         //update or replace the item
-        newList[item.id] = result;
+        newList[index] = result;
         //set new packing list
         setPackingList(newList);
       })
@@ -41,29 +41,25 @@ function ItemList({ items, setPackingList, onDeleteItem }) {
 
   const onChangeInput = (e, index) => {
     const { name, value } = e.target
-
+    console.log(name, value);
     // editList = items.map((item) =>
     //   item.itemId === itemId && name ? { ...item, [name]: value } : item
     // )
-    let editList = [...items];
+    let editList = items.map(item  => ({...item}))
     editList[index][name]=value;
     console.log(editList);
     setPackingList(editList);
-  }
-
-  const onUpdateItem = () => {
-    // handleUpdateItem
   }
 
   return (
     <>
       {items.map((item, index) => (
         <tr key={item.id}>
-          <td><input type="text" value={item.description} onChange={(e) => onChangeInput(e, index)}></input></td>
-          <td><input type="number" min="1" value={item.quantity} onChange={(e) => onChangeInput(e, index)}></input></td>
-          <td><input type="checkbox" checked={item.required} onChange={(e) => onChangeInput(e, index)}></input></td>
+          <td><input type="text" name="description" value={item.description} onChange={(e) => onChangeInput(e, index)}></input></td>
+          <td><input type="number" min="1" name="quantity" value={item.quantity} onChange={(e) => onChangeInput(e, index)}></input></td>
+          <td><input type="checkbox" checked={item.required} name="required" onChange={(e) => onChangeInput(e, index)}></input></td>
           <td>
-            <button onClick={() => onUpdateItem(item, index)}>Update Item</button>
+            <button onClick={() => handleUpdateItem(item, index)}>Update Item</button>
             <button onClick={() => onDeleteItem(item, index)}>Delete Item</button>
           </td>
         </tr>
