@@ -1,8 +1,10 @@
 import React from 'react';
 import DeleteEvent from "./DeleteEvent";
+import CancelEvent from './CancelEvent';
+import { Link } from 'react-router-dom';
+
  
-function OrganizerControl({ event }) {
-   
+function OrganizerControl({ event, setCurrentEvent } ) {
   return (
     <div>
       <h2>Organizer Controls</h2>
@@ -10,12 +12,13 @@ function OrganizerControl({ event }) {
       <label htmlFor="public">Public Event</label>
       <input type="checkbox" id="participants" name="participants" value="participants"></input>
       <label htmlFor="participants">Show Participants</label>
-      <button>Edit Event</button>
-      <button>Cancel Event</button>
-      <DeleteEvent id={event.id}/> 
+      {/* <a href={`/serviceOne/editEvent/${event.id}`} rel='noopener noreferrer' state = {event}>
+        <button>Edit Event</button></a> */}
+        <Link to={`/serviceOne/editEvent/${event.id}`} state={event}><button>Edit Event</button></Link>
+      <CancelEvent event={event} setCurrentEvent={setCurrentEvent} />
+      <DeleteEvent id={event.id} />
     </div>
-);
-
+  );
 }
 
 export default OrganizerControl;
