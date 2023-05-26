@@ -1,11 +1,15 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import OrganizerControl from "./OrganizerControl";
+import AuthContext from "../IdentityResources/Contexts/AuthContext";
 import { useParams } from "react-router-dom";
+import Login from '../IdentityResources/Login';
 
 
 //react event
 export default function Event() {
   const [currentEvent, setCurrentEvent] = useState(null);
+  const [authState,] = useContext(AuthContext);
+  const [userIsOwner, setUserIsOwner] = useState(false);
 
     let { id } = useParams();
     console.log(id);
@@ -22,13 +26,25 @@ export default function Event() {
         fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/' + id, requestOptions)
           .then((response) => response.json())
           .then((response) => setCurrentEvent(response))
-          .then((response) => console.log(response))
+          // .then((response) => console.log(response))
           .catch((error) => console.log('error', error));
-    }
+        }
     
     getEventById();
     // eslint-disable-line react-hooks/exhaustive-deps
     }, [id]);
+
+  useEffect(()=> {
+    if (currentEvent !== null) {
+      console.log(currentEvent);
+      console.log("Event obj creator: " + currentEvent.creatorID);
+      console.log(authState);
+      console.log("UserAuth: " + authState.username);
+      if (authState.username !== null && (authState.username === currentEvent.creatorID)) {
+        setUserIsOwner(true);
+      }
+    }
+  },[userIsOwner, authState,currentEvent]);  
 
   function dateFormatter(dateTime) {
     const date = new Date(dateTime);
@@ -52,6 +68,7 @@ export default function Event() {
 
   return (
     <div>
+      {(!authState.token)?(<Login></Login>):(<></>)}
       <div className='eventDetails'>
         <h1>{currentEvent.name}</h1>
         <h3>
@@ -73,7 +90,7 @@ export default function Event() {
         <h3>Total Cost: ${currentEvent.total_cost}</h3>
       </div>
       <div>
-        <OrganizerControl event={currentEvent}/>
+        {(userIsOwner) ? (<OrganizerControl event={currentEvent}/>):(<></>)}
       </div>
     </div>
   );

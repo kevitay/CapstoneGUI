@@ -10,8 +10,6 @@ import CreateEvent from './ServiceOneResources/CreateEvent';
 import { EventProvider } from './ServiceOneResources/EventsContext';
 import EventList from "./ServiceOneResources/EventList";
 import AuthContext from "./IdentityResources/Contexts/AuthContext";
-import UserListContext from "./IdentityResources/Contexts/UserListContext";
-import RoleListContext from "./IdentityResources/Contexts/RoleListContext";
 import { useReducer } from "react";
 
 const authInitialState = {
