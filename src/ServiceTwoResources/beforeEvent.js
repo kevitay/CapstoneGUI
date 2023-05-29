@@ -32,13 +32,13 @@ function BeforeEvent() {
       .catch(error => console.log('error', error));
   };
 
-  const handleDeleteItem = (itemId) => {
+  const handleDeleteItem = (item, itemIndex) => {
 
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-      "eventId": "381f2e4c-ba8c-4204-a4fc-c1874fcbc375",
+      "id": item.id,
       "type": "packing list",
       "description": "swimsuit",
       "required": false,
@@ -52,14 +52,20 @@ function BeforeEvent() {
       redirect: 'follow'
     };
 
-    fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist/34", requestOptions)
-      .then(response => response.text())
-      .then(result => console.log(result))
-      .catch(error => console.log('error', error));
-    const updatedPackingList = [...packingList];
-    updatedPackingList.splice(itemId, 1);
-    setPackingList(updatedPackingList);
-  };
+    fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist/" + item.id, requestOptions)
+      .then(response => {
+        if(response.status === 202){
+          console.log("delete worked")
+        }
+      }
+        
+    //     response.text())
+    //   .then(result => console.log(result))
+    //   .catch(error => console.log('error', error));
+    // const updatedPackingList = [...packingList];
+    // updatedPackingList.splice(itemId, 1);
+    // setPackingList(updatedPackingList);
+  )};
   return (
     <div>
       <table>

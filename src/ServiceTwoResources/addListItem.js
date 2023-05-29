@@ -33,21 +33,22 @@ function AddListItem({onAddItem}) {
     };
 
     return (
-    <div>
-    <input type="text" value={itemInput} onChange={handleInputChange} />
-        <input type="number" value={count} onChange={handleCountChange}/>
-            <label>
-            <input
-              type="checkbox" checked={required}
-              onChange={handleCheckboxChange}
-            />
-            </td>
-          <td><button onClick={
-                    addItem
-                 }>
-                Add Item
-                </button>
-    </div>) 
+        <tr>
+        <td><input type="text" value={itemInput} onChange={handleInputChange} /></td>
+            <td><input type="number" min="1" value={count} onChange={handleCountChange}/></td> 
+            <td>
+                <input
+                  type="checkbox" checked={required}
+                  onChange={handleCheckboxChange}
+                />
+                </td>
+              <td><button onClick={
+                        addItem
+                    }>
+                    Add Item
+                    </button></td>
+        </tr>) 
+    
 }
 
 export default AddListItem

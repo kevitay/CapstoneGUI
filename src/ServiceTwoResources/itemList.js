@@ -55,9 +55,9 @@ function ItemList({ items, setPackingList, onDeleteItem }) {
     <>
       {items.map((item) => (
         <tr key={item.id}>
-          <td><input type="text" value={item.description} onChange={(e) => onChangeInput(e, item.id)}></input></td>
-          <td><input type="number" value={item.quantity} onChange={(e) => onChangeInput(e, item.id)}></input></td>
-          <td><input type="checkbox" checked={item.required} onChange={(e) => onChangeInput(e, item.id)}></input></td>
+          <td><input type="text"  name="description" value={item.description} onChange={(e) => onChangeInput(e, item.id)}></input></td>
+          <td><input type="number" name="quantity" value={item.quantity} onChange={(e) => onChangeInput(e, item.id)}></input></td>
+          <td><input type="checkbox" checked={item.required} name="required" onChange={(e) => onChangeInput(e, item.id)}></input></td>
           <td>
             <button onClick={() => onUpdateItem()}>Update Item</button>
             <button onClick={() => onDeleteItem(item)}>Delete Item</button>
