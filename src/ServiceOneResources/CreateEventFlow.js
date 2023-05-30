@@ -8,9 +8,13 @@ function CreateEventFlow() {
 
   return (
     <div>
-
+      {creationStep === 1 ? <CreateEvent setCreationStep={setCreationStep} /> : <></>}
+      {creationStep === 2 ? <></> : <></>}
+      {creationStep === 3 ? <></> : <></>}
+      {creationStep === 4 ? <></> : <></>}
+      {creationStep === 5 ? <></> : <></>}
     </div>
-  )
+  );
 }
 
 export default CreateEventFlow
