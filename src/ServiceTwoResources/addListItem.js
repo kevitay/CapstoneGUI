@@ -65,7 +65,8 @@ function AddListItem({ eventId, setPackingList, packingList }) {
     return (
         <tr>
             <td><input type="text" value={itemInput} onChange={handleInputChange} /></td>
-            <td><input type="text" value={typeInput} onChange={handleTypeChange} /></td>
+            <td><select name="type" defaultValue="packing list" onChange={handleTypeChange}> <option value="packing list"> Packing List </option>
+            <option value="signup list"> Signup List </option> </select></td>
             <td><input type="number" min="1" value={count} onChange={handleCountChange} /></td> 
             <td><input type="checkbox" checked={required} onChange={handleCheckboxChange} /></td>
             <td><button onClick={addItem}> Add Item </button></td>
