@@ -39,27 +39,29 @@ function ItemList({ items, setPackingList, onDeleteItem }) {
 
   console.log(items);
   
-  let editList;
-  const onChangeInput = (e, itemId) => {
+  const onChangeInput = (e, index) => {
     const { name, value } = e.target
-
-    editList = items.map((item) =>
-      item.itemId === itemId && name ? { ...item, [name]: value } : item)
+    console.log(name, value);
+    // editList = items.map((item) =>
+    //   item.itemId === itemId && name ? { ...item, [name]: value } : item
+    // )
+    let editList = items.map(item  => ({...item}))
+    editList[index][name]=value;
+    console.log(editList);
+    setPackingList(editList);
   }
 
-  const onUpdateItem = () => {
-    setPackingList(editList)
-  }
+
 
   return (
     <>
-      {items.map((item) => (
+      {items.map((item, index) => (
         <tr key={item.id}>
-          <td><input type="text"  name="description" value={item.description} onChange={(e) => onChangeInput(e, item.id)}></input></td>
-          <td><input type="number" name="quantity" value={item.quantity} onChange={(e) => onChangeInput(e, item.id)}></input></td>
-          <td><input type="checkbox" checked={item.required} name="required" onChange={(e) => onChangeInput(e, item.id)}></input></td>
+          <td><input type="text"  name="description" value={item.description} onChange={(e) => onChangeInput(e, index)}></input></td>
+          <td><input type="number" name="quantity" value={item.quantity} onChange={(e) => onChangeInput(e, index)}></input></td>
+          <td><input type="checkbox" checked={item.required} name="required" onChange={(e) => onChangeInput(e, index)}></input></td>
           <td>
-            <button onClick={() => onUpdateItem()}>Update Item</button>
+            <button onClick={() => handleUpdateItem()}>Update Item</button>
             <button onClick={() => onDeleteItem(item)}>Delete Item</button>
           </td>
         </tr>
