@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 
 const ParticipantView = ({ user }) => {
   const [packingList, setPackingList] = useState([]);
-  const eventId = 2;
+  const eventId = 3;
   
   const getPackingListByEventId = (eventId) => {
   var requestOptions = {
@@ -38,13 +38,16 @@ const ParticipantView = ({ user }) => {
           </tr>
         </thead>
         <tbody>
-          {packingList.map(result => (
+         
+          {packingList.filter(item => item.type === "packing list").map(result => (
             <tr key={result.id}>
               <td>{result.id}</td>
               <td>{result.description}</td>
               <td>{result.type}</td>
               <td>{result.quantity}</td>
-              <td>{result.required}</td>
+              <td>
+               {(result.required) ? "true" : "false" }
+              </td>
             </tr>
           ))}
         </tbody>
