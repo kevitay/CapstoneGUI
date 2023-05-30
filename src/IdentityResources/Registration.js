@@ -13,14 +13,6 @@ const initialRegistrationState = {
     phoneNumber: '',
 }
 
-const initialUserState = {
-    username: '',
-    password: '',
-    email: '',
-    firstName: '',
-    lastName: '',
-}
-
 const Registration = () => {
     const [registration, setRegistration] = useState(initialRegistrationState)
     const host = useContext(HostContext);
