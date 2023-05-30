@@ -8,7 +8,7 @@ import ParticipantView from "./participantView";
 function ServiceTwoApp() {
     return (
         <div className="ServiceTwoApp">
-            <h1>App</h1>
+            <h1>Service Two</h1>
             <nav>
                 <ul>
                     <li>
