@@ -9,11 +9,13 @@ function CreateEventFlow() {
 
   return (
     <div>
+      {event ? (<h1>{event.name}</h1>) : <h1>Create Your Event</h1>}
+      <p>Step {creationStep} of 5</p>
       {creationStep === 1 ? <CreateEvent setCreationStep={setCreationStep} setEvent={setEvent} /> : <></>}
-      {creationStep === 2 ? <><p>Step 2</p></> : <></>}
-      {creationStep === 3 ? <></> : <></>}
-      {creationStep === 4 ? <></> : <></>}
-      {creationStep === 5 ? <></> : <></>}
+      {creationStep === 2 ? <><p>Add participants</p></> : <></>}
+      {creationStep === 3 ? <><p>Add itinerary</p></> : <></>}
+      {creationStep === 4 ? <><p>Add items</p></> : <></>}
+      {creationStep === 5 ? <><p>Add tasks</p></> : <></>}
     </div>
   );
 }
