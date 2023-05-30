@@ -6,7 +6,7 @@ import ServiceThreeApp from "./ServiceThreeResources/ServiceThreeApp";
 import ServiceFourApp from "./ServiceFourResources/ServiceFourApp";
 import { NavLink, Route, Routes } from "react-router-dom";
 import Home from "./Home";
-import CreateEvent from './ServiceOneResources/CreateEvent';
+import CreateEventFlow from './ServiceOneResources/CreateEventFlow';
 import { EventProvider } from './ServiceOneResources/EventsContext';
 import EventList from "./ServiceOneResources/EventList";
 import EditEvent from "./ServiceOneResources/EditEvent";
@@ -46,12 +46,12 @@ function App() {
             element={
               <>
                   <EventList />
-                  <CreateEvent />
+                  <CreateEventFlow />
               </>
             }
           ></Route>
           <Route path={'/serviceOne/event/:id'} element={<Event />}></Route>
-          <Route path={'/serviceOne/createEvent'} element={<CreateEvent />}></Route>
+          <Route path={'/serviceOne/createEventFlow'} element={<CreateEventFlow />}></Route>
           <Route path={'/serviceOne/editEvent/:id'} element={<EditEvent />}></Route>
           <Route path={'/serviceTwo/*'} element={<ServiceTwoApp />}></Route>
           <Route path={'/serviceThree/*'} element={<ServiceThreeApp />}></Route>
