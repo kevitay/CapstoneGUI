@@ -1,25 +1,17 @@
 import React from 'react';
 import { useState } from 'react';
-import Address from './Address';
 import { useParams, useLocation } from 'react-router-dom';
 
-const emptyAddress = { name: '', address: '', city: '', state: '', zipCode: '' };
 
 function EditEvent() {
   let { id } = useParams();
   const location = useLocation();
   const state = location.state;
-  let oldStartTime = state.startDateTime.replaceAll('@', 'T');
-  let oldEndTime = state.endDateTime.replaceAll('@', 'T');
   const [eventName, setName] = useState(state.name);
   const [organization, setOrganization] = useState(state.organization);
   const [description, setDescription] = useState(state.description);
   const [eventType, setEventType] = useState(state.type);
   const [eventCost, setEventCost] = useState(state.baseCost);
-  const [startLocation, setStartLocation] = useState(state.startLocation);
-  const [endLocation, setEndLocation] = useState(state.endLocation);
-  const [startTime, setStartTime] = useState(oldStartTime);
-  const [endTime, setEndTime] = useState(oldEndTime);
 
   async function postNewEvent(eventName, organization, description, eventType, eventCost) {
     var myHeaders = new Headers();
@@ -65,9 +57,6 @@ function EditEvent() {
         className="eventForm"
         onSubmit={(e) => {
           e.preventDefault();
-          console.log(startTime);
-          console.log(endTime);
-          //  props.event(eventName, organization, description, eventType, startLocation, endLocation, startTime, endTime);
           setName('');
           setOrganization('');
           setDescription('');
