@@ -37,38 +37,26 @@ function BeforeEvent() {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
-    var raw = JSON.stringify({
-      "id": item.id,
-      "type": "packing list",
-      "description": "swimsuit",
-      "required": false,
-      "quantity": 1
-    });
-
     var requestOptions = {
       method: 'DELETE',
       headers: myHeaders,
-      body: raw,
       redirect: 'follow'
     };
 
     fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist/" + item.id, requestOptions)
       .then(response => {
-        if(response.status === 202){
-          alert("Item Deleted")
+        if (response.status === 202) {
+          alert("Item Deleted");
+          const updatedPackingList = [...packingList];
+          updatedPackingList.splice(item, 1);
+          setPackingList(updatedPackingList);
         }
-        const updatedPackingList = [...packingList];
-        updatedPackingList.splice(item, 1);
-        setPackingList(updatedPackingList);
       }
-        
-    //     response.text())
-    //   .then(result => console.log(result))
-    //   .catch(error => console.log('error', error));
-    // const updatedPackingList = [...packingList];
-    // updatedPackingList.splice(itemId, 1);
-    // setPackingList(updatedPackingList);
-  )};
+      )
+      .catch(error => console.log('error', error));
+  };
+
+
   return (
     <div>
       <table>
