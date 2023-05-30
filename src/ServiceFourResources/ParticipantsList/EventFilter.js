@@ -24,7 +24,7 @@ function EventFilter({ originalState, participantState, setEventParticipants }) 
                         <DropDownFilter resetStatus={resetStatus} filterOn={"location"} filterName={"Location"} participantState={participantState} dataToFilter={participantState.map(x => x.user.city + ', ' + x.user.state)} setEventParticipants={setEventParticipants}></DropDownFilter>
                     </th>
                     <th className="StatusFilter">
-                        <DropDownFilter resetStatus={resetStatus} filterOn={"status"} filterName={"Status"} participantState={participantState} dataToFilter={participantState.map(x => x.status.toLowerCase())} setEventParticipants={setEventParticipants}></DropDownFilter>
+                        <DropDownFilter resetStatus={resetStatus} filterOn={"status"} filterName={"Status"} participantState={participantState} dataToFilter={participantState.map(x => x.status)} setEventParticipants={setEventParticipants}></DropDownFilter>
                     </th>
                     <th className="DrivingFilter">
                         <DropDownFilter resetStatus={resetStatus} filterOn={"driving"} filterName={"Driving?"} participantState={participantState} dataToFilter={['Yes', 'No']} setEventParticipants={setEventParticipants}></DropDownFilter>
