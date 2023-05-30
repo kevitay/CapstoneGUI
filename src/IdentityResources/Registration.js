@@ -8,6 +8,17 @@ const initialRegistrationState = {
     email: '',
     firstName: '',
     lastName: '',
+    city: '', 
+    state: '', 
+    phoneNumber: '',
+}
+
+const initialUserState = {
+    username: '',
+    password: '',
+    email: '',
+    firstName: '',
+    lastName: '',
 }
 
 const Registration = () => {
@@ -26,7 +37,20 @@ const Registration = () => {
         }
         fetch(`${host.url}/account/register`, headers).then((response) => {
             if(response.ok) {
-                setMessage(successMessage);
+                const requestOptions = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(registration),
+                }
+                console.log(registration)
+                fetch("http://a53e50bf576c64141b52293976658417-1117441751.us-west-2.elb.amazonaws.com/api/users", requestOptions).then((response) => {
+                    if(response.ok) {
+                        setMessage(successMessage);
+                    } else {
+                        setMessage(failedMessage); 
+                    }})
             } else {
                 setMessage(failedMessage);
             }

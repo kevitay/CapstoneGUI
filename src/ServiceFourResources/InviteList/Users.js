@@ -33,9 +33,6 @@ function Users({ eventID }) {
         selectedUsers.forEach(element => {
             var raw = JSON.stringify({
                 "eventId": "1",
-                "status": "N/A",
-                "carpool": " ",
-                "seatsAvail": 0,
                 "user": {
                     "userName": element,
                 }
