@@ -7,6 +7,9 @@ import { useParams } from "react-router-dom";
 export default function Event() {
   const [currentEvent, setCurrentEvent] = useState(null);
 
+  // const updateState = (newState) => {
+  //   setCurrentEvent(newState);
+  // };
 
     let { id } = useParams();
     console.log(id);
@@ -26,25 +29,26 @@ export default function Event() {
           .catch((error) => console.log('error', error));
     }
     
-    getEventById();},
-     [id]);
+    getEventById();
+    // eslint-disable-line react-hooks/exhaustive-deps
+    }, [id]);
 
-  // function dateFormatter(dateTime) {
-  //   const date = new Date(dateTime);
-  //   // Extracting date components
-  //   let hours = date.getHours();
-  //   const minutes = date.getMinutes();
-  //   const month = date.getMonth() + 1; // Months are zero-based, so adding 1
-  //   const day = date.getDate();
-  //   const year = date.getFullYear();
-  //   // Converting to 12-hour format
-  //   let amPm = hours >= 12 ? "PM" : "AM";
-  //   hours = hours % 12 || 12;
+  function dateFormatter(dateTime) {
+    const date = new Date(dateTime);
+    // Extracting date components
+    let hours = date.getHours();
+    const minutes = date.getMinutes();
+    const month = date.getMonth() + 1; // Months are zero-based, so adding 1
+    const day = date.getDate();
+    const year = date.getFullYear();
+    // Converting to 12-hour format
+    let amPm = hours >= 12 ? "PM" : "AM";
+    hours = hours % 12 || 12;
 
-  //   return `${month.toString().padStart(2, "0")}/${day.toString().padStart(2, "0")}/${year} ${hours
-  //     .toString()
-  //     .padStart(2, "0")}:${minutes.toString().padStart(2, "0")} ${amPm}`;
-  // }
+    return `${month.toString().padStart(2, "0")}/${day.toString().padStart(2, "0")}/${year} ${hours
+      .toString()
+      .padStart(2, "0")}:${minutes.toString().padStart(2, "0")} ${amPm}`;
+  }
 
   //using an if statement to handle the async setCurrentEvent could also use {(currentEvent) ? (<div>…</div>) :( <></>)}
   if (!currentEvent) return null;
@@ -61,10 +65,10 @@ export default function Event() {
       </div>
       <div className="locationDetails">
         <h2>When and Where</h2>
-        <h3>Start Time: </h3>
-        <h3>End Time: </h3>
-        <h3>Start Location: </h3>
-        <h3>End Location: </h3>
+        <h3>Start Time: {dateFormatter(currentEvent.startDateTime)}</h3>
+        <h3>End Time: {dateFormatter(currentEvent.endDateTime)}</h3>
+        <h3>Start Location: {currentEvent.startLocation.name}</h3>
+        <h3>End Location: {currentEvent.endLocation.name}</h3>
       </div>
       <div className="baseCost">
         <h3>Base Cost: ${currentEvent.baseCost}</h3>
