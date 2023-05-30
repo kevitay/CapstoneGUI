@@ -34,7 +34,7 @@ function Users({ eventID }) {
             var raw = JSON.stringify({
                 "eventId": "1",
                 "user": {
-                    "userName": element,
+                    "username": element,
                 }
             });
     
