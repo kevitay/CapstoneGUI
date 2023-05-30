@@ -1,6 +1,6 @@
 import React from 'react';
-import { useState, useContext} from 'react';
-import { EventContext } from "./EventsContext";
+import { useState } from 'react';
+// import { EventContext } from "./EventsContext";
 import Address from './Address';
 
 const emptyAddress = {name:'',address:'',city:'',state:'',zipCode:''};
@@ -16,7 +16,7 @@ function CreateEvent({ setCreationStep, setEvent }) {
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
 
-  const { dispatch } = useContext(EventContext);
+  // const { dispatch } = useContext(EventContext);
 
   function postNewEvent(eventName, organization, description, eventType, eventCost, startLocation, endLocation, startTime, endTime) {
     // console.log(startTime);
