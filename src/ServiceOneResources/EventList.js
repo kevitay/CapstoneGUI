@@ -26,7 +26,7 @@ const { state, dispatch } = useContext(EventContext)
                .catch((error) => console.log('error', error));
            }
 
-
+           
        getEvents();
      }, [dispatch]);
 

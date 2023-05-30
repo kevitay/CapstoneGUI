@@ -22,7 +22,7 @@ function CreateEvent({ setCreationStep, setEvent }) {
       description: description,
       type: eventType,
       baseCost: eventCost,
-      status: 'Planning',
+      status: 'draft',
     });
 
     var requestOptions = {

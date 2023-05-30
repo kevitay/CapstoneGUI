@@ -24,7 +24,7 @@ function EditEvent() {
       description: description,
       type: eventType,
       baseCost: eventCost,
-      status: 'Planning',
+      status: 'planned',
     });
 
     var requestOptions = {
@@ -91,7 +91,7 @@ function EditEvent() {
         <button type="submit">Submit</button>
       </form>
       <a href={`/serviceOne/event/${id}`} rel="noopener noreferrer">
-        <button>Cancel</button>
+        <button>Cancel Edit </button>
       </a>
     </div>
   );
