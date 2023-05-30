@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-function ItemList({ items, setPackingList }) {
+function ItemList({ items, setPackingList, eventId }) {
+  console.log("eventId line4", eventId)
+  
   const handleUpdateItem = (item, itemIndex) => {
     // Implement the logic for updating the item at the specified index
     var myHeaders = new Headers();
@@ -37,14 +39,14 @@ function ItemList({ items, setPackingList }) {
       .catch(error => console.log('error', error));
   };
 
-  const handleDeleteItem = (item, itemIndex) => {
+  const handleDeleteItem = (item) => {
 
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
+    // var myHeaders = new Headers();
+    // myHeaders.append("Content-Type", "application/json");
 
     var requestOptions = {
       method: 'DELETE',
-      headers: myHeaders,
+      // headers: myHeaders,
       redirect: 'follow'
     };
 
@@ -61,7 +63,26 @@ function ItemList({ items, setPackingList }) {
       .catch(error => console.log('error', error));
   };
 
-  
+  const getPackingListByEventId = (eventId) =>  {
+console.log("eventID line 65", eventId)
+  var requestOptions = {
+    method: 'GET',
+    redirect: 'follow'
+  };
+  console.log("eventId", eventId)
+  fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist/" + eventId, requestOptions)
+    .then(response => response.json())
+    .then(result => {console.log("look here", result);
+      setPackingList(result.checklist);
+    })
+    .catch(error => console.log('error', error));
+};
+
+useEffect(() => {
+  getPackingListByEventId(eventId);
+}, []);
+
+
   const onChangeInput = (e, index) => {
     const { name, value } = e.target
     console.log(name, value);
@@ -84,7 +105,7 @@ console.log("item array", items);
           <td><input type="number" name="quantity" value={item.quantity} onChange={(e) => onChangeInput(e, index)}></input></td>
           <td><input type="checkbox" checked={item.required} name="required" onChange={(e) => onChangeInput(e, index)}></input></td>
           <td>
-            <button onClick={() => handleUpdateItem()}>Update Item</button>
+            <button onClick={() => handleUpdateItem(item, index)}>Update Item</button>
             <button onClick={() => handleDeleteItem(item)}>Delete Item</button>
           </td>
         </tr>

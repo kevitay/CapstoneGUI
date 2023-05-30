@@ -6,13 +6,15 @@ import ItemList from "./itemList";
 
 function BeforeEvent() {
   const [packingList, setPackingList] = useState([]);
+  const eventId = 0;
+  // TODO: need to inject eventId from event API
 
   const handleAddItem = (item) => {
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
 
     var raw = JSON.stringify({
-      "eventId": '3',
+      "eventId": eventId,
       "type": "packing list",
       "description": item.item,
       "required": item.required,
@@ -50,6 +52,7 @@ function BeforeEvent() {
           <ItemList
             items={packingList}
             setPackingList={setPackingList}
+            eventId={eventId}
           />
         </tbody>
       </table>
