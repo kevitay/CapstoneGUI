@@ -1,9 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
 // import { EventContext } from "./EventsContext";
-import Address from './Address';
-
-const emptyAddress = {name:'',address:'',city:'',state:'',zipCode:''};
 
 function CreateEvent({ setCreationStep, setEvent }) {
   const [eventName, setName] = useState('');
@@ -11,21 +8,10 @@ function CreateEvent({ setCreationStep, setEvent }) {
   const [description, setDescription] = useState('');
   const [eventType, setEventType] = useState('');
   const [eventCost, setEventCost] = useState('');
-  const [startLocation, setStartLocation] = useState(emptyAddress);
-  const [endLocation, setEndLocation] = useState(emptyAddress);
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
-
   // const { dispatch } = useContext(EventContext);
 
-  function postNewEvent(eventName, organization, description, eventType, eventCost, startLocation, endLocation, startTime, endTime) {
-    // console.log(startTime);
-    // console.log(endTime);
-    let newStartTime = startTime.replaceAll('T', '@');
-    let newEndTime = endTime.replaceAll('T', '@');
-
-    // console.log(newStartTime);
-    // console.log(newEndTime);
+  function postNewEvent(eventName, organization, description, eventType, eventCost) {
+    
 
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
@@ -36,10 +22,6 @@ function CreateEvent({ setCreationStep, setEvent }) {
       description: description,
       type: eventType,
       baseCost: eventCost,
-      startDateTime: newStartTime + ':00',
-      endDateTime: newEndTime + ':00',
-      startLocation: startLocation,
-      endLocation: endLocation,
       status: 'Planning',
     });
 
@@ -79,11 +61,7 @@ function CreateEvent({ setCreationStep, setEvent }) {
           setDescription('');
           setEventType('');
           setEventCost('');
-          setStartLocation(emptyAddress);
-          setEndLocation(emptyAddress);
-          setStartTime('');
-          setEndTime('');
-          postNewEvent(eventName, organization, description, eventType, eventCost, startLocation, endLocation, startTime, endTime);
+          postNewEvent(eventName, organization, description, eventType, eventCost);
         }}
       >
         <label>Event Name</label>
@@ -105,20 +83,6 @@ function CreateEvent({ setCreationStep, setEvent }) {
         <label>Event Description</label>
         <br />
         <textarea name="description" rows="6" cols="33" value={description} onChange={(e) => setDescription(e.target.value)} required />
-        <br />
-        <br />
-
-        <label>Start Location Name</label>
-        <Address location={startLocation} setLocation={setStartLocation}></Address>
-        <label>End Location Name</label>
-        <Address location={endLocation} setLocation={setEndLocation}></Address>
-
-        <label htmlFor="startTime">Start Time</label>
-        <input type="datetime-local" id="startTime" name="startTime" value={startTime} onChange={(e) => setStartTime(e.target.value)} required></input>
-        <br />
-        <br />
-        <label htmlFor="endTime">End Time</label>
-        <input type="datetime-local" id="endTime" name="endTime" value={endTime} onChange={(e) => setEndTime(e.target.value)} required></input>
         <br />
         <br />
         <button type="submit">Submit</button>
