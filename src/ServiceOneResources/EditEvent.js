@@ -24,7 +24,7 @@ function EditEvent() {
       description: description,
       type: eventType,
       baseCost: eventCost,
-      status: 'planned',
+      status: 'Planned',
     });
 
     var requestOptions = {

@@ -7,13 +7,13 @@ export default function EventBrief({ event }) {
     let currentDate = new Date().toJSON().slice(0, 19);
     // console.log(event.status);
     // console.log(eventDate)
-    if (event.status !== "expired" && event.status !== "cancelled") {
+    if (event.status !== "Expired" && event.status !== "Cancelled") {
       if (currentDate > eventDate) {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
 
         var raw = JSON.stringify({
-          status: "expired",
+          status: "Expired",
         });
 
         var requestOptions = {

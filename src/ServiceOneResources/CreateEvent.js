@@ -22,7 +22,7 @@ function CreateEvent({ setCreationStep, setEvent }) {
       description: description,
       type: eventType,
       baseCost: eventCost,
-      status: 'draft',
+      status: 'Draft',
     });
 
     var requestOptions = {
@@ -85,7 +85,7 @@ function CreateEvent({ setCreationStep, setEvent }) {
         <textarea name="description" rows="6" cols="33" value={description} onChange={(e) => setDescription(e.target.value)} required />
         <br />
         <br />
-        <button type="submit">Submit</button>
+        <button type="submit">Next</button>
       </form>
     </div>
   );
