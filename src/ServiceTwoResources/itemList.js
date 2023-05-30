@@ -9,7 +9,7 @@ function ItemList({ items, setPackingList, eventId }) {
 
     var raw = JSON.stringify({
       "id": item.id,
-      "type": "packing list",
+      "type": item.type,
       "description": item.description,
       "required": item.required,
       "quantity": item.count
@@ -97,6 +97,7 @@ function ItemList({ items, setPackingList, eventId }) {
       {items.map((item, index) => (
         <tr key={item.id}>
           <td><input type="text" name="description" value={item.description} onChange={(e) => onChangeInput(e, index)}></input></td>
+          <td><input type="text" name="type" value={item.type} onChange={(e) => onChangeInput(e, index)}></input></td>
           <td><input type="number" name="quantity" value={item.quantity} onChange={(e) => onChangeInput(e, index)}></input></td>
           <td><input type="checkbox" checked={item.required} name="required" onChange={(e) => onChangeInput(e, index)}></input></td>
           <td>
