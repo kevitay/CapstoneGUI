@@ -1,6 +1,6 @@
 import React from "react";
 
-function ItemList({ items, setPackingList, onDeleteItem }) {
+function ItemList({ items, setPackingList }) {
   const handleUpdateItem = (item, itemIndex) => {
     // Implement the logic for updating the item at the specified index
     var myHeaders = new Headers();
@@ -37,7 +37,30 @@ function ItemList({ items, setPackingList, onDeleteItem }) {
       .catch(error => console.log('error', error));
   };
 
-  console.log(items);
+  const handleDeleteItem = (item, itemIndex) => {
+
+    var myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+
+    var requestOptions = {
+      method: 'DELETE',
+      headers: myHeaders,
+      redirect: 'follow'
+    };
+
+    fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist/" + item.id, requestOptions)
+      .then(response => {
+        if (response.status === 202) {
+          alert("Item Deleted");
+          const updatedPackingList = [...items];
+          updatedPackingList.splice(item, 1);
+          setPackingList(updatedPackingList);
+        }
+      }
+      )
+      .catch(error => console.log('error', error));
+  };
+
   
   const onChangeInput = (e, index) => {
     const { name, value } = e.target
@@ -50,7 +73,7 @@ function ItemList({ items, setPackingList, onDeleteItem }) {
     console.log(editList);
     setPackingList(editList);
   }
-
+console.log("item array", items);
 
 
   return (
@@ -62,7 +85,7 @@ function ItemList({ items, setPackingList, onDeleteItem }) {
           <td><input type="checkbox" checked={item.required} name="required" onChange={(e) => onChangeInput(e, index)}></input></td>
           <td>
             <button onClick={() => handleUpdateItem()}>Update Item</button>
-            <button onClick={() => onDeleteItem(item)}>Delete Item</button>
+            <button onClick={() => handleDeleteItem(item)}>Delete Item</button>
           </td>
         </tr>
       ))}

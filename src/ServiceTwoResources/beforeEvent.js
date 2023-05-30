@@ -32,29 +32,6 @@ function BeforeEvent() {
       .catch(error => console.log('error', error));
   };
 
-  const handleDeleteItem = (item, itemIndex) => {
-
-    var myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/json");
-
-    var requestOptions = {
-      method: 'DELETE',
-      headers: myHeaders,
-      redirect: 'follow'
-    };
-
-    fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist/" + item.id, requestOptions)
-      .then(response => {
-        if (response.status === 202) {
-          alert("Item Deleted");
-          const updatedPackingList = [...packingList];
-          updatedPackingList.splice(item, 1);
-          setPackingList(updatedPackingList);
-        }
-      }
-      )
-      .catch(error => console.log('error', error));
-  };
 
 
   return (
@@ -73,7 +50,6 @@ function BeforeEvent() {
           <ItemList
             items={packingList}
             setPackingList={setPackingList}
-            onDeleteItem={handleDeleteItem}
           />
         </tbody>
       </table>
