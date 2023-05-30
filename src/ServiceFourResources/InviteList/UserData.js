@@ -30,7 +30,7 @@ function UserData({ selectedUsers, invitee }) {
                 }</p>
             </td>
             <td>
-                <input onChange={(e) => captureSelection(e)} type="checkbox" id={invitee.userName}></input>
+                <input onChange={(e) => captureSelection(e)} type="checkbox" id={invitee.username}></input>
             </td>
         </tr>)
 }
