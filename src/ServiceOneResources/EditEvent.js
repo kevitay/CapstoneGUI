@@ -21,9 +21,7 @@ function EditEvent() {
   const [startTime, setStartTime] = useState(oldStartTime);
   const [endTime, setEndTime] = useState(oldEndTime);
 
-  async function postNewEvent(eventName, organization, description, eventType, eventCost, startLocation, endLocation, startTime, endTime) {
-    let newStartTime = startTime.replaceAll('T', '@');
-    let newEndTime = endTime.replaceAll('T', '@');
+  async function postNewEvent(eventName, organization, description, eventType, eventCost) {
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -34,10 +32,6 @@ function EditEvent() {
       description: description,
       type: eventType,
       baseCost: eventCost,
-      startDateTime: newStartTime + ':00',
-      endDateTime: newEndTime + ':00',
-      startLocation: startLocation,
-      endLocation: endLocation,
       status: 'Planning',
     });
 
@@ -58,6 +52,7 @@ function EditEvent() {
 
   // will have to delete if we add other components
   async function routeToEvent() {
+    // might be better to route to edit itinerary component page 
     window.location.replace(`/serviceOne/event/${id}`);
   }
 
@@ -78,11 +73,7 @@ function EditEvent() {
           setDescription('');
           setEventType('');
           setEventCost('');
-          setStartLocation(emptyAddress);
-          setEndLocation(emptyAddress);
-          setStartTime('');
-          setEndTime('');
-          postNewEvent(eventName, organization, description, eventType, eventCost, startLocation, endLocation, startTime, endTime);
+          postNewEvent(eventName, organization, description, eventType, eventCost);
           // will have to delete if we add other components
         }}
       >
@@ -107,20 +98,7 @@ function EditEvent() {
         <textarea name="description" rows="6" cols="33" value={description} onChange={(e) => setDescription(e.target.value)} />
         <br />
         <br />
-
-        <label>Start Location Name</label>
-        <Address location={startLocation} setLocation={setStartLocation}></Address>
-        <label>End Location Name</label>
-        <Address location={endLocation} setLocation={setEndLocation}></Address>
-
-        <label htmlFor="startTime">Start Time</label>
-        <input type="datetime-local" id="startTime" name="startTime" value={startTime} onChange={(e) => setStartTime(e.target.value)} required></input>
-        <br />
-        <br />
-        <label htmlFor="endTime">End Time</label>
-        <input type="datetime-local" id="endTime" name="endTime" value={endTime} onChange={(e) => setEndTime(e.target.value)} required></input>
-        <br />
-        <br />
+        {/* might include Edit Itinerary component , might need to create logic to flow from editing basic event details to itinerary */}
         <button type="submit">Submit</button>
       </form>
       <a href={`/serviceOne/event/${id}`} rel="noopener noreferrer">
