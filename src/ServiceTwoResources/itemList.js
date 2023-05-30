@@ -67,7 +67,6 @@ function ItemList({ items, setPackingList, eventId }) {
     fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist/" + eventId, requestOptions)
       .then(response => response.json())
       .then(result => {
-        console.log("look here", result);
         setPackingList(result.checklist);
       })
       .catch(error => console.log('error', error));
