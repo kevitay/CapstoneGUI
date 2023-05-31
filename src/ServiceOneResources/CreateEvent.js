@@ -53,10 +53,6 @@ let isPublic;
     isPublic = e.target.value;
     // console.log("Selected value: " + isPublic);
   }
-function handleCostChange(e){
-  if (isNaN(e.target.value)){
-    alert("Please enter a valid number")
-  } setEventCost(e.target.value)}
 
   return (
     <div className="eventSubmit">
@@ -89,7 +85,7 @@ function handleCostChange(e){
         <br />
         <br />
         <label>Event Cost</label>
-        <input type="text" name="eventCost" value={eventCost} onChange={(e) => {handleCostChange(e)}} required />
+        <input className="numberField" type="number" min="0.00" name="eventCost" value={eventCost} onChange={(e) => setEventCost(e.target.value)} required />
         <br />
         <br />
         <label>Event Description</label>
@@ -102,7 +98,6 @@ function handleCostChange(e){
           <legend>Public or Private:</legend>
           <div onChange={radioEvent}>
             <input type="radio" id="public" name="publicPrivate" value={true} />
-            
           <label forhtml="public">Public</label>
           <br />
           <input type="radio" id="private" name="publicPrivate" value={false} />
