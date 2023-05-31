@@ -80,9 +80,6 @@ function ItemList({ items, setPackingList, eventId }) {
   const onChangeInput = (e, index) => {
     const { name, value } = e.target
     console.log(name, value);
-    // editList = items.map((item) =>
-    //   item.itemId === itemId && name ? { ...item, [name]: value } : item
-    // )
     let editList = items.map(item => ({ ...item }))
     editList[index][name] = value;
     console.log(editList);

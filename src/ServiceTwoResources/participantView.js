@@ -22,7 +22,7 @@ const ParticipantView = ({ eventId, user }) => {
   };
   useEffect(() => {
     getPackingListByEventId(eventId);
-  }, []);
+  }, [eventId]);
 
   return (
     <div>
@@ -54,7 +54,7 @@ const ParticipantView = ({ eventId, user }) => {
           ))}
         </tbody>
       </table>
-      <h3>Signup List Items for event {eventId}</h3>
+      <h3>Signup List Items I've Signed Up For</h3>
       <table>
         <thead>
           <tr>
@@ -73,25 +73,26 @@ const ParticipantView = ({ eventId, user }) => {
               <td>{result.type}</td>
               <td>{result.quantity}</td>
               <td>
-               {(result.required) ? "true" : "false" }
+                {(result.required) ? "true" : "false" }
               </td>
             </tr>
           ))}
         </tbody>
       </table>
-      <h3>Things I Can Signup For</h3>
+      <h3>Signup List Items Available</h3>
       <table>
         <thead>
           <tr>
             <th>ID</th>
             <th>Description</th>
-            <td>Still Needed</td>
+            <th># Remaining</th>
             <th></th>
           </tr>
         </thead>
         <tbody>
           {packingList.filter(item => item.type === "signup list").map(result => (
             <Signup
+              key={result.id}
               eventId={eventId}
               user={user} 
               signupListItem={result} 
@@ -104,40 +105,3 @@ const ParticipantView = ({ eventId, user }) => {
 }
 
 export default ParticipantView;
-
-
-
-
-
-
-
-
-// import React, {useEffect, useState} from "react";
-
-// function ParticipantView (){
-
-//     const [requiredList, setRequiredList] = useState([]);
-
-//     useEffect(()=> {
-//         fetchData();
-//     }, []);
-
-//     const fetchData= () => {
-//         fetch()
-//         .then(response = response.json())
-//         .then(data => {
-//             setRequiredList(data);
-//         })
-//         .catch(error => {
-//             console.error('Error fetching required list: ', error);
-//         });
-//     };
-
-//     return (
-//         <div>
-            
-//         </div>
-//     )
-
-// }
-// export default ParticipantView

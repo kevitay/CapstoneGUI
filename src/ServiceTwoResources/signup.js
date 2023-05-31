@@ -6,18 +6,18 @@ const Signup = ({ eventId, user, signupListItem }) => {
   const [assigneeList, setAssigneeList] = useState([]);
 
   const getAssigneeListByChecklistItemId = (signupListItem) => {
-    console.log("signupListItem.id = ", signupListItem.id);
+    // console.log("signupListItem.id = ", signupListItem.id);
     fetch(checklistUrl + "/assignees/" + signupListItem.id, { method: 'GET' })
       .then(response => response.json())
       .then(result => {
-        console.log("GET result: ", result);
+        // console.log("GET result: ", result);
         setAssigneeList(result.assigneeList);
       })
       .catch(error => console.log('error', error))
   };
   useEffect(() => {
     getAssigneeListByChecklistItemId(signupListItem);
-  }, []);
+  }, [assigneeList]);
 
   // wire up the button to sign up for an item
 
@@ -26,7 +26,7 @@ const Signup = ({ eventId, user, signupListItem }) => {
       checklistItem: { id: signupListItem.id },
       userName: user
     };
-    console.log("newAssigneeJson: ", newAssigneeJson);
+    // console.log("newAssigneeJson: ", newAssigneeJson);
     handleAddAssignee(newAssigneeJson);
   };
 
@@ -34,7 +34,7 @@ const Signup = ({ eventId, user, signupListItem }) => {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
     let raw = JSON.stringify(assigneeJson);
-    console.log("raw: ", raw);
+    // console.log("raw: ", raw);
     let requestOptions = {
       method: "POST",
       headers: myHeaders,
@@ -46,7 +46,6 @@ const Signup = ({ eventId, user, signupListItem }) => {
       .then(response => {
         if (response.ok) {
           return response.json();
-          // getAssigneeListByChecklistItemId(signupListItem.id);
         }
       })
       .then(result => console.log("POST result: ", result))
