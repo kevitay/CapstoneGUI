@@ -1,7 +1,8 @@
 import React from "react";
 
+import{ACTIONS} from "./Itinerary";
 
-export default function ActivityForm({setForm, itineraryJSON, setItineraryJSON, callingItinerary}) {
+export default function ActivityForm({setForm, dispatch}) {
     let activityJSON = {}; 
 
     function handleSubmit(event) {
@@ -12,21 +13,8 @@ export default function ActivityForm({setForm, itineraryJSON, setItineraryJSON, 
         for (let [key, value] of formData.entries()) {
             activityJSON[key] = value; 
         }
-        fetch('http://a08cb134e19c8438285f05f4a630b6bd-117037464.us-west-2.elb.amazonaws.com/api/activities', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(activityJSON)
-          })
-            .then(response => response.json())
-            .then(data => {
-              console.log('POST request succeeded with JSON response:', data);
-              callingItinerary()
-            })
-            .catch(error => {
-              console.error('Error:', error);
-            });
+        console.log(activityJSON)
+        dispatch({type: ACTIONS.CREATE_ACTIVITY, payload: activityJSON})
     }
 
     return (

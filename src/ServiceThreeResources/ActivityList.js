@@ -4,8 +4,10 @@ import ActivitySummary from "./ActivitySummary";
 export default function ActivityList({setDisplayActivityDetails, setDateArray, buttonDate, setCloseActivityDetailsButton, itineraryJSON}) {
     const dateObject = {}; 
     const dateArray = []; 
-
-    for(let i = 0; i < itineraryJSON.activities.length; i++) {
+    console.log("ITINERARY STRING:", itineraryJSON);
+      const settingUpDates = ()=> {
+        for (let i = 0; i < itineraryJSON.activities.length; i++) {
+        console.log("For loop", itineraryJSON);
         const date = new Date(itineraryJSON.activities[i].startTime);
         const currentActivityDate = date.toLocaleDateString('en-US', {
             year: 'numeric',
@@ -18,22 +20,24 @@ export default function ActivityList({setDisplayActivityDetails, setDateArray, b
             dateObject[currentActivityDate] = [itineraryJSON.activities[i]]
             dateArray.push(currentActivityDate)
         }
-
     };
-    
-   
+    }
+ 
     dateArray.sort(); 
 
     // function filterDates(date){
     //     dateArray.filter(date)
     // }
     
-    useEffect(()=> {
-        setDateArray(dateArray)
+    useEffect(()=> { 
+        if (itineraryJSON.activities[0]) {
+            settingUpDates()
+            setDateArray(dateArray)
+        }
+        console.log("Date array", dateArray)
     }, [itineraryJSON]); 
 
     // console.log(dateObject); 
-
 
     return (
         <div>
