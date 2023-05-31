@@ -12,7 +12,7 @@ export default function Event() {
   // };
 
     let { id } = useParams();
-    console.log(id);
+    // console.log(id);
 
   useEffect(() => {
       function getEventById() {
@@ -34,25 +34,38 @@ export default function Event() {
     }, [id]);
 
   function dateFormatter(dateTime) {
-    const date = new Date(dateTime);
-    // Extracting date components
-    let hours = date.getHours();
-    const minutes = date.getMinutes();
-    const month = date.getMonth() + 1; // Months are zero-based, so adding 1
-    const day = date.getDate();
-    const year = date.getFullYear();
-    // Converting to 12-hour format
-    let amPm = hours >= 12 ? "PM" : "AM";
-    hours = hours % 12 || 12;
+    if(dateTime !== null) {
+      const date = new Date(dateTime);
+      // Extracting date components
+      let hours = date.getHours();
+      const minutes = date.getMinutes();
+      const month = date.getMonth() + 1; // Months are zero-based, so adding 1
+      const day = date.getDate();
+      const year = date.getFullYear();
+      // Converting to 12-hour format
+      let amPm = hours >= 12 ? "PM" : "AM";
+      hours = hours % 12 || 12;
 
-    return `${month.toString().padStart(2, "0")}/${day.toString().padStart(2, "0")}/${year} ${hours
-      .toString()
-      .padStart(2, "0")}:${minutes.toString().padStart(2, "0")} ${amPm}`;
+      return `${month.toString().padStart(2, "0")}/${day.toString().padStart(2, "0")}/${year} ${hours
+        .toString()
+        .padStart(2, "0")}:${minutes.toString().padStart(2, "0")} ${amPm}`;
+    } else {
+      return "TBD";
+    }  
+  }
+
+  function locationFormatter(location) {
+    if(location !== null) {
+      // console.log(location.address);
+      return (<p>{location.address}<br/>{location.city}, {location.state} {location.zipCode}</p>)
+    } else {
+      return "TBD";
+    }
   }
 
   //using an if statement to handle the async setCurrentEvent could also use {(currentEvent) ? (<div>…</div>) :( <></>)}
   if (!currentEvent) return null;
-  console.log(currentEvent);
+    console.log(currentEvent);
   return (
     <div>
       <div className="eventDetails">
@@ -67,8 +80,8 @@ export default function Event() {
         <h2>When and Where</h2>
         <h3>Start Time: {dateFormatter(currentEvent.startDateTime)}</h3>
         <h3>End Time: {dateFormatter(currentEvent.endDateTime)}</h3>
-        <h3>Start Location: {currentEvent.startLocation.name}</h3>
-        <h3>End Location: {currentEvent.endLocation.name}</h3>
+        <h3>Start Location: {locationFormatter(currentEvent.startLocation)}</h3>
+        <h3>End Location: {locationFormatter(currentEvent.endLocation)}</h3>
       </div>
       <div className="baseCost">
         <h3>Base Cost: ${currentEvent.baseCost}</h3>
