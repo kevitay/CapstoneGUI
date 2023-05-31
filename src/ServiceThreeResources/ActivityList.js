@@ -6,7 +6,7 @@ export default function ActivityList({setDisplayActivityDetails, setDateArray, b
     const dateArray = []; 
 
     for(let i = 0; i < itineraryJSON.activities.length; i++) {
-        const date = new Date(itineraryJSON.activities[i].StartTime);
+        const date = new Date(itineraryJSON.activities[i].startTime);
         const currentActivityDate = date.toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
@@ -39,7 +39,7 @@ export default function ActivityList({setDisplayActivityDetails, setDateArray, b
         <div>
             <ul>
                 {dateArray.map(date => (buttonDate === "" ? true : date === buttonDate) &&
-                        <li key={date}><h2>{date}</h2>{dateObject[date].sort((a,b) => Date.parse(a.StartTime) - Date.parse(b.StartTime)).map((item, index) => <ActivitySummary key={index} activity = {item} setDisplayActivityDetails = {setDisplayActivityDetails} setCloseActivityDetailsButton = {setCloseActivityDetailsButton}/>)}</li> 
+                        <li key={date}><h2>{date}</h2>{dateObject[date].sort((a,b) => Date.parse(a.startTime) - Date.parse(b.startTime)).map((item, index) => <ActivitySummary key={index} activity = {item} setDisplayActivityDetails = {setDisplayActivityDetails} setCloseActivityDetailsButton = {setCloseActivityDetailsButton}/>)}</li> 
                         ) }
             </ul>
         </div>

@@ -1,7 +1,7 @@
 import React from "react";
 
 
-export default function ActivityForm({setForm, itineraryJSON, setItineraryJSON}) {
+export default function ActivityForm({setForm, itineraryJSON, setItineraryJSON, callingItinerary}) {
     let activityJSON = {}; 
 
     function handleSubmit(event) {
@@ -12,62 +12,71 @@ export default function ActivityForm({setForm, itineraryJSON, setItineraryJSON})
         for (let [key, value] of formData.entries()) {
             activityJSON[key] = value; 
         }
-
-        const itinerary = {...itineraryJSON}; 
-
-        itinerary.activities.push(activityJSON); 
-
-        setItineraryJSON(itinerary); 
+        fetch('http://a08cb134e19c8438285f05f4a630b6bd-117037464.us-west-2.elb.amazonaws.com/api/activities', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(activityJSON)
+          })
+            .then(response => response.json())
+            .then(data => {
+              console.log('POST request succeeded with JSON response:', data);
+              callingItinerary()
+            })
+            .catch(error => {
+              console.error('Error:', error);
+            });
     }
 
     return (
         <div>
             <form onSubmit={(event) => handleSubmit(event)}>
                 <label>Activity Name
-                <input name= "ActivityName" label="Activity Name" required/>
+                <input name= "activityName" label="Activity Name" required/>
                 </label>
                 <br/>
 
                 <label>Description
-                <input name="Description" label="Description"/>
+                <input name="description" label="Description"/>
                 </label>
                 <br/>
 
                 <label>Outdoor
-                <input name="Outdoor" value="true" type="radio" label="Outdoor"/>
+                <input name="indoor" value="false" type="radio" label="Outdoor"/>
                 </label>
                 <label>Indoor
-                <input name="Outdoor" value="false" type="radio" label="Indoor"/>
+                <input name="indoor" value="true" type="radio" label="Indoor"/>
                 </label>
                 <br/>
                 
                 <label>Image URL
-                <input name="ImageURL" label="Image URL"/>
+                <input name="imageURL" label="Image URL"/>
                 </label>
                 <br/>
                 
                 <label>Important Reminder
-                <input name="ImportantReminder" label="Important Reminder"/>
+                <input name="importantReminder" label="Important Reminder"/>
                 </label>
                 <br/>
                 
                 <label>Group Size
-                <input name="GroupSize" type="number" label="Group Size"/>
+                <input name="groupSize" type="number" label="Group Size"/>
                 </label>
                 <br/>
                 
-                <label>Mandatory
-                <input name="Mandatory" value="true" type="checkbox" label="Mandatory"/>
+                <label>mandatory
+                <input name="mandatory" value="true" type="checkbox" label="mandatory"/>
                 </label>
                 <br/>
                 
-                <label>Price
-                <input name="Price" type="number" label="Price"/>
+                <label>price
+                <input name="price" type="number" label="price"/>
                 </label>
                 <br/>
                 
                 <label>Type
-                <select name="Type" label="Activity Name">
+                <select name="type" label="Activity Name">
                     <option value=""></option>
                     <option value="Music">Music</option>
                     <option value="Sports">Sports</option>
@@ -82,22 +91,22 @@ export default function ActivityForm({setForm, itineraryJSON, setItineraryJSON})
                 <br/>
                 
                 <label>Event URL
-                <input name="URL" label="Event URL"/>
+                <input name="url" label="Event URL"/>
                 </label>
                 <br/>
                 
                 <label>Address
-                <input name="Address" label="Address"/>
+                <input name="address" label="Address"/>
                 </label>
                 <br/>
                 
                 <label>City
-                <input name="City" label="City"/>
+                <input name="city" label="City"/>
                 </label>
                 <br/>
                 
                 <label>State
-                <select name="State" label="State">
+                <select name="state" label="State">
                     <option value=""></option>
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
@@ -155,17 +164,17 @@ export default function ActivityForm({setForm, itineraryJSON, setItineraryJSON})
                 <br/>
                 
                 <label>Zip Code
-                <input name="ZipCode" type="number" label="Zip Code"/>
+                <input name="zip" type="number" label="Zip Code"/>
                 </label>
                 <br/>
                 
                 <label>Start Time
-                <input name="StartTime" type="datetime-local" label="Start Time" required/>
+                <input name="startTime" type="datetime-local" label="Start Time" required/>
                 </label>
                 <br/>
                 
                 <label>End Time
-                <input name="EndTime" type="datetime-local" label="End Time"/>
+                <input name="endTime" type="datetime-local" label="End Time"/>
                 </label>
                 <br/>
 

@@ -6,73 +6,23 @@ import CreateNewActivity from "./CreateNewActivity";
 import CreateNewItinerary from "./CreateNewItinerary";
 
 function Itinerary() {
-const defaultItineraryForTesting = {activities:
-[
-    {
-    "ActivityName": "Lunch",
-    "ID": 123,
-    "Description": "This is the activity description",
-    "Outdoor": true,
-    "ImageURL": "www.example.com/image",
-    "ImportantReminder": "Don't forget to bring cash!",
-    "GroupSize": 3,
-    "Mandatory": false, 
-    "Price": 120, 
-    "Type": "Music",
-    "URL": "www.example.com",
-    "Address": "123 Example St",
-    "City": "Normal",
-    "State": "IL",
-    "ZipCode": 61761,
-    "StartTime": "1994-12-08T12:00:00-03:00",
-    "EndTime": "2023-05-16T16:00:00-03:00" 
-    },
-    {
-    "ActivityName": "Dinner",
-    "ID": 456,
-    "Description": "This is the activity description",
-    "Outdoor": false,
-    "ImageURL": "www.example.com/image",
-    "ImportantReminder": "Don't forget to bring cash!",
-    "GroupSize": 3,
-    "Mandatory": false, 
-    "Price": 120, 
-    "Type": "Music",
-    "URL": "www.example.com",
-    "Address": "123 Example St",
-    "City": "Normal",
-    "State": "IL",
-    "ZipCode": 61761,
-    "StartTime": "1994-12-08T16:30:00-03:00",
-    "EndTime": "2023-05-17T16:00:00-03:00" 
-    }, 
-    {
-    "ActivityName": "Dessert",
-    "ID": 789,
-    "Description": "This is the activity description",
-    "Outdoor": true,
-    "ImageURL": "www.example.com/image",
-    "ImportantReminder": "Don't forget to bring cash!",
-    "GroupSize": 3,
-    "Mandatory": false, 
-    "Price": 120, 
-    "Type": "Music",
-    "URL": "www.example.com",
-    "Address": "123 Example St",
-    "City": "Normal",
-    "State": "IL",
-    "ZipCode": 61761,
-    "StartTime": "1992-07-16T07:30:00-03:00",
-    "EndTime": "2023-05-16T16:00:00-03:00" 
-    }
-]
+
+const [itineraryJSON, setItineraryJSON] = useState({activities:[{startTime: 1}]}); 
+
+const callingItinerary = ()=> {
+  fetch(`http://a08cb134e19c8438285f05f4a630b6bd-117037464.us-west-2.elb.amazonaws.com/api/activities`)
+  .catch((err)=> console.error(err))
+  .then((response) => response.json())
+  .then((data) => 
+   {setItineraryJSON(data)
+    console.log(data)}
+  )
 }
 
+useEffect(() => {
+ callingItinerary()
+},[]);
 
-const [itineraryJSON, setItineraryJSON] = useState(defaultItineraryForTesting); 
-useEffect(()=> {
-  console.log("Itinerary ", itineraryJSON)
-}, [itineraryJSON]); 
 const [displayActivityDetails, setDisplayActivityDetails] = useState({}); 
 const [dateArray, setDateArray] = useState([]); 
 const [buttonDate, setButtonDate] = useState("");
@@ -86,7 +36,7 @@ return (
         <CreateNewItinerary itineraryJSON = {itineraryJSON} setItineraryJSON= {setItineraryJSON}/>
 
         <h2 style={{color:'red'}}>Create Activity Component</h2>
-        <CreateNewActivity itineraryJSON = {itineraryJSON} setItineraryJSON= {setItineraryJSON}/>
+        <CreateNewActivity itineraryJSON = {itineraryJSON} setItineraryJSON= {setItineraryJSON} callingItinerary = {callingItinerary}/>
 
         <h2 style={{color: 'red'}}>Date Selector Component</h2>
         <DateSelector dateArray = {dateArray} setButtonDate = {setButtonDate}/>
