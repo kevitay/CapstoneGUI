@@ -51,7 +51,7 @@ let isPublic;
 
   function radioEvent(e) {
     isPublic = e.target.value;
-    console.log("Selected value: " + isPublic);
+    // console.log("Selected value: " + isPublic);
   }
 
   return (
