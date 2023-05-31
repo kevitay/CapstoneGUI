@@ -85,6 +85,18 @@ function CreateEvent({ setCreationStep, setEvent }) {
         <textarea name="description" rows="6" cols="33" value={description} onChange={(e) => setDescription(e.target.value)} required />
         <br />
         <br />
+
+        <fieldset>
+          <legend>Public or Private:</legend>
+          <input type="radio" id="public" name="publicPrivate" value="public" />
+          <label forHtml="public">Public</label>
+          <br />
+
+          <input type="radio" id="private" name="publicPrivate" value="private" />
+          <label forHtml="private">Private</label>
+          <br />
+        </fieldset>
+        <br/>
         <button type="submit">Next</button>
       </form>
     </div>
