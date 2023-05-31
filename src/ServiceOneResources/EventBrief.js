@@ -3,38 +3,38 @@ import React from "react";
 export default function EventBrief({ event }) {
   // const [currentEvent, setCurrentEvent] = useState({})
 
-  function changeStatus(eventDate, id) {
-    let currentDate = new Date().toJSON().slice(0, 19);
-    // console.log(event.status);
-    // console.log(eventDate)
-    if (event.status !== "Expired" && event.status !== "Cancelled") {
-      if (currentDate > eventDate) {
-        var myHeaders = new Headers();
-        myHeaders.append("Content-Type", "application/json");
+  // function changeStatus(eventDate, id) {
+  //   let currentDate = new Date().toJSON().slice(0, 19);
+  //   // console.log(event.status);
+  //   // console.log(eventDate)
+  //   if (event.status !== "Expired" && event.status !== "Cancelled") {
+  //     if (currentDate > eventDate) {
+  //       var myHeaders = new Headers();
+  //       myHeaders.append("Content-Type", "application/json");
 
-        var raw = JSON.stringify({
-          status: "Expired",
-        });
+  //       var raw = JSON.stringify({
+  //         status: "Expired",
+  //       });
 
-        var requestOptions = {
-          method: "PATCH",
-          headers: myHeaders,
-          body: raw,
-          redirect: "follow",
-        };
+  //       var requestOptions = {
+  //         method: "PATCH",
+  //         headers: myHeaders,
+  //         body: raw,
+  //         redirect: "follow",
+  //       };
 
-        fetch(
-          "http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/" +
-            id,
-          requestOptions
-        )
-          .then((response) => response.json())
-          .then((result) => console.log(result))
-          .catch((error) => console.log("error", error));
-          // console.log(eventDate)
-      }
-    } return event.status
-  }
+  //       fetch(
+  //         "http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/" +
+  //           id,
+  //         requestOptions
+  //       )
+  //         .then((response) => response.json())
+  //         .then((result) => console.log(result))
+  //         .catch((error) => console.log("error", error));
+  //         // console.log(eventDate)
+  //     }
+  //   } return event.status
+  // }
 
   function dateFormatter(dateTime) {
     if(dateTime !== null) {
