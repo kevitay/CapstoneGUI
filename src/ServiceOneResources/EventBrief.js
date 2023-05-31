@@ -66,6 +66,7 @@ export default function EventBrief({ event }) {
       {/* <h2>Location: {event.startLocation.name}</h2> */}
       <h2>Type: {event.type}</h2>
       <h2>Status: {changeStatus(event.endDateTime, event.id)}</h2>
+      <h2>isPublic: {event.public}</h2>
       {/* This should work when we deploy but might error out if path changes */}
       <a href={`/serviceOne/event/${event.id}`} rel='noopener noreferrer'>
         <Button>View Event</Button>
