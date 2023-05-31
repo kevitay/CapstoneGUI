@@ -23,7 +23,7 @@ let isPublic;
       organization: organization,
       description: description,
       type: eventType,
-      baseCost: eventCost,
+      baseCost: Math.abs(eventCost),
       status: 'Draft',
       public: isPublic
     });
@@ -53,6 +53,10 @@ let isPublic;
     isPublic = e.target.value;
     // console.log("Selected value: " + isPublic);
   }
+function handleCostChange(e){
+  if (isNaN(e.target.value)){
+    alert("Please enter a valid number")
+  } setEventCost(e.target.value)}
 
   return (
     <div className="eventSubmit">
@@ -85,7 +89,7 @@ let isPublic;
         <br />
         <br />
         <label>Event Cost</label>
-        <input type="text" name="eventCost" value={eventCost} onChange={(e) => setEventCost(e.target.value)} required />
+        <input type="text" name="eventCost" value={eventCost} onChange={(e) => {handleCostChange(e)}} required />
         <br />
         <br />
         <label>Event Description</label>
