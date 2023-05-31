@@ -19,7 +19,7 @@ function EditEvent() {
     console.log("Selected value: " + isPublic);
   }
 
-  async function postNewEvent(eventName, organization, description, eventType, eventCost) {
+  async function updateEvent(eventName, organization, description, eventType, eventCost) {
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -69,7 +69,7 @@ function EditEvent() {
           setDescription('');
           setEventType('');
           setEventCost('');
-          postNewEvent(eventName, organization, description, eventType, eventCost);
+          updateEvent(eventName, organization, description, eventType, eventCost);
           // will have to delete if we add other components
         }}
       >
@@ -86,7 +86,7 @@ function EditEvent() {
         <br />
         <br />
         <label>Event Cost</label>
-        <input type="text" name="eventCost" value={eventCost} onChange={(e) => setEventCost(e.target.value)} />
+        <input className="numberField" type="number" min="0.00" name="eventCost" value={eventCost} onChange={(e) => setEventCost(e.target.value)} />
         <br />
         <br />
         <label>Event Description</label>
@@ -98,15 +98,14 @@ function EditEvent() {
           <legend>Public or Private:</legend>
           <div onChange={radioEvent}>
             <input type="radio" id="public" name="publicPrivate" value={true} />
-            
-          <label forhtml="public">Public</label>
-          <br />
-          <input type="radio" id="private" name="publicPrivate" value={false} />
-          <label forhtml="private">Private</label>
-          <br />
+            <label forhtml="public">Public</label>
+            <br />
+            <input type="radio" id="private" name="publicPrivate" value={false} />
+            <label forhtml="private">Private</label>
+            <br />
           </div>
         </fieldset>
-        <br/>
+        <br />
         {/* might include Edit Itinerary component , might need to create logic to flow from editing basic event details to itinerary */}
         <button type="submit">Submit</button>
       </form>
