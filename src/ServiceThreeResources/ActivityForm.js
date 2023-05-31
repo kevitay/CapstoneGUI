@@ -13,7 +13,6 @@ export default function ActivityForm({setForm, dispatch}) {
         for (let [key, value] of formData.entries()) {
             activityJSON[key] = value; 
         }
-        console.log(activityJSON)
         dispatch({type: ACTIONS.CREATE_ACTIVITY, payload: activityJSON})
     }
 

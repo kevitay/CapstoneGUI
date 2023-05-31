@@ -5,9 +5,8 @@ import DateSelector from "./DateSelector";
 import CreateNewActivity from "./CreateNewActivity";
 
 export const ACTIONS = {
-  GET_FETCH: 'get-fetch',
-  GET_ACTIVITIES: 'get-activities',
-  SET_ACTIVITIES: 'set-activities',
+  FETCH_ACTIVITIES: 'fetch-activities',
+  SET_ACTIVITIES: 'get-activities',
   GET_ACTIVITY: 'get-activity',
   CREATE_ACTIVITY: 'create-activity',
   UPDATE_ACTIVITY: 'update-activity',
@@ -16,16 +15,15 @@ export const ACTIONS = {
 
 function Itinerary() {
 const [itineraryJSON, dispatch] = useReducer(reducer, {activities:[]});
-const [newState, setNewState] = useState({});
 
 function reducer(itineraryJSON, action) {
   switch (action.type) {
-    case ACTIONS.GET_FETCH : 
+    case ACTIONS.FETCH_ACTIVITIES : 
     {
       fetch(`http://a08cb134e19c8438285f05f4a630b6bd-117037464.us-west-2.elb.amazonaws.com/api/activities`)
       .catch((err)=> console.error(err))
       .then((response) => response.json())
-      .then((data) => {console.log("API Data", data.activities)
+      .then((data) => {
       dispatch({type: ACTIONS.SET_ACTIVITIES, payload: data})
     })
     return itineraryJSON;
@@ -72,13 +70,8 @@ function reducer(itineraryJSON, action) {
 }
 
 useEffect(() => {
- dispatch({type: ACTIONS.GET_FETCH})
- console.log("USE EFFECT", itineraryJSON)
+ dispatch({type: ACTIONS.FETCH_ACTIVITIES})
 },[]);
-
-// useEffect(() => {
-//   passedDown = itineraryJSON
-// }  ,[itineraryJSON])
 
 const [displayActivityDetails, setDisplayActivityDetails] = useState({}); 
 const [dateArray, setDateArray] = useState([]); 
