@@ -5,19 +5,20 @@ const Signup = ({ eventId, user, signupListItem }) => {
   const [assigneeList, setAssigneeList] = useState([]);
 
   const getAssigneeListByChecklistItemId = (signupListItem) => {
-    fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist/assignee/" + signupListItem.id, {method: 'GET'})
+    console.log("signupListItem.id = ", signupListItem.id);
+    fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist/assignees/" + signupListItem.id, {method: 'GET'})
       .then(response => response.json())
       .then(result => {
-        console.log("AssigneeList: ", result.assigneeList);
+        console.log("result: ", result);
         setAssigneeList(result.assigneeList);
       })
-      .catch(error => console.error('error', error))
+      .catch(error => console.log('error', error))
   };
   useEffect(() => {
     getAssigneeListByChecklistItemId(signupListItem);
   }, []);
 
-  let qtyNeeded = signupListItem.quantity - assigneeList.count;
+  let qtyNeeded = signupListItem.quantity - assigneeList.length;
   
   return (
     <tr key={signupListItem.id}>
