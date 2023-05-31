@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Signup from './signup';
 
 
 const ParticipantView = ({ eventId, user }) => {
@@ -6,17 +7,17 @@ const ParticipantView = ({ eventId, user }) => {
   // const eventId = 3;
   
   const getPackingListByEventId = (eventId) => {
-  var requestOptions = {
-    method: 'GET',
-    redirect: 'follow'
-  };
-  
-  fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist/" + eventId, requestOptions)
-    .then(response => response.json())
-    .then(result => {
+    var requestOptions = {
+      method: 'GET',
+      redirect: 'follow'
+    };
+
+    fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist/" + eventId, requestOptions)
+      .then(response => response.json())
+      .then(result => {
         setPackingList(result.checklist);
       })
-    .catch(error => console.log('error', error));
+      .catch(error => console.log('error', error));
   };
   useEffect(() => {
     getPackingListByEventId(eventId);
@@ -78,7 +79,25 @@ const ParticipantView = ({ eventId, user }) => {
         </tbody>
       </table>
       <h3>Things I Can Signup For</h3>
-      <Signup />
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Description</th>
+            <td>Still Needed</td>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {packingList.filter(item => item.type === "signup list").map(result => (
+            <Signup
+              eventId={eventId}
+              user={user} 
+              signupListItem={result} 
+            />
+          ))}
+        </tbody>
+      </table>
     </div>
   );
 }
