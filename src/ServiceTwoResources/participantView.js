@@ -3,8 +3,9 @@ import Signup from './signup';
 
 
 const ParticipantView = ({ eventId, user }) => {
+  user = "Russhi";
+
   const [packingList, setPackingList] = useState([]);
-  // const eventId = 3;
   
   const getPackingListByEventId = (eventId) => {
     var requestOptions = {

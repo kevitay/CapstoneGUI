@@ -18,6 +18,30 @@ const Signup = ({ eventId, user, signupListItem }) => {
     getAssigneeListByChecklistItemId(signupListItem);
   }, []);
 
+  const signupForItem = () => {
+    let newAssigneeJson = {
+      checkListItem: { id: signupListItem.id },
+      userName: user
+    };
+    handleAddAssignee(newAssigneeJson);
+  };
+
+  const handleAddAssignee = (assigneeJson) => {
+    let myHeaders = new Headers();
+    myHeaders.append("Content-Type", "application/json");
+    let raw = JSON.stringify(assigneeJson);
+    let requestOptions = {
+      method: "POST",
+      headers: myHeaders,
+      body: raw,
+      redirect: "follow"
+    };
+
+    
+  };
+
+  // wire up the button to sign up for an item
+
   let qtyNeeded = signupListItem.quantity - assigneeList.length;
   
   return (
@@ -25,7 +49,7 @@ const Signup = ({ eventId, user, signupListItem }) => {
       <td>{signupListItem.id}</td>
       <td>{signupListItem.description}</td>
       <td>{qtyNeeded}</td>
-      <td><button> Sign Up! </button></td>
+      <td><button onClick={signupForItem}> Sign Up! </button></td>
     </tr>
   );
 }

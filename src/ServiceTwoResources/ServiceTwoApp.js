@@ -21,7 +21,6 @@ function ServiceTwoApp(eventId) {
                     </li>
                 </ul>
             </nav>
-
             <Routes>
                 <Route path={'/organizerView/*'} element={<OrganizerViewApp eventId={eventId} />}></Route>
                 <Route path={'/participantView/*'} element={<ParticipantView eventId={eventId} />}></Route>
