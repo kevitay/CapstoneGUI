@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 
 
-const ParticipantView = ({ user }) => {
+const ParticipantView = ({ eventId, user }) => {
   const [packingList, setPackingList] = useState([]);
-  const eventId = 3;
+  // const eventId = 3;
   
   const getPackingListByEventId = (eventId) => {
   var requestOptions = {
@@ -27,6 +27,7 @@ const ParticipantView = ({ user }) => {
       <h2>Participant View</h2>
       <p>User ID: {user}</p>
       <p>Event ID: {eventId}</p>
+      <h3>Packing List Items for event {eventId}</h3>
       <table>
         <thead>
           <tr>
@@ -38,7 +39,6 @@ const ParticipantView = ({ user }) => {
           </tr>
         </thead>
         <tbody>
-         
           {packingList.filter(item => item.type === "packing list").map(result => (
             <tr key={result.id}>
               <td>{result.id}</td>
@@ -52,6 +52,33 @@ const ParticipantView = ({ user }) => {
           ))}
         </tbody>
       </table>
+      <h3>Signup List Items for event {eventId}</h3>
+      <table>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Description</th>
+            <th>Type</th>
+            <th>Quantity</th>
+            <th>Required</th>
+          </tr>
+        </thead>
+        <tbody> {/* need to make this show what I've already signed up for */}
+          {packingList.filter(item => item.type === "signup list").map(result => (
+            <tr key={result.id}>
+              <td>{result.id}</td>
+              <td>{result.description}</td>
+              <td>{result.type}</td>
+              <td>{result.quantity}</td>
+              <td>
+               {(result.required) ? "true" : "false" }
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <h3>Things I Can Signup For</h3>
+      <Signup />
     </div>
   );
 }

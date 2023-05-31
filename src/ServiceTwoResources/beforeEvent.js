@@ -3,14 +3,8 @@ import AddListItem from "./addListItem";
 import ItemList from "./itemList";
 
 
-function BeforeEvent() {
+function BeforeEvent({ eventId }) {
   const [packingList, setPackingList] = useState([]);
-  const eventId = 2;
-  // TODO: need to inject eventId from event API
-
-
-
-
 
   return (
     <div>
@@ -25,10 +19,11 @@ function BeforeEvent() {
           </tr>
         </thead>
         <tbody>
-          <AddListItem 
-          eventId={eventId} 
-          setPackingList={setPackingList}
-          packingList={packingList}/>
+          <AddListItem
+            eventId={eventId}
+            setPackingList={setPackingList}
+            packingList={packingList}
+          />
           <ItemList
             items={packingList}
             setPackingList={setPackingList}

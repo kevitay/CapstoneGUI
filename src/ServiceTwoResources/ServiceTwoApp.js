@@ -5,7 +5,9 @@ import ParticipantView from "./participantView";
 
 
 
-function ServiceTwoApp() {
+function ServiceTwoApp(eventId) {
+    eventId = 2;
+
     return (
         <div className="ServiceTwoApp">
             <h1>Service Two</h1>
@@ -19,12 +21,10 @@ function ServiceTwoApp() {
                     </li>
                 </ul>
             </nav>
-            
-            <Routes>
-                <Route path={'/organizerView/*'} element={<OrganizerViewApp />}></Route>
-                {/* <Route path={'/serviceTwo/*'} element={<ServiceTwoApp />}></Route> */}
 
-                <Route path={'/participantView/*'} element={<ParticipantView />}></Route>
+            <Routes>
+                <Route path={'/organizerView/*'} element={<OrganizerViewApp eventId={eventId} />}></Route>
+                <Route path={'/participantView/*'} element={<ParticipantView eventId={eventId} />}></Route>
             </Routes>
         </div>
     )
