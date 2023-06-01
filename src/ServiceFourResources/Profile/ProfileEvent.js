@@ -23,7 +23,7 @@ function ProfileEvent() {
             })
             .then(() => setLoadState(false))
             .catch(error => console.log('error', error));
-    }, []);
+    }, [authState.username]);
     
     return (
         <>
