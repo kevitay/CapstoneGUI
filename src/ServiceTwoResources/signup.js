@@ -59,7 +59,12 @@ const Signup = ({ eventId, user, signupListItem }) => {
       <td>{signupListItem.id}</td>
       <td>{signupListItem.description}</td>
       <td>{qtyNeeded}</td>
-      <td><button onClick={signupForItem}> Sign Up! </button></td>
+      <td> 
+        {(qtyNeeded === 0)  
+          ? <button onClick={signupForItem} disabled> Sign Up! </button>
+          : <button onClick={signupForItem}> Sign Up! </button>
+        }
+      </td>
     </tr>
   );
 }
