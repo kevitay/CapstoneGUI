@@ -30,7 +30,7 @@ const { state, dispatch } = useContext(EventContext)
        getEvents();
      }, [dispatch]);
 
-
+    
           // console.log(state.eventsList)
 
     return(
