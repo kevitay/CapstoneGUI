@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../../IdentityResources/Contexts/AuthContext.js";
 import UserEvent from "./UserEvent.js";
-import EventInfo from "./EventInfo.js";
+
 
 function ProfileEvent() {
 
@@ -39,9 +39,9 @@ function ProfileEvent() {
     return (
         <>
         <div>
-            {loading ? "" : eventInfo.map((eventInformation) => <><EventInfo eventInformation={eventInformation}></EventInfo></>)}
+            {/* {loading ? "" : eventInfo.map((eventInformation) => <><EventInfo eventInformation={eventInformation} userEventsList={userEventsList}></EventInfo></>)} */}
             {
-            loading ? "" : userEventsList.map((event) => <><UserEvent event={event}></UserEvent></>)
+            loading ? "" : userEventsList.map((event) => <><UserEvent event={event} eventInfo={eventInfo}></UserEvent></>)
             }
         </div>
         </>
