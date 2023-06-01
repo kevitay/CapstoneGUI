@@ -12,12 +12,12 @@ function EditEvent() {
   const [description, setDescription] = useState(state.description);
   const [eventType, setEventType] = useState(state.type);
   const [eventCost, setEventCost] = useState(state.baseCost);
-  let isPublic;
+  const [isPublic, setIsPublic] = useState(true);
 
-  function radioEvent(e) {
-    isPublic = e.target.value;
-    console.log("Selected value: " + isPublic);
-  }
+  const radioEvent = (event) => {
+    console.log(event);
+    setIsPublic(event.target.value === 'true');
+  };
 
   async function updateEvent(eventName, organization, description, eventType, eventCost) {
     var myHeaders = new Headers();
@@ -96,14 +96,12 @@ function EditEvent() {
         <br />
         <fieldset>
           <legend>Public or Private:</legend>
-          <div onChange={radioEvent}>
-            <input type="radio" id="public" name="publicPrivate" value={true} />
-            <label forhtml="public">Public</label>
-            <br />
-            <input type="radio" id="private" name="publicPrivate" value={false} />
-            <label forhtml="private">Private</label>
-            <br />
-          </div>
+          <input type="radio" id="public" name="publicPrivate" value={true} checked={isPublic === true} onChange={radioEvent} />
+          <label forhtml="public">Public</label>
+          <br />
+          <input type="radio" id="private" name="publicPrivate" value={false} checked={isPublic === false} onChange={radioEvent} />
+          <label forhtml="private">Private</label>
+          <br />
         </fieldset>
         <br />
         {/* might include Edit Itinerary component , might need to create logic to flow from editing basic event details to itinerary */}
