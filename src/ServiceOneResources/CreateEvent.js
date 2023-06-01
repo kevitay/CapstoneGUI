@@ -9,9 +9,8 @@ function CreateEvent({ setCreationStep, setEvent }) {
   const [description, setDescription] = useState('');
   const [eventType, setEventType] = useState('');
   const [eventCost, setEventCost] = useState('');
+  const [isPublic, setIsPublic] = useState(true);
   // const { dispatch } = useContext(EventContext);
-
-let isPublic;
 
   function postNewEvent(eventName, organization, description, eventType, eventCost) {
 
@@ -49,10 +48,10 @@ let isPublic;
       .catch((error) => console.log('error', error));
   }
 
-  function radioEvent(e) {
-    isPublic = e.target.value;
-    // console.log("Selected value: " + isPublic);
-  }
+   const radioEvent = (event) => {
+     console.log(event);
+     setIsPublic(event.target.value === 'true');
+   };
 
   return (
     <div className="eventSubmit">
@@ -96,16 +95,14 @@ let isPublic;
 
         <fieldset>
           <legend>Public or Private:</legend>
-          <div onChange={radioEvent}>
-            <input type="radio" id="public" name="publicPrivate" value={true} />
+          <input type="radio" id="public" name="publicPrivate" value={true} checked={isPublic === true} onChange={radioEvent} />
           <label forhtml="public">Public</label>
           <br />
-          <input type="radio" id="private" name="publicPrivate" value={false} />
+          <input type="radio" id="private" name="publicPrivate" value={false} checked={isPublic === false} onChange={radioEvent} />
           <label forhtml="private">Private</label>
           <br />
-          </div>
         </fieldset>
-        <br/>
+        <br />
         <button type="submit">Next</button>
       </form>
     </div>
