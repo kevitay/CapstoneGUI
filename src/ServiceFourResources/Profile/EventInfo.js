@@ -1,9 +1,9 @@
 import React from "react";
 
-function EventInfo({eventInfo}) {
-    console.log("eventInfo" ,eventInfo)
+function EventInfo({eventInformation}) {
+    console.log("eventInfo" ,eventInformation)
 return(
-    <h3>{eventInfo.name}</h3>
+    <h3>{eventInformation.name}</h3>
 )
 }
 
