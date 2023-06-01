@@ -6,8 +6,7 @@ import CreateNewActivity from "./CreateNewActivity";
 
 export const ACTIONS = {
   FETCH_ACTIVITIES: 'fetch-activities',
-  SET_ACTIVITIES: 'get-activities',
-  GET_ACTIVITY: 'get-activity',
+  SET_ACTIVITIES: 'set-activities',
   CREATE_ACTIVITY: 'create-activity',
   UPDATE_ACTIVITY: 'update-activity',
   DELETE_ACTIVITY: 'delete-activity'
