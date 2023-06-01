@@ -16,7 +16,7 @@ function UserProfile() {
             .then(result => {
                 setUserProfile(result);
             }).catch(error => console.log('error', error));
-    }, []);
+    }, [authState.username]);
 
 
     return (

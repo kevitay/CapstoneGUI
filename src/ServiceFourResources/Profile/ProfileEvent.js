@@ -7,7 +7,7 @@ function ProfileEvent() {
     const [authState, ] = useContext(AuthContext);
     const [userEventsList, setUserEventsList] = useState([])
     const [loading, setLoadState] = useState(false);
-    const [eventInfo, setEventInfo] = useState([]);
+    // const [eventInfo, setEventInfo] = useState([]);
 
     useEffect(() => {
         var requestOptions = {

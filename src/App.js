@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React from "react";
 import IdentityApp from "./IdentityResources/IdentityApp";
 import ServiceOneApp from "./ServiceOneResources/ServiceOneApp";
 import ServiceTwoApp from "./ServiceTwoResources/ServiceTwoApp";
@@ -29,10 +29,7 @@ const authReducer = (state, action) => {
 function App() {
   
   const [authState, authDispatch] = useReducer(authReducer, authInitialState)
-  // const [username, setUsername] = useState('');
-  // const updateUserName = (username) => {
-  //   setUsername(username)
-  // }
+
     return (
       <div className="App">
         <h1>App</h1>
