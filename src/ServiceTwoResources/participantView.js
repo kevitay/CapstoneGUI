@@ -30,20 +30,9 @@ const ParticipantView = ({ eventId, user }) => {
 
     fetch(checklistUrl + "/assignees", requestOptions)
         .then(response => response.json())
-        .then(result => {
-            console.log("all", result.assigneeList);
-            return result.assigneeList.filter(assignee => assignee.userName === user && assignee.checklistItem.eventId === eventId);
-        })
-        .then(result => {
-            console.log("filter", result);
-            // setAssigneeList(result);
-            return result;
-        })
+        .then(result => result.assigneeList.filter(assignee => assignee.userName === user && assignee.checklistItem.eventId === eventId))  
         .then(result => result.map(item => item.checklistItem.id).join().split(","))
-        .then(result => {
-            console.log("checklistItem", result);
-            setAssigneeList(result);
-        })
+        .then(result => setAssigneeList(result))
         .catch(error => console.log("error", error));
   }
 
@@ -93,7 +82,7 @@ const ParticipantView = ({ eventId, user }) => {
             <th>Required</th>
           </tr>
         </thead>
-        <tbody> {/* need to make this show what I've already signed up for */}
+        <tbody> 
           {packingList.filter(item => item.type === "signup list" && assigneeList.includes(item.id.toString())).map(result => (
             <tr key={result.id}>
               <td>{result.id}</td>
