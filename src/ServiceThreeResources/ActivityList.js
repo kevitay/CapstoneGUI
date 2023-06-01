@@ -5,7 +5,6 @@ export default function ActivityList({setDisplayActivityDetails, setDateArray, b
     const dateObject = {}; 
     const dateArray = []; 
         for (let i = 0; i < itineraryJSON.activities.length; i++) {
-        console.log("For loop", itineraryJSON);
         const date = new Date(itineraryJSON.activities[i].startTime);
         const currentActivityDate = date.toLocaleDateString('en-US', {
             year: 'numeric',

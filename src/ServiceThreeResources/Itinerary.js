@@ -31,15 +31,6 @@ function reducer(itineraryJSON, action) {
       {
         return action.payload
       }
-    // case ACTIONS.GET_ACTIVITY :
-    // { let tempActivity;
-    //   fetch(`http://a08cb134e19c8438285f05f4a630b6bd-117037464.us-west-2.elb.amazonaws.com/api/activities/${id}`)
-    //   .catch((err)=> console.error(err))
-    //   .then((response) => response.json())
-    //   .then((data) => {tempActivity = data.activities} 
-    //   )
-    //   return {activities: tempActivity};
-    // }
     case ACTIONS.CREATE_ACTIVITY : 
     { 
       fetch('http://a08cb134e19c8438285f05f4a630b6bd-117037464.us-west-2.elb.amazonaws.com/api/activities', {
@@ -62,8 +53,21 @@ function reducer(itineraryJSON, action) {
       //UNDER CONSTRUCTION
       break;
     case ACTIONS.DELETE_ACTIVITY :
-      //UNDER CONSTRUCTION
-      break;
+     {      const id = action.payload;
+      fetch(`http://a08cb134e19c8438285f05f4a630b6bd-117037464.us-west-2.elb.amazonaws.com/api/activities/${id}`, {
+        method: 'DELETE'
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log('DELETE request succeeded with JSON response:', data);
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+
+      const updatedActivities = itineraryJSON.activities.filter(activity => activity.id !== id);
+      return { ...itineraryJSON, activities: updatedActivities };}
+
     default: return itineraryJSON;
   }
 }
@@ -89,7 +93,7 @@ return (
         <ActivityList setDisplayActivityDetails = {setDisplayActivityDetails} setDateArray = {setDateArray} buttonDate={buttonDate} setCloseActivityDetailsButton = {setCloseActivityDetailsButton} itineraryJSON = {itineraryJSON} ></ActivityList> 
         
         <h2 style={{color: 'red'}}>Activity Details Component</h2>
-        <ActivityDetails displayActivityDetails={displayActivityDetails} setDisplayActivityDetails = {setDisplayActivityDetails} closeActivityDetailsButton = {closeActivityDetailsButton} setCloseActivityDetailsButton = {setCloseActivityDetailsButton}/> 
+        <ActivityDetails dispatch={dispatch} displayActivityDetails={displayActivityDetails} setDisplayActivityDetails = {setDisplayActivityDetails} closeActivityDetailsButton = {closeActivityDetailsButton} setCloseActivityDetailsButton = {setCloseActivityDetailsButton}/> 
     </div>
   );
 }

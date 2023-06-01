@@ -3,12 +3,12 @@ import React from "react";
 import{ACTIONS} from "./Itinerary";
 
 export default function ActivityForm({setForm, dispatch}) {
-    let activityJSON = {}; 
-
+    
     function handleSubmit(event) {
         event.preventDefault();
         setForm(false); 
         
+        let activityJSON = {}; 
         const formData = new FormData(event.currentTarget);
         for (let [key, value] of formData.entries()) {
             activityJSON[key] = value; 
@@ -165,7 +165,7 @@ export default function ActivityForm({setForm, dispatch}) {
                 </label>
                 <br/>
 
-                <input value="Save Activity" type="submit"></input>
+                <input value="Save Activity" type="submit" ></input>
             </form>
         </div>
     )
