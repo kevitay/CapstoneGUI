@@ -6,6 +6,7 @@ function Users({ eventID }) {
 
     const [userState, setUser] = useState([]);
     const [loading, setLoadState] = useState(false);
+    const [inviteSuccess, setSuccess] = useState("")
     // const [usersToInvite, setUsersToInvite] = useState([]);
 
     let selectedUsers = [];
@@ -21,7 +22,6 @@ function Users({ eventID }) {
             .then(result => {
                 setUser(result.users)
             })
-            .then(result => console.log("result log", result))
             .then(setLoadState(false))
             .catch(error => console.log('error', error));
     }, []);
@@ -32,7 +32,7 @@ function Users({ eventID }) {
         myHeaders.append("Content-Type", "application/json");
         selectedUsers.forEach(element => {
             var raw = JSON.stringify({
-                "eventId": "1",
+                "eventId": "101",
                 "user": {
                     "username": element,
                 }
@@ -46,9 +46,22 @@ function Users({ eventID }) {
             };
     
             fetch("http://a53e50bf576c64141b52293976658417-1117441751.us-west-2.elb.amazonaws.com/api/participants", requestOptions)
-                .then(response => response.text())
+            .then(response => {
+                if (response.ok) {
+                    setSuccess("\u2705 User(s) invited successfully");
+                    return response.text();
+                } else if (response.status === 409) {
+                    setSuccess("\u274C User(s) has already been invited to this event")
+                    throw new Error("Conflict: User already invited");
+                } else {
+                    setSuccess("\u274C User(s) invite failed")
+                    throw new Error("Failed to invite users");
+                }
+            })
                 .then(result => console.log(result))
-                .catch(error => console.log('error', error));
+                .catch(error => {
+                    
+                    console.log('here is the ERROR', error)});
         
 
             // setUsersToInvite(selectedUsers);
@@ -73,6 +86,7 @@ function Users({ eventID }) {
                         loading ? "" : userState.map((user) => (<UserData selectedUsers={selectedUsers} invitee={user}></UserData>))
                     } </table>
                 <input type="submit" value="Invite"></input>
+                {inviteSuccess && <p>{inviteSuccess}</p>}
             </form>
         </div>)
 }

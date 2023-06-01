@@ -14,6 +14,7 @@ const Login = () => {
 
     const processLogin = (e) => {
         e.preventDefault();
+        console.log(username);
         const loginRequest = { username: username, password: password }
         const headers = {
             method: 'POST',
