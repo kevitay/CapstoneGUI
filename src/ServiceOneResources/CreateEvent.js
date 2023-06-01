@@ -1,3 +1,4 @@
+// import { findAllByDisplayValue } from '@testing-library/react';
 import React from 'react';
 import { useState } from 'react';
 // import { EventContext } from "./EventsContext";
@@ -10,8 +11,9 @@ function CreateEvent({ setCreationStep, setEvent }) {
   const [eventCost, setEventCost] = useState('');
   // const { dispatch } = useContext(EventContext);
 
+let isPublic;
+
   function postNewEvent(eventName, organization, description, eventType, eventCost) {
-    
 
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
@@ -21,8 +23,9 @@ function CreateEvent({ setCreationStep, setEvent }) {
       organization: organization,
       description: description,
       type: eventType,
-      baseCost: eventCost,
+      baseCost: Math.abs(eventCost),
       status: 'Draft',
+      public: isPublic
     });
 
     var requestOptions = {
@@ -44,6 +47,11 @@ function CreateEvent({ setCreationStep, setEvent }) {
         console.log(result);
       })
       .catch((error) => console.log('error', error));
+  }
+
+  function radioEvent(e) {
+    isPublic = e.target.value;
+    // console.log("Selected value: " + isPublic);
   }
 
   return (
@@ -77,7 +85,7 @@ function CreateEvent({ setCreationStep, setEvent }) {
         <br />
         <br />
         <label>Event Cost</label>
-        <input type="text" name="eventCost" value={eventCost} onChange={(e) => setEventCost(e.target.value)} required />
+        <input className="numberField" type="number" min="0.00" name="eventCost" value={eventCost} onChange={(e) => setEventCost(e.target.value)} required />
         <br />
         <br />
         <label>Event Description</label>
@@ -85,6 +93,19 @@ function CreateEvent({ setCreationStep, setEvent }) {
         <textarea name="description" rows="6" cols="33" value={description} onChange={(e) => setDescription(e.target.value)} required />
         <br />
         <br />
+
+        <fieldset>
+          <legend>Public or Private:</legend>
+          <div onChange={radioEvent}>
+            <input type="radio" id="public" name="publicPrivate" value={true} />
+          <label forhtml="public">Public</label>
+          <br />
+          <input type="radio" id="private" name="publicPrivate" value={false} />
+          <label forhtml="private">Private</label>
+          <br />
+          </div>
+        </fieldset>
+        <br/>
         <button type="submit">Next</button>
       </form>
     </div>

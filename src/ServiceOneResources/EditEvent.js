@@ -12,8 +12,14 @@ function EditEvent() {
   const [description, setDescription] = useState(state.description);
   const [eventType, setEventType] = useState(state.type);
   const [eventCost, setEventCost] = useState(state.baseCost);
+  let isPublic;
 
-  async function postNewEvent(eventName, organization, description, eventType, eventCost) {
+  function radioEvent(e) {
+    isPublic = e.target.value;
+    console.log("Selected value: " + isPublic);
+  }
+
+  async function updateEvent(eventName, organization, description, eventType, eventCost) {
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -25,6 +31,7 @@ function EditEvent() {
       type: eventType,
       baseCost: eventCost,
       status: 'Planned',
+      public: isPublic
     });
 
     var requestOptions = {
@@ -47,7 +54,7 @@ function EditEvent() {
     // might be better to route to edit itinerary component page 
     window.location.replace(`/serviceOne/event/${id}`);
   }
-
+  
   return (
     <div className="eventSubmit">
       <h2>Edit Event</h2>
@@ -62,7 +69,7 @@ function EditEvent() {
           setDescription('');
           setEventType('');
           setEventCost('');
-          postNewEvent(eventName, organization, description, eventType, eventCost);
+          updateEvent(eventName, organization, description, eventType, eventCost);
           // will have to delete if we add other components
         }}
       >
@@ -79,13 +86,25 @@ function EditEvent() {
         <br />
         <br />
         <label>Event Cost</label>
-        <input type="text" name="eventCost" value={eventCost} onChange={(e) => setEventCost(e.target.value)} />
+        <input className="numberField" type="number" min="0.00" name="eventCost" value={eventCost} onChange={(e) => setEventCost(e.target.value)} />
         <br />
         <br />
         <label>Event Description</label>
         <br />
         <textarea name="description" rows="6" cols="33" value={description} onChange={(e) => setDescription(e.target.value)} />
         <br />
+        <br />
+        <fieldset>
+          <legend>Public or Private:</legend>
+          <div onChange={radioEvent}>
+            <input type="radio" id="public" name="publicPrivate" value={true} />
+            <label forhtml="public">Public</label>
+            <br />
+            <input type="radio" id="private" name="publicPrivate" value={false} />
+            <label forhtml="private">Private</label>
+            <br />
+          </div>
+        </fieldset>
         <br />
         {/* might include Edit Itinerary component , might need to create logic to flow from editing basic event details to itinerary */}
         <button type="submit">Submit</button>
