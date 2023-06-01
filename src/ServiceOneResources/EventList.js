@@ -3,6 +3,7 @@ import { useEffect, useContext } from 'react';
 import EventBrief from "./EventBrief";
 import { EventContext } from "./EventsContext";
 
+
 // const eventsJson = require("./events.json")
 //This component is to display our EventList, inside the return is an EventBrief that organizes the data from the fetch call to display only a brief summary.
 export default function EventList() {

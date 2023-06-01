@@ -11,8 +11,9 @@ import { EventProvider } from './ServiceOneResources/EventsContext';
 import EventList from "./ServiceOneResources/EventList";
 import EditEvent from "./ServiceOneResources/EditEvent";
 
+
 function App() {
-  
+
     return (
       <div className="App">
         <h1>App</h1>
