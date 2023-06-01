@@ -4,8 +4,9 @@ import Signup from './signup';
 
 const ParticipantView = ({ eventId, user }) => {
   user = "Russhi";
-
+  const checklistUrl = "http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist";
   const [packingList, setPackingList] = useState([]);
+  const [assigneeList, setAssigneeList] = useState([]);
   
   const getPackingListByEventId = (eventId) => {
     var requestOptions = {
@@ -13,16 +14,43 @@ const ParticipantView = ({ eventId, user }) => {
       redirect: 'follow'
     };
 
-    fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist/" + eventId, requestOptions)
+    fetch(checklistUrl + "/" + eventId, requestOptions)
       .then(response => response.json())
       .then(result => {
         setPackingList(result.checklist);
       })
       .catch(error => console.log('error', error));
   };
+
+  const getAssigneeListByUserIdAndEventId = (eventId, user) => {
+    let requestOptions = {
+        method: 'GET',
+        redirect: 'follow'
+    };
+
+    fetch(checklistUrl + "/assignees", requestOptions)
+        .then(response => response.json())
+        .then(result => {
+            console.log("all", result.assigneeList);
+            return result.assigneeList.filter(assignee => assignee.userName === user && assignee.checklistItem.eventId === eventId);
+        })
+        .then(result => {
+            console.log("filter", result);
+            // setAssigneeList(result);
+            return result;
+        })
+        .then(result => result.map(item => item.checklistItem.id).join().split(","))
+        .then(result => {
+            console.log("checklistItem", result);
+            setAssigneeList(result);
+        })
+        .catch(error => console.log("error", error));
+  }
+
   useEffect(() => {
     getPackingListByEventId(eventId);
-  }, [eventId]);
+    getAssigneeListByUserIdAndEventId(eventId, user);
+  }, [eventId, user]);
 
   return (
     <div>
@@ -66,7 +94,7 @@ const ParticipantView = ({ eventId, user }) => {
           </tr>
         </thead>
         <tbody> {/* need to make this show what I've already signed up for */}
-          {packingList.filter(item => item.type === "signup list").map(result => (
+          {packingList.filter(item => item.type === "signup list" && assigneeList.includes(item.id.toString())).map(result => (
             <tr key={result.id}>
               <td>{result.id}</td>
               <td>{result.description}</td>
