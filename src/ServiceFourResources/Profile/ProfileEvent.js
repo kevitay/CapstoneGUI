@@ -22,13 +22,12 @@ function ProfileEvent() {
             .then(result => {
                 eventPartArr.push(result.eventParticipants);
             }).then(eventResult => {
-
                 for(let i = 0; i < eventPartArr[0].length; i++) {
                     fetch("http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/"+eventPartArr[0][i].eventId)
                     .then(response => response.json())
                     .then(result => {
                         eventArr.push(result);
-                    })
+                    }).catch(error => console.log('error', error));
                 }
             })
             // .then(() => console.log(eventInfo))
@@ -41,7 +40,7 @@ function ProfileEvent() {
     return (
         <>
         <div>
-            {loading ? "" : eventInfo.map((eventInfo) => <><EventInfo eventInfo={eventInfo}></EventInfo></>)}
+            {loading ? "" : eventInfo.map((eventInformation) => <><EventInfo eventInfo={eventInformation}></EventInfo></>)}
             {
             loading ? "" : userEventsList.map((event) => <><UserEvent event={event}></UserEvent></>)
             }
