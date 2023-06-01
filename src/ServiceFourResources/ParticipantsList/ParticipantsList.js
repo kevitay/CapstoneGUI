@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import EventParticipant from "./EventParticipant";
-import EventFilter from "./EventFilter";
+
 
 function PartipantsList() {
 
