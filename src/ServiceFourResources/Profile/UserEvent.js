@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 function UserEvent({ event }) {
+    console.log("event part info",event)
   const [editMode, setEditMode] = useState(false);
   const [status, setStatus] = useState(event.status);
   const [carpool, setCarpool] = useState(event.carpool);
@@ -42,11 +43,11 @@ function UserEvent({ event }) {
     console.log("part id",event.eventParticipantId)
     return (
       <div>
-        <h3>Event title goes here</h3>
+        {/* <h3>{eventInfo.name}</h3>
         <p>Event dates go here</p>
         <p>
           <i>Event description goes here</i>
-        </p>
+        </p> */}
         <p>
   Status:{" "}
   <input
@@ -92,11 +93,11 @@ function UserEvent({ event }) {
 
   return (
     <div>
-      <h3>Event title goes here</h3>
+      {/* <h3>Event title goes here</h3>
       <p>Event dates go here</p>
       <p>
         <i>Event description goes here</i>
-      </p>
+      </p> */}
       <p>Status: <strong>{status}</strong></p>
       <p>Carpooling? <strong>{carpool ? "Yes" : "No"}</strong></p>
       <p>Seats Available: <strong>{seatsAvail}</strong></p>
