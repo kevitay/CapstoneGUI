@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import ActivitySummary from "./ActivitySummary";
 
-export default function ActivityList({setDisplayActivityDetails, setDateArray, buttonDate, setCloseActivityDetailsButton, itineraryJSON}) {
+export default function ActivityList({editForm, setDisplayActivityDetails, setDateArray, buttonDate, setCloseActivityDetailsButton, itineraryJSON}) {
     const dateObject = {}; 
     const dateArray = []; 
         for (let i = 0; i < itineraryJSON.activities.length; i++) {
@@ -29,7 +29,7 @@ export default function ActivityList({setDisplayActivityDetails, setDateArray, b
         <div>
             <ul>
                 {dateArray.map(date => (buttonDate === "" ? true : date === buttonDate) &&
-                        <li key={date}><h2>{date}</h2>{dateObject[date].sort((a,b) => Date.parse(a.startTime) - Date.parse(b.startTime)).map((item, index) => <ActivitySummary key={index} activity = {item} setDisplayActivityDetails = {setDisplayActivityDetails} setCloseActivityDetailsButton = {setCloseActivityDetailsButton}/>)}</li> 
+                        <li key={date}><h2>{date}</h2>{dateObject[date].sort((a,b) => Date.parse(a.startTime) - Date.parse(b.startTime)).map((item, index) => <ActivitySummary key={index} activity = {item} setDisplayActivityDetails = {setDisplayActivityDetails} editForm={editForm} setCloseActivityDetailsButton = {setCloseActivityDetailsButton}/>)}</li> 
                         ) }
             </ul>
         </div>
