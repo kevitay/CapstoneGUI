@@ -7,10 +7,6 @@ export default function DeleteEvent({ id }) {
 
   //deleteTasks(), deleteParticipants(), deleteItinerary(), handleDeleteEvent()
 
-
-
-
-  
   function handleDeleteEvent() {
     setDeleteStatus('pending');
 
@@ -20,7 +16,7 @@ export default function DeleteEvent({ id }) {
     // })
     //   .then((response) => console.log('Success- Checklist ' + id + ' Deleted'))
     //   .catch((error) => console.log(error))
-    
+
     // TODO: Work with Users Team for deleting participant list by eventID
     //   .then(fetch('http://a53e50bf576c64141b52293976658417-1117441751.us-west-2.elb.amazonaws.com/api/participants?eventId={eventId}' + id, {
     //   method: 'DELETE',
@@ -35,14 +31,12 @@ export default function DeleteEvent({ id }) {
     //   .then((response) => console.log('Success- Activity ' + id + ' Deleted'))
     //   .catch((error) => console.log(error)));
 
-       
     fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/' + id, {
       method: 'DELETE',
     })
       .then((response) => console.log('Success- Event ' + id + ' Deleted'))
       .then((response) => setDeleteStatus('deleted'))
-      .catch((error) => console.log(error))
-    
+      .catch((error) => console.log(error));
   }
 
   return (
