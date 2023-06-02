@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState } from 'react';
+// import AuthContext from '../IdentityResources/Contexts/AuthContext';
 
 function CreateEvent({ setCreationStep, setEvent }) {
   const [eventName, setName] = useState('');
@@ -8,6 +9,7 @@ function CreateEvent({ setCreationStep, setEvent }) {
   const [eventType, setEventType] = useState('');
   const [eventCost, setEventCost] = useState('');
   const [isPublic, setIsPublic] = useState(false);
+  // const [authState, ] = useContext(AuthContext);
  
 
   function postNewEvent(eventName, organization, description, eventType, eventCost) {
@@ -23,6 +25,7 @@ function CreateEvent({ setCreationStep, setEvent }) {
       baseCost: Math.abs(eventCost),
       status: 'Draft',
       public: isPublic
+      // creatorID:authState.username
     });
 
     var requestOptions = {
