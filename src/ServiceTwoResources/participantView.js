@@ -17,7 +17,7 @@ const ParticipantView = ({ eventId, user }) => {
     fetch(checklistUrl + "/" + eventId, requestOptions)
       .then(response => response.json())
       .then(result => {
-        setPackingList(result.checklist);
+        setPackingList((result.checklist.length > 1) ? result.checklist.sort((a, b) => parseInt(a.id) - parseInt(b.id)) : result.checklist);
       })
       .catch(error => console.log('error', error));
   };

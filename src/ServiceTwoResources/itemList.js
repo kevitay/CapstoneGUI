@@ -34,7 +34,7 @@ function ItemList({ items, setPackingList, eventId }) {
         //update or replace the item
         newList[itemIndex] = result;
         //set new packing list
-        setPackingList(newList);
+        setPackingList((result.checklist.length > 1) ? result.checklist.sort((a, b) => parseInt(a.id) - parseInt(b.id)) : result.checklist);
       })
       .catch(error => console.log('error', error));
   };
@@ -74,7 +74,7 @@ function ItemList({ items, setPackingList, eventId }) {
     fetch(checklistUrl + "/" + eventId, requestOptions)
       .then(response => response.json())
       .then(result => {
-        setPackingList(result.checklist);
+        setPackingList((result.checklist.length > 1) ? result.checklist.sort((a, b) => parseInt(a.id) - parseInt(b.id)) : result.checklist);
       })
       .catch(error => console.log('error', error));
   };
