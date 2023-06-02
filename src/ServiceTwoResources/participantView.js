@@ -50,7 +50,6 @@ const ParticipantView = ({ eventId, user }) => {
       <table>
         <thead>
           <tr>
-            <th>ID</th>
             <th>Description</th>
             <th>Type</th>
             <th>Quantity</th>
@@ -60,12 +59,11 @@ const ParticipantView = ({ eventId, user }) => {
         <tbody>
           {packingList.filter(item => item.type === "packing list").map(result => (
             <tr key={result.id}>
-              <td>{result.id}</td>
               <td>{result.description}</td>
               <td>{result.type}</td>
               <td>{result.quantity}</td>
               <td>
-               {(result.required) ? "true" : "false" }
+               {(result.required) ? "yes" : "" }
               </td>
             </tr>
           ))}
@@ -75,7 +73,6 @@ const ParticipantView = ({ eventId, user }) => {
       <table>
         <thead>
           <tr>
-            <th>ID</th>
             <th>Description</th>
             <th>Type</th>
             <th>Quantity</th>
@@ -85,12 +82,11 @@ const ParticipantView = ({ eventId, user }) => {
         <tbody> 
           {packingList.filter(item => item.type === "signup list" && assigneeList.includes(item.id.toString())).map(result => (
             <tr key={result.id}>
-              <td>{result.id}</td>
               <td>{result.description}</td>
               <td>{result.type}</td>
               <td>{result.quantity}</td>
               <td>
-                {(result.required) ? "true" : "false" }
+                {(result.required) ? "yes" : "" }
               </td>
             </tr>
           ))}
@@ -100,7 +96,6 @@ const ParticipantView = ({ eventId, user }) => {
       <table>
         <thead>
           <tr>
-            <th>ID</th>
             <th>Description</th>
             <th># Remaining</th>
             <th></th>

@@ -56,7 +56,6 @@ const Signup = ({ eventId, user, signupListItem }) => {
 
   return (
     <tr key={signupListItem.id}>
-      <td>{signupListItem.id}</td>
       <td>{signupListItem.description}</td>
       <td>{qtyNeeded}</td>
       <td> 

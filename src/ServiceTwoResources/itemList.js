@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 
 function ItemList({ items, setPackingList, eventId }) {
+  const checklistUrl = "http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist";
 
   const handleUpdateItem = (item, itemIndex) => {
     // Implement the logic for updating the item at the specified index
@@ -12,7 +13,7 @@ function ItemList({ items, setPackingList, eventId }) {
       "type": item.type,
       "description": item.description,
       "required": item.required,
-      "quantity": item.count
+      "quantity": item.quantity
     });
 
     var requestOptions = {
@@ -23,7 +24,7 @@ function ItemList({ items, setPackingList, eventId }) {
       id: 23,
     };
 
-    fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist/" + item.id, requestOptions)
+    fetch(checklistUrl + "/" + item.id, requestOptions)
       .then(response => response.json())
       .then(result => {
         //make copy of existing package
@@ -44,13 +45,19 @@ function ItemList({ items, setPackingList, eventId }) {
       redirect: 'follow'
     };
 
-    fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist/" + item.id, requestOptions)
+    fetch(checklistUrl + "/" + item.id, requestOptions)
       .then(response => {
         if (response.status === 202) {
           alert("Item Deleted");
           const updatedPackingList = [...items];
           updatedPackingList.splice(item, 1);
           setPackingList(updatedPackingList);
+        } else {
+          let alertText = "Item Not Deleted";
+          if (item.type === "signup list") {
+            alertText += "\nThis is a Signup List that may have people signed up.";
+          }
+          alert(alertText);
         }
       }
       )
@@ -64,7 +71,7 @@ function ItemList({ items, setPackingList, eventId }) {
       redirect: 'follow'
     };
 
-    fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist/" + eventId, requestOptions)
+    fetch(checklistUrl + "/" + eventId, requestOptions)
       .then(response => response.json())
       .then(result => {
         setPackingList(result.checklist);
@@ -74,15 +81,16 @@ function ItemList({ items, setPackingList, eventId }) {
 
   useEffect(() => {
     getPackingListByEventId(eventId);
-  }, []);
+  }, [eventId]);
 
 
   const onChangeInput = (e, index) => {
-    const { name, value } = e.target
+    let { name, value } = e.target
     console.log(name, value);
     let editList = items.map(item => ({ ...item }))
+    if (name === "required") value = e.target.checked;
     editList[index][name] = value;
-    console.log(editList);
+    console.log("editList: ", editList);
     setPackingList(editList);
   }
   console.log("item array", items);
@@ -104,7 +112,7 @@ function ItemList({ items, setPackingList, eventId }) {
             }
             </select></td>
           <td><input type="number" name="quantity" value={item.quantity} onChange={(e) => onChangeInput(e, index)}></input></td>
-          <td><input type="checkbox" checked={item.required} name="required" onChange={(e) => onChangeInput(e, index)}></input></td>
+          <td><input type="checkbox" name="required" checked={item.required} onChange={(e) => onChangeInput(e, index)}></input></td>
           <td>
             <button onClick={() => handleUpdateItem(item, index)}>Update Item</button>
             <button onClick={() => handleDeleteItem(item)}>Delete Item</button>
