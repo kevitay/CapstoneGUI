@@ -66,6 +66,7 @@ function App() {
             <Route path={'/serviceOne/event/:id'} element={<Event />}></Route>
             <Route path={'/serviceOne/editEvent/:id'} element={<EditEvent />}></Route>
             <Route path={'/serviceOne/createEventFlow'} element={<CreateEventFlow />}></Route>
+            <Route path={'/serviceTwo/*'} element={<ServiceTwoApp />}></Route>
             <Route path={'/serviceThree/*'} element={<ServiceThreeApp />}></Route>
             <Route path={'/serviceFour/*'} element={<ServiceFourApp />}></Route>
             <Route path={'/identity/*'} element={<IdentityApp />}></Route>
