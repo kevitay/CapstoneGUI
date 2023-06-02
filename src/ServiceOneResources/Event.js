@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from "react";
+import Login from "../IdentityResources/Login";
 import OrganizerControl from "./OrganizerControl";
 import AuthContext from "../IdentityResources/Contexts/AuthContext";
 import { useParams } from "react-router-dom";
@@ -84,7 +85,6 @@ export default function Event() {
 
   //using an if statement to handle the async setCurrentEvent could also use {(currentEvent) ? (<div>…</div>) :( <></>)}
   if (!currentEvent) return null;
-  console.log(currentEvent);
   return (
     <div>
       {(!authState.token)?(<Login></Login>):(<></>)}

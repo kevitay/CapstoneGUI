@@ -11,24 +11,9 @@ function CreateEvent({ setCreationStep, setEvent }) {
   const [eventType, setEventType] = useState('');
   const [eventCost, setEventCost] = useState('');
   const [isPublic, setIsPublic] = useState(false);
-  // const [authState, ] = useContext(AuthContext);
- 
-
-  //const { dispatch } = useContext(EventContext);
   const [authState,] = useContext(AuthContext);
  
-  //function postNewEvent(eventName, organization, description, eventType, startLocation, endLocation, startTime, endTime){
-  function postNewEvent(){
-  // const { dispatch } = useContext(EventContext);
-
-  //function postNewEvent(eventName, organization, description, eventType, eventCost, startLocation, endLocation, startTime, endTime) {
-    // console.log(startTime);
-    // console.log(endTime);
-    // let newStartTime = startTime.replaceAll('T', '@');
-    // let newEndTime = endTime.replaceAll('T', '@');
-
-    // console.log(newStartTime);
-    // console.log(newEndTime);
+  function postNewEvent(eventName, organization, description, eventType, eventCost) {
 
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
@@ -42,7 +27,6 @@ function CreateEvent({ setCreationStep, setEvent }) {
       baseCost: Math.abs(eventCost),
       status: 'Draft',
       public: isPublic
-      // creatorID:authState.username
     });
 
     var requestOptions = {
@@ -59,7 +43,7 @@ function CreateEvent({ setCreationStep, setEvent }) {
           setEvent(result);
           setCreationStep(2);
         }
-        console.log(result);
+        //console.log(result);
       })
       .catch((error) => console.log('error', error));
   }
@@ -117,10 +101,6 @@ function CreateEvent({ setCreationStep, setEvent }) {
           <label forhtml="private">Private</label>
           <br />
         </fieldset>
-        <br />
-        <br />
-        <label htmlFor="endTime">End Time</label>
-        <input type="datetime-local" id="endTime" name="endTime" value={endTime} onChange={(e) => setEndTime(e.target.value)} required></input>
         <br />
         <br />
         <button disabled={!authState.token} type="submit">Submit</button>
