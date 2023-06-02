@@ -161,7 +161,7 @@ export default function ActivityForm({setForm, dispatch}) {
                 <br/>
                 
                 <label>End Time
-                <input name="endTime" type="datetime-local" label="End Time"/>
+                <input name="endTime" type="datetime-local" label="End Time" required/>
                 </label>
                 <br/>
 

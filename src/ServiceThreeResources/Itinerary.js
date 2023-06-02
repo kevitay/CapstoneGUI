@@ -5,7 +5,7 @@ import DateSelector from "./DateSelector";
 import CreateNewActivity from "./CreateNewActivity";
 
 export const ACTIONS = {
-  FETCH_ACTIVITIES: 'fetch-activities',
+  GET_ACTIVITIES: 'get-activities',
   SET_ACTIVITIES: 'set-activities',
   CREATE_ACTIVITY: 'create-activity',
   UPDATE_ACTIVITY: 'update-activity',
@@ -17,7 +17,7 @@ const [itineraryJSON, dispatch] = useReducer(reducer, {activities:[]});
 
 function reducer(itineraryJSON, action) {
   switch (action.type) {
-    case ACTIONS.FETCH_ACTIVITIES : 
+    case ACTIONS.GET_ACTIVITIES : 
     {
       fetch(`http://a08cb134e19c8438285f05f4a630b6bd-117037464.us-west-2.elb.amazonaws.com/api/activities`)
       .catch((err)=> console.error(err))
@@ -91,7 +91,7 @@ function reducer(itineraryJSON, action) {
 }
 
 useEffect(() => {
- dispatch({type: ACTIONS.FETCH_ACTIVITIES})
+ dispatch({type: ACTIONS.GET_ACTIVITIES})
 },[]);
 
 const [displayActivityDetails, setDisplayActivityDetails] = useState({}); 
