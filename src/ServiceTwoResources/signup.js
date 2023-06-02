@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Signup = ({ eventId, user, signupListItem }) => {
+const Signup = ({ user, signupListItem }) => {
   const checklistUrl = "http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist";
   // lookup checklistItemId from assignees
   const [assigneeList, setAssigneeList] = useState([]);
@@ -17,7 +17,7 @@ const Signup = ({ eventId, user, signupListItem }) => {
   };
   useEffect(() => {
     getAssigneeListByChecklistItemId(signupListItem);
-  }, [assigneeList]);
+  }, [assigneeList, signupListItem]);
 
   // wire up the button to sign up for an item
 

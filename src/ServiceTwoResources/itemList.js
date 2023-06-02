@@ -34,7 +34,7 @@ function ItemList({ items, setPackingList, eventId }) {
         //update or replace the item
         newList[itemIndex] = result;
         //set new packing list
-        setPackingList((result.checklist.length > 1) ? result.checklist.sort((a, b) => parseInt(a.id) - parseInt(b.id)) : result.checklist);
+        setPackingList(newList);
       })
       .catch(error => console.log('error', error));
   };
@@ -64,7 +64,7 @@ function ItemList({ items, setPackingList, eventId }) {
       .catch(error => console.log('error', error));
   };
 
-  const getPackingListByEventId = (eventId) => {
+  const getPackingListByEventId = () => {
 
     var requestOptions = {
       method: 'GET',
@@ -74,14 +74,13 @@ function ItemList({ items, setPackingList, eventId }) {
     fetch(checklistUrl + "/" + eventId, requestOptions)
       .then(response => response.json())
       .then(result => {
+        console.log("result: ", result);
         setPackingList((result.checklist.length > 1) ? result.checklist.sort((a, b) => parseInt(a.id) - parseInt(b.id)) : result.checklist);
       })
       .catch(error => console.log('error', error));
   };
 
-  useEffect(() => {
-    getPackingListByEventId(eventId);
-  }, [eventId]);
+  useEffect(getPackingListByEventId, [eventId, setPackingList]);
 
 
   const onChangeInput = (e, index) => {
