@@ -39,7 +39,7 @@ function ItemList({ items, setPackingList, eventId }) {
       .catch(error => console.log('error', error));
   };
 
-  const handleDeleteItem = (item) => {
+  const handleDeleteItem = (item, index) => {
     var requestOptions = {
       method: 'DELETE',
       redirect: 'follow'
@@ -50,7 +50,8 @@ function ItemList({ items, setPackingList, eventId }) {
         if (response.status === 202) {
           alert("Item Deleted");
           const updatedPackingList = [...items];
-          updatedPackingList.splice(item, 1);
+          // updatedPackingList.splice(item, 1);
+          updatedPackingList.splice(index, 1);
           setPackingList(updatedPackingList);
         } else {
           let alertText = "Item Not Deleted";
@@ -59,8 +60,7 @@ function ItemList({ items, setPackingList, eventId }) {
           }
           alert(alertText);
         }
-      }
-      )
+      })
       .catch(error => console.log('error', error));
   };
 
@@ -115,7 +115,7 @@ function ItemList({ items, setPackingList, eventId }) {
           <td><input type="checkbox" name="required" checked={item.required} onChange={(e) => onChangeInput(e, index)}></input></td>
           <td>
             <button onClick={() => handleUpdateItem(item, index)}>Update Item</button>
-            <button onClick={() => handleDeleteItem(item)}>Delete Item</button>
+            <button onClick={() => handleDeleteItem(item, index)}>Delete Item</button>
           </td>
         </tr>
       ))}
