@@ -1,5 +1,5 @@
-import {useState} from "react";
 import { ACTIONS } from "./Itinerary";
+import React from "react";
 
 export default function ActivityDetails({editForm, setEditForm, dispatch, displayActivityDetails, setDisplayActivityDetails, closeActivityDetailsButton, setCloseActivityDetailsButton}) {
 

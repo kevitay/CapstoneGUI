@@ -69,7 +69,6 @@ function reducer(itineraryJSON, action) {
         const updatedActivities = itineraryJSON.activities.filter(activity => activity.id !== id);
         updatedActivities.push(action.payload)
         return { ...itineraryJSON, activities: updatedActivities };}
-      break;
     case ACTIONS.DELETE_ACTIVITY :
      {      const id = action.payload;
       fetch(`http://a08cb134e19c8438285f05f4a630b6bd-117037464.us-west-2.elb.amazonaws.com/api/activities/${id}`, {
@@ -109,7 +108,7 @@ return (
         <DateSelector dateArray = {dateArray} setButtonDate = {setButtonDate}/>
 
         <h2 style={{color: 'red'}}>Activity List Component</h2>
-        <ActivityList editForm={editForm} setDisplayActivityDetails = {setDisplayActivityDetails} setDateArray = {setDateArray} buttonDate={buttonDate} setCloseActivityDetailsButton = {setCloseActivityDetailsButton} itineraryJSON = {itineraryJSON} ></ActivityList> 
+        <ActivityList dateArray={dateArray} editForm={editForm} setDisplayActivityDetails = {setDisplayActivityDetails} setDateArray = {setDateArray} buttonDate={buttonDate} setCloseActivityDetailsButton = {setCloseActivityDetailsButton} itineraryJSON = {itineraryJSON} ></ActivityList> 
         
         <h2 style={{color: 'red'}}>Activity Details Component</h2>
         <ActivityDetails editForm={editForm} setEditForm={setEditForm} dispatch={dispatch} displayActivityDetails={displayActivityDetails} setDisplayActivityDetails = {setDisplayActivityDetails} closeActivityDetailsButton = {closeActivityDetailsButton} setCloseActivityDetailsButton = {setCloseActivityDetailsButton}/> 

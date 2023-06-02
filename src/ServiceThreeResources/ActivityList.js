@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useCallback, useMemo } from "react";
 import ActivitySummary from "./ActivitySummary";
 
 export default function ActivityList({editForm, setDisplayActivityDetails, setDateArray, buttonDate, setCloseActivityDetailsButton, itineraryJSON}) {
     const dateObject = {}; 
-    const dateArray = []; 
+    const dateArray = useMemo(()=>[], []) 
+    setDateArray = useCallback(() => {}, [])
         for (let i = 0; i < itineraryJSON.activities.length; i++) {
         const date = new Date(itineraryJSON.activities[i].startTime);
         const currentActivityDate = date.toLocaleDateString('en-US', {
@@ -20,10 +21,12 @@ export default function ActivityList({editForm, setDisplayActivityDetails, setDa
     };
 
     dateArray.sort(); 
+
+
     
     useEffect(()=> { 
             setDateArray(dateArray)
-    }, [itineraryJSON]); 
+    }, [itineraryJSON, setDateArray, dateArray]); 
 
     return (
         <div>
