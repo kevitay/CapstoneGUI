@@ -43,7 +43,6 @@ function CreateEventFlow() {
       {creationStep === 3 ? <><p>Add itinerary</p></> : <></>}
       {creationStep === 4 ? <><p>Add items</p></> : <></>}
       {creationStep === 5 ? <><p>Add tasks</p></> : <></>}
-      <button onClick={()=> setCreationStep(4)}>Skip Ahead collect 200</button>
       <br/>
       <br/>
     </div>
