@@ -15,7 +15,6 @@ function EditEvent() {
   const [isPublic, setIsPublic] = useState(state.public);
 
   const radioEvent = (event) => {
-    console.log(event);
     setIsPublic(event.target.value === 'true');
   };
 
