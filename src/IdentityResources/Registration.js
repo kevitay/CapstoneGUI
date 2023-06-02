@@ -66,6 +66,7 @@ const Registration = () => {
                                     id={`registration_${key}`}
                                     name={key}
                                     value={registration[key]}
+                                    required={key !== "phoneNumber" ? true: false}
                                     onChange={inputUpdate}
                             ></input>
                         </label>
