@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import CreateEvent from './CreateEvent';
 
@@ -6,6 +6,33 @@ function CreateEventFlow() {
   // Steps are: 1-New, 2-Invite, 3-Itinerary, 4-Items, 5-Tasks
   const [creationStep, setCreationStep] = useState(1);
   const [event, setEvent] = useState(null);
+  useEffect(() => {
+    if(creationStep === 4) {
+      var myHeaders = new Headers();
+        myHeaders.append("Content-Type", "application/json");
+
+        var raw = JSON.stringify({
+          status: "Planned",
+        });
+
+        var requestOptions = {
+          method: "PATCH",
+          headers: myHeaders,
+          body: raw,
+          redirect: "follow",
+        };
+
+        fetch(
+          "http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/" +
+            event.id,
+          requestOptions
+        )
+          .then((response) => response.json())
+          .then((result) => console.log(result))
+          .catch((error) => console.log("error", error));
+          // console.log(eventDate)
+    }
+  },[creationStep, event])
 
   return (
     <div>
@@ -16,6 +43,8 @@ function CreateEventFlow() {
       {creationStep === 3 ? <><p>Add itinerary</p></> : <></>}
       {creationStep === 4 ? <><p>Add items</p></> : <></>}
       {creationStep === 5 ? <><p>Add tasks</p></> : <></>}
+      <br/>
+      <br/>
     </div>
   );
 }

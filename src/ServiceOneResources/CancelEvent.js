@@ -7,7 +7,7 @@ export default function CancelEvent({ event, setCurrentEvent}) {
     myHeaders.append('Content-Type', 'application/json');
 
     var raw = JSON.stringify({
-      status: 'cancelled',
+      status: 'Cancelled',
     });
 
     var requestOptions = {

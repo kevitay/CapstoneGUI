@@ -2,10 +2,7 @@ import React from 'react';
 import { useState, useContext} from 'react';
 import AuthContext from "../IdentityResources/Contexts/AuthContext";
 //import { EventContext } from "./EventsContext";
-import Address from './Address';
 import Login from '../IdentityResources/Login';
-
-const emptyAddress = {name:'',address:'',city:'',state:'',zipCode:''};
 
 function CreateEvent({ setCreationStep, setEvent }) {
   const [eventName, setName] = useState('');
@@ -13,10 +10,9 @@ function CreateEvent({ setCreationStep, setEvent }) {
   const [description, setDescription] = useState('');
   const [eventType, setEventType] = useState('');
   const [eventCost, setEventCost] = useState('');
-  const [startLocation, setStartLocation] = useState(emptyAddress);
-  const [endLocation, setEndLocation] = useState(emptyAddress);
-  const [startTime, setStartTime] = useState('');
-  const [endTime, setEndTime] = useState('');
+  const [isPublic, setIsPublic] = useState(false);
+  // const [authState, ] = useContext(AuthContext);
+ 
 
   //const { dispatch } = useContext(EventContext);
   const [authState,] = useContext(AuthContext);
@@ -28,8 +24,8 @@ function CreateEvent({ setCreationStep, setEvent }) {
   //function postNewEvent(eventName, organization, description, eventType, eventCost, startLocation, endLocation, startTime, endTime) {
     // console.log(startTime);
     // console.log(endTime);
-    let newStartTime = startTime.replaceAll('T', '@');
-    let newEndTime = endTime.replaceAll('T', '@');
+    // let newStartTime = startTime.replaceAll('T', '@');
+    // let newEndTime = endTime.replaceAll('T', '@');
 
     // console.log(newStartTime);
     // console.log(newEndTime);
@@ -43,12 +39,10 @@ function CreateEvent({ setCreationStep, setEvent }) {
       organization: organization,
       description: description,
       type: eventType,
-      baseCost: eventCost,
-      startDateTime: newStartTime + ':00',
-      endDateTime: newEndTime + ':00',
-      startLocation: startLocation,
-      endLocation: endLocation,
-      status: 'Planning',
+      baseCost: Math.abs(eventCost),
+      status: 'Draft',
+      public: isPublic
+      // creatorID:authState.username
     });
 
     var requestOptions = {
@@ -61,8 +55,6 @@ function CreateEvent({ setCreationStep, setEvent }) {
     fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event', requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        // If event context needs updating
-        // dispatch({ type: 'ADD_EVENT', payload: result });
         if (result.id !== null) {
           setEvent(result);
           setCreationStep(2);
@@ -71,6 +63,10 @@ function CreateEvent({ setCreationStep, setEvent }) {
       })
       .catch((error) => console.log('error', error));
   }
+
+   const radioEvent = (event) => {
+     setIsPublic(event.target.value === 'true');
+   };
 
   return (
     <div className="eventSubmit">
@@ -82,18 +78,12 @@ function CreateEvent({ setCreationStep, setEvent }) {
         className="eventForm"
         onSubmit={(e) => {
           e.preventDefault();
-          //  props.event(eventName, organization, description, eventType, startLocation, endLocation, startTime, endTime);
           setName('');
           setOrganization('');
           setDescription('');
           setEventType('');
           setEventCost('');
-          setStartLocation(emptyAddress);
-          setEndLocation(emptyAddress);
-          setStartTime('');
-          setEndTime('');
-          postNewEvent();
-           //postNewEvent(eventName, organization, description, eventType, eventCost, startLocation, endLocation, startTime, endTime);
+          postNewEvent(eventName, organization, description, eventType, eventCost);
         }}
       >
         <label>Event Name</label>
@@ -109,7 +99,7 @@ function CreateEvent({ setCreationStep, setEvent }) {
         <br />
         <br />
         <label>Event Cost</label>
-        <input type="text" name="eventCost" value={eventCost} onChange={(e) => setEventCost(e.target.value)} required />
+        <input className="numberField" type="number" min="0.00" name="eventCost" value={eventCost} onChange={(e) => setEventCost(e.target.value)} required />
         <br />
         <br />
         <label>Event Description</label>
@@ -118,13 +108,15 @@ function CreateEvent({ setCreationStep, setEvent }) {
         <br />
         <br />
 
-        <label>Start Location Name</label>
-        <Address location={startLocation} setLocation={setStartLocation}></Address>
-        <label>End Location Name</label>
-        <Address location={endLocation} setLocation={setEndLocation}></Address>
-
-        <label htmlFor="startTime">Start Time</label>
-        <input type="datetime-local" id="startTime" name="startTime" value={startTime} onChange={(e) => setStartTime(e.target.value)} required></input>
+        <fieldset>
+          <legend>Public or Private:</legend>
+          <input type="radio" id="public" name="publicPrivate" value={true} checked={isPublic === true} onChange={radioEvent} />
+          <label forhtml="public">Public</label>
+          <br />
+          <input type="radio" id="private" name="publicPrivate" value={false} checked={isPublic === false} onChange={radioEvent} />
+          <label forhtml="private">Private</label>
+          <br />
+        </fieldset>
         <br />
         <br />
         <label htmlFor="endTime">End Time</label>

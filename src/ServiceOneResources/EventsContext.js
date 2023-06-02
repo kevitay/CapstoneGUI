@@ -1,6 +1,6 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useReducer } from "react";
 
-//This is our EventList State 
+//This is our EventList State
 const initialState = {
   eventsList: [],
 };
@@ -12,21 +12,21 @@ export const EventContext = createContext();
 // On re render the eventList gets set again with the most current data from API.
 const eventReducer = (state, action) => {
   switch (action.type) {
-    case 'SET_EVENTS':
+    case "SET_EVENTS":
       return {
         ...state,
-        eventsList: action.payload
+        eventsList: action.payload,
       };
-    case 'DELETE_EVENT':
+    case "DELETE_EVENT":
       return {
         ...state,
         //we are only keeping events that don't match the id from the payload
         eventsList: state.eventsList.filter((event) => event.id !== action.payload),
       };
-    case 'ADD_EVENT':
+    case "ADD_EVENT":
       return {
-         ...state,
-         eventsList: [...state.eventsList, action.payload]
+        ...state,
+        eventsList: [...state.eventsList, action.payload],
       };
     default:
       return state;
@@ -35,7 +35,6 @@ const eventReducer = (state, action) => {
 
 //EventProvider component allows to pass down state to children: eventlist,brief, etc.
 export const EventProvider = ({ children }) => {
-
   const [state, dispatch] = useReducer(eventReducer, initialState);
 
   return <EventContext.Provider value={{ state, dispatch }}>{children}</EventContext.Provider>;
