@@ -1,8 +1,7 @@
 import React from "react";
 import BeforeEvent from "./beforeEvent";
-import userEvent from "@testing-library/user-event";
 
-function OrganizerViewApp({ eventId, user }) {
+function OrganizerViewApp({ eventId }) {
 
     return (
         <div className="OrganizerView">

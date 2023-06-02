@@ -33,12 +33,10 @@ const Signup = ({ eventId, user, signupListItem }) => {
   const handleAddAssignee = (assigneeJson) => {
     let myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    let raw = JSON.stringify(assigneeJson);
-    // console.log("raw: ", raw);
     let requestOptions = {
       method: "POST",
       headers: myHeaders,
-      body: raw,
+      body: JSON.stringify(assigneeJson),
       redirect: "follow"
     };
 
