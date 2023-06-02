@@ -1,4 +1,4 @@
-import { useEffect, useReducer, useState } from 'react';
+import { useEffect, useReducer, useState, useContext } from 'react';
 import { Routes, Route } from "react-router-dom";
 
 import AccountDetails from './AccountDetails';
@@ -14,23 +14,6 @@ import RoleListContext from './Contexts/RoleListContext';
 import UserListContext from './Contexts/UserListContext';
 import DisplayRole from './Roles/DisplayRole';
 import Navigation from './Navigation';
-
-const authReducer = (state, action) => {
-  switch (action.type) {
-    case 'saveAuth':
-      const copyOfState = { ...state }
-      copyOfState.username = action.payload.username;
-      copyOfState.token = action.payload.token;
-      return copyOfState;
-    default:
-      return state;
-  }
-}
-
-const authInitialState = {
-  username: '',
-  token: '',
-}
 
 const userListReducer = (state, action) => {
   switch(action.type) {
@@ -81,7 +64,7 @@ const links = [
 ]
 
 function IdentityApp() {
-  const [authState, authDispatch] = useReducer(authReducer, authInitialState)
+  const [authState, authDispatch] = useContext(AuthContext);
   const [userListState, userListDispatch] = useReducer(userListReducer, userListInitialState);
   const [roleListState, roleListDispatch] = useReducer(roleListReducer, roleListInitialState);
   const [user, setUser] = useState("");
@@ -106,7 +89,6 @@ function IdentityApp() {
         { authState.username ? <button onClick={logout}>logout</button> : ''}
       </header>
       <section>
-        <AuthContext.Provider value={[authState, authDispatch]}>
           <UserListContext.Provider value={[userListState, userListDispatch]}>
           <RoleListContext.Provider value={[roleListState, roleListDispatch]}>
           <Navigation links={links} />
@@ -118,7 +100,6 @@ function IdentityApp() {
             </Routes>
           </RoleListContext.Provider>
           </UserListContext.Provider>
-        </AuthContext.Provider>
       </section>
     </div>
   );
