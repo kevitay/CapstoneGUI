@@ -1,10 +1,20 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
-function UserEvent({ event }) {
+function UserEvent({ event, eventInfo }) {
+    console.log("event part info",event)
   const [editMode, setEditMode] = useState(false);
   const [status, setStatus] = useState(event.status);
   const [carpool, setCarpool] = useState(event.carpool);
   const [seatsAvail, setSeatsAvail] = useState(event.seatsAvail);
+  const [index, setCurrentIndex] = useState(0);
+
+  
+  useEffect(() => { 
+    //pair up the event IDs
+    const currentEvent = event.eventId
+    setCurrentIndex(eventInfo.findIndex(obj => obj.id === currentEvent))
+  },[event.eventId, eventInfo])
+
 
   const handleEditClick = () => {
     setEditMode(true);
@@ -42,11 +52,11 @@ function UserEvent({ event }) {
     console.log("part id",event.eventParticipantId)
     return (
       <div>
-        <h3>Event title goes here</h3>
+        {/* <h3>{eventInfo.name}</h3>
         <p>Event dates go here</p>
         <p>
           <i>Event description goes here</i>
-        </p>
+        </p> */}
         <p>
   Status:{" "}
   <input
@@ -92,11 +102,17 @@ function UserEvent({ event }) {
 
   return (
     <div>
-      <h3>Event title goes here</h3>
+      {/* <h3>Event title goes here</h3>
       <p>Event dates go here</p>
       <p>
         <i>Event description goes here</i>
-      </p>
+      </p> */}
+      <h3>{eventInfo[index].name}</h3>
+      <p>Organizer:{eventInfo[index].creatorID + ", " + eventInfo[index].organization}</p>
+      <p>Event Type:{eventInfo[index].type}</p>
+      <p>description:{eventInfo[index].description}</p>
+      <p>Base Cost:{eventInfo[index].baseCost}</p>
+      <h3>Your Event Info</h3>
       <p>Status: <strong>{status}</strong></p>
       <p>Carpooling? <strong>{carpool ? "Yes" : "No"}</strong></p>
       <p>Seats Available: <strong>{seatsAvail}</strong></p>
