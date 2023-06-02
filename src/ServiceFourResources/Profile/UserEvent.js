@@ -13,7 +13,7 @@ function UserEvent({ event, eventInfo }) {
     //pair up the event IDs
     const currentEvent = event.eventId
     setCurrentIndex(eventInfo.findIndex(obj => obj.id === currentEvent))
-  },)
+  },[event.eventId, eventInfo])
 
 
   const handleEditClick = () => {
