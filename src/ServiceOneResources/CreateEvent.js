@@ -1,7 +1,6 @@
-// import { findAllByDisplayValue } from '@testing-library/react';
 import React from 'react';
 import { useState } from 'react';
-// import { EventContext } from "./EventsContext";
+// import AuthContext from '../IdentityResources/Contexts/AuthContext';
 
 function CreateEvent({ setCreationStep, setEvent }) {
   const [eventName, setName] = useState('');
@@ -9,9 +8,9 @@ function CreateEvent({ setCreationStep, setEvent }) {
   const [description, setDescription] = useState('');
   const [eventType, setEventType] = useState('');
   const [eventCost, setEventCost] = useState('');
-  // const { dispatch } = useContext(EventContext);
-
-let isPublic;
+  const [isPublic, setIsPublic] = useState(false);
+  // const [authState, ] = useContext(AuthContext);
+ 
 
   function postNewEvent(eventName, organization, description, eventType, eventCost) {
 
@@ -26,6 +25,7 @@ let isPublic;
       baseCost: Math.abs(eventCost),
       status: 'Draft',
       public: isPublic
+      // creatorID:authState.username
     });
 
     var requestOptions = {
@@ -38,8 +38,6 @@ let isPublic;
     fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event', requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        // If event context needs updating
-        // dispatch({ type: 'ADD_EVENT', payload: result });
         if (result.id !== null) {
           setEvent(result);
           setCreationStep(2);
@@ -49,10 +47,9 @@ let isPublic;
       .catch((error) => console.log('error', error));
   }
 
-  function radioEvent(e) {
-    isPublic = e.target.value;
-    // console.log("Selected value: " + isPublic);
-  }
+   const radioEvent = (event) => {
+     setIsPublic(event.target.value === 'true');
+   };
 
   return (
     <div className="eventSubmit">
@@ -63,7 +60,6 @@ let isPublic;
         className="eventForm"
         onSubmit={(e) => {
           e.preventDefault();
-          //  props.event(eventName, organization, description, eventType, startLocation, endLocation, startTime, endTime);
           setName('');
           setOrganization('');
           setDescription('');
@@ -96,16 +92,14 @@ let isPublic;
 
         <fieldset>
           <legend>Public or Private:</legend>
-          <div onChange={radioEvent}>
-            <input type="radio" id="public" name="publicPrivate" value={true} />
+          <input type="radio" id="public" name="publicPrivate" value={true} checked={isPublic === true} onChange={radioEvent} />
           <label forhtml="public">Public</label>
           <br />
-          <input type="radio" id="private" name="publicPrivate" value={false} />
+          <input type="radio" id="private" name="publicPrivate" value={false} checked={isPublic === false} onChange={radioEvent} />
           <label forhtml="private">Private</label>
           <br />
-          </div>
         </fieldset>
-        <br/>
+        <br />
         <button type="submit">Next</button>
       </form>
     </div>

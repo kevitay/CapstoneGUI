@@ -1,6 +1,7 @@
 import React from "react";
 import {useState} from "react";
  
+//will need to change to account for cascading delete to other components
 export default function DeleteEvent({id}) {
     let [deleteStatus, setDeleteStatus] = useState("preDelete");
   
