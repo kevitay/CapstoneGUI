@@ -1,7 +1,5 @@
-// import { findAllByDisplayValue } from '@testing-library/react';
 import React from 'react';
 import { useState } from 'react';
-// import { EventContext } from "./EventsContext";
 
 function CreateEvent({ setCreationStep, setEvent }) {
   const [eventName, setName] = useState('');
@@ -9,8 +7,8 @@ function CreateEvent({ setCreationStep, setEvent }) {
   const [description, setDescription] = useState('');
   const [eventType, setEventType] = useState('');
   const [eventCost, setEventCost] = useState('');
-  const [isPublic, setIsPublic] = useState(true);
-  // const { dispatch } = useContext(EventContext);
+  const [isPublic, setIsPublic] = useState(false);
+ 
 
   function postNewEvent(eventName, organization, description, eventType, eventCost) {
 
@@ -37,8 +35,6 @@ function CreateEvent({ setCreationStep, setEvent }) {
     fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event', requestOptions)
       .then((response) => response.json())
       .then((result) => {
-        // If event context needs updating
-        // dispatch({ type: 'ADD_EVENT', payload: result });
         if (result.id !== null) {
           setEvent(result);
           setCreationStep(2);
@@ -62,7 +58,6 @@ function CreateEvent({ setCreationStep, setEvent }) {
         className="eventForm"
         onSubmit={(e) => {
           e.preventDefault();
-          //  props.event(eventName, organization, description, eventType, startLocation, endLocation, startTime, endTime);
           setName('');
           setOrganization('');
           setDescription('');

@@ -12,7 +12,7 @@ function EditEvent() {
   const [description, setDescription] = useState(state.description);
   const [eventType, setEventType] = useState(state.type);
   const [eventCost, setEventCost] = useState(state.baseCost);
-  const [isPublic, setIsPublic] = useState(true);
+  const [isPublic, setIsPublic] = useState(state.public);
 
   const radioEvent = (event) => {
     console.log(event);
