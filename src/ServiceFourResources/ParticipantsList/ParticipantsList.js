@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import EventParticipant from "./EventParticipant";
-import EventFilter from "./EventFilter";
+
 
 function PartipantsList() {
 
@@ -34,8 +34,8 @@ function PartipantsList() {
     return (
         <div className="ParticipantsList">
             <h1>Participants List</h1>
-            {loading ? "" : <EventFilter originalState={originalState} participantState={participantState} setEventParticipants={setEventParticipants}></EventFilter>}
-            {loading ? "" : <EventParticipant participantState={participantState}></EventParticipant>}
+            {/* {loading ? "" : <EventFilter originalState={originalState} participantState={participantState} setEventParticipants={setEventParticipants}></EventFilter>} */}
+            {loading ? "" : <EventParticipant originalState={originalState} participantState={participantState} setEventParticipants={setEventParticipants}></EventParticipant>}
         </div>
     )
 }
