@@ -1,6 +1,8 @@
 import React from 'react';
-import { useState } from 'react';
-// import AuthContext from '../IdentityResources/Contexts/AuthContext';
+import { useState, useContext} from 'react';
+import AuthContext from "../IdentityResources/Contexts/AuthContext";
+//import { EventContext } from "./EventsContext";
+import Login from '../IdentityResources/Login';
 
 function CreateEvent({ setCreationStep, setEvent }) {
   const [eventName, setName] = useState('');
@@ -9,15 +11,15 @@ function CreateEvent({ setCreationStep, setEvent }) {
   const [eventType, setEventType] = useState('');
   const [eventCost, setEventCost] = useState('');
   const [isPublic, setIsPublic] = useState(false);
-  // const [authState, ] = useContext(AuthContext);
+  const [authState,] = useContext(AuthContext);
  
-
   function postNewEvent(eventName, organization, description, eventType, eventCost) {
 
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
     var raw = JSON.stringify({
+      creatorID: authState.username,
       name: eventName,
       organization: organization,
       description: description,
@@ -25,7 +27,6 @@ function CreateEvent({ setCreationStep, setEvent }) {
       baseCost: Math.abs(eventCost),
       status: 'Draft',
       public: isPublic
-      // creatorID:authState.username
     });
 
     var requestOptions = {
@@ -42,7 +43,7 @@ function CreateEvent({ setCreationStep, setEvent }) {
           setEvent(result);
           setCreationStep(2);
         }
-        console.log(result);
+        //console.log(result);
       })
       .catch((error) => console.log('error', error));
   }
@@ -53,6 +54,7 @@ function CreateEvent({ setCreationStep, setEvent }) {
 
   return (
     <div className="eventSubmit">
+       {(!authState.token)?(<Login></Login>):(<></>)}
       <h2>Create A New Event</h2>
       <form
         action=""
@@ -100,7 +102,8 @@ function CreateEvent({ setCreationStep, setEvent }) {
           <br />
         </fieldset>
         <br />
-        <button type="submit">Next</button>
+        <br />
+        <button disabled={!authState.token} type="submit">Submit</button>
       </form>
     </div>
   );
