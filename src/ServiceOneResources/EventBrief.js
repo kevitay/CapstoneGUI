@@ -1,44 +1,9 @@
 import React from "react";
 
 export default function EventBrief({ event }) {
-  // const [currentEvent, setCurrentEvent] = useState({})
-
-  // function changeStatus(eventDate, id) {
-  //   let currentDate = new Date().toJSON().slice(0, 19);
-  //   // console.log(event.status);
-  //   // console.log(eventDate)
-  //   if (event.status !== "Expired" && event.status !== "Cancelled") {
-  //     if (currentDate > eventDate) {
-  //       var myHeaders = new Headers();
-  //       myHeaders.append("Content-Type", "application/json");
-
-  //       var raw = JSON.stringify({
-  //         status: "Expired",
-  //       });
-
-  //       var requestOptions = {
-  //         method: "PATCH",
-  //         headers: myHeaders,
-  //         body: raw,
-  //         redirect: "follow",
-  //       };
-
-  //       fetch(
-  //         "http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/" +
-  //           id,
-  //         requestOptions
-  //       )
-  //         .then((response) => response.json())
-  //         .then((result) => console.log(result))
-  //         .catch((error) => console.log("error", error));
-  //         // console.log(eventDate)
-  //     }
-  //   } return event.status
-  // }
-
   function dateFormatter(dateTime) {
-    if(dateTime !== null) {
-      const date = new Date(dateTime);  
+    if (dateTime !== null) {
+      const date = new Date(dateTime);
       // Extracting date components
       let hours = date.getHours();
       const minutes = date.getMinutes();
@@ -49,25 +14,31 @@ export default function EventBrief({ event }) {
       let amPm = hours >= 12 ? "PM" : "AM";
       hours = hours % 12 || 12;
 
-      return `${month.toString().padStart(2, "0")}/${day.toString().padStart(2, "0")}/${year} ${hours
+      return `${month.toString().padStart(2, "0")}/${day
         .toString()
-        .padStart(2, "0")}:${minutes.toString().padStart(2, "0")} ${amPm}`;
+        .padStart(2, "0")}/${year} ${hours.toString().padStart(2, "0")}:${minutes
+        .toString()
+        .padStart(2, "0")} ${amPm}`;
     } else {
       return "TBD";
     }
   }
 
   function locationFormatter(location) {
-    if(location !== null) {
+    if (location !== null) {
       // console.log(location.address);
-      return (<>{location.address}, {location.city}, {location.state} {location.zipCode}</>)
+      return (
+        <>
+          {location.address}, {location.city}, {location.state} {location.zipCode}
+        </>
+      );
     } else {
       return "TBD";
     }
-  }  
+  }
 
   function Button({ children }) {
-    return <button>{children}</button>; 
+    return <button>{children}</button>;
   }
 
   return (
