@@ -16,12 +16,12 @@ export default function EventList() {
       };
 
       fetch(
-        "http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event",
+        "http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/extended",
         requestOptions
       )
         .then((response) => response.json())
         .then((response) => {
-          dispatch({ type: "SET_EVENTS", payload: response.eventList });
+          dispatch({ type: "SET_EVENTS", payload: response.extEventList });
           //  console.log(response.eventList)
         })
         .catch((error) => console.log("error", error));

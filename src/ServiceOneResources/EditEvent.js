@@ -1,6 +1,7 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
+import AuthContext from '../IdentityResources/Contexts/AuthContext';
 
 
 function EditEvent() {
@@ -13,6 +14,7 @@ function EditEvent() {
   const [eventType, setEventType] = useState(state.type);
   const [eventCost, setEventCost] = useState(state.baseCost);
   const [isPublic, setIsPublic] = useState(state.public);
+  const [authState, ] = useContext(AuthContext);
 
   const radioEvent = (event) => {
     setIsPublic(event.target.value === 'true');
@@ -24,13 +26,14 @@ function EditEvent() {
 
     var raw = JSON.stringify({
       id: id,
+      creatorID: authState.username,
       name: eventName,
       organization: organization,
       description: description,
       type: eventType,
       baseCost: eventCost,
       status: 'Planned',
-      public: isPublic
+      public: isPublic,
     });
 
     var requestOptions = {
