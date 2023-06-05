@@ -5,19 +5,18 @@ const Signup = ({ user, signupListItem, getAssigneeListByUserIdAndEventId }) => 
   // lookup checklistItemId from assignees
   const [assigneeList, setAssigneeList] = useState([]);
 
-  const getAssigneeListByChecklistItemId = (signupListItem) => {
-    // console.log("signupListItem.id = ", signupListItem.id);
+  const getAssigneeListByChecklistItemId = () => {
+    console.log("signupListItem.id = ", signupListItem.id);
     fetch(checklistUrl + "/assignees/" + signupListItem.id, { method: 'GET' })
       .then(response => response.json())
       .then(result => {
-        // console.log("GET result: ", result);
+        console.log("GET result: ", result);
         setAssigneeList(result.assigneeList);
       })
       .catch(error => console.log('error', error))
   };
-  useEffect(() => {
-    getAssigneeListByChecklistItemId(signupListItem);
-  }, [assigneeList, signupListItem]);
+
+  useEffect(getAssigneeListByChecklistItemId, [signupListItem]);
 
   // wire up the button to sign up for an item
 
@@ -57,8 +56,8 @@ const Signup = ({ user, signupListItem, getAssigneeListByUserIdAndEventId }) => 
     <tr key={signupListItem.id}>
       <td>{signupListItem.description}</td>
       <td>{qtyNeeded}</td>
-      <td> 
-        {(qtyNeeded === 0)  
+      <td>
+        {(qtyNeeded === 0)
           ? <button onClick={signupForItem} disabled> Sign Up! </button>
           : <button onClick={signupForItem}> Sign Up! </button>
         }
