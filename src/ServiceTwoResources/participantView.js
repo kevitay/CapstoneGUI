@@ -80,7 +80,7 @@ const ParticipantView = ({ eventId, user }) => {
           {packingList.filter(item => item.type === "signup list" && assigneeList.includes(item.id.toString())).map(result => (
             <tr key={result.id}>
               <td>{result.description}</td>
-              <td>{result.quantity}</td>
+              <td>{assigneeList.filter(item => item === result.id.toString()).length}</td>
               <td>
                 {(result.required) ? "yes" : "" }
               </td>
