@@ -51,7 +51,6 @@ const ParticipantView = ({ eventId, user }) => {
         <thead>
           <tr>
             <th>Description</th>
-            <th>Type</th>
             <th>Quantity</th>
             <th>Required</th>
           </tr>
@@ -60,7 +59,6 @@ const ParticipantView = ({ eventId, user }) => {
           {packingList.filter(item => item.type === "packing list").map(result => (
             <tr key={result.id}>
               <td>{result.description}</td>
-              <td>{result.type}</td>
               <td>{result.quantity}</td>
               <td>
                {(result.required) ? "yes" : "" }
@@ -74,7 +72,6 @@ const ParticipantView = ({ eventId, user }) => {
         <thead>
           <tr>
             <th>Description</th>
-            <th>Type</th>
             <th>Quantity</th>
             <th>Required</th>
           </tr>
@@ -83,7 +80,6 @@ const ParticipantView = ({ eventId, user }) => {
           {packingList.filter(item => item.type === "signup list" && assigneeList.includes(item.id.toString())).map(result => (
             <tr key={result.id}>
               <td>{result.description}</td>
-              <td>{result.type}</td>
               <td>{result.quantity}</td>
               <td>
                 {(result.required) ? "yes" : "" }
