@@ -76,18 +76,17 @@ const updateActivity = function(action)
 
 
 
-const deleteActivity = function(action)
-{      const id = action.payload.id;
+const deleteActivity = function(action){
+    const id = action.payload.id;
     fetch(`http://a08cb134e19c8438285f05f4a630b6bd-117037464.us-west-2.elb.amazonaws.com/api/activities/${id}`, {
       method: 'DELETE'
     })
-      .then(response => response.json())
       .then(data => {
         console.log('DELETE request succeeded with JSON response:', data);
+        const updatedActivities = action.itinerary.activities.filter(activity => activity.id !== id);
+        action.dispatch({activities: updatedActivities });
       })
       .catch(error => {
         console.error('Error:', error);
       });
-
-    const updatedActivities = action.itinerary.activities.filter(activity => activity.id !== id);
-    return { ...action.itinerary, activities: updatedActivities };}
+}
