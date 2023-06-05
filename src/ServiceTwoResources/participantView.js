@@ -6,7 +6,7 @@ const ParticipantView = ({ eventId, user }) => {
   user = "Russhi";
   const checklistUrl = "http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist";
   const [packingList, setPackingList] = useState([]);
-  const [assigneeList, setAssigneeList] = useState([]);
+  const [signupList, setSignupList] = useState([]);
 
   const getPackingListByEventId = () => {
     var requestOptions = {
@@ -17,13 +17,13 @@ const ParticipantView = ({ eventId, user }) => {
     fetch(checklistUrl + "/" + eventId, requestOptions)
       .then(response => response.json())
       .then(result => {
-        // console.log("Result", result);
+        console.log("getPackingListByEventId result", result);
         setPackingList((result.checklist.length > 1) ? result.checklist.sort((a, b) => parseInt(a.id) - parseInt(b.id)) : result.checklist);
       })
       .catch(error => console.log('error', error));
   };
 
-  const getAssigneeListByUserIdAndEventId = () => {
+  const getSignupListByUserIdAndEventId = () => {
     let requestOptions = {
       method: 'GET',
       redirect: 'follow'
@@ -33,7 +33,7 @@ const ParticipantView = ({ eventId, user }) => {
       .then(response => response.json())
       .then(result => result.assigneeList.filter(assignee => assignee.userName === user && assignee.checklistItem.eventId === eventId))
       .then(result => result.map(item => item.checklistItem.id).join().split(","))
-      .then(result => setAssigneeList(result))
+      .then(result => setSignupList(result))
       .catch(error => console.log("error", error));
   }
 
@@ -56,15 +56,15 @@ const ParticipantView = ({ eventId, user }) => {
         return result;
       })
       .then(result => {
-        // console.log('result', result);
-        const updatedAssigneeList = [...assigneeList];
-        // console.log('checklistItemId', checklistItemId.toString());
-        let index = updatedAssigneeList.findIndex((element) => element === checklistItemId.toString());
-        let length = assigneeList.filter((item) => item === checklistItemId.toString()).length;
-        updatedAssigneeList.splice(index, length);
-        // console.log("assignee list", assigneeList);
-        // console.log("updated assignee list", updatedAssigneeList);
-        setAssigneeList(updatedAssigneeList);
+        console.log('removeSignup result', result);
+        const updatedSignupList = [...signupList];
+        console.log('removeSignup checklistItemId', checklistItemId.toString());
+        let index = updatedSignupList.findIndex((element) => element === checklistItemId.toString());
+        let length = signupList.filter((item) => item === checklistItemId.toString()).length;
+        updatedSignupList.splice(index, length);
+        console.log("removeSignup signup list", signupList);
+        console.log("removeSignup updated signup list", updatedSignupList);
+        setSignupList(updatedSignupList);
       })
       .catch(error => console.log('error', error));
   };
@@ -75,16 +75,16 @@ const ParticipantView = ({ eventId, user }) => {
     fetch(checklistUrl + "/assignees/" + assigneeId, requestOptions)
       .then(response => {
         if (response.status === 202) {
-          console.log('removed assignee', assigneeId);
+          console.log('deleteAssigneeById removed assignee', assigneeId);
         } else {
-          console.log('assignee', assigneeId, 'remove failed');
+          console.log('deleteAssigneeById assignee', assigneeId, 'remove failed');
         }
       })
       .catch(error => console.log('error', error));
   };
 
   useEffect(getPackingListByEventId, [eventId, setPackingList]);
-  useEffect(getAssigneeListByUserIdAndEventId, [eventId, user, setAssigneeList]);
+  useEffect(getSignupListByUserIdAndEventId, [eventId, user, setSignupList]);
 
   return (
     <div>
@@ -123,10 +123,10 @@ const ParticipantView = ({ eventId, user }) => {
           </tr>
         </thead>
         <tbody>
-          {packingList.filter(item => item.type === "signup list" && assigneeList.includes(item.id.toString())).map(result => (
+          {packingList.filter(item => item.type === "signup list" && signupList.includes(item.id.toString())).map(result => (
             <tr key={result.id}>
               <td>{result.description}</td>
-              <td>{assigneeList.filter(item => item === result.id.toString()).length}</td>
+              <td>{signupList.filter(item => item === result.id.toString()).length}</td>
               <td>
                 {(result.required) ? "yes" : ""}
               </td>
@@ -151,7 +151,8 @@ const ParticipantView = ({ eventId, user }) => {
               eventId={eventId}
               user={user}
               signupListItem={result}
-              getAssigneeListByUserIdAndEventId={getAssigneeListByUserIdAndEventId}
+              getSignupListByUserIdAndEventId={getSignupListByUserIdAndEventId}
+              signupList={signupList}
             />
           ))}
         </tbody>

@@ -1,22 +1,30 @@
 import React, { useState, useEffect } from 'react';
 
-const Signup = ({ user, signupListItem, getAssigneeListByUserIdAndEventId }) => {
+const Signup = ({ user, signupListItem, getSignupListByUserIdAndEventId, signupList }) => {
   const checklistUrl = "http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist";
   // lookup checklistItemId from assignees
   const [assigneeList, setAssigneeList] = useState([]);
 
   const getAssigneeListByChecklistItemId = () => {
-    console.log("signupListItem.id = ", signupListItem.id);
+    // console.log("getAssigneeListByChecklistItemId signupListItem.id = ", signupListItem.id);
     fetch(checklistUrl + "/assignees/" + signupListItem.id, { method: 'GET' })
-      .then(response => response.json())
+      .then(response => {
+        // console.log("getAssigneeListByChecklistItemId response", response.status);
+        if (response.status === 200) {
+          return response.json();
+          // } else {
+          //   console.log("response.status", response.status, "signupListItemId", signupListItem.id);
+          // return response.json();
+        }
+      })
       .then(result => {
-        console.log("GET result: ", result);
-        setAssigneeList(result.assigneeList);
+        // console.log("getAssigneeListByChecklistItemId GET result: ", result);
+        if (result) {
+          setAssigneeList(result.assigneeList);
+        }
       })
       .catch(error => console.log('error', error))
   };
-
-  useEffect(getAssigneeListByChecklistItemId, [signupListItem]);
 
   // wire up the button to sign up for an item
 
@@ -46,11 +54,13 @@ const Signup = ({ user, signupListItem, getAssigneeListByUserIdAndEventId }) => 
         }
       })
       .then(result => console.log("POST result: ", result))
-      .then(getAssigneeListByUserIdAndEventId)
+      .then(getSignupListByUserIdAndEventId)
       .catch(error => console.log('error', error));
   };
 
   let qtyNeeded = signupListItem.quantity - assigneeList.length;
+
+  useEffect(getAssigneeListByChecklistItemId, [signupList, signupListItem]);
 
   return (
     <tr key={signupListItem.id}>
