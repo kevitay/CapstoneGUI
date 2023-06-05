@@ -3,10 +3,10 @@ import ActivityList from "./ActivityList";
 import ActivityDetails from "./ActivityDetails";
 import DateSelector from "./DateSelector";
 import CreateNewActivity from "./CreateNewActivity";
+import { fetchFunction } from "./FetchFunctions";
 
 export const ACTIONS = {
   GET_ACTIVITIES: 'get-activities',
-  SET_ACTIVITIES: 'set-activities',
   CREATE_ACTIVITY: 'create-activity',
   UPDATE_ACTIVITY: 'update-activity',
   DELETE_ACTIVITY: 'delete-activity'
@@ -17,38 +17,10 @@ const [itineraryJSON, dispatch] = useReducer(reducer, {activities:[]});
 
 function reducer(itineraryJSON, action) {
   switch (action.type) {
-    case ACTIONS.GET_ACTIVITIES : 
-    {
-      fetch(`http://a08cb134e19c8438285f05f4a630b6bd-117037464.us-west-2.elb.amazonaws.com/api/activities`)
-      .catch((err)=> console.error(err))
-      .then((response) => response.json())
-      .then((data) => {
-      dispatch({type: ACTIONS.SET_ACTIVITIES, payload: data})
-    })
-    return itineraryJSON;
-    }
-    case ACTIONS.SET_ACTIVITIES :
-      {
-        return action.payload
-      }
-    case ACTIONS.CREATE_ACTIVITY : 
-    { 
-      fetch('http://a08cb134e19c8438285f05f4a630b6bd-117037464.us-west-2.elb.amazonaws.com/api/activities', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(action.payload)
-      })
-        .then(response => response.json())
-        .then(data => {
-          console.log('POST request succeeded with JSON response:', data);
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
-        return {activities: [...itineraryJSON.activities, action.payload]}
-    }
+    case ACTIONS.GET_ACTIVITIES : return action.payload;
+
+    case ACTIONS.CREATE_ACTIVITY : return action.payload
+
     case ACTIONS.UPDATE_ACTIVITY :
       {      const id = action.payload.id;
         fetch(`http://a08cb134e19c8438285f05f4a630b6bd-117037464.us-west-2.elb.amazonaws.com/api/activities/${id}`, {
@@ -69,6 +41,7 @@ function reducer(itineraryJSON, action) {
         const updatedActivities = itineraryJSON.activities.filter(activity => activity.id !== id);
         updatedActivities.push(action.payload)
         return { ...itineraryJSON, activities: updatedActivities };}
+        
     case ACTIONS.DELETE_ACTIVITY :
      {      const id = action.payload;
       fetch(`http://a08cb134e19c8438285f05f4a630b6bd-117037464.us-west-2.elb.amazonaws.com/api/activities/${id}`, {
@@ -90,7 +63,7 @@ function reducer(itineraryJSON, action) {
 }
 
 useEffect(() => {
- dispatch({type: ACTIONS.GET_ACTIVITIES})
+  fetchFunction({dispatch, type: ACTIONS.GET_ACTIVITIES});
 },[]);
 
 const [displayActivityDetails, setDisplayActivityDetails] = useState({}); 

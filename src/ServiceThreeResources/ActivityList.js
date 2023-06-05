@@ -3,8 +3,8 @@ import ActivitySummary from "./ActivitySummary";
 
 export default function ActivityList({editForm, setDisplayActivityDetails, setDateArray, buttonDate, setCloseActivityDetailsButton, itineraryJSON}) {
     const dateObject = {}; 
-    const dateArray = useMemo(()=>[], []) 
-    setDateArray = useCallback(() => {}, [])
+    const dateArray = [];
+
         for (let i = 0; i < itineraryJSON.activities.length; i++) {
         const date = new Date(itineraryJSON.activities[i].startTime);
         const currentActivityDate = date.toLocaleDateString('en-US', {
@@ -26,7 +26,7 @@ export default function ActivityList({editForm, setDisplayActivityDetails, setDa
     
     useEffect(()=> { 
             setDateArray(dateArray)
-    }, [itineraryJSON, setDateArray, dateArray]); 
+    }, [itineraryJSON]); 
 
     return (
         <div>
