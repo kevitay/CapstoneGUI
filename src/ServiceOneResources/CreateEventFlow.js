@@ -15,6 +15,7 @@ function CreateEventFlow() {
           status: "Planned",
         });
 
+        // PATCH call to change event status to "planned" once creationStep 4 is reached
         var requestOptions = {
           method: "PATCH",
           headers: myHeaders,
