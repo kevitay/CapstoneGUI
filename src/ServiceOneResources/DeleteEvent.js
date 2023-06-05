@@ -10,7 +10,7 @@ export default function DeleteEvent({ id }) {
   function handleDeleteEvent() {
     setDeleteStatus('pending');
 
-    fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/checklist?eventId=' + id, {
+    fetch('http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist?eventId=' + id, {
       method: 'DELETE',
     })
       .then((response) => console.log('Success- Checklist ' + id + ' Deleted'))
@@ -25,7 +25,7 @@ export default function DeleteEvent({ id }) {
       )
 
       .then(
-        fetch('http://a53e50bf576c64141b52293976658417-1117441751.us-west-2.elb.amazonaws.com/api/activities/event/' + id, {
+        fetch('http://a08cb134e19c8438285f05f4a630b6bd-117037464.us-west-2.elb.amazonaws.com/api/activities/event/' + id, {
           method: 'DELETE',
         })
           .then((response) => console.log('Success- Activity ' + id + ' Deleted'))
