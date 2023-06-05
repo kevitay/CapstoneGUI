@@ -17,7 +17,21 @@ function UserData({ selectedUsers, invitee }) {
     return (
         <tr className="UserData">
             <td className="profile-picture">
-                <img alt="Profile Pic" src="https://placehold.co/100x100"></img>
+                {invitee.profilePicture ? (
+                    <img
+                        src={"data:image/jpg;base64," + invitee.profilePicture}
+                        height="100px"
+                        width="100px"
+                        alt="profile pic"
+                    />
+                ) : (
+                    <img
+                        alt="Profile Pic"
+                        src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
+                        height="100px"
+                        width="100px"
+                    />
+                )}
             </td>
             <td className="user-name">
                 <p> {

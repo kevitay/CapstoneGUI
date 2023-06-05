@@ -35,7 +35,6 @@ function ProfileEvent() {
         .catch(error => console.log('error', error));
     },[authState]);
 
-    
     return (
         <>
         <div>
