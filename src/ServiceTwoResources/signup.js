@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 
-const Signup = ({ user, signupListItem }) => {
+const Signup = ({ user, signupListItem, getAssigneeListByUserIdAndEventId }) => {
   const checklistUrl = "http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist";
   // lookup checklistItemId from assignees
   const [assigneeList, setAssigneeList] = useState([]);
@@ -47,6 +47,7 @@ const Signup = ({ user, signupListItem }) => {
         }
       })
       .then(result => console.log("POST result: ", result))
+      .then(getAssigneeListByUserIdAndEventId)
       .catch(error => console.log('error', error));
   };
 

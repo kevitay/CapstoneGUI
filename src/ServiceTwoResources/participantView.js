@@ -8,7 +8,7 @@ const ParticipantView = ({ eventId, user }) => {
   const [packingList, setPackingList] = useState([]);
   const [assigneeList, setAssigneeList] = useState([]);
   
-  const getPackingListByEventId = (eventId) => {
+  const getPackingListByEventId = () => {
     var requestOptions = {
       method: 'GET',
       redirect: 'follow'
@@ -17,12 +17,13 @@ const ParticipantView = ({ eventId, user }) => {
     fetch(checklistUrl + "/" + eventId, requestOptions)
       .then(response => response.json())
       .then(result => {
+        console.log("Result", result);
         setPackingList((result.checklist.length > 1) ? result.checklist.sort((a, b) => parseInt(a.id) - parseInt(b.id)) : result.checklist);
       })
       .catch(error => console.log('error', error));
   };
 
-  const getAssigneeListByUserIdAndEventId = (eventId, user) => {
+  const getAssigneeListByUserIdAndEventId = () => {
     let requestOptions = {
         method: 'GET',
         redirect: 'follow'
@@ -36,10 +37,10 @@ const ParticipantView = ({ eventId, user }) => {
         .catch(error => console.log("error", error));
   }
 
-  useEffect(() => {
-    getPackingListByEventId(eventId);
-    getAssigneeListByUserIdAndEventId(eventId, user);
-  }, [eventId, user]);
+  console.log("assignees", assigneeList);
+
+  useEffect(getPackingListByEventId, [eventId, setPackingList]);
+  useEffect(getAssigneeListByUserIdAndEventId, [eventId, user, setAssigneeList]);
 
   return (
     <div>
@@ -103,7 +104,8 @@ const ParticipantView = ({ eventId, user }) => {
               key={result.id}
               eventId={eventId}
               user={user} 
-              signupListItem={result} 
+              signupListItem={result}
+              getAssigneeListByUserIdAndEventId={getAssigneeListByUserIdAndEventId}
             />
           ))}
         </tbody>
