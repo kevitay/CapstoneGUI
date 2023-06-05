@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 
 function UserEvent({ event, eventInfo }) {
-    console.log("event part info",event)
+  console.log("event part info", event)
   const [editMode, setEditMode] = useState(false);
   const [status, setStatus] = useState(event.status);
   const [carpool, setCarpool] = useState(event.carpool);
   const [seatsAvail, setSeatsAvail] = useState(event.seatsAvail);
   const [index, setCurrentIndex] = useState(0);
 
-  
-  useEffect(() => { 
+
+  useEffect(() => {
     //pair up the event IDs
     const currentEvent = event.eventId
     setCurrentIndex(eventInfo.findIndex(obj => obj.id === currentEvent))
-  }, [])
+  }, [event.eventId, eventInfo])
 
 
   const handleEditClick = () => {
@@ -21,10 +21,10 @@ function UserEvent({ event, eventInfo }) {
   };
 
   const handleSaveClick = () => {
-    var raw = JSON.stringify(        {
-        "status": status,
-        "carpool": carpool,
-        "seatsAvail": seatsAvail
+    var raw = JSON.stringify({
+      "status": status,
+      "carpool": carpool,
+      "seatsAvail": seatsAvail
     }
     );
 
@@ -32,24 +32,24 @@ function UserEvent({ event, eventInfo }) {
     myHeaders.append("Content-Type", "application/json");
 
     var requestOptions = {
-        method: 'PATCH',
-        headers: myHeaders,
-        body: raw,
-        redirect: 'follow'
+      method: 'PATCH',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
     };
 
-    fetch("http://a53e50bf576c64141b52293976658417-1117441751.us-west-2.elb.amazonaws.com/api/participants/"+event.eventParticipantId, requestOptions)
-    .then(response => response.json())
-    .then(result => {
-    })
-    .catch(error => console.log('error', error));
+    fetch("http://a53e50bf576c64141b52293976658417-1117441751.us-west-2.elb.amazonaws.com/api/participants/" + event.eventParticipantId, requestOptions)
+      .then(response => response.json())
+      .then(result => {
+      })
+      .catch(error => console.log('error', error));
 
     // Exit edit mode
     setEditMode(false);
   };
 
   if (editMode) {
-    console.log("part id",event.eventParticipantId)
+    console.log("part id", event.eventParticipantId)
     return (
       <div>
         {/* <h3>{eventInfo.name}</h3>
@@ -58,26 +58,26 @@ function UserEvent({ event, eventInfo }) {
           <i>Event description goes here</i>
         </p> */}
         <p>
-  Status:{" "}
-  <input
-    type="radio"
-    name="status"
-    value="Going"
-    onChange={(e) => setStatus(e.target.value)}
-  />Going
-  <input
-    type="radio"
-    name="status"
-    value="Not going"
-    onChange={(e) => setStatus(e.target.value)}
-  />Not going
-  <input
-    type="radio"
-    name="status"
-    value="Tentative"
-    onChange={(e) => setStatus(e.target.value)}
-  />Tentative
-</p>
+          Status:{" "}
+          <input
+            type="radio"
+            name="status"
+            value="Going"
+            onChange={(e) => setStatus(e.target.value)}
+          />Going
+          <input
+            type="radio"
+            name="status"
+            value="Not going"
+            onChange={(e) => setStatus(e.target.value)}
+          />Not going
+          <input
+            type="radio"
+            name="status"
+            value="Tentative"
+            onChange={(e) => setStatus(e.target.value)}
+          />Tentative
+        </p>
         <p>
           Carpooling?{" "}
           <input

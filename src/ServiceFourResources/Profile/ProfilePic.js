@@ -6,19 +6,19 @@ const ProfilePic = () => {
     const [img, setImg] = useState("");
     const [selectedFile, setSelectedFile] = useState(null);
 
-    //Fetch image when component loads or logged in user changes
-    useEffect(() => {
-        fetchProfilePicture();
-    }, [authState.username]);
-
-    const fetchProfilePicture = () => {
-        fetch('http://a53e50bf576c64141b52293976658417-1117441751.us-west-2.elb.amazonaws.com/api/users/' + authState.username)
+    const fetchProfilePicture = (username) => {
+        fetch('http://a53e50bf576c64141b52293976658417-1117441751.us-west-2.elb.amazonaws.com/api/users/' + username)
             .then(response => response.json())
             .then(result => {
                 setImg(result.profilePicture);
             })
             .catch(error => console.log('error', error));
     };
+
+    //Fetch image when component loads or logged in user changes
+    useEffect(() => {
+        fetchProfilePicture(authState.username);
+    }, [authState.username]);
 
     const sendFile = async (event) => {
         event.preventDefault();
