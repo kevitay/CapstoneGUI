@@ -20,7 +20,6 @@ function EditEvent() {
 
   async function updateEvent(eventName, organization, description, eventType, eventCost) {
 
-    console.log(description);
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -44,7 +43,6 @@ function EditEvent() {
 
     fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/' + id, requestOptions)
       .then((response) => response.json())
-      .then((response) => console.log(response))
       .catch((error) => console.log('error', error));
     // will have to delete if we add other components
 
@@ -84,8 +82,6 @@ function EditEvent() {
         <br />
         <br />
         <EventType eventType={eventType} setEventType={setEventType} mode="edit"/>
-        {/* <label>Event Type</label>
-        <input type="text" name="eventType" value={eventType} onChange={(e) => setEventType(e.target.value)} /> */}
         <br />
         <br />
         <label>Event Cost</label>

@@ -80,8 +80,6 @@ function CreateEvent({ setCreationStep, setEvent }) {
         <br />
         <br />
         <EventType eventType={eventType} setEventType={setEventType} />
-        {/* <label>Event Type</label>
-        <input type="text" name="eventType" value={eventType} onChange={(e) => setEventType(e.target.value)} required /> */}
         <br />
         <br />
         <label>Event Cost</label>
