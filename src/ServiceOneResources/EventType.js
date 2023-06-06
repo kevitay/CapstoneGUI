@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 
 const optionList = ['--Select event type--', 'Party', 'Celebration', 'Social', 'Reunion', 'Convention', 'Business Meeting', 'Trip', 'Alumni Gathering', 'Club Outing', 'Other'];
 
-function EventType({ eventType, setEventType, mode }) {
+function EventType({ eventType, setEventType }) {
   const initialEventType = eventType ? (eventType.startsWith("Other")?("Other"):(eventType)) : ('--Select event type--');
 
   const [optionListSelection, setOptionListSelection] = useState(initialEventType);

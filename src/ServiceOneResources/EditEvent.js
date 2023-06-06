@@ -81,7 +81,7 @@ function EditEvent() {
         <input type="text" name="organization" value={organization} onChange={(e) => setOrganization(e.target.value)} />
         <br />
         <br />
-        <EventType eventType={eventType} setEventType={setEventType} mode="edit"/>
+        <EventType eventType={eventType} setEventType={setEventType} />
         <br />
         <br />
         <label>Event Cost</label>
