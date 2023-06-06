@@ -18,7 +18,7 @@ const Signup = ({ user, signupListItem, getSignupListByUserIdAndEventId, signupL
         }
       })
       .then(result => {
-        // console.log("getAssigneeListByChecklistItemId GET result: ", result);
+        console.log("getAssigneeListByChecklistItemId GET result: ", result);
         if (result) {
           setAssigneeList(result.assigneeList);
         }

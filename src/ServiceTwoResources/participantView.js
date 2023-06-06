@@ -32,7 +32,7 @@ const ParticipantView = ({ eventId, user }) => {
     fetch(checklistUrl + "/assignees", requestOptions)
       .then(response => response.json())
       .then(result => result.assigneeList.filter(assignee => assignee.userName === user && assignee.checklistItem.eventId === eventId))
-      .then(result => result.map(item => item.checklistItem.id).join().split(","))
+      .then(result => result.map(item => item.checklistItem.id.toString()))
       .then(result => setSignupList(result))
       .catch(error => console.log("error", error));
   }
@@ -56,15 +56,15 @@ const ParticipantView = ({ eventId, user }) => {
         return result;
       })
       .then(result => {
-        console.log('removeSignup result', result);
-        const updatedSignupList = [...signupList];
-        console.log('removeSignup checklistItemId', checklistItemId.toString());
-        let index = updatedSignupList.findIndex((element) => element === checklistItemId.toString());
-        let length = signupList.filter((item) => item === checklistItemId.toString()).length;
-        updatedSignupList.splice(index, length);
-        console.log("removeSignup signup list", signupList);
-        console.log("removeSignup updated signup list", updatedSignupList);
-        setSignupList(updatedSignupList);
+        // console.log('removeSignup result', result);
+        // const updatedSignupList = [...signupList];
+        // console.log('removeSignup checklistItemId', checklistItemId.toString());
+        // let index = updatedSignupList.findIndex((element) => element === checklistItemId.toString());
+        // let length = signupList.filter((item) => item === checklistItemId.toString()).length;
+        // updatedSignupList.splice(index, length);
+        // console.log("removeSignup signup list", signupList);
+        // console.log("removeSignup updated signup list", updatedSignupList);
+        // setSignupList(updatedSignupList);
       })
       .catch(error => console.log('error', error));
   };
@@ -79,11 +79,12 @@ const ParticipantView = ({ eventId, user }) => {
         } else {
           console.log('deleteAssigneeById assignee', assigneeId, 'remove failed');
         }
+        getSignupListByUserIdAndEventId();
       })
       .catch(error => console.log('error', error));
   };
 
-  useEffect(getPackingListByEventId, [eventId, setPackingList]);
+  useEffect(getPackingListByEventId, [eventId, setPackingList, signupList]);
   useEffect(getSignupListByUserIdAndEventId, [eventId, user, setSignupList]);
 
   return (
