@@ -3,13 +3,16 @@ import { useState, useEffect } from 'react';
 
 const optionList = ['--Select event type--', 'Party', 'Celebration', 'Social', 'Reunion', 'Convention', 'Business Meeting', 'Trip', 'Alumni Gathering', 'Club Outing', 'Other'];
 
-function EventType({ eventType, setEventType }) {
-  const [optionListSelection, setOptionListSelection] = useState('--Select event type--');
-  const [otherType, setOtherType] = useState('');
+function EventType({ eventType, setEventType, mode }) {
+  const initialEventType = eventType ? (eventType.startsWith("Other")?("Other"):(eventType)) : ('--Select event type--');
+
+  const [optionListSelection, setOptionListSelection] = useState(initialEventType);
+  const [otherType, setOtherType] = useState(eventType.startsWith("Other")?eventType.substring(8):'');
 
   useEffect(() => {
+    if (optionListSelection === 'Other')
     setEventType('Other - ' + otherType);
-  }, [otherType, setEventType]);
+  }, [optionListSelection, otherType, setEventType]);
 
   useEffect(() => {
     setEventType(optionListSelection);
@@ -43,5 +46,3 @@ function EventType({ eventType, setEventType }) {
 }
 
 export default EventType;
-  
-
