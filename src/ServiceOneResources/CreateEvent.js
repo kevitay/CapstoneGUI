@@ -3,6 +3,7 @@ import { useState, useContext} from 'react';
 import AuthContext from "../IdentityResources/Contexts/AuthContext";
 //import { EventContext } from "./EventsContext";
 import Login from '../IdentityResources/Login';
+import EventType from './EventType';
 
 function CreateEvent({ setCreationStep, setEvent }) {
   const [eventName, setName] = useState('');
@@ -78,8 +79,7 @@ function CreateEvent({ setCreationStep, setEvent }) {
         <input type="text" name="organization" value={organization} onChange={(e) => setOrganization(e.target.value)} required />
         <br />
         <br />
-        <label>Event Type</label>
-        <input type="text" name="eventType" value={eventType} onChange={(e) => setEventType(e.target.value)} required />
+        <EventType eventType={eventType} setEventType={setEventType} />
         <br />
         <br />
         <label>Event Cost</label>

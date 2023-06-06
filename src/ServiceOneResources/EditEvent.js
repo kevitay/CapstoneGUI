@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useContext } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import AuthContext from '../IdentityResources/Contexts/AuthContext';
+import EventType from './EventType';import AuthContext from '../IdentityResources/Contexts/AuthContext';
 
 
 function EditEvent() {
@@ -21,6 +21,7 @@ function EditEvent() {
   };
 
   async function updateEvent(eventName, organization, description, eventType, eventCost) {
+
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
 
@@ -83,8 +84,7 @@ function EditEvent() {
         <input type="text" name="organization" value={organization} onChange={(e) => setOrganization(e.target.value)} />
         <br />
         <br />
-        <label>Event Type</label>
-        <input type="text" name="eventType" value={eventType} onChange={(e) => setEventType(e.target.value)} />
+        <EventType eventType={eventType} setEventType={setEventType} />
         <br />
         <br />
         <label>Event Cost</label>
