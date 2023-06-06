@@ -1,5 +1,6 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import AuthContext from '../IdentityResources/Contexts/AuthContext';
 
 //will need to change to account for cascading delete to other components
 export default function DeleteEvent({ id }) {
@@ -8,11 +9,13 @@ export default function DeleteEvent({ id }) {
   //deleteTasks(), deleteParticipants(), deleteItinerary(), handleDeleteEvent()
 
   function handleDeleteEvent() {
+    const [authState,] = useContext(AuthContext);
     setDeleteStatus('pending');
 
     var requestOptions = {
       method: 'DELETE',
       mode: 'cors',
+      authorization: authState.token
     };
 
     fetch('http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist?eventId=' + id, requestOptions)
