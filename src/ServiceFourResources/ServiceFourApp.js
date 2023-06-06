@@ -4,7 +4,7 @@ import ParticipantsList from "./ParticipantsList/ParticipantsList";
 import InviteList from "./InviteList/InviteList";
 import ProfilePage from "./Profile/ProfilePage"; 
 import EventImageNav from "./EventImages/EventImageNav";
-import UserEvents from "./UserEvents/UserEvents";
+import MyEvents from "./MyEvents/MyEvents";
 
 function ServiceFourApp() {
 
@@ -15,7 +15,7 @@ function ServiceFourApp() {
         <div className="ServiceFourApp">
             <h1>Service Four</h1>
             <EventImageNav eventId={eventId}></EventImageNav>
-            <UserEvents></UserEvents>
+            <MyEvents></MyEvents>
             <ParticipantsList></ParticipantsList>
             <InviteList></InviteList>
             <ProfilePage></ProfilePage>

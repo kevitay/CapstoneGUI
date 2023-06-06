@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../../IdentityResources/Contexts/AuthContext.js";
-import UserEvent from "./CurrentEvent.js";
+import CurrentEvent from "./CurrentEvent.js";
 
 function CurrentEvents() {
 
@@ -38,7 +38,7 @@ function CurrentEvents() {
     return (
         <div>
             {
-            loading ? "" : userEventsList.map((event) => <><UserEvent event={event} eventInfo={eventInfo}></UserEvent></>)
+            loading ? "" : userEventsList.map((event) => <><CurrentEvent event={event} eventInfo={eventInfo}></CurrentEvent></>)
             }
         </div>
     )
