@@ -1,7 +1,8 @@
 import React from 'react';
 import { useState, useContext } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
-import EventType from './EventType';import AuthContext from '../IdentityResources/Contexts/AuthContext';
+import EventType from './EventType';
+import AuthContext from '../IdentityResources/Contexts/AuthContext';
 
 
 function EditEvent() {
