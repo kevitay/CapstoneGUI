@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Signup from './signup';
+import { getListData, signupForItem } from './listGetters';
 
 
 const ParticipantView = ({ eventId, user }) => {
@@ -7,39 +8,24 @@ const ParticipantView = ({ eventId, user }) => {
   const checklistUrl = "http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist";
   const [packingList, setPackingList] = useState([]);
   const [signupList, setSignupList] = useState([]);
+  const [assignedList, setAssignedList] = useState([]);
 
-  const getPackingListByEventId = () => {
-    var requestOptions = {
-      method: 'GET',
-      redirect: 'follow'
-    };
-
-    fetch(checklistUrl + "/" + eventId, requestOptions)
-      .then(response => response.json())
-      .then(result => {
-        console.log("getPackingListByEventId result", result);
-        setPackingList((result.checklist.length > 1) ? result.checklist.sort((a, b) => parseInt(a.id) - parseInt(b.id)) : result.checklist);
-      })
-      .catch(error => console.log('error', error));
+  const refreshData = () => {
+    getListData(eventId, user)
+      .then((listData) => {
+        console.log(listData);
+        setAssignedList(listData.currentUserSignups);
+        setPackingList(listData.packingList);
+        setSignupList(listData.availableSignups);
+      });
   };
 
-  const getSignupListByUserIdAndEventId = () => {
-    let requestOptions = {
-      method: 'GET',
-      redirect: 'follow'
-    };
-
-    fetch(checklistUrl + "/assignees", requestOptions)
-      .then(response => response.json())
-      .then(result => result.assigneeList.filter(assignee => assignee.userName === user && assignee.checklistItem.eventId === eventId))
-      .then(result => result.map(item => item.checklistItem.id.toString()))
-      .then(result => setSignupList(result))
-      .catch(error => console.log("error", error));
-  }
+  const addSignup = (checklistItemId) => {
+    signupForItem(checklistItemId, user)
+      .then(refreshData);
+  };
 
   const removeSignup = (checklistItemId) => {
-    // remove assignees where checklistItemId = itemId
-    // get assigneesByChecklistItemId
     let requestOptions = { method: 'GET', redirect: 'follow' };
 
     fetch(checklistUrl + "/assignees/" + checklistItemId + "?userName=" + user, requestOptions)
@@ -55,17 +41,6 @@ const ParticipantView = ({ eventId, user }) => {
         }
         return result;
       })
-      .then(result => {
-        // console.log('removeSignup result', result);
-        // const updatedSignupList = [...signupList];
-        // console.log('removeSignup checklistItemId', checklistItemId.toString());
-        // let index = updatedSignupList.findIndex((element) => element === checklistItemId.toString());
-        // let length = signupList.filter((item) => item === checklistItemId.toString()).length;
-        // updatedSignupList.splice(index, length);
-        // console.log("removeSignup signup list", signupList);
-        // console.log("removeSignup updated signup list", updatedSignupList);
-        // setSignupList(updatedSignupList);
-      })
       .catch(error => console.log('error', error));
   };
 
@@ -79,13 +54,12 @@ const ParticipantView = ({ eventId, user }) => {
         } else {
           console.log('deleteAssigneeById assignee', assigneeId, 'remove failed');
         }
-        getSignupListByUserIdAndEventId();
+        refreshData();
       })
       .catch(error => console.log('error', error));
   };
 
-  useEffect(getPackingListByEventId, [eventId, setPackingList, signupList]);
-  useEffect(getSignupListByUserIdAndEventId, [eventId, user, setSignupList]);
+  useEffect(refreshData, [eventId, user]);
 
   return (
     <div>
@@ -102,7 +76,7 @@ const ParticipantView = ({ eventId, user }) => {
           </tr>
         </thead>
         <tbody>
-          {packingList.filter(item => item.type === "packing list").map(result => (
+          {packingList.map(result => (
             <tr key={result.id}>
               <td>{result.description}</td>
               <td>{result.quantity}</td>
@@ -124,10 +98,10 @@ const ParticipantView = ({ eventId, user }) => {
           </tr>
         </thead>
         <tbody>
-          {packingList.filter(item => item.type === "signup list" && signupList.includes(item.id.toString())).map(result => (
+          {assignedList.map(result => (
             <tr key={result.id}>
               <td>{result.description}</td>
-              <td>{signupList.filter(item => item === result.id.toString()).length}</td>
+              <td>{result.quantity}</td>
               <td>
                 {(result.required) ? "yes" : ""}
               </td>
@@ -146,14 +120,12 @@ const ParticipantView = ({ eventId, user }) => {
           </tr>
         </thead>
         <tbody>
-          {packingList.filter(item => item.type === "signup list").map(result => (
+          {signupList.map(result => (
             <Signup
               key={result.id}
-              eventId={eventId}
               user={user}
               signupListItem={result}
-              getSignupListByUserIdAndEventId={getSignupListByUserIdAndEventId}
-              signupList={signupList}
+              handleAddAssignee={addSignup}
             />
           ))}
         </tbody>
