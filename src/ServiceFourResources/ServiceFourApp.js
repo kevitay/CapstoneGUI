@@ -9,7 +9,7 @@ import MyEvents from "./MyEvents/MyEvents";
 function ServiceFourApp() {
 
     //Manually setting eventId for testing purposes...will need to be fed in through the event component
-    
+
     const [eventId,] = useState(3);
 
     return (
@@ -17,7 +17,7 @@ function ServiceFourApp() {
             <h1>Service Four</h1>
             <EventImageNav eventId={eventId}></EventImageNav>
             <MyEvents></MyEvents>
-            <ParticipantsList></ParticipantsList>
+            <ParticipantsList eventId={eventId}></ParticipantsList>
             <InviteList eventId={eventId}></InviteList>
             <ProfilePage></ProfilePage>
         </div>
