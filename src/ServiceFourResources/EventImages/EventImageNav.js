@@ -1,10 +1,9 @@
 import React from "react";
-import { NavLink, useParams } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
-function EventImageNav() {
-    let { eventId } = useParams();
+function EventImageNav({ eventId }) {
     return (
-        <NavLink to={'/eventImages/' + eventId}>Event Images</NavLink>
+        <button><NavLink to={'/eventImages/' + eventId}>Event Images</NavLink></button>
     )
 }
 
