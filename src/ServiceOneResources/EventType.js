@@ -16,9 +16,19 @@ function EventType({ eventType, setEventType }) {
       <select name="event-type" id="event-type" value={eventType} onChange={(e) => setEventType(e.target.value)} required>
         {optionList.map((optionType) => {
           return (
-            <option key={optionType} value={optionType}>
-              {optionType}
-            </option>
+            <>
+              {optionType.startsWith('Other') ? (
+                <option key={optionType} value={optionType}>
+                  Other
+                </option>
+              ) : (
+                <option key={optionType} value={optionType}>
+                  {optionType}
+                </option>
+              )
+              }
+
+            </>
           );
         })}
       </select>
