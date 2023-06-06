@@ -1,8 +1,15 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 
 const optionList = ['--Select event type--', 'Party', 'Celebration', 'Social', 'Reunion', 'Convention', 'Business Meeting', 'Trip', 'Alumni Gathering', 'Club Outing', 'Other'];
 
-function EventType({eventType, setEventType}) {
+function EventType({ eventType, setEventType }) {
+  const [otherType, setOtherType] = useState('');
+
+  useEffect(() => {
+    setEventType('Other - ' + otherType);
+  }, [otherType, setEventType]);
+
   return (
     <>
       <label htmlFor="event-type">Event Type</label>
@@ -15,9 +22,19 @@ function EventType({eventType, setEventType}) {
           );
         })}
       </select>
-      {/* TODO: If "Other" add terniary and capture user input */}
+
+      {eventType.startsWith('Other') ? (
+        <>
+          <label>Other Event Type</label>
+          <input type="text" name="eventType" value={otherType} onChange={(e) => setOtherType(e.target.value)} required />
+        </>
+      ) : (
+        <></>
+      )}
     </>
   );
 }
 
 export default EventType;
+  
+
