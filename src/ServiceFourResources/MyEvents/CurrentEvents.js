@@ -1,8 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../../IdentityResources/Contexts/AuthContext.js";
-import UserEvent from "./UserEvent.js";
+import CurrentEvent from "./CurrentEvent.js";
 
-function ProfileEvent() {
+function CurrentEvents() {
 
     const [authState, ] = useContext(AuthContext);
     const [userEventsList, setUserEventsList] = useState([])
@@ -36,16 +36,13 @@ function ProfileEvent() {
     },[authState]);
 
     return (
-        <>
         <div>
-            {/* {loading ? "" : eventInfo.map((eventInformation) => <><EventInfo eventInformation={eventInformation} userEventsList={userEventsList}></EventInfo></>)} */}
             {
-            loading ? "" : userEventsList.map((event) => <><UserEvent event={event} eventInfo={eventInfo}></UserEvent></>)
+            loading ? "" : userEventsList.map((event) => <><CurrentEvent event={event} eventInfo={eventInfo}></CurrentEvent></>)
             }
         </div>
-        </>
     )
 
 }
 
-export default ProfileEvent; 
+export default CurrentEvents; 

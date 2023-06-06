@@ -4,6 +4,7 @@ import ServiceOneApp from "./ServiceOneResources/ServiceOneApp";
 import ServiceTwoApp from "./ServiceTwoResources/ServiceTwoApp";
 import ServiceThreeApp from "./ServiceThreeResources/ServiceThreeApp";
 import ServiceFourApp from "./ServiceFourResources/ServiceFourApp";
+import EventImages from "./ServiceFourResources/EventImages/EventImages";
 import { NavLink, Route, Routes } from "react-router-dom";
 import Home from "./Home";
 import AuthContext from "./IdentityResources/Contexts/AuthContext";
@@ -63,6 +64,7 @@ function App() {
           <Route path={'/serviceThree/*'} element={<ServiceThreeApp />}></Route>
           <Route path={'/serviceFour/*'} element={<ServiceFourApp />}></Route>
           <Route path={'/identity/*'} element={<IdentityApp />}></Route>
+          <Route path={'/eventImages/:eventId'} element={<EventImages />}></Route>
         </Routes>
         </AuthContext.Provider>
       </div>

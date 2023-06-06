@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function UserEvent({ event, eventInfo }) {
+function CurrentEvent({ event, eventInfo }) {
   console.log("event part info", event)
   const [editMode, setEditMode] = useState(false);
   const [status, setStatus] = useState(event.status);
@@ -121,4 +121,4 @@ function UserEvent({ event, eventInfo }) {
   );
 }
 
-export default UserEvent;
+export default CurrentEvent;
