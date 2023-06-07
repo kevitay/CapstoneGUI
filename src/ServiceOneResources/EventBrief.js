@@ -42,7 +42,8 @@ export default function EventBrief({ event }) {
   }
 
   return (
-    <Card key={event.id} sx={{ height: '250px', width: '250px', marginRight: '16px', marginBottom: '16px' }}>
+    // <Card key={event.id} sx={{ height: '250px', width: '250px', marginRight: '16px', marginBottom: '16px', border: '1px solid lightgray'}}>
+    <Card key={event.id} sx={{ height: '250px', width: '250px', marginRight: '16px', marginBottom: '16px'}}>
       <CardActionArea href={`/serviceOne/event/${event.id}`} rel="noopener noreferrer">
         <CardContent>
           <Typography gutterBottom variant="h6" component="div">
