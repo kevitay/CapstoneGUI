@@ -5,6 +5,8 @@ import {
   Dialog,
   DialogContent,
   IconButton,
+  ListItemIcon,
+  ListItemText,
   Menu,
   MenuItem,
   Stack,
@@ -18,13 +20,15 @@ import AuthContext from "./IdentityResources/Contexts/AuthContext";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import SailingIcon from "@mui/icons-material/Sailing";
+import PersonIcon from '@mui/icons-material/Person';
+import LogoutIcon from '@mui/icons-material/Logout';
 import Login from "./IdentityResources/Login";
 
 function Header() {
   const theme = useTheme();
   const colorMode = useContext(colorModeContext);
   const navigate = useNavigate();
-  const [authState] = useContext(AuthContext);
+  const [authState, authDispatch] = useContext(AuthContext);
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
@@ -51,13 +55,10 @@ function Header() {
     navigate("/profile");
     handleMenuClose()
   }
-
-
-
-
-
-
-
+  const logout = (e) => {
+    authDispatch({type: 'saveAuth', payload: {username: '', token: ''}})
+    handleMenuClose()
+  }
 
   return (
     <AppBar position='relative'>
@@ -98,7 +99,9 @@ function Header() {
                 <IconButton onClick={colorMode.toggleColorMode} color='inherit'>
                   {theme.palette.mode === "dark" ? <Brightness4Icon /> : <Brightness7Icon />}
                 </IconButton>
-                <Avatar alt='My Profile' onClick={handleMenuClick}/>
+                <IconButton onClick={handleMenuClick}>
+                <Avatar alt='My Profile'/>
+                </IconButton>
                 <Menu
                   id='basic-menu'
                   anchorEl={anchorEl}
@@ -108,8 +111,16 @@ function Header() {
                     "aria-labelledby": "basic-button",
                   }}
                 >
-                  <MenuItem onClick={handleProfileClicked}>Profile</MenuItem>
-                  <MenuItem >Logout</MenuItem>
+                  <MenuItem onClick={handleProfileClicked}>
+                  <ListItemIcon>
+                    <PersonIcon fontSize="small"/>
+                  </ListItemIcon>
+                    <ListItemText>Profile</ListItemText></MenuItem>
+                  <MenuItem  onClick={logout}>
+                  <ListItemIcon>
+                    <LogoutIcon fontSize="small"/>
+                  </ListItemIcon>
+                    <ListItemText>Log Out</ListItemText></MenuItem>
                 </Menu>
               </>
             )}
