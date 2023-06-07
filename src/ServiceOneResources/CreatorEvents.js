@@ -12,8 +12,9 @@ export default function CreatorEvents() {
 
       // TODO needs to be put into fetch call
       var requestOptions = {
-        method: "GET",
-        mode: "cors",
+        method: 'GET',
+        mode: 'cors',
+        authorization: authState.token,
       };
 
       fetch(
