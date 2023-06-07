@@ -14,7 +14,6 @@ const Notifications = ({ user }) => {
 
         fetch(notificationsUrl + "?userName=" + user, requestOptions)
             .then(response => {
-                // console.log("Response", response)
                 if (response.status === 200) {
                     return response.json();
                 } else {
@@ -22,7 +21,6 @@ const Notifications = ({ user }) => {
                 }
             })
             .then(result => {
-                // console.log("Result", result);
                 setNotifications(result.notifications);
             })
             .catch(error => console.log('error', error));
@@ -132,7 +130,5 @@ const Notifications = ({ user }) => {
     )
 
 };
-
-
 
 export default Notifications;
