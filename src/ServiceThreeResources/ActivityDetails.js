@@ -190,12 +190,12 @@ export default function ActivityDetails({editForm, setEditForm, dispatch, displa
                 <br/>
                 
                 <label>Start Time
-                <input defaultValue={displayActivityDetails.startTime} name="startTime" type="datetime-local" label="Start Time" required/>
+                <input defaultValue={displayActivityDetails.startTime.slice(0, 16)} name="startTime" type="datetime-local" label="Start Time" required/>
                 </label>
                 <br/>
                 
                 <label>End Time
-                <input defaultValue={displayActivityDetails.endTime} name="endTime" type="datetime-local" label="End Time"/>
+                <input defaultValue={displayActivityDetails.endTime.slice(0, 16)} name="endTime" type="datetime-local" label="End Time"/>
                 </label>
                 <br/>
 

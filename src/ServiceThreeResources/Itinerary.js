@@ -16,8 +16,20 @@ const [dateArray, setDateArray] = useState([]);
 const [buttonDate, setButtonDate] = useState("");
 const [closeActivityDetailsButton, setCloseActivityDetailsButton] = useState(false); 
 const [editForm, setEditForm] = useState(false)
+const [dateObject, setDateObject] = useState({})
 
 const dispatch = {itineraryJSON, setItineraryJSON}
+
+const formatDate = function(date){
+        const tempDate = new Date(date);
+        const newDate = tempDate.toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric'
+        });
+
+        return newDate;
+}
 
 return (
     <div className="Itinerary">
@@ -25,10 +37,10 @@ return (
         <CreateNewActivity dispatch= {dispatch}/>
 
         <h2 style={{color: 'red'}}>Date Selector Component</h2>
-        <DateSelector dateArray = {dateArray} setButtonDate = {setButtonDate}/>
+        <DateSelector formatDate={formatDate} dateArray = {dateArray} setButtonDate = {setButtonDate}/>
 
         <h2 style={{color: 'red'}}>Activity List Component</h2>
-        <ActivityList dateArray={dateArray} editForm={editForm} setDisplayActivityDetails = {setDisplayActivityDetails} setDateArray = {setDateArray} buttonDate={buttonDate} setCloseActivityDetailsButton = {setCloseActivityDetailsButton} itineraryJSON = {itineraryJSON} ></ActivityList> 
+        <ActivityList formatDate={formatDate} dateObject={dateObject} setDateObject={setDateObject} dateArray={dateArray} editForm={editForm} setDisplayActivityDetails = {setDisplayActivityDetails} setDateArray = {setDateArray} buttonDate={buttonDate} setCloseActivityDetailsButton = {setCloseActivityDetailsButton} itineraryJSON = {itineraryJSON} ></ActivityList> 
         
         <h2 style={{color: 'red'}}>Activity Details Component</h2>
         <ActivityDetails editForm={editForm} setEditForm={setEditForm} dispatch={dispatch} displayActivityDetails={displayActivityDetails} setDisplayActivityDetails = {setDisplayActivityDetails} closeActivityDetailsButton = {closeActivityDetailsButton} setCloseActivityDetailsButton = {setCloseActivityDetailsButton}/> 
