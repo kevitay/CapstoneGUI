@@ -1,10 +1,8 @@
-import React from "react";
+import React from 'react';
 import { Card, CardActionArea, CardActions } from '@mui/material';
-
 
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
-
 
 export default function EventBrief({ event }) {
   function dateFormatter(dateTime) {
@@ -17,16 +15,12 @@ export default function EventBrief({ event }) {
       const day = date.getDate();
       const year = date.getFullYear();
       // Converting to 12-hour format
-      let amPm = hours >= 12 ? "PM" : "AM";
+      let amPm = hours >= 12 ? 'PM' : 'AM';
       hours = hours % 12 || 12;
 
-      return `${month.toString().padStart(2, "0")}/${day
-        .toString()
-        .padStart(2, "0")}/${year} ${hours.toString().padStart(2, "0")}:${minutes
-        .toString()
-        .padStart(2, "0")} ${amPm}`;
+      return `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} ${amPm}`;
     } else {
-      return "TBD";
+      return 'TBD';
     }
   }
 
@@ -39,7 +33,7 @@ export default function EventBrief({ event }) {
         </>
       );
     } else {
-      return "TBD";
+      return 'TBD';
     }
   }
 
@@ -48,7 +42,7 @@ export default function EventBrief({ event }) {
   }
 
   return (
-    <Card key={event.id} sx={{height: '250px', width: '250px', marginRight: '16px', marginBottom: '16px'}}>
+    <Card key={event.id} sx={{ height: '250px', width: '250px', marginRight: '16px', marginBottom: '16px' }}>
       <CardActionArea href={`/serviceOne/event/${event.id}`} rel="noopener noreferrer">
         <CardContent>
           <Typography gutterBottom variant="h6" component="div">
