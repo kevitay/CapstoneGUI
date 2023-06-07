@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useContext } from "react";
 import EventBrief from "./EventBrief";
 import { EventContext } from "./EventsContext";
+import { Stack } from '@mui/material';
 
 // const eventsJson = require("./events.json")
 //This component is to display our EventList, inside the return is an EventBrief that organizes the data from the fetch call to display only a brief summary.
@@ -34,13 +35,12 @@ export default function EventList() {
 
   return (
     <div>
-      <h1>Event List Component</h1>
-      <hr></hr>
-      <div className='userEvents'>
+      <h1>Event List</h1>
+      <Stack className="userEvents" direction="row" spacing={1.5}>
         {state.eventsList.map((event) => {
           return <EventBrief event={event} key={event.id} />;
         })}
-      </div>
+      </Stack>
     </div>
   );
 }

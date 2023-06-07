@@ -1,4 +1,10 @@
 import React from "react";
+import { Card, CardActionArea, CardActions } from '@mui/material';
+
+
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+
 
 export default function EventBrief({ event }) {
   function dateFormatter(dateTime) {
@@ -42,16 +48,23 @@ export default function EventBrief({ event }) {
   }
 
   return (
-    <div key={event.id}>
-      <h2>Event Name: {event.name}</h2>
-      <h2>Location: {locationFormatter(event.startLocation)}</h2>
-      <h2>Time: {dateFormatter(event.startDateTime)}</h2>
-      <h2>Type: {event.type}</h2>
-      {/* This should work when we deploy but might error out if path changes */}
-      <a href={`/serviceOne/event/${event.id}`} rel='noopener noreferrer'>
-        <Button>View Event</Button>
-      </a>
-      <hr></hr>
-    </div>
+    <Card key={event.id}>
+      <CardActionArea href={`/serviceOne/event/${event.id}`} rel="noopener noreferrer">
+        <CardContent>
+          <Typography gutterBottom variant="h6" component="div">
+            Event Name: {event.name}
+          </Typography>
+          <Typography gutterBottom variant="p" component="div">
+            Location: {locationFormatter(event.startLocation)}
+          </Typography>
+          <Typography gutterBottom variant="p" component="div">
+            Time: {dateFormatter(event.startDateTime)}
+          </Typography>
+          <Typography gutterBottom variant="p" component="div">
+            Type: {event.type}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
   );
 }
