@@ -6,45 +6,45 @@
     --lightgray: #E0EAF8;
 }
 
-.IdentityApp div {
+/* .IdentityApp div {
     background-color: var(--lightgray);
-}
+} */
 
-.IdentityApp input[type=text], .IdentityApp input[type=password], .IdentityApp select {
+/* .IdentityApp input[type=text], .IdentityApp input[type=password], .IdentityApp select {
     padding: 1em;
     margin: 0.5em;
     border: 1px solid #ccc;
     border-radius: 0.25em;
     box-sizing: border-box;
-}
+} */
 
-.IdentityApp input[type=submit], .IdentityApp button[type=submit], .IdentityApp button {
+/* .IdentityApp input[type=submit], .IdentityApp button[type=submit], .IdentityApp button {
     /* width: 100%; */
-    background-color: var(--navy);
+    /* background-color: var(--navy);
     color: var(--white);
     padding: 1em;
     margin: 0.5em;
     border: none;
     border-radius: 0.25em;
-    cursor: pointer;
-}
+    cursor: pointer; */
+/* } */ */
 
-.IdentityApp input[type=submit]:hover, .IdentityApp button[type=submit]:hover, .IdentityApp button:hover {
+/* .IdentityApp input[type=submit]:hover, .IdentityApp button[type=submit]:hover, .IdentityApp button:hover {
     background-color: var(--lightorange);
     color: var(--navy);
-}
+} */
 
-.IdentityApp form {
+/* .IdentityApp form {
     display: flex;
     justify-content: center;
     flex-direction: column;
-}
+} */
 
-.IdentityApp form label {
+/* .IdentityApp form label {
     display: flex;
     /* justify-content: flex-end; */
-    align-items: center;
-}
+    /* align-items: center; */
+/* } */ */
 
 .IdentityApp div {
     border-radius: 0.5em;

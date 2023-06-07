@@ -1,6 +1,8 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useHistory } from "react";
 import HostContext from "./Contexts/HostContext";
 import { failedMessage, successMessage } from "./IdentityLib";
+import { Box, Button, FormControl, InputLabel, Input } from '@mui/material';
+
 
 const initialRegistrationState = {
     username: '',
@@ -17,6 +19,7 @@ const Registration = () => {
     const [registration, setRegistration] = useState(initialRegistrationState)
     const host = useContext(HostContext);
     const [message, setMessage] = useState('');
+    // const history = useHistory();
 
     const processRegistration = (e) => {
         e.preventDefault();
@@ -40,6 +43,8 @@ const Registration = () => {
                 fetch("http://a53e50bf576c64141b52293976658417-1117441751.us-west-2.elb.amazonaws.com/api/users", requestOptions).then((response) => {
                     if(response.ok) {
                         setMessage(successMessage);
+                        // history.push('/')
+                        window.location.href = '/';
                     } else {
                         setMessage(failedMessage); 
                     }})
@@ -58,24 +63,36 @@ const Registration = () => {
 
     return (
         <div className="Registration">
-            <form onSubmit={processRegistration}>
-                {Object.keys(registration).map((key) => {
-                    return (
-                        <label key={key}>{key}
-                            <input type={key !== 'password' ? 'text' : 'password'}
-                                    id={`registration_${key}`}
-                                    name={key}
-                                    value={registration[key]}
-                                    onChange={inputUpdate}
-                            ></input>
-                        </label>
-                    )
-                })}
-                <button type="submit">Register</button>
-                <span>{message}</span>
-            </form>
+            <h1>Create your profile</h1>
+          <form onSubmit={processRegistration}>
+            {Object.keys(registration).map((key) => {
+              const label = key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1');
+              const isRequired = key !== 'phoneNumber';
+      
+              return (
+                <Box key={key} marginTop={2} marginBottom={1}>
+                  <FormControl required={isRequired}>
+                    <InputLabel htmlFor={`registration_${key}`}>{label}</InputLabel>
+                    <Input
+                      type={key !== 'password' ? 'text' : 'password'}
+                      id={`registration_${key}`}
+                      name={key}
+                      value={registration[key]}
+                      onChange={inputUpdate}
+                    />
+                  </FormControl>
+                </Box>
+              );
+            })}
+            <Button type="submit" variant="contained">
+              Register
+            </Button>
+            <Box marginTop={2}>
+              <span>{message}</span>
+            </Box>
+          </form>
         </div>
-    )
+      );
 }
 
 export default Registration;
