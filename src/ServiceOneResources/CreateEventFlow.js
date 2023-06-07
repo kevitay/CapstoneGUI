@@ -22,6 +22,7 @@ function CreateEventFlow() {
         // PATCH call to change event status to "planned" once creationStep 4 is reached
         var requestOptions = {
           method: 'PATCH',
+          mode: 'cors',
           headers: myHeaders,
           body: raw,
           redirect: 'follow',

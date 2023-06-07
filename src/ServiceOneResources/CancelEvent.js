@@ -15,6 +15,7 @@ export default function CancelEvent({ event, setCurrentEvent }) {
 
     var requestOptions = {
       method: 'PATCH',
+      mode: 'cors',
       headers: myHeaders,
       body: raw,
       redirect: 'follow',
