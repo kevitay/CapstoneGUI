@@ -4,7 +4,7 @@ import HostContext from "./Contexts/HostContext";
 import { failedMessage, successMessage } from "./IdentityLib";
 import './Login.css';
 
-const Login = () => {
+const Login = ({handleClose}) => {
     const [, authDispatch] = useContext(AuthContext);
     const host = useContext(HostContext);
 
@@ -30,6 +30,7 @@ const Login = () => {
                 authDispatch({type: 'saveAuth', payload: {username, token: authToken}});
                 setUsername('');
                 setPassword('');
+                setTimeout(() => {handleClose()},100)
             } else {
                 setMessage(failedMessage);
             }

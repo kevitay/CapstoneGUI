@@ -1,4 +1,4 @@
-import { AppBar, Avatar, Button, IconButton, Stack, Toolbar, Typography } from "@mui/material";
+import { AppBar, Avatar, Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, IconButton, Stack, TextField, Toolbar, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import React, { useContext } from "react";
 import { useTheme } from "@emotion/react";
@@ -6,6 +6,7 @@ import { colorModeContext } from "./ModeContext";
 import Brightness4Icon from "@mui/icons-material/Brightness4";
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import SailingIcon from "@mui/icons-material/Sailing";
+import Login from "./IdentityResources/Login";
 
 function Header() {
   const theme = useTheme();
@@ -17,10 +18,15 @@ function Header() {
     navigate("/");
   }
 
-  function handleSignIn(){
+  const [open, setOpen] = React.useState(false);
 
-  }
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
 
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <AppBar position='relative'>
@@ -35,13 +41,15 @@ function Header() {
             SEEK
           </Button>
           <Stack direction='row' alignItems='center' spacing={1}>
-            <Button variant='outlined' color='inherit'>
+            <Button variant='outlined' color='inherit'onClick={handleClickOpen}>
               Sign In
             </Button>
-            <Button 
-             variant='outlined' 
-             color='inherit' href='/createAccount'
-            >
+            <Dialog open={open} onClose={handleClose}>
+              <DialogContent>
+                <Login handleClose={handleClose}/>
+              </DialogContent>
+            </Dialog>
+            <Button variant='outlined' color='inherit' href='/createAccount'>
               Create Account
             </Button>
             <IconButton onClick={colorMode.toggleColorMode} color='inherit'>
