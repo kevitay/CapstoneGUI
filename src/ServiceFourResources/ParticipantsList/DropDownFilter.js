@@ -32,7 +32,8 @@ function DropDownFilter({ resetStatus, filterOn, filterName, participantState, d
                 setEventParticipants(categories);
             }
         } else if (filterOn === 'seats') {
-            const categories = participantState.filter(x => x.seatsAvail.toString() === category.toString());
+            console.log(participantState)
+            const categories = participantState.filter(x => x.seatsAvail.toInteger() === category.toInteger());
             setEventParticipants(categories);
         }
 
