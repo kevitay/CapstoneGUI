@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import Signup from './signup';
 import { getListData, signupForItem } from './listGetters';
-
 
 const ParticipantView = ({ eventId, user }) => {
   user = "Russhi";
@@ -76,7 +75,7 @@ const ParticipantView = ({ eventId, user }) => {
           </tr>
         </thead>
         <tbody>
-          {packingList.map(result => (
+          {packingList.length > 0 ? packingList.map(result => (
             <tr key={result.id}>
               <td>{result.description}</td>
               <td>{result.quantity}</td>
@@ -84,7 +83,9 @@ const ParticipantView = ({ eventId, user }) => {
                 {(result.required) ? "yes" : ""}
               </td>
             </tr>
-          ))}
+          ))
+            : <tr><td colSpan="3">No Packing List Items</td></tr>
+          }
         </tbody>
       </table>
       <h3>Signup List Items I've Signed Up For</h3>
@@ -98,7 +99,7 @@ const ParticipantView = ({ eventId, user }) => {
           </tr>
         </thead>
         <tbody>
-          {assignedList.map(result => (
+          {assignedList.length > 0 ? assignedList.map(result => (
             <tr key={result.id}>
               <td>{result.description}</td>
               <td>{result.quantity}</td>
@@ -107,7 +108,9 @@ const ParticipantView = ({ eventId, user }) => {
               </td>
               <td><button onClick={() => removeSignup(result.id)}> Remove Signup </button></td>
             </tr>
-          ))}
+          ))
+            : <tr><td colSpan="4">You haven't signed up for anything</td></tr>
+          }
         </tbody>
       </table>
       <h3>Signup List Items Available</h3>
@@ -120,14 +123,16 @@ const ParticipantView = ({ eventId, user }) => {
           </tr>
         </thead>
         <tbody>
-          {signupList.map(result => (
+          {signupList.length > 0 ? signupList.map(result => (
             <Signup
               key={result.id}
               user={user}
               signupListItem={result}
               handleAddAssignee={addSignup}
             />
-          ))}
+          ))
+            : <tr><td colSpan="3">No Signup List Items Available</td></tr>
+          }
         </tbody>
       </table>
     </div>
