@@ -1,4 +1,4 @@
-import { ACTIONS } from "./Itinerary";
+import { ACTIONS, fetchFunction } from "./FetchFunctions";
 import React from "react";
 
 export default function ActivityDetails({editForm, setEditForm, dispatch, displayActivityDetails, setDisplayActivityDetails, closeActivityDetailsButton, setCloseActivityDetailsButton}) {
@@ -18,7 +18,7 @@ export default function ActivityDetails({editForm, setEditForm, dispatch, displa
             activityJSON.id = displayActivityDetails.id
             if(activityJSON.indoor === undefined && displayActivityDetails.indoor !== undefined) activityJSON.indoor = displayActivityDetails.indoor
             if(activityJSON.mandatory === undefined && displayActivityDetails.mandatory !== undefined) activityJSON.mandatory = displayActivityDetails.mandatory
-            dispatch({type: ACTIONS.UPDATE_ACTIVITY, payload: activityJSON})
+            fetchFunction({type: ACTIONS.UPDATE_ACTIVITY, payload: activityJSON, dispatch: dispatch.setItineraryJSON, itinerary: dispatch.itineraryJSON})
     
             setCloseActivityDetailsButton(true);
             setEditForm(false)
@@ -42,8 +42,7 @@ export default function ActivityDetails({editForm, setEditForm, dispatch, displa
             {displayActivityDetails.id && closeActivityDetailsButton && <button onClick={() => {
                 const confirmed = window.confirm("Are you sure you want to delete this activity?");
                 if (confirmed) {
-                    console.log(displayActivityDetails.id)
-                    dispatch({ type: ACTIONS.DELETE_ACTIVITY, payload: displayActivityDetails.id });
+                    fetchFunction({ type: ACTIONS.DELETE_ACTIVITY, payload:displayActivityDetails, dispatch: dispatch.setItineraryJSON, itinerary: dispatch.itineraryJSON });
                     setDisplayActivityDetails({});
                     setCloseActivityDetailsButton(false);
             }}}>Delete Activity</button>}
@@ -191,12 +190,12 @@ export default function ActivityDetails({editForm, setEditForm, dispatch, displa
                 <br/>
                 
                 <label>Start Time
-                <input defaultValue={displayActivityDetails.startTime} name="startTime" type="datetime-local" label="Start Time" required/>
+                <input defaultValue={displayActivityDetails.startTime.slice(0, 16)} name="startTime" type="datetime-local" label="Start Time" required/>
                 </label>
                 <br/>
                 
                 <label>End Time
-                <input defaultValue={displayActivityDetails.endTime} name="endTime" type="datetime-local" label="End Time"/>
+                <input defaultValue={displayActivityDetails.endTime.slice(0, 16)} name="endTime" type="datetime-local" label="End Time"/>
                 </label>
                 <br/>
 
