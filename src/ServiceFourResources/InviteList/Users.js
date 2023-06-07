@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import './InviteList.css';
 import UserData from "./UserData";
 
-function Users({ eventID }) {
+function Users({ eventId }) {
 
     const [userState, setUser] = useState([]);
     const [loading, setLoadState] = useState(false);
@@ -32,7 +32,7 @@ function Users({ eventID }) {
         myHeaders.append("Content-Type", "application/json");
         selectedUsers.forEach(element => {
             var raw = JSON.stringify({
-                "eventId": "101",
+                "eventId": eventId,
                 "user": {
                     "username": element,
                 }
