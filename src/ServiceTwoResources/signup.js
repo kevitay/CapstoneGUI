@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Signup = ({ user, signupListItem, handleAddAssignee }) => {
+const Signup = ({ username, signupListItem, handleAddAssignee }) => {
   const signupForItem = () => {
     handleAddAssignee(signupListItem.id);
   };

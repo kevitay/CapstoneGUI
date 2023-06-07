@@ -68,7 +68,7 @@ export const getListData = (eventId, userName) => {
       }, {});
     })
     .then(assignedCounts => {
-      console.log("assignedCounts", assignedCounts);
+      // console.log("assignedCounts", assignedCounts);
       const availableSignups = [...data.availableSignups];
       data.availableSignups = [];
 

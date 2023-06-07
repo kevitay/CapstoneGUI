@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import AuthContext from '../IdentityResources/Contexts/AuthContext';
 
-const Notifications = ({ user }) => {
-    user = "Mickey456";
+const Notifications = () => {
     const notificationsUrl = "http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/notifications";
     const participantUrl = "http://a53e50bf576c64141b52293976658417-1117441751.us-west-2.elb.amazonaws.com/api/participants";
     const [notifications, setNotifications] = useState([]);
+    const [authState,] = useContext(AuthContext);
+    const username = authState.username;
 
     const getNotificationsByUserName = () => {
         var requestOptions = {
@@ -12,7 +14,7 @@ const Notifications = ({ user }) => {
             redirect: 'follow'
         };
 
-        fetch(notificationsUrl + "?userName=" + user, requestOptions)
+        fetch(notificationsUrl + "?userName=" + username, requestOptions)
             .then(response => {
                 if (response.status === 200) {
                     return response.json();
@@ -31,7 +33,7 @@ const Notifications = ({ user }) => {
         if (e.target.response.value === "Not Going") {
             deleteNotification(e.target.msgId.value);
         } else {
-            addParticipant(e.target.msgId.value, e.target.eventId.value, e.target.response.value, user);
+            addParticipant(e.target.msgId.value, e.target.eventId.value, e.target.response.value, username);
         }
     };
 
@@ -43,15 +45,15 @@ const Notifications = ({ user }) => {
         };
 
         fetch(notificationsUrl + "/" + msgId, requestOptions)
-        .then(response => {
-            if (response.ok) {
-                console.log('Notification was deleted', msgId);
-            } else {
-                throw new Error('Removed failed', msgId);
-            }
-            getNotificationsByUserName();
-        })
-        .catch(error => console.log('error', error));
+            .then(response => {
+                if (response.ok) {
+                    console.log('Notification was deleted', msgId);
+                } else {
+                    throw new Error('Removed failed', msgId);
+                }
+                getNotificationsByUserName();
+            })
+            .catch(error => console.log('error', error));
     };
 
     const addParticipant = (msgId, eventId, status, user) => {
@@ -87,12 +89,12 @@ const Notifications = ({ user }) => {
             .catch(error => console.log('error', error));
     };
 
-    useEffect(getNotificationsByUserName, [user]);
+    useEffect(getNotificationsByUserName, [username]);
 
     return (
         <div>
             <h2>Notifications</h2>
-            <p> User ID: {user}</p>
+            <p> User ID: {username}</p>
             <table>
                 <thead>
                     <tr>

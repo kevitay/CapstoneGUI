@@ -1,18 +1,24 @@
 import React, { useState, useEffect, useContext } from 'react';
 import Signup from './signup';
 import { getListData, signupForItem } from './listGetters';
+import AuthContext from '../IdentityResources/Contexts/AuthContext';
 
-const ParticipantView = ({ eventId, user }) => {
-  user = "Russhi";
+
+const ParticipantView = ({ eventId }) => {
+  // username = "Russhi";
   const checklistUrl = "http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist";
   const [packingList, setPackingList] = useState([]);
   const [signupList, setSignupList] = useState([]);
   const [assignedList, setAssignedList] = useState([]);
+  const [authState,] = useContext(AuthContext);
+
+  const username = authState.username;
+  // console.log(authState);
 
   const refreshData = () => {
-    getListData(eventId, user)
+    getListData(eventId, username)
       .then((listData) => {
-        console.log(listData);
+        // console.log(listData);
         setAssignedList(listData.currentUserSignups);
         setPackingList(listData.packingList);
         setSignupList(listData.availableSignups);
@@ -20,22 +26,22 @@ const ParticipantView = ({ eventId, user }) => {
   };
 
   const addSignup = (checklistItemId) => {
-    signupForItem(checklistItemId, user)
+    signupForItem(checklistItemId, username)
       .then(refreshData);
   };
 
   const removeSignup = (checklistItemId) => {
     let requestOptions = { method: 'GET', redirect: 'follow' };
 
-    fetch(checklistUrl + "/assignees/" + checklistItemId + "?userName=" + user, requestOptions)
+    fetch(checklistUrl + "/assignees/" + checklistItemId + "?userName=" + username, requestOptions)
       .then(response => response.json())
       .then(result => {
-        console.log("Assignee List to be removed: ", result);
+        // console.log("Assignee List to be removed: ", result);
         return result;
       })
       .then(result => {
         for (let i = 0; i < result.assigneeList.length; i++) {
-          console.log("assignee to be removed", result.assigneeList[i]);
+          // console.log("assignee to be removed", result.assigneeList[i]);
           deleteAssigneeById(result.assigneeList[i].id);
         }
         return result;
@@ -49,21 +55,21 @@ const ParticipantView = ({ eventId, user }) => {
     fetch(checklistUrl + "/assignees/" + assigneeId, requestOptions)
       .then(response => {
         if (response.status === 202) {
-          console.log('deleteAssigneeById removed assignee', assigneeId);
+          // console.log('deleteAssigneeById removed assignee', assigneeId);
         } else {
-          console.log('deleteAssigneeById assignee', assigneeId, 'remove failed');
+          throw new Error('deleteAssigneeById assignee', assigneeId, 'remove failed');
         }
         refreshData();
       })
       .catch(error => console.log('error', error));
   };
 
-  useEffect(refreshData, [eventId, user]);
+  useEffect(refreshData, [eventId, username]);
 
   return (
     <div>
       <h2>Participant View</h2>
-      <p>User ID: {user}</p>
+      <p>User ID: {username}</p>
       <p>Event ID: {eventId}</p>
       <h3>Packing List Items for event {eventId}</h3>
       <table>
@@ -126,7 +132,7 @@ const ParticipantView = ({ eventId, user }) => {
           {signupList.length > 0 ? signupList.map(result => (
             <Signup
               key={result.id}
-              user={user}
+              username={username}
               signupListItem={result}
               handleAddAssignee={addSignup}
             />
