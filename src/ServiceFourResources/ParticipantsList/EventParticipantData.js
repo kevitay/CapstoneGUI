@@ -1,10 +1,24 @@
 import React from "react";
 
-function EventParticipantData({participant}) {
+function EventParticipantData({ participant }) {
     return (
         <tr className="EventParticipantData">
             <td className="profile-picture">
-                <img alt="Profile Pic" src="https://placehold.co/100x100"></img>
+                {participant.user.profilePicture ? (
+                    <img
+                        src={"data:image/jpg;base64," + participant.user.profilePicture}
+                        height="100px"
+                        width="100px"
+                        alt="profile pic"
+                    />
+                ) : (
+                    <img
+                        alt="Profile Pic"
+                        src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
+                        height="100px"
+                        width="100px"
+                    />
+                )}
             </td>
             <td className="participant-name">
                 <p>{participant.user.firstName + " " + participant.user.lastName}</p>
@@ -13,10 +27,10 @@ function EventParticipantData({participant}) {
                 <p>{participant.user.city + ", " + participant.user.state}</p>
             </td>
             <td>{participant.status}</td>
-            <td>{participant.carpool ? "Yes": "No"}</td>
+            <td>{participant.carpool ? "Yes" : "No"}</td>
             <td>{participant.seatsAvail}</td>
         </tr>
-    )
+    );
 }
 
 export default EventParticipantData;
