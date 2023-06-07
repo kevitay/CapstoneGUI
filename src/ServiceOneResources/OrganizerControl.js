@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 function OrganizerControl({ event, setCurrentEvent }) {
   return (
     <div>
-      <h2>Organizer Controls</h2>
+      <h3>Organizer Options</h3>
       {/* Show participants moved to Post MVP */}
       {/* <input type='checkbox' id='participants' name='participants' value='participants'></input>
       <label htmlFor='participants'>Show Participants</label> */}
