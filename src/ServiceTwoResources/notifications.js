@@ -33,7 +33,26 @@ const Notifications = ({ user }) => {
     <div>
         <h2>Notifications</h2>
         <p> User ID: {user}</p>
-        
+        <table>
+            <thead>
+                <tr>
+                    <th>From</th>
+                    <th>Subject</th>
+                    <th>Message</th>
+                    <th>Response</th>
+                </tr>
+            </thead>
+            <tbody>
+                {notifications.map(result => (
+                    <tr key={result.msgId}>
+                        <td>{result.messageFrom}</td>
+                        <td>{result.subject}</td>
+                        <td>{result.messageText}</td>
+                        <td> ADD RESPONSE STUFF HERE </td>
+                    </tr>
+                ))}
+            </tbody>
+        </table>
     </div>
   )
 
