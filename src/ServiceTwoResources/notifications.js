@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const Notifications = ({ user }) => {
-    user = "TJWELLS1";
+    user = "Mickey456";
     const notificationsUrl = "http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/notifications";
     const participantUrl = "http://a53e50bf576c64141b52293976658417-1117441751.us-west-2.elb.amazonaws.com/api/participants";
     const [notifications, setNotifications] = useState([]);
@@ -103,7 +103,7 @@ const Notifications = ({ user }) => {
                     </tr>
                 </thead>
                 <tbody>
-                    {notifications.map(result => (
+                    {notifications ? notifications.map(result => (
                         <tr key={result.msgId}>
                             <td>{result.messageFrom}</td>
                             <td>{result.subject}</td>
@@ -123,7 +123,8 @@ const Notifications = ({ user }) => {
                                 </form>
                             </td>
                         </tr>
-                    ))}
+                    )) : <tr><td colSpan="4">No Notifications</td></tr>
+                    }
                 </tbody>
             </table>
         </div>
