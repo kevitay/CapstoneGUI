@@ -1,11 +1,15 @@
-import React, { useEffect } from 'react';
-import { useState } from 'react';
+import React from 'react';
+import { useState, useEffect, useContext } from 'react';
 import CreateEvent from './CreateEvent';
+import AuthContext from '../IdentityResources/Contexts/AuthContext';
 
 function CreateEventFlow() {
   // Steps are: 1-New, 2-Invite, 3-Itinerary, 4-Items, 5-Tasks
   const [creationStep, setCreationStep] = useState(1);
   const [event, setEvent] = useState(null);
+  const [authState] = useContext(AuthContext);
+
+
   useEffect(() => {
     if(creationStep === 4) {
       var myHeaders = new Headers();
@@ -17,10 +21,11 @@ function CreateEventFlow() {
 
         // PATCH call to change event status to "planned" once creationStep 4 is reached
         var requestOptions = {
-          method: "PATCH",
+          method: 'PATCH',
           headers: myHeaders,
           body: raw,
-          redirect: "follow",
+          redirect: 'follow',
+          authorization: authState.token,
         };
 
         fetch(

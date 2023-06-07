@@ -35,6 +35,7 @@ function CreateEvent({ setCreationStep, setEvent }) {
       headers: myHeaders,
       body: raw,
       redirect: 'follow',
+      authorization: authState.token
     };
 
     fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event', requestOptions)
