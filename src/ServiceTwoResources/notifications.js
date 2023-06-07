@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 
 const Notifications = ({ user }) => {
-    user = "Mickey456";
+    user = "TJWELLS1";
     const notificationsUrl = "http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/notifications";
     const participantUrl = "http://a53e50bf576c64141b52293976658417-1117441751.us-west-2.elb.amazonaws.com/api/participants";
     const [notifications, setNotifications] = useState([]);
@@ -39,6 +39,21 @@ const Notifications = ({ user }) => {
 
     const deleteNotification = (msgId) => {
         console.log("Deleting message", msgId);
+        var requestOptions = {
+            method: 'DELETE',
+            redirect: 'follow'
+        };
+
+        fetch(notificationsUrl + "/" + msgId, requestOptions)
+        .then(response => {
+            if (response.ok) {
+                console.log('Notification was deleted', msgId);
+            } else {
+                throw new Error('Removed failed', msgId);
+            }
+            getNotificationsByUserName();
+        })
+        .catch(error => console.log('error', error));
     };
 
     const addParticipant = (msgId, eventId, status, user) => {
