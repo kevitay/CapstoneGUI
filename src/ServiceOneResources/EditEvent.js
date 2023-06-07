@@ -1,7 +1,9 @@
 import React from 'react';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import EventType from './EventType';
+import AuthContext from '../IdentityResources/Contexts/AuthContext';
+
 
 function EditEvent() {
   let { id } = useParams();
@@ -13,6 +15,7 @@ function EditEvent() {
   const [eventType, setEventType] = useState(state.type);
   const [eventCost, setEventCost] = useState(state.baseCost);
   const [isPublic, setIsPublic] = useState(state.public);
+  const [authState, ] = useContext(AuthContext);
 
   const radioEvent = (event) => {
     setIsPublic(event.target.value === 'true');
@@ -25,13 +28,14 @@ function EditEvent() {
 
     var raw = JSON.stringify({
       id: id,
+      creatorID: authState.username,
       name: eventName,
       organization: organization,
       description: description,
       type: eventType,
       baseCost: eventCost,
       status: 'Planned',
-      public: isPublic
+      public: isPublic,
     });
 
     var requestOptions = {
@@ -39,6 +43,7 @@ function EditEvent() {
       headers: myHeaders,
       body: raw,
       redirect: 'follow',
+      authorization: authState.token
     };
 
     fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/' + id, requestOptions)
