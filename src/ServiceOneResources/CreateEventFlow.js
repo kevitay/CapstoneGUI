@@ -38,7 +38,7 @@ function CreateEventFlow() {
           .catch((error) => console.log("error", error));
           // console.log(eventDate)
     }
-  },[creationStep, event])
+  },[creationStep, event, authState.token])
 
   return (
     <div>

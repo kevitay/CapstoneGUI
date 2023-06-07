@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardActionArea, CardActions } from '@mui/material';
+import { Card, CardActionArea } from '@mui/material';
 
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -37,9 +37,9 @@ export default function EventBrief({ event }) {
     }
   }
 
-  function Button({ children }) {
-    return <button>{children}</button>;
-  }
+  // function Button({ children }) {
+  //   return <button>{children}</button>;
+  // }
 
   return (
     // <Card key={event.id} sx={{ height: '250px', width: '250px', marginRight: '16px', marginBottom: '16px', border: '1px solid lightgray'}}>
