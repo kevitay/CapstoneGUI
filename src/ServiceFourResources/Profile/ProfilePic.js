@@ -33,7 +33,7 @@ const ProfilePic = () => {
 
             if (response.ok) {
                 console.log('Profile picture updated');
-                fetchProfilePicture();
+                fetchProfilePicture(authState.username);
             } else {
                 console.error('ERROR: Profile picture failed to update');
             }

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import EventParticipant from "./EventParticipant";
 
 
-function PartipantsList() {
+function PartipantsList({eventId}) {
 
     const [participantState, setEventParticipants] = useState([]);
     const [originalState, EventParticipants] = useState([]);
@@ -23,13 +23,13 @@ function PartipantsList() {
             method: 'GET'
         };
         setLoadState(true);
-        fetch("http://a53e50bf576c64141b52293976658417-1117441751.us-west-2.elb.amazonaws.com/api/participants?eventId=1", requestOptions)
+        fetch("http://a53e50bf576c64141b52293976658417-1117441751.us-west-2.elb.amazonaws.com/api/participants?eventId=" + eventId, requestOptions)
             .then(response => response.json())
             .then(result => {
                 setEventParticipants(result.eventParticipants);
                 EventParticipants(result.eventParticipants);
             }).then(setLoadState(false)).catch(error => console.log('error', error));
-    }, []);
+    }, [eventId]);
 
     return (
         <div className="ParticipantsList">
