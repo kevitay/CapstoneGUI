@@ -2,7 +2,7 @@ import React from "react";
 
 import{ACTIONS, fetchFunction} from "./FetchFunctions";
 
-export default function ActivityForm({setForm, dispatch}) {
+export default function ActivityForm({setForm, states, setStates}) {
     
     function handleSubmit(event) {
         event.preventDefault();
@@ -13,7 +13,7 @@ export default function ActivityForm({setForm, dispatch}) {
         for (let [key, value] of formData.entries()) {
             activityJSON[key] = value; 
         }
-        fetchFunction({dispatch: dispatch.setItineraryJSON, type: ACTIONS.CREATE_ACTIVITY, payload: activityJSON, itinerary: dispatch.itineraryJSON})
+        fetchFunction({dispatch: setStates.setItineraryJSON, type: ACTIONS.CREATE_ACTIVITY, payload: activityJSON, itinerary: states.itineraryJSON})
     }
 
     return (

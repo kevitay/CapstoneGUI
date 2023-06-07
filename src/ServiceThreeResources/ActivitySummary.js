@@ -1,6 +1,6 @@
 import React from "react";
 
-export default function ActivitySummary({editForm, activity, setDisplayActivityDetails, setCloseActivityDetailsButton}) {
+export default function ActivitySummary({activity, states, setStates}) {
     const time = new Date(activity.startTime); 
     const formattedTime = time.toLocaleTimeString('en-US', {
         hour: 'numeric',
@@ -13,7 +13,7 @@ export default function ActivitySummary({editForm, activity, setDisplayActivityD
             <p >{activity.description}</p>
             <p >Activity Start Time:{formattedTime}</p>
 
-            {!editForm && <button  onClick={() => {setDisplayActivityDetails(activity); setCloseActivityDetailsButton(true)}}>Expand Details</button>}
+            {!states.editForm && <button  onClick={() => {setStates.setDisplayActivityDetails(activity); setStates.setCloseActivityDetailsButton(true)}}>Expand Details</button>}
         </div>
     )
 }; 

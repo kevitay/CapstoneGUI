@@ -16,9 +16,9 @@ const [dateArray, setDateArray] = useState([]);
 const [buttonDate, setButtonDate] = useState("");
 const [closeActivityDetailsButton, setCloseActivityDetailsButton] = useState(false); 
 const [editForm, setEditForm] = useState(false)
-const [dateObject, setDateObject] = useState({})
 
-const dispatch = {itineraryJSON, setItineraryJSON}
+const states = {itineraryJSON, displayActivityDetails, dateArray, buttonDate, closeActivityDetailsButton, editForm};
+const setStates = {setItineraryJSON, setDisplayActivityDetails, setDateArray, setButtonDate, setCloseActivityDetailsButton, setEditForm};
 
 const formatDate = function(date){
         const tempDate = new Date(date);
@@ -34,16 +34,16 @@ const formatDate = function(date){
 return (
     <div className="Itinerary">
         <h2 style={{color:'red'}}>Create Activity Component</h2>
-        <CreateNewActivity dispatch= {dispatch}/>
+        <CreateNewActivity states={states} setStates={setStates}/>
 
         <h2 style={{color: 'red'}}>Date Selector Component</h2>
-        <DateSelector formatDate={formatDate} dateArray = {dateArray} setButtonDate = {setButtonDate}/>
+        <DateSelector formatDate={formatDate} states={states} setStates={setStates}/>
 
         <h2 style={{color: 'red'}}>Activity List Component</h2>
-        <ActivityList formatDate={formatDate} dateObject={dateObject} setDateObject={setDateObject} dateArray={dateArray} editForm={editForm} setDisplayActivityDetails = {setDisplayActivityDetails} setDateArray = {setDateArray} buttonDate={buttonDate} setCloseActivityDetailsButton = {setCloseActivityDetailsButton} itineraryJSON = {itineraryJSON} ></ActivityList> 
+        <ActivityList formatDate={formatDate} states={states} setStates={setStates} setDateArray={setDateArray}/>
         
         <h2 style={{color: 'red'}}>Activity Details Component</h2>
-        <ActivityDetails editForm={editForm} setEditForm={setEditForm} dispatch={dispatch} displayActivityDetails={displayActivityDetails} setDisplayActivityDetails = {setDisplayActivityDetails} closeActivityDetailsButton = {closeActivityDetailsButton} setCloseActivityDetailsButton = {setCloseActivityDetailsButton}/> 
+        <ActivityDetails states={states} setStates={setStates}/> 
     </div>
   );
 }

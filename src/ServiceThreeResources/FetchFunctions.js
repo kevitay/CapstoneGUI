@@ -23,8 +23,6 @@ export const fetchFunction = function(action){
       }
 }
 
-
-
 const getActivities = function(action){
     fetch(`http://a08cb134e19c8438285f05f4a630b6bd-117037464.us-west-2.elb.amazonaws.com/api/activities`)
     .catch((err)=> console.error(err))
@@ -52,7 +50,6 @@ const getActivities = function(action){
         });
   }
 
-
 const updateActivity = function(action)
   {      const id = action.payload.id;
     fetch(`http://a08cb134e19c8438285f05f4a630b6bd-117037464.us-west-2.elb.amazonaws.com/api/activities/${id}`, {
@@ -73,8 +70,6 @@ const updateActivity = function(action)
         console.error('Error:', error);
       });
 }
-
-
 
 const deleteActivity = function(action){
     const id = action.payload.id;

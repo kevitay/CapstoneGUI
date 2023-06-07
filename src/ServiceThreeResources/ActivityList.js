@@ -1,17 +1,20 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import ActivitySummary from "./ActivitySummary";
 
-export default function ActivityList({formatDate, dateArray, dateObject, setDateObject, editForm, setDisplayActivityDetails, setDateArray, buttonDate, setCloseActivityDetailsButton, itineraryJSON}) {
+export default function ActivityList({formatDate, states, setStates, setDateArray}) {
+    const [dateObject, setDateObject] = useState({});
+    
     useEffect(()=> {   
     const tempDateObject = {}; 
     const tempDateArray = [];
+    const activities = states.itineraryJSON.activities;
 
-        for (let i = 0; i < itineraryJSON.activities.length; i++) {
-        const currentActivityDate = itineraryJSON.activities[i].startTime.slice(0, 16)
+        for (let i = 0; i < activities.length; i++) {
+        const currentActivityDate = activities[i].startTime.slice(0, 16)
         if(tempDateObject[currentActivityDate]) {
-            tempDateObject[currentActivityDate].push(itineraryJSON.activities[i])
+            tempDateObject[currentActivityDate].push(activities[i])
         } else {
-            tempDateObject[currentActivityDate] = [itineraryJSON.activities[i]]
+            tempDateObject[currentActivityDate] = [activities[i]]
             tempDateArray.push(currentActivityDate)
         }
     };
@@ -20,13 +23,15 @@ export default function ActivityList({formatDate, dateArray, dateObject, setDate
     
     setDateObject(tempDateObject)
     setDateArray(tempDateArray)
-    }, [itineraryJSON, setDateArray, setDateObject]); 
+    }, [states.itineraryJSON, setDateArray, setDateObject]); 
 
+
+    
     return (
         <div>
             <ul>
-                {dateArray.map(date => (buttonDate === "" ? true : date === buttonDate) &&
-                <li key={date}><h2>{formatDate(date)}</h2>{dateObject[date].sort((a,b) => Date.parse(a.startTime) - Date.parse(b.startTime)).map((item, index) => <ActivitySummary key={index} activity = {item} setDisplayActivityDetails = {setDisplayActivityDetails} editForm={editForm} setCloseActivityDetailsButton = {setCloseActivityDetailsButton}/>)}</li> 
+                {states.dateArray.map(date => (states.buttonDate === "" ? true : date === states.buttonDate) &&
+                <li key={date}><h2>{formatDate(date)}</h2>{dateObject[date].sort((a,b) => Date.parse(a.startTime) - Date.parse(b.startTime)).map((item, index) => <ActivitySummary key={index} activity = {item} states={states} setStates={setStates}/>)}</li> 
     ) }
             </ul>
         </div>
