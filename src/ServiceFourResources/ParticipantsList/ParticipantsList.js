@@ -29,7 +29,7 @@ function PartipantsList({eventId}) {
                 setEventParticipants(result.eventParticipants);
                 EventParticipants(result.eventParticipants);
             }).then(setLoadState(false)).catch(error => console.log('error', error));
-    }, []);
+    }, [eventId]);
 
     return (
         <div className="ParticipantsList">
