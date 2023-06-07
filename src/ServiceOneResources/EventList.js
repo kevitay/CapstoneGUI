@@ -36,7 +36,7 @@ export default function EventList() {
   return (
     <div>
       <h1>Event List</h1>
-      <Stack className="userEvents" direction="row" spacing={1.5}>
+      <Stack className="userEvents" direction="row" useFlexGap flexWrap="wrap">
         {state.eventsList.map((event) => {
           return <EventBrief event={event} key={event.id} />;
         })}
