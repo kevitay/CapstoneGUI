@@ -27,6 +27,10 @@ const Notifications = ({ user }) => {
       .catch(error => console.log('error', error));
   };
 
+  const sendReply = (e) => {
+
+  };
+
   useEffect(getNotificationsByUserName, [user]);
 
   return (
@@ -48,7 +52,18 @@ const Notifications = ({ user }) => {
                         <td>{result.messageFrom}</td>
                         <td>{result.subject}</td>
                         <td>{result.messageText}</td>
-                        <td> ADD RESPONSE STUFF HERE </td>
+                        <td> 
+                            <form onSubmit={(e) => sendReply(e)}>
+                                <input type="radio" id="going" name="response" value="Going" />
+                                <label for="going">Going</label>
+                                <input type="radio" id="notGoing" name="response" value="Not Going" />
+                                <label for="notGoing">Not Going</label>
+                                <input type="radio" id="tentative" name="response" value="Tentative" />
+                                <label for="tentative">Tentative</label>
+                                &nbsp; &nbsp; &nbsp;
+                                <input type="submit" value="Send Response" />
+                            </form>
+                        </td>
                     </tr>
                 ))}
             </tbody>
