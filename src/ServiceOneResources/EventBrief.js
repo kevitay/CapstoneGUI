@@ -1,4 +1,8 @@
-import React from "react";
+import React from 'react';
+import { Card, CardActionArea } from '@mui/material';
+
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
 
 export default function EventBrief({ event }) {
   function dateFormatter(dateTime) {
@@ -11,16 +15,12 @@ export default function EventBrief({ event }) {
       const day = date.getDate();
       const year = date.getFullYear();
       // Converting to 12-hour format
-      let amPm = hours >= 12 ? "PM" : "AM";
+      let amPm = hours >= 12 ? 'PM' : 'AM';
       hours = hours % 12 || 12;
 
-      return `${month.toString().padStart(2, "0")}/${day
-        .toString()
-        .padStart(2, "0")}/${year} ${hours.toString().padStart(2, "0")}:${minutes
-        .toString()
-        .padStart(2, "0")} ${amPm}`;
+      return `${month.toString().padStart(2, '0')}/${day.toString().padStart(2, '0')}/${year} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')} ${amPm}`;
     } else {
-      return "TBD";
+      return 'TBD';
     }
   }
 
@@ -33,25 +33,33 @@ export default function EventBrief({ event }) {
         </>
       );
     } else {
-      return "TBD";
+      return 'TBD';
     }
   }
 
-  function Button({ children }) {
-    return <button>{children}</button>;
-  }
+  // function Button({ children }) {
+  //   return <button>{children}</button>;
+  // }
 
   return (
-    <div key={event.id}>
-      <h2>Event Name: {event.name}</h2>
-      <h2>Location: {locationFormatter(event.startLocation)}</h2>
-      <h2>Time: {dateFormatter(event.startDateTime)}</h2>
-      <h2>Type: {event.type}</h2>
-      {/* This should work when we deploy but might error out if path changes */}
-      <a href={`/serviceOne/event/${event.id}`} rel='noopener noreferrer'>
-        <Button>View Event</Button>
-      </a>
-      <hr></hr>
-    </div>
+    // <Card key={event.id} sx={{ height: '250px', width: '250px', marginRight: '16px', marginBottom: '16px', border: '1px solid lightgray'}}>
+    <Card key={event.id} sx={{ width: '250px', height: '250px', marginRight: '16px', marginBottom: '16px' }}>
+      <CardActionArea href={`/serviceOne/event/${event.id}`} rel="noopener noreferrer" sx={{height: '100%'}}>
+        <CardContent>
+          <Typography gutterBottom variant="p" component="div" sx={{ fontWeight: 'bold' }}>
+            {event.name}
+          </Typography>
+          <Typography gutterBottom variant="p" component="div">
+            Location: {locationFormatter(event.startLocation)}
+          </Typography>
+          <Typography gutterBottom variant="p" component="div">
+            Time: {dateFormatter(event.startDateTime)}
+          </Typography>
+          <Typography gutterBottom variant="p" component="div">
+            Type: {event.type}
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
   );
 }

@@ -32,7 +32,7 @@ function DropDownFilter({ resetStatus, filterOn, filterName, participantState, d
                 setEventParticipants(categories);
             }
         } else if (filterOn === 'seats') {
-            const categories = participantState.filter(x => x.seatsAvail.toString() === category.toString());
+            const categories = participantState.filter(x => x.seatsAvail + '' === category);
             setEventParticipants(categories);
         }
 
@@ -45,7 +45,7 @@ function DropDownFilter({ resetStatus, filterOn, filterName, participantState, d
                 <select value={filterState} name={filterState} onChange={(e) => captureCategory(e)}>
                     <option hidden={true} selected value='' defaultValue={filterName}>{filterName}</option>
                     {uniqueData.map((option) => (
-                        <option value={option}>{option}</option>
+                        option ? <option value={option}>{option}</option> : ''
                     ))}
                 </select>
             </form>

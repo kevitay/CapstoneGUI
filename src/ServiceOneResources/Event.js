@@ -22,7 +22,7 @@ export default function Event() {
       };
 
       fetch(
-        "http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/" +
+        "http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/extended/" +
           id,
         requestOptions
       )
