@@ -1,5 +1,4 @@
 import React from "react";
-import "./UploadInterface.css";
 import { useState } from "react";
 import { Button, IconButton, Typography, Box } from "@mui/material";
 import Modal from '@mui/material/Modal';

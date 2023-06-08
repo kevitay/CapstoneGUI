@@ -35,14 +35,10 @@ function EventImages() {
             justifyContent: 'center',
             alignItems: 'center',
             margin: 'auto',
-            
+
         }}>
             <UploadInterface fetchEventImages={fetchEventImages} eventId={eventId}></UploadInterface>
-            {/* <form>
-                <input type="file" accept="image/*" onChange={handleFileChange} style={{ display: 'none' }}/>
-                <Button onClick={sendFile} variant="contained">Upload</Button>
-            </form> */}
-            <ImageList sx={{ width: 1000, height: 500 }} variant="quilted" cols={4}>
+            <ImageList sx={{ width: 1000, height: 500 }} variant="woven" cols={4} gap={8}>
                 {loading ? "" : imageList.map((img) => (<EventImage img={img}></EventImage>))}
             </ImageList>
         </Card>
