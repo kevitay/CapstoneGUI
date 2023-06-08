@@ -1,4 +1,8 @@
 import React from 'react';
+import TableCell from '@mui/material/TableCell';
+import TableRow from '@mui/material/TableRow';
+import Button from '@mui/material/Button';
+
 
 const Signup = ({ username, signupListItem, handleAddAssignee }) => {
   const signupForItem = () => {
@@ -6,16 +10,16 @@ const Signup = ({ username, signupListItem, handleAddAssignee }) => {
   };
 
   return (
-    <tr key={signupListItem.id}>
-      <td>{signupListItem.description}</td>
-      <td>{signupListItem.quantity}</td>
-      <td>
+    <TableRow key={signupListItem.id}>
+      <TableCell>{signupListItem.description}</TableCell>
+      <TableCell>{signupListItem.quantity}</TableCell>
+      <TableCell>
         {(username === null || username === "" || signupListItem.quantity === 0)
-          ? <button onClick={signupForItem} disabled> Sign Up! </button>
-          : <button onClick={signupForItem}> Sign Up! </button>
+          ? <Button variant="contained" onClick={signupForItem} disabled> Sign Up! </Button>
+          : <Button variant="contained" onClick={signupForItem}> Sign Up! </Button>
         }
-      </td>
-    </tr>
+      </TableCell>
+    </TableRow>
   );
 }
 
