@@ -1,20 +1,20 @@
 import React from 'react';
 import { useState, useContext } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+// import { useParams, useLocation } from 'react-router-dom';
 import EventType from './EventType';
 import AuthContext from '../IdentityResources/Contexts/AuthContext';
 
 
-function EditEvent() {
-  let { id } = useParams();
-  const location = useLocation();
-  const state = location.state;
-  const [eventName, setName] = useState(state.name);
-  const [organization, setOrganization] = useState(state.organization);
-  const [description, setDescription] = useState(state.description);
-  const [eventType, setEventType] = useState(state.type);
-  const [eventCost, setEventCost] = useState(state.baseCost);
-  const [isPublic, setIsPublic] = useState(state.public);
+function EditEvent({event, setCurrentEvent, setEditMode}) {
+  // let { id } = useParams();
+  // const location = useLocation();
+  // const state = location.state;
+  const [eventName, setName] = useState(event.name);
+  const [organization, setOrganization] = useState(event.organization);
+  const [description, setDescription] = useState(event.description);
+  const [eventType, setEventType] = useState(event.type);
+  const [eventCost, setEventCost] = useState(event.baseCost);
+  const [isPublic, setIsPublic] = useState(event.public);
   const [authState, ] = useContext(AuthContext);
 
   const radioEvent = (event) => {
@@ -27,7 +27,7 @@ function EditEvent() {
     myHeaders.append('Content-Type', 'application/json');
 
     var raw = JSON.stringify({
-      id: id,
+      id: event.id,
       creatorID: authState.username,
       name: eventName,
       organization: organization,
@@ -46,19 +46,24 @@ function EditEvent() {
       authorization: authState.token
     };
 
-    fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/' + id, requestOptions)
+    fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/' + event.id, requestOptions)
       .then((response) => response.json())
+      //converts response to json
+      //then update the currentEvent state in Event with the updated event from the response body
+      .then((response) => {setCurrentEvent(response);
+        setEditMode(false);
+      })
       .catch((error) => console.log('error', error));
     // will have to delete if we add other components
 
-    await routeToEvent();
+    // await routeToEvent();
   }
 
   // will have to delete if we add other components
-  async function routeToEvent() {
-    // might be better to route to edit itinerary component page 
-    window.location.replace(`/serviceOne/event/${id}`);
-  }
+  // async function routeToEvent() {
+  //   // might be better to route to edit itinerary component page 
+  //   window.location.replace(`/serviceOne/event/${id}`);
+  // }
   
   return (
     <div className="eventSubmit">
@@ -111,9 +116,9 @@ function EditEvent() {
         {/* might include Edit Itinerary component , might need to create logic to flow from editing basic event details to itinerary */}
         <button type="submit">Submit</button>
       </form>
-      <a href={`/serviceOne/event/${id}`} rel="noopener noreferrer">
-        <button>Cancel Edit </button>
-      </a>
+      {/* <a href={`/serviceOne/event/${id}`} rel="noopener noreferrer"> */}
+        <button type="button" onClick={() => setEditMode(false)}>Cancel Edit </button>
+      {/* </a> */}
     </div>
   );
 }

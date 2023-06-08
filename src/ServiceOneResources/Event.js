@@ -3,6 +3,7 @@ import Login from "../IdentityResources/Login";
 import OrganizerControl from "./OrganizerControl";
 import AuthContext from "../IdentityResources/Contexts/AuthContext";
 import { useParams } from "react-router-dom";
+import EditEvent from "./EditEvent";
 
 
 //react event
@@ -10,6 +11,7 @@ export default function Event() {
   const [currentEvent, setCurrentEvent] = useState(null);
   const [authState,] = useContext(AuthContext);
   const [userIsOwner, setUserIsOwner] = useState(false);
+  const [editMode, setEditMode] = useState(false);
 
     let { id } = useParams();
     // console.log(id);
@@ -86,29 +88,35 @@ export default function Event() {
   //using an if statement to handle the async setCurrentEvent could also use {(currentEvent) ? (<div>…</div>) :( <></>)}
   if (!currentEvent) return null;
   return (
-    <div>
+    <>
       {(!authState.token)?(<Login></Login>):(<></>)}
-      <div className='eventDetails'>
-        <h1>{currentEvent.name}</h1>
-        <h3>
-          {currentEvent.organization} | {currentEvent.type}
-        </h3>
-        <p>{currentEvent.description}</p>
-        <p>Status: {currentEvent.status}</p>
-      </div>
-      <div className='locationDetails'>
-        <h2>When and Where</h2>
-        <h3>Start Time: {dateFormatter(currentEvent.startDateTime)}</h3>
-        <h3>End Time: {dateFormatter(currentEvent.endDateTime)}</h3>
-        <h3>Start Location: {locationFormatter(currentEvent.startLocation)}</h3>
-        <h3>End Location: {locationFormatter(currentEvent.endLocation)}</h3>
-      </div>
-      <div className='baseCost'>
-        <h3>Base Cost: ${currentEvent.baseCost}</h3>
-      </div>
+      
+      {(!editMode)?(
+      <>  
+        <div className='eventDetails'>
+          <h1>{currentEvent.name}</h1>
+          <h3>
+            {currentEvent.organization} | {currentEvent.type}
+          </h3>
+          <p>{currentEvent.description}</p>
+          <p>Status: {currentEvent.status}</p>
+        </div>
+        <div className='locationDetails'>
+          <h2>When and Where</h2>
+          <h3>Start Time: {dateFormatter(currentEvent.startDateTime)}</h3>
+          <h3>End Time: {dateFormatter(currentEvent.endDateTime)}</h3>
+          <h3>Start Location: {locationFormatter(currentEvent.startLocation)}</h3>
+          <h3>End Location: {locationFormatter(currentEvent.endLocation)}</h3>
+        </div>
+        <div className='baseCost'>
+          <h3>Base Cost: ${currentEvent.baseCost}</h3>
+        </div>
+      </>
+      ):(<EditEvent event={currentEvent} setCurrentEvent={setCurrentEvent} setEditMode={setEditMode}/>)}
       <div>
-        {(userIsOwner) ? (<OrganizerControl event={ currentEvent } setCurrentEvent={ setCurrentEvent } />):(<></>)}
+        {(userIsOwner) ? (<OrganizerControl event={ currentEvent } setCurrentEvent={ setCurrentEvent } editMode={editMode} setEditMode={setEditMode} />):(<></>)}
       </div>
-    </div>
+    </>
+
   );
 }
