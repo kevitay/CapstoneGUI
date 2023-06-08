@@ -2,6 +2,7 @@ import React from "react";
 import { NavLink, Route, Routes } from "react-router-dom";
 import OrganizerViewApp from "./OrganizerViewApp";
 import ParticipantView from "./participantView";
+import Notifications from "./notifications";
 
 
 
@@ -19,11 +20,15 @@ function ServiceTwoApp(eventId) {
                     <li>
                         <NavLink to={'/serviceTwo/participantView'}>Participant View</NavLink>
                     </li>
+                    <li>
+                        <NavLink to={'/serviceTwo/notifications'}>Notifications</NavLink>
+                    </li>
                 </ul>
             </nav>
             <Routes>
                 <Route path={'/organizerView/*'} element={<OrganizerViewApp eventId={eventId} />}></Route>
                 <Route path={'/participantView/*'} element={<ParticipantView eventId={eventId} />}></Route>
+                <Route path={'/notifications/*'} element={<Notifications />}></Route>
             </Routes>
         </div>
     )

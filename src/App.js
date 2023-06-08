@@ -13,6 +13,8 @@ import EventList from './ServiceOneResources/EventList';
 import EditEvent from './ServiceOneResources/EditEvent';
 import AuthContext from './IdentityResources/Contexts/AuthContext';
 import { useReducer } from 'react';
+import Header from './Header';
+import { ColorModeProvider } from './ModeContext';
 
 const authInitialState = {
   username: '',
@@ -36,7 +38,9 @@ function App() {
 
   return (
     <div className="App">
-      <h1>App</h1>
+      <AuthContext.Provider value={[authState, authDispatch]}>
+      <ColorModeProvider>
+      <Header/>
       <nav>
         <ul>
           <li>
@@ -59,7 +63,6 @@ function App() {
           </li>
         </ul>
       </nav>
-      <AuthContext.Provider value={[authState, authDispatch]}>
         <EventProvider>
           <Routes>
             <Route path={'/'} element={<Home />}></Route>
@@ -74,6 +77,7 @@ function App() {
             <Route path={'/identity/*'} element={<IdentityApp />}></Route>
           </Routes>
         </EventProvider>
+        </ColorModeProvider>
       </AuthContext.Provider>
     </div>
   );
