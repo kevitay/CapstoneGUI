@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Button, Card, Divider, Typography } from '@mui/material'; 
+import { useNavigate } from 'react-router';
+import { Button, Card, CardActionArea, Divider, Typography } from '@mui/material'; 
 
 function CurrentEvent({ event, eventInfo }) {
   console.log("event part info", event)
@@ -8,6 +9,7 @@ function CurrentEvent({ event, eventInfo }) {
   const [carpool, setCarpool] = useState(event.carpool);
   const [seatsAvail, setSeatsAvail] = useState(event.seatsAvail);
   const [index, setCurrentIndex] = useState(0);
+  const navigate = useNavigate();
 
 
   useEffect(() => {
@@ -95,6 +97,10 @@ function CurrentEvent({ event, eventInfo }) {
     );
   }
 
+  function handleEventCardClick() {
+    navigate(`/serviceOne/event/${event.eventId}`);
+  }
+
   return (
     <Card
       sx={{
@@ -106,7 +112,8 @@ function CurrentEvent({ event, eventInfo }) {
         borderRadius: "8px",
         boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
       }} >
-      <Typography variant="h4" fontWeight="bold" gutterBottom>
+        <CardActionArea onClick={handleEventCardClick} rel="noopener noreferrer" sx={{height: '100%'}}>
+      <Typography variant="h5" fontWeight="bold" gutterBottom>
         {eventInfo[index].name}
       </Typography>
       <Typography variant="body1" gutterBottom>
@@ -146,6 +153,7 @@ function CurrentEvent({ event, eventInfo }) {
         {seatsAvail !== null ? seatsAvail : "Needs Response"}
       </strong>
     </Typography>
+    </CardActionArea>
       <Button onClick={handleEditClick} variant="contained" sx={{ mt: 2 }}>
         Edit
       </Button>

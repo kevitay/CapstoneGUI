@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../../IdentityResources/Contexts/AuthContext.js";
 import CurrentEvent from "./CurrentEvent.js";
-import { Box } from '@mui/material'; 
+import { Box, Typography } from '@mui/material'; 
 
 function CurrentEvents() {
 
@@ -38,6 +38,9 @@ function CurrentEvents() {
 
     return (
         <div>
+      <Typography variant="h4" fontWeight="bold" gutterBottom>
+        Events I've been invited to
+      </Typography>
           <Box sx={{
             display: 'flex'
             }}>
