@@ -17,7 +17,7 @@ import React, {useState, useContext } from "react";
 import { useTheme } from "@emotion/react";
 import { colorModeContext } from "./ModeContext";
 import AuthContext from "./IdentityResources/Contexts/AuthContext";
-import Brightness4Icon from "@mui/icons-material/Brightness4";
+import Brightness4Icon from '@mui/icons-material/Brightness4';
 import Brightness7Icon from "@mui/icons-material/Brightness7";
 import SailingIcon from "@mui/icons-material/Sailing";
 import PersonIcon from '@mui/icons-material/Person';
