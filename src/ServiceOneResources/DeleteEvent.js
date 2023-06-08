@@ -12,11 +12,14 @@ export default function DeleteEvent({ id }) {
 
   useEffect(() => {
     function handleDeleteEvent() {
+      var myHeaders = new Headers();
+      myHeaders.append('Content-Type', 'application/json');
+      myHeaders.append('Authorization', authState.token);
 
       var requestOptions = {
         method: 'DELETE',
         mode: 'cors',
-        authorization: authState.token,
+        headers: myHeaders
       };
 
       switch (deletionStep) {
@@ -46,10 +49,10 @@ export default function DeleteEvent({ id }) {
             .then(setDeletionStep(0))
             .catch((error) => console.log(error));
           break;
-        default: return;
+        default:
+          return;
       }
 
-      
       // fetch('http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist?eventId=' + id, requestOptions)
       //   .then((response) => console.log('Success- Checklist ' + id + ' Deleted'))
       //   .catch((error) => console.log(error))
@@ -75,7 +78,6 @@ export default function DeleteEvent({ id }) {
     }
 
     handleDeleteEvent();
-
   }, [deletionStep, id, setDeleteStatus, authState]);
 
   return (

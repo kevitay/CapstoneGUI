@@ -10,11 +10,15 @@ export default function CreatorEvents() {
   useEffect(() => {
     function getEventsByUsername() {
 
+      var myHeaders = new Headers();
+      myHeaders.append('Content-Type', 'application/json');
+      myHeaders.append('Authorization', authState.token);
+
       // TODO needs to be put into fetch call
       var requestOptions = {
         method: 'GET',
         mode: 'cors',
-        authorization: authState.token,
+        headers: myHeaders,
       };
 
       fetch(
