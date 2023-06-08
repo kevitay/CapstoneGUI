@@ -5,7 +5,9 @@ import DateSelector from "./DateSelector";
 import CreateNewActivity from "./CreateNewActivity";
 import { fetchFunction, ACTIONS } from "./FetchFunctions";
 
-function Itinerary() {
+function Itinerary({}) {
+  let eventID = 20;
+
   useEffect(() => {
     fetchFunction({dispatch: setItineraryJSON, type: ACTIONS.GET_ACTIVITIES});
   },[]);
@@ -34,7 +36,7 @@ const formatDate = function(date){
 return (
     <div className="Itinerary">
         <h2 style={{color:'red'}}>Create Activity Component</h2>
-        <CreateNewActivity states={states} setStates={setStates}/>
+        <CreateNewActivity states={states} setStates={setStates} eventID={eventID}/>
 
         <h2 style={{color: 'red'}}>Date Selector Component</h2>
         <DateSelector formatDate={formatDate} states={states} setStates={setStates}/>

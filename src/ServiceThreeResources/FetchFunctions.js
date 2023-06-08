@@ -24,7 +24,9 @@ export const fetchFunction = function(action){
 }
 
 const getActivities = function(action){
-    fetch(`http://a08cb134e19c8438285f05f4a630b6bd-117037464.us-west-2.elb.amazonaws.com/api/activities`)
+    // const id = action.payload.eventId;
+    let id = 20;
+    fetch(`http://a08cb134e19c8438285f05f4a630b6bd-117037464.us-west-2.elb.amazonaws.com/api/activities/${id}`)
     .catch((err)=> console.error(err))
     .then((response) => response.json())
     .then((data) => {
