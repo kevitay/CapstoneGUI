@@ -18,6 +18,7 @@ function CreateEvent({ setCreationStep, setEvent }) {
 
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
+    myHeaders.append('Authorization', authState.token);
 
     var raw = JSON.stringify({
       creatorID: authState.username,
@@ -32,20 +33,19 @@ function CreateEvent({ setCreationStep, setEvent }) {
 
     var requestOptions = {
       method: 'POST',
+      mode: 'cors',
       headers: myHeaders,
       body: raw,
-      redirect: 'follow',
-      authorization: authState.token
+      redirect: 'follow'
     };
 
-    fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event', requestOptions)
+    fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/', requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result.id !== null) {
           setEvent(result);
           setCreationStep(2);
         }
-        //console.log(result);
       })
       .catch((error) => console.log('error', error));
   }

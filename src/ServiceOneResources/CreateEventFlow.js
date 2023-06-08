@@ -25,7 +25,7 @@ function CreateEventFlow() {
           headers: myHeaders,
           body: raw,
           redirect: 'follow',
-          authorization: authState.token,
+          authorization: authState.token
         };
 
         fetch(

@@ -13,7 +13,7 @@ export default function EventList() {
     function getEvents() {
       var requestOptions = {
         method: "GET",
-        mode: "cors",
+        mode: "cors"
       };
 
       fetch(
