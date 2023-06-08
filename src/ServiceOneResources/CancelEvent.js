@@ -8,9 +8,10 @@ export default function CancelEvent({ event, setCurrentEvent }) {
   function handleCancelEvent() {
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
+    myHeaders.append('Authorization', authState.token);
 
     var raw = JSON.stringify({
-      status: 'Cancelled',
+      status: 'cancelled',
     });
 
     var requestOptions = {
@@ -19,23 +20,25 @@ export default function CancelEvent({ event, setCurrentEvent }) {
       headers: myHeaders,
       body: raw,
       redirect: 'follow',
-      authorization: authState.token,
     };
 
     fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/' + id, requestOptions)
       .then((response) => response.json())
       .then((response) => setCurrentEvent(response))
       .catch((error) => console.log('error', error));
-    
-    console.log(event);
 
+    console.log(event);
   }
 
   return (
     <>
-      <button onClick={() => {
-        handleCancelEvent();
-      }}>Cancel Event</button>
+      <button
+        onClick={() => {
+          handleCancelEvent();
+        }}
+      >
+        Cancel Event
+      </button>
     </>
   );
 }
