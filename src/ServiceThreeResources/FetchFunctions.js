@@ -24,14 +24,24 @@ export const fetchFunction = function(action){
 }
 
 const getActivities = function(action){
-    // const id = action.payload.eventId;
-    let id = 20;
-    fetch(`http://a08cb134e19c8438285f05f4a630b6bd-117037464.us-west-2.elb.amazonaws.com/api/activities/${id}`)
-    .catch((err)=> console.error(err))
-    .then((response) => response.json())
+  const id = action.eventId;
+  fetch(`http://a08cb134e19c8438285f05f4a630b6bd-117037464.us-west-2.elb.amazonaws.com/api/activities/${id}`)
+    .then((response) => {
+      if (response.status === 204) {
+        action.dispatch({ activities: [] });
+      } else {
+        return response.json();
+      }
+    })
     .then((data) => {
-    action.dispatch(data);
-  });
+      console.log(data);
+      if (data) {
+        action.dispatch(data);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+    });
   }
 
   const createActivity = function(action){
