@@ -10,11 +10,6 @@ function EventImage({ img }) {
                 loading="lazy"
             />
         </ImageListItem>
-
-        // <img
-        //     src={"data:image/jpg;base64," + img.data}
-        //     alt="Failed to load"
-        // />
     )
 }
 

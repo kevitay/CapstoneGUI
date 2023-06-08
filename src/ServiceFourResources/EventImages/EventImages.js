@@ -28,20 +28,21 @@ function EventImages() {
 
     return (
         <Card sx={{
-            width: 500,
+            width: 1000,
             fontSize: '20px',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
             margin: 'auto',
+            
         }}>
             <UploadInterface fetchEventImages={fetchEventImages} eventId={eventId}></UploadInterface>
             {/* <form>
                 <input type="file" accept="image/*" onChange={handleFileChange} style={{ display: 'none' }}/>
                 <Button onClick={sendFile} variant="contained">Upload</Button>
             </form> */}
-            <ImageList sx={{ width: 750, height: 500 }} variant="woven" cols={3} gap={8}>
+            <ImageList sx={{ width: 1000, height: 500 }} variant="quilted" cols={4}>
                 {loading ? "" : imageList.map((img) => (<EventImage img={img}></EventImage>))}
             </ImageList>
         </Card>
