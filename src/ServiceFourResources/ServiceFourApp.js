@@ -15,9 +15,9 @@ function ServiceFourApp() {
     return (
         <div className="ServiceFourApp">
             <h1>Service Four</h1>
-            <EventImageNav eventId={eventId}></EventImageNav>
+            {/* <EventImageNav eventId={eventId}></EventImageNav>
             <MyEvents></MyEvents>
-            <ParticipantsList eventId={eventId}></ParticipantsList>
+            <ParticipantsList eventId={eventId}></ParticipantsList> */}
             <InviteList eventId={eventId}></InviteList>
             <ProfilePage></ProfilePage>
         </div>

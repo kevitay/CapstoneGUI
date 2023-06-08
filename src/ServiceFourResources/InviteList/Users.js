@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import UserData from "./UserData";
-import inviteNameSearch from "./inviteNameSearch";
+import InviteNameSearch from "./inviteNameSearch";
 
 import { Table, TableBody, TableContainer, TableRow, FormControl, TableHead, TableCell, Button, TablePagination } from '@mui/material';
 
@@ -9,7 +9,16 @@ function Users({ eventId }) {
     const [userState, setUser] = useState([]);
     const [loading, setLoadState] = useState(false);
     const [inviteSuccess, setSuccess] = useState("")
-    // const [usersToInvite, setUsersToInvite] = useState([]);
+    const [originalState, setLoadingState] = useState([]);
+    const [resetStatus, setResetStatus] = useState(false);
+  
+
+    function stateReset(e) {
+        setResetStatus(!resetStatus);
+        console.log(originalState);
+        e.preventDefault();
+        setLoadingState(originalState);
+    }
 
     let selectedUsers = [];
 
@@ -24,6 +33,7 @@ function Users({ eventId }) {
             .then(result => {
                 setUser(result.users)
             })
+            .then(result => {setLoadingState(result)})
             .then(setLoadState(false))
             .catch(error => console.log('error', error));
     }, []);
@@ -91,9 +101,9 @@ function Users({ eventId }) {
                                 <TableRow>
                                     <TableHead>
                                         <TableRow>
-                                            <TableCell ></TableCell>
+                                            <TableCell ><button onClick={(e) => stateReset(e)}>Clear Filters</button></TableCell>
                                             <TableCell>Invite</TableCell>
-                                            <TableCell><intiveNameSearch></intiveNameSearch></TableCell>
+                                            <TableCell><InviteNameSearch resetStatus={resetStatus} users={userState} setUserState={setUser}></InviteNameSearch></TableCell>
                                             <TableCell>Location</TableCell>
                                         </TableRow>
                                     </TableHead>
@@ -102,7 +112,6 @@ function Users({ eventId }) {
                                     }
                                 </TableRow>
                             </TableBody>
-
                             <TablePagination
                                 rowsPerPageOptions={[5, 10, 25]}
                                 component="div"

@@ -1,10 +1,11 @@
-import {React, useState, useEffect} from "react";
+import { React, useState, useEffect } from "react";
+import { FormControl, Button, Input} from '@mui/material';
 
-function NameSearch({users}) {
+function InviteNameSearch({ users, setUserState, resetStatus }) {
 
     const [searchTerm, setSearchTerm] = useState("");
 
-    const captureCategory = (users) => {
+    const captureCategory = (event) => {
         event.preventDefault()
         const newValue = event.target.value;
         console.log(newValue)
@@ -15,17 +16,21 @@ function NameSearch({users}) {
         console.log(searchTerm)
         e.preventDefault()
         const categories = users.filter(x => x.user.firstName + " " + x.user.lastName === searchTerm);
-        setEventParticipants(categories);
+        console.log(categories)
+        setUserState(categories);
     }
 
     useEffect(() => { setSearchTerm("") }, [resetStatus]);
 
     return (
         <form onSubmit={(e) => handleSearch(e)}>
-            <input onChange={(e) => captureCategory(e)} type="text" value={searchTerm} placeholder="Enter Name"></input>
-            <button type="submit">Search</button>
+            <FormControl>
+                <Input onChange={(e) => captureCategory(e)} type="text" value={searchTerm} placeholder="Enter Name"></Input>
+                <Button type="submit" >Search</Button>
+            </FormControl>
+
         </form>
     )
 }
 
-export default NameSearch;
+export default InviteNameSearch;
