@@ -143,9 +143,9 @@ const ParticipantView = ({ eventId }) => {
         <Table size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
-              <TableHead>Description</TableHead>
-              <TableHead># Remaining</TableHead>
-              <TableHead></TableHead>
+              <TableCell>Description</TableCell>
+              <TableCell># Remaining</TableCell>
+              <TableCell></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
