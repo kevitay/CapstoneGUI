@@ -34,9 +34,8 @@ function UploadInterface({ fetchEventImages, eventId }) {
     return (
         <>
             <ButtonGroup variant="contained">
-                <Button>One</Button>
-                <Button>Two</Button>
-                <Button>Three</Button>
+                <Button></Button>
+                <Button></Button>
             </ButtonGroup>
         </>
 
