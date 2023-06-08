@@ -1,4 +1,5 @@
 import { ACTIONS, fetchFunction } from "./FetchFunctions";
+import Button from "@mui/material/Button";
 import React from "react";
 
 export default function ActivityDetails({editForm, setEditForm, dispatch, displayActivityDetails, setDisplayActivityDetails, closeActivityDetailsButton, setCloseActivityDetailsButton}) {
@@ -28,24 +29,24 @@ export default function ActivityDetails({editForm, setEditForm, dispatch, displa
 
     return (
         <div>
-            {closeActivityDetailsButton && <button onClick={() => {setDisplayActivityDetails({}); setCloseActivityDetailsButton(false)}}>Close Details</button>}
+            {closeActivityDetailsButton && <Button onClick={() => {setDisplayActivityDetails({}); setCloseActivityDetailsButton(false)}} variant="contained">Close Details</Button>}
 
-            {displayActivityDetails.id && closeActivityDetailsButton && <button onClick={() => {
+            {displayActivityDetails.id && closeActivityDetailsButton && <Button onClick={() => {
                 setEditForm(true)
                 setCloseActivityDetailsButton(false);
-            }}>Edit Activity</button>}
+            }} variant="contained">Edit Activity</Button>}
             
 
 
 
 
-            {displayActivityDetails.id && closeActivityDetailsButton && <button onClick={() => {
+            {displayActivityDetails.id && closeActivityDetailsButton && <Button onClick={() => {
                 const confirmed = window.confirm("Are you sure you want to delete this activity?");
                 if (confirmed) {
                     fetchFunction({ type: ACTIONS.DELETE_ACTIVITY, payload:displayActivityDetails, dispatch: dispatch.setItineraryJSON, itinerary: dispatch.itineraryJSON });
                     setDisplayActivityDetails({});
                     setCloseActivityDetailsButton(false);
-            }}}>Delete Activity</button>}
+            }}} variant="contained">Delete Activity</Button>}
 
             <ul>
             {!editForm && Object.entries(displayActivityDetails).map(([key, value], index) => value && <li key={index}><h4>{key}</h4><p>{value}</p></li>)}

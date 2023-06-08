@@ -1,4 +1,5 @@
 import React from "react";
+import Button from "@mui/material/Button";
 
 export default function ActivitySummary({editForm, activity, setDisplayActivityDetails, setCloseActivityDetailsButton}) {
     const time = new Date(activity.startTime); 
@@ -13,7 +14,7 @@ export default function ActivitySummary({editForm, activity, setDisplayActivityD
             <p >{activity.description}</p>
             <p >Activity Start Time:{formattedTime}</p>
 
-            {!editForm && <button  onClick={() => {setDisplayActivityDetails(activity); setCloseActivityDetailsButton(true)}}>Expand Details</button>}
+            {!editForm && <Button  onClick={() => {setDisplayActivityDetails(activity); setCloseActivityDetailsButton(true)}} variant="contained">Expand Details</Button>}
         </div>
     )
 }; 
