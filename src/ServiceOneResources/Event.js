@@ -30,7 +30,7 @@ export default function Event() {
         .catch((error) => console.log('error', error));
     }
     getEventById();
-  }, [id]);
+  }, [id, authState.token]);
 
   useEffect(() => {
     if (currentEvent !== null) {
@@ -42,7 +42,7 @@ export default function Event() {
         setUserIsOwner(true);
       }
     }
-  }, [userIsOwner, authState.token, currentEvent]);
+  }, [userIsOwner, authState, currentEvent]);
 
   function dateFormatter(dateTime) {
     if (dateTime !== null) {
