@@ -74,7 +74,7 @@ function ItemList({ items, setPackingList, eventId }) {
     fetch(checklistUrl + "/" + eventId, requestOptions)
       .then(response => response.json())
       .then(result => {
-        console.log("result: ", result);
+        // console.log("result: ", result);
         setPackingList((result.checklist.length > 1) ? result.checklist.sort((a, b) => parseInt(a.id) - parseInt(b.id)) : result.checklist);
       })
       .catch(error => console.log('error', error));
@@ -85,11 +85,11 @@ function ItemList({ items, setPackingList, eventId }) {
 
   const onChangeInput = (e, index) => {
     let { name, value } = e.target
-    console.log(name, value);
+    // console.log(name, value);
     let editList = items.map(item => ({ ...item }))
     if (name === "required") value = e.target.checked;
     editList[index][name] = value;
-    console.log("editList: ", editList);
+    // console.log("editList: ", editList);
     setPackingList(editList);
   }
   console.log("item array", items);
