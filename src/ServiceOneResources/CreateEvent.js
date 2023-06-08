@@ -1,6 +1,6 @@
 import React from 'react';
-import { useState, useContext} from 'react';
-import AuthContext from "../IdentityResources/Contexts/AuthContext";
+import { useState, useContext } from 'react';
+import AuthContext from '../IdentityResources/Contexts/AuthContext';
 //import { EventContext } from "./EventsContext";
 import Login from '../IdentityResources/Login';
 import EventType from './EventType';
@@ -12,12 +12,12 @@ function CreateEvent({ setCreationStep, setEvent }) {
   const [eventType, setEventType] = useState('');
   const [eventCost, setEventCost] = useState('');
   const [isPublic, setIsPublic] = useState(false);
-  const [authState,] = useContext(AuthContext);
- 
-  function postNewEvent(eventName, organization, description, eventType, eventCost) {
+  const [authState] = useContext(AuthContext);
 
+  function postNewEvent(eventName, organization, description, eventType, eventCost) {
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
+    myHeaders.append('Authorization', authState.token);
 
     var raw = JSON.stringify({
       creatorID: authState.username,
@@ -27,36 +27,35 @@ function CreateEvent({ setCreationStep, setEvent }) {
       type: eventType,
       baseCost: Math.abs(eventCost),
       status: 'Draft',
-      public: isPublic
+      public: isPublic,
     });
 
     var requestOptions = {
       method: 'POST',
+      mode: 'cors',
       headers: myHeaders,
       body: raw,
       redirect: 'follow',
-      authorization: authState.token
     };
 
-    fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event', requestOptions)
+    fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/', requestOptions)
       .then((response) => response.json())
       .then((result) => {
         if (result.id !== null) {
           setEvent(result);
           setCreationStep(2);
         }
-        //console.log(result);
       })
       .catch((error) => console.log('error', error));
   }
 
-   const radioEvent = (event) => {
-     setIsPublic(event.target.value === 'true');
-   };
+  const radioEvent = (event) => {
+    setIsPublic(event.target.value === 'true');
+  };
 
   return (
     <div className="eventSubmit">
-       {(!authState.token)?(<Login></Login>):(<></>)}
+      {!authState.token ? <Login></Login> : <></>}
       <h2>Create A New Event</h2>
       <form
         action=""
@@ -104,7 +103,9 @@ function CreateEvent({ setCreationStep, setEvent }) {
         </fieldset>
         <br />
         <br />
-        <button disabled={!authState.token} type="submit">Submit</button>
+        <button disabled={!authState.token} type="submit">
+          Submit
+        </button>
       </form>
     </div>
   );

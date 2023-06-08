@@ -1,5 +1,5 @@
 # .gitlab-ci.yml
-image: node:14.17
+image: node:18.14.1
 
 stages:
   - build

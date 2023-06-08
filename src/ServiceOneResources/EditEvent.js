@@ -25,6 +25,7 @@ function EditEvent({event, setCurrentEvent, setEditMode}) {
 
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
+    myHeaders.append('Authorization', authState.token);
 
     var raw = JSON.stringify({
       id: event.id,
@@ -40,10 +41,10 @@ function EditEvent({event, setCurrentEvent, setEditMode}) {
 
     var requestOptions = {
       method: 'PUT',
+      mode: 'cors',
       headers: myHeaders,
       body: raw,
       redirect: 'follow',
-      authorization: authState.token
     };
 
     fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/' + event.id, requestOptions)
