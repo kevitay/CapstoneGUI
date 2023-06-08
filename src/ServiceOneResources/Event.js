@@ -102,6 +102,9 @@ export default function Event() {
         <h3>Base Cost: ${currentEvent.baseCost}</h3>
       </div>
       <div>{userIsOwner ? <OrganizerControl event={currentEvent} setCurrentEvent={setCurrentEvent} /> : <></>}</div>
+    <p>placeholder for Participants list user view (assume your own component returns empty if not applicable)</p>
+    <p>placeholder for Itinerary user view (assume your own component returns empty if not applicable)</p>    
+    <p>placeholder for Checklist user view (assume your own component returns empty if not applicable)</p>
     </div>
   );
 }
