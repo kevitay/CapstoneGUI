@@ -41,7 +41,6 @@ const Login = ({ handleClose }) => {
         authDispatch({ type: "saveAuth", payload: { username, token: authToken } });
         setUsername("");
         setPassword("");
-        console.log(username)
         setTimeout(() => {
           handleClose();
         }, 100);

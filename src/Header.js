@@ -42,6 +42,11 @@ function Header() {
     navigate("/");
   }
 
+  function handleCreateEvent() {
+    //handles navigation to home page
+    navigate("/serviceOne/createEventFlow");
+  }
+
   const [anchorEl, setAnchorEl] = useState(null);
   const openMenu = Boolean(anchorEl);
   const handleMenuClick = (event) => {
@@ -52,7 +57,7 @@ function Header() {
   };
   function handleProfileClicked() {
     //handles navigation to profile page
-    navigate("/profile");
+    navigate("/serviceFour/profile");
     handleMenuClose()
   }
   const logout = (e) => {
@@ -93,7 +98,7 @@ function Header() {
             ) : (
               <>
                 {" "}
-                <Button variant='outlined' color='inherit' href='/createEvent'>
+                <Button variant='outlined' color='inherit' onClick={handleCreateEvent}>
                   Create Event
                 </Button>
                 <IconButton onClick={colorMode.toggleColorMode} color='inherit'>
