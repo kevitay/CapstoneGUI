@@ -10,7 +10,7 @@ const Signup = ({ username, signupListItem, handleAddAssignee }) => {
       <td>{signupListItem.description}</td>
       <td>{signupListItem.quantity}</td>
       <td>
-        {(signupListItem.quantity === 0)
+        {(username === null || username === "" || signupListItem.quantity === 0)
           ? <button onClick={signupForItem} disabled> Sign Up! </button>
           : <button onClick={signupForItem}> Sign Up! </button>
         }

@@ -69,7 +69,7 @@ const ParticipantView = ({ eventId }) => {
   return (
     <div>
       <h2>Participant View</h2>
-      <p>User ID: {username}</p>
+      <p>User ID: {username ? username : "You are not logged in. Please login to continue."}</p>
       <p>Event ID: {eventId}</p>
       <h3>Packing List Items for event {eventId}</h3>
       <table>
