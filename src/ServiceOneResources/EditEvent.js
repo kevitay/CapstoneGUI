@@ -21,7 +21,7 @@ function EditEvent({event, setCurrentEvent, setEditMode}) {
     setIsPublic(event.target.value === 'true');
   };
 
-  async function updateEvent(eventName, organization, description, eventType, eventCost) {
+  function updateEvent(eventName, organization, description, eventType, eventCost) {
 
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
