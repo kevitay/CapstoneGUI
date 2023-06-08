@@ -136,6 +136,9 @@ export default function Event() {
       <div>
         {(userIsOwner) ? (<OrganizerControl event={ currentEvent } setCurrentEvent={ setCurrentEvent } editMode={editMode} setEditMode={setEditMode} />):(<></>)}
       </div>
+      <p>placeholder for Participants list user view (assume your own component returns empty if not applicable)</p>
+    <p>placeholder for Itinerary user view (assume your own component returns empty if not applicable)</p>    
+    <p>placeholder for Checklist user view (assume your own component returns empty if not applicable)</p>
     </>
 
   );
