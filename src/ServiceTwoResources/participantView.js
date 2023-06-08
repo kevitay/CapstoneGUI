@@ -10,7 +10,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Typography } from '@mui/material';
-import { Button } from '@mui/base';
+import Button from '@mui/material/Button';
 
 
 
@@ -81,25 +81,27 @@ const ParticipantView = ({ eventId }) => {
       <Typography variant="h4">Participant View</Typography>
       <p>User ID: {username ? username : "You are not logged in. Please login to continue."}</p>
       <p>Event ID: {eventId}</p>
-      <Typography variant="h5">Packing List Items for event {eventId}</Typography>
+      <Typography variant="h6">Packing List Items for event {eventId}</Typography>
 
       <TableContainer component={Paper}>
         <Table size="small" aria-label="a dense table">
           <TableHead>
-            <TableRow>
-              <TableCell>Description</TableCell>
-              <TableCell align="right">Quantity</TableCell>
-              <TableCell align="right">Required</TableCell>
+            <TableRow >
+              <TableCell sx={{width: 350, fontWeight: 'bold'}}>DESCRIPTION</TableCell>
+              <TableCell sx={{width: 350, fontWeight: 'bold'}} align="center">QUANTITY</TableCell>
+              <TableCell sx={{width: 350, fontWeight: 'bold'}} align="center">REQUIRED</TableCell>
+              <TableCell sx={{width: 350}}></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {packingList.length > 0 ? packingList.map(result => (
               <TableRow key={result.id} sx={{}}>
                 <TableCell>{result.description}</TableCell>
-                <TableCell align="right">{result.quantity}</TableCell>
-                <TableCell align="right">
+                <TableCell align="center">{result.quantity}</TableCell>
+                <TableCell align="center">
                   {(result.required) ? "yes" : ""}
                 </TableCell>
+                <TableCell></TableCell>
               </TableRow>
             ))
               : <TableRow><TableCell colSpan="3">No Packing List Items</TableCell></TableRow>
@@ -108,27 +110,27 @@ const ParticipantView = ({ eventId }) => {
         </Table>
       </TableContainer>
 
-      <Typography variant="h5">Signup List Items I've Signed Up For</Typography>
+      <Typography variant="h6">Signup List Items I've Signed Up For</Typography>
 
       <TableContainer component={Paper}>
         <Table size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
-              <TableCell>Description</TableCell>
-              <TableCell>Quantity</TableCell>
-              <TableCell>Required</TableCell>
-              <TableCell></TableCell>
+              <TableCell sx={{width: 350, fontWeight: 'bold'}}>DESCRIPTION</TableCell>
+              <TableCell sx={{width: 350, fontWeight: 'bold'}} align="center">QUANTITY</TableCell>
+              <TableCell sx={{width: 350, fontWeight: 'bold'}} align="center">REQUIRED</TableCell>
+              <TableCell sx={{width: 350}}></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {assignedList.length > 0 ? assignedList.map(result => (
               <TableRow key={result.id}>
                 <TableCell>{result.description}</TableCell>
-                <TableCell>{result.quantity}</TableCell>
-                <TableCell>
+                <TableCell align="center">{result.quantity}</TableCell>
+                <TableCell align="center">
                   {(result.required) ? "yes" : ""}
                 </TableCell>
-                <TableCell><Button variant="contained" onClick={() => removeSignup(result.id)}> Remove Signup </Button></TableCell>
+                <TableCell align="center"><Button variant="contained" onClick={() => removeSignup(result.id)}> Remove </Button></TableCell>
               </TableRow>
             ))
               : <TableRow><TableCell colSpan="4">You haven't signed up for anything</TableCell></TableRow>
@@ -137,20 +139,21 @@ const ParticipantView = ({ eventId }) => {
         </Table>
       </TableContainer>
 
-      <Typography variant="h5">Signup List Items Available</Typography>
+      <Typography variant="h6">Signup List Items Available</Typography>
 
       <TableContainer component={Paper}>
         <Table size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
-              <TableCell>Description</TableCell>
-              <TableCell># Remaining</TableCell>
-              <TableCell></TableCell>
+              <TableCell sx={{width: 350, fontWeight: 'bold'}}>DESCRIPTION</TableCell>
+              <TableCell sx={{width: 350, fontWeight: 'bold'}} align="center"># REMAINING</TableCell>
+              <TableCell sx={{width: 350, fontWeight: 'bold'}} align="center">REQUIRED</TableCell>
+              <TableCell sx={{width: 350}}></TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
             {signupList.length > 0 ? signupList.map(result => (
-              <Signup
+              <Signup 
                 key={result.id}
                 username={username}
                 signupListItem={result}

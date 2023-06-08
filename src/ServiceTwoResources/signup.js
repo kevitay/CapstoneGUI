@@ -12,11 +12,12 @@ const Signup = ({ username, signupListItem, handleAddAssignee }) => {
   return (
     <TableRow key={signupListItem.id}>
       <TableCell>{signupListItem.description}</TableCell>
-      <TableCell>{signupListItem.quantity}</TableCell>
-      <TableCell>
+      <TableCell align="center">{signupListItem.quantity}</TableCell>
+      <TableCell align="center">{signupListItem.required}</TableCell>
+      <TableCell align="center">
         {(username === null || username === "" || signupListItem.quantity === 0)
-          ? <Button variant="contained" onClick={signupForItem} disabled> Sign Up! </Button>
-          : <Button variant="contained" onClick={signupForItem}> Sign Up! </Button>
+          ? <Button variant="contained" onClick={signupForItem} disabled> Sign Up </Button>
+          : <Button variant="contained" onClick={signupForItem}> Sign Up </Button>
         }
       </TableCell>
     </TableRow>
