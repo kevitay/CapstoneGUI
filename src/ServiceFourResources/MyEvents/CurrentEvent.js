@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Box, Button, FormControl, Modal, FormLabel, RadioGroup, FormControlLabel, Radio, Checkbox, TextField } from '@mui/material';
+import { Box, Button, FormControl, Modal, FormLabel, RadioGroup, FormControlLabel, Radio, Checkbox, TextField, Card, Divider, Typography } from '@mui/material';
 
 function CurrentEvent({ event, eventInfo }) {
   console.log("event part info", event)
@@ -25,7 +25,7 @@ function CurrentEvent({ event, eventInfo }) {
     //pair up the event IDs
     const currentEvent = event.eventId
     setCurrentIndex(eventInfo.findIndex(obj => obj.id === currentEvent))
-  },[event.eventId, eventInfo])
+  },[event.eventId, eventInfo, status, carpool, seatsAvail])
 
   const handleEditClick = () => {
     setEditMode(true);
@@ -116,24 +116,60 @@ function CurrentEvent({ event, eventInfo }) {
   }
 
   return (
-    <div>
-      {/* <h3>Event title goes here</h3>
-      <p>Event dates go here</p>
-      <p>
-        <i>Event description goes here</i>
-      </p> */}
-      <h3>{eventInfo[index].name}</h3>
-      <p>Organizer:{eventInfo[index].creatorID + ", " + eventInfo[index].organization}</p>
-      <p>Event Type:{eventInfo[index].type}</p>
-      <p>description:{eventInfo[index].description}</p>
-      <p>Base Cost:{eventInfo[index].baseCost}</p>
-      <h3>Your Event Info</h3>
-      <p>Status: <strong>{status}</strong></p>
-      <p>Carpooling? <strong>{carpool ? "Yes" : "No"}</strong></p>
-      <p>Seats Available: <strong>{seatsAvail}</strong></p>
-      <Button variant="contained" onClick={handleEditClick}>Edit</Button>
-      <p>---------------</p>
-    </div>
+    <Card
+      sx={{
+        margin:1,
+        backgroundColor: "#F4F4F4",
+        width: "30em",
+        height: "100%",
+        p: "1.5em",
+        borderRadius: "8px",
+        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+      }} >
+      <Typography variant="h4" fontWeight="bold" gutterBottom>
+        {eventInfo[index].name}
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        Organizer: {eventInfo[index].creatorID}
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        Organization: {eventInfo[index].organization}
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        Event Type: {eventInfo[index].type}
+      </Typography>
+      <Divider sx={{ my: "1em" }} />
+      <Typography variant="body1" gutterBottom>
+        Description: {eventInfo[index].description}
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        Base Cost: {eventInfo[index].baseCost}
+      </Typography>
+      <Typography variant="h6" fontWeight="bold" mt={2}>
+        Your Event Info
+      </Typography>
+      <Typography variant="body1">
+      Status:{" "}
+      <strong style={{ color: status === null ? "red" : "inherit" }}>
+        {status || "Needs Response"}
+      </strong>
+    </Typography>
+    <Typography variant="body1">
+      Carpooling:{" "}
+      <strong style={{ color: carpool === null ? "red" : "inherit" }}>
+        {carpool !== null ? (carpool ? "Yes" : "No") : "Needs Response"}
+      </strong>
+    </Typography>
+    <Typography variant="body1">
+      Seats Available:{" "}
+      <strong style={{ color: seatsAvail === null ? "red" : "inherit" }}>
+        {seatsAvail !== null ? seatsAvail : "Needs Response"}
+      </strong>
+    </Typography>
+      <Button onClick={handleEditClick} variant="contained" sx={{ mt: 2 }}>
+        Edit
+      </Button>
+    </Card>
   );
 }
 

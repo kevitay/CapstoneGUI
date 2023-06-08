@@ -13,6 +13,7 @@ import EventList from './ServiceOneResources/EventList';
 import EditEvent from './ServiceOneResources/EditEvent';
 import AuthContext from './IdentityResources/Contexts/AuthContext';
 import { useReducer } from 'react';
+import MyEvents from './ServiceFourResources/MyEvents/MyEvents';
 
 const authInitialState = {
   username: '',
@@ -70,6 +71,7 @@ function App() {
             <Route path={'/serviceTwo/*'} element={<ServiceTwoApp />}></Route>
             <Route path={'/serviceThree/*'} element={<ServiceThreeApp />}></Route>
             <Route path={'/serviceFour/*'} element={<ServiceFourApp />}></Route>
+              <Route path={'/myEvents/'} element={<MyEvents />}></Route>
              <Route path={'/eventImages/:eventId'} element={<EventImages />}></Route>
             <Route path={'/identity/*'} element={<IdentityApp />}></Route>
           </Routes>
