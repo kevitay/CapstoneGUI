@@ -42,7 +42,7 @@ export default function Event() {
         setUserIsOwner(true);
       }
     }
-  }, [userIsOwner, authState, currentEvent]);
+  }, [userIsOwner, authState, authState.token, currentEvent]);
 
   function dateFormatter(dateTime) {
     if (dateTime !== null) {
