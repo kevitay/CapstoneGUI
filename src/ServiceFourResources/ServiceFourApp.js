@@ -5,6 +5,7 @@ import InviteList from "./InviteList/InviteList";
 import ProfilePage from "./Profile/ProfilePage"; 
 import EventImageNav from "./EventImages/EventImageNav";
 import MyEvents from "./MyEvents/MyEvents";
+import MyEventsNav from "./MyEvents/MyEventsNav";
 
 function ServiceFourApp() {
 
@@ -14,13 +15,16 @@ function ServiceFourApp() {
 
     return (
         <div className="ServiceFourApp">
-            <h1>Service Four</h1>
-            <EventImageNav eventId={eventId}></EventImageNav>
-            <MyEvents></MyEvents>
-            <ParticipantsList eventId={eventId}></ParticipantsList>
-            <InviteList eventId={eventId}></InviteList>
-            <ProfilePage></ProfilePage>
-        </div>
+        <h1>Service Four</h1>
+        <EventImageNav eventId={eventId} />
+        <MyEventsNav eventId={eventId} />
+        {/* {showMyEvents && <MyEvents eventId={eventId} />}
+        <button onClick={handleMyEventsClick}>My Events</button> */}
+        <ParticipantsList eventId={eventId} />
+        <InviteList eventId={eventId} />
+        <ProfilePage />
+        
+      </div>
     )
 }
 
