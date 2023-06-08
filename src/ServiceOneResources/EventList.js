@@ -32,7 +32,7 @@ export default function EventList() {
     }
 
     getEvents();
-  }, [dispatch]);
+  }, [dispatch, authState.token]);
 
   // console.log(state.eventsList)
 
