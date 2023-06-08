@@ -1,10 +1,12 @@
 import React from "react";
+import { Table, TableBody, TableContainer, TableRow, FormControl, TableHead, TableCell, Button, Checkbox, ImageListItem } from '@mui/material'
 
 function UserData({ selectedUsers, invitee }) {
 
     function captureSelection(e) {
         let isChecked = e.target.checked;
         if (isChecked) {
+            console.log(e.target.id)
             selectedUsers.push(e.target.id);
         } else {
             let index = selectedUsers.indexOf(e.target.id);
@@ -15,8 +17,8 @@ function UserData({ selectedUsers, invitee }) {
     }
 
     return (
-        <tr className="UserData">
-            <td className="profile-picture">
+        <TableRow className="UserData">
+            <TableCell className="profile-picture">
                 {invitee.profilePicture ? (
                     <img
                         src={"data:image/jpg;base64," + invitee.profilePicture}
@@ -32,21 +34,23 @@ function UserData({ selectedUsers, invitee }) {
                         width="100px"
                     />
                 )}
-            </td>
-            <td className="user-name">
+
+            </TableCell>
+            <TableCell>
+                <Checkbox onChange={(e) => captureSelection(e)} type="checkbox" id={invitee.username}></Checkbox>
+            </TableCell>
+            <TableCell className="user-name">
                 <p> {
                     invitee.firstName + " " + invitee.lastName
                 }</p>
-            </td>
-            <td className="city-state">
+            </TableCell>
+            <TableCell className="city-state">
                 <p> {
                     invitee.city + ", " + invitee.state
                 }</p>
-            </td>
-            <td>
-                <input onChange={(e) => captureSelection(e)} type="checkbox" id={invitee.username}></input>
-            </td>
-        </tr>)
+            </TableCell>
+
+        </TableRow>)
 }
 
 export default UserData; 
