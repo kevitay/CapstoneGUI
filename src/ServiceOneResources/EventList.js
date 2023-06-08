@@ -1,7 +1,7 @@
-import React from "react";
-import { useEffect, useContext } from "react";
-import EventBrief from "./EventBrief";
-import { EventContext } from "./EventsContext";
+import React from 'react';
+import { useEffect, useContext } from 'react';
+import EventBrief from './EventBrief';
+import { EventContext } from './EventsContext';
 import { Stack } from '@mui/material';
 
 // const eventsJson = require("./events.json")
@@ -11,21 +11,22 @@ export default function EventList() {
 
   useEffect(() => {
     function getEvents() {
+      var myHeaders = new Headers();
+      myHeaders.append('Content-Type', 'application/json');
+      myHeaders.append('Authorization', authState.token);
       var requestOptions = {
-        method: "GET",
-        mode: "cors"
+        method: 'GET',
+        mode: 'cors',
+        headers: myHeaders,
       };
 
-      fetch(
-        "http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/extended",
-        requestOptions
-      )
+      fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/extended', requestOptions)
         .then((response) => response.json())
         .then((response) => {
-          dispatch({ type: "SET_EVENTS", payload: response.extEventList });
+          dispatch({ type: 'SET_EVENTS', payload: response.extEventList });
           //  console.log(response.eventList)
         })
-        .catch((error) => console.log("error", error));
+        .catch((error) => console.log('error', error));
     }
 
     getEvents();

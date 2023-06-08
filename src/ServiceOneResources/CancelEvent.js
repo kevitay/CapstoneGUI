@@ -6,13 +6,12 @@ export default function CancelEvent({ event, setCurrentEvent }) {
   const [authState] = useContext(AuthContext);
   let id = event.id;
   function handleCancelEvent() {
-    
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
     myHeaders.append('Authorization', authState.token);
 
     var raw = JSON.stringify({
-      'status': 'cancelled',
+      status: 'cancelled',
     });
 
     var requestOptions = {
@@ -27,16 +26,19 @@ export default function CancelEvent({ event, setCurrentEvent }) {
       .then((response) => response.json())
       .then((response) => setCurrentEvent(response))
       .catch((error) => console.log('error', error));
-    
-    console.log(event);
 
+    console.log(event);
   }
 
   return (
     <>
-      <button onClick={() => {
-        handleCancelEvent();
-      }}>Cancel Event</button>
+      <button
+        onClick={() => {
+          handleCancelEvent();
+        }}
+      >
+        Cancel Event
+      </button>
     </>
   );
 }
