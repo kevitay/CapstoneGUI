@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { Box, Button, FormControl, Modal, FormLabel, RadioGroup, FormControlLabel, Radio, Checkbox, TextField, Card, Divider, Typography } from '@mui/material';
+import { useNavigate } from "react-router-dom";
+import { Box, Button, FormControl, Modal, FormLabel, RadioGroup, FormControlLabel, Radio, Checkbox, TextField, Card, Divider, Typography, CardActionArea } from '@mui/material';
 
 function CurrentEvent({ event, eventInfo }) {
-  console.log("event part info", event)
   const [editMode, setEditMode] = useState(false);
   const [status, setStatus] = useState(event.status);
   const [carpool, setCarpool] = useState(event.carpool);
@@ -23,7 +23,6 @@ function CurrentEvent({ event, eventInfo }) {
   };
   
   useEffect(() => {
-    //pair up the event IDs
     const currentEvent = event.eventId
     setCurrentIndex(eventInfo.findIndex(obj => obj.id === currentEvent))
   },[event.eventId, eventInfo, status, carpool, seatsAvail])
@@ -56,13 +55,8 @@ function CurrentEvent({ event, eventInfo }) {
       })
       .catch(error => console.log('error', error));
 
-    // Exit edit mode
     setEditMode(false);
   };
-
-  // <div>
-  //   <Button onClick={handleEditClick}
-  // </div>
 
   if (editMode) {
    
@@ -75,7 +69,7 @@ function CurrentEvent({ event, eventInfo }) {
       aria-describedby="preferences-label">
         <Box sx={style}> 
         <h3>{eventInfo[index].name}</h3>
-        <p>Organizer:{eventInfo[index].creatorID + ", " + eventInfo[index].organization}</p>
+        <p>Organizer: {eventInfo[index].creatorID}</p>
             <div>
               <p>
               <FormControl>
@@ -83,8 +77,8 @@ function CurrentEvent({ event, eventInfo }) {
                 <RadioGroup
                   aria-labelledby="status-radio-buttons-group"
                   name="status-radio-buttons"
-                  onChange={(e) => setStatus(e.target.value)}
-                >
+                  value={status} // Set the value to the current status state
+                  onChange={(e) => setStatus(e.target.value)}>
                   <FormControlLabel value="Going" control={<Radio />} label="Going" />
                   <FormControlLabel value="Not Going" control={<Radio />} label="Not Going" />
                   <FormControlLabel value="Tentative" control={<Radio />} label="Tentative" />
@@ -93,6 +87,7 @@ function CurrentEvent({ event, eventInfo }) {
             </p>
             <p>
               <FormControlLabel control={<Checkbox
+              checked={carpool}
                 onChange={(e) => setCarpool(e.target.checked)}
                 inputProps={{ 'aria-label': 'controlled' }}
               />} label="Carpooling? " />
@@ -103,6 +98,7 @@ function CurrentEvent({ event, eventInfo }) {
                 onChange={(e) => setSeatsAvail(parseInt(e.target.value))}
                 label="Seats Available: "
                 type="number"
+                value={seatsAvail}
                 InputLabelProps={{
                   shrink: true,
                 }}
