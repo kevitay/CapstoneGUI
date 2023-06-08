@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useNavigate } from 'react-router';
-import { Button, Card, CardActionArea, Divider, Typography } from '@mui/material'; 
+import { Box, Button, FormControl, Modal, FormLabel, RadioGroup, FormControlLabel, Radio, Checkbox, TextField, Card, Divider, Typography } from '@mui/material';
 
 function CurrentEvent({ event, eventInfo }) {
   console.log("event part info", event)
@@ -11,7 +10,18 @@ function CurrentEvent({ event, eventInfo }) {
   const [index, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
 
-
+  const style = {
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    transform: 'translate(-50%, -50%)',
+    width: 400,
+    bgcolor: 'background.paper',
+    border: '2px solid #000',
+    boxShadow: 24,
+    p: 4,
+  };
+  
   useEffect(() => {
     //pair up the event IDs
     const currentEvent = event.eventId
@@ -50,50 +60,59 @@ function CurrentEvent({ event, eventInfo }) {
     setEditMode(false);
   };
 
+  // <div>
+  //   <Button onClick={handleEditClick}
+  // </div>
+
   if (editMode) {
+   
     console.log("part id", event.eventParticipantId)
     return (
-      <div>
-        <p>
-          Status:{" "}
-          <input
-            type="radio"
-            name="status"
-            value="Going"
-            onChange={(e) => setStatus(e.target.value)}
-          />Going
-          <input
-            type="radio"
-            name="status"
-            value="Not going"
-            onChange={(e) => setStatus(e.target.value)}
-          />Not going
-          <input
-            type="radio"
-            name="status"
-            value="Tentative"
-            onChange={(e) => setStatus(e.target.value)}
-          />Tentative
-        </p>
-        <p>
-          Carpooling?{" "}
-          <input
-            type="checkbox"
-            checked={carpool}
-            onChange={(e) => setCarpool(e.target.checked)}
-          />
-        </p>
-        <p>
-          Seats Available:{" "}
-          <input
-            type="number"
-            value={seatsAvail}
-            onChange={(e) => setSeatsAvail(parseInt(e.target.value))}
-          />
-        </p>
-        <button onClick={handleSaveClick}>Save</button>
-        <p>---------------</p>
-      </div>
+      <Modal
+      open={handleEditClick}
+      onClose={handleSaveClick}
+      aria-labelledby="preferences-label"
+      aria-describedby="preferences-label">
+        <Box sx={style}> 
+        <h3>{eventInfo[index].name}</h3>
+        <p>Organizer:{eventInfo[index].creatorID + ", " + eventInfo[index].organization}</p>
+            <div>
+              <p>
+              <FormControl>
+                <FormLabel id="status-radio-buttons-group">Status:</FormLabel>
+                <RadioGroup
+                  aria-labelledby="status-radio-buttons-group"
+                  name="status-radio-buttons"
+                  onChange={(e) => setStatus(e.target.value)}
+                >
+                  <FormControlLabel value="Going" control={<Radio />} label="Going" />
+                  <FormControlLabel value="Not Going" control={<Radio />} label="Not Going" />
+                  <FormControlLabel value="Tentative" control={<Radio />} label="Tentative" />
+                </RadioGroup>
+              </FormControl>
+            </p>
+            <p>
+              <FormControlLabel control={<Checkbox
+                onChange={(e) => setCarpool(e.target.checked)}
+                inputProps={{ 'aria-label': 'controlled' }}
+              />} label="Carpooling? " />
+            </p>
+            <p>
+              <TextField
+                id="seats-avail"
+                onChange={(e) => setSeatsAvail(parseInt(e.target.value))}
+                label="Seats Available: "
+                type="number"
+                InputLabelProps={{
+                  shrink: true,
+                }}
+                variant="standard"
+              />
+            </p>
+            <Button variant="contained" onClick={handleSaveClick}>Save</Button>
+          </div>
+        </Box>
+      </Modal>
     );
   }
 
