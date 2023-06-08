@@ -1,18 +1,35 @@
-import React, { useState, useEffect, useContext } from 'react';
-import Login from '../IdentityResources/Login';
-import OrganizerControl from './OrganizerControl';
-import AuthContext from '../IdentityResources/Contexts/AuthContext';
-import { useParams } from 'react-router-dom';
+import React, { useState, useEffect, useContext } from "react";
+import Login from "../IdentityResources/Login";
+import OrganizerControl from "./OrganizerControl";
+import AuthContext from "../IdentityResources/Contexts/AuthContext";
+import { useParams } from "react-router-dom";
+import EditEvent from "./EditEvent";
+
+const emptyLocation = {address:'', city:'',state:'',zipCode:''};
+const initialExtendedFields = {startDateTime:'', endDateTime:'',startLocation: emptyLocation, endLocation:emptyLocation };
 
 //react event
 export default function Event() {
+  //stores the returned event from event API. After an edit, the event is updated with the result of the post and the extended fields are lost.
   const [currentEvent, setCurrentEvent] = useState(null);
+
+  //stores the extended fields that event API sources from itinerary
+  const [extendedFields, setExtendedFields] = useState(initialExtendedFields);
   const [authState] = useContext(AuthContext);
+
+  //Stores the value whether the logged in user is the owner to allow display of Organizer Control.
   const [userIsOwner, setUserIsOwner] = useState(false);
+
+  //Toggle between read only and edit mode. Edit Mode is set from Organizer Control.
+  const [editMode, setEditMode] = useState(false);
+
+  //used for modified Login component which expects a function from signin button.
+  const handleClose = () => {};
 
   let { id } = useParams();
   // console.log(id);
 
+  //loads event details on page load.
   useEffect(() => {
     function getEventById() {
       var myHeaders = new Headers();
@@ -30,19 +47,29 @@ export default function Event() {
         .catch((error) => console.log('error', error));
     }
     getEventById();
-  }, [id, authState.token]);
+  }, [id, authState]);
 
+  //used to set the state if the owner of an event is also the logged in user.
   useEffect(() => {
     if (currentEvent !== null) {
-      // console.log(currentEvent);
-      // console.log("Event obj creator: " + currentEvent.creatorID);
-      // console.log(authState);
-      // console.log("UserAuth: " + authState.username);
       if (authState.username !== null && authState.username === currentEvent.creatorID) {
         setUserIsOwner(true);
       }
     }
   }, [userIsOwner, authState, currentEvent]);
+
+  //used to set the state for the extended fields sourced indirectly from the events API
+  useEffect(() => {
+    if (currentEvent !== null) {
+      if (Object.keys(currentEvent).includes("startLocation")){
+        let newExtendedFields = {startDateTime: currentEvent.startDateTime, 
+                                  endDateTime: currentEvent.endDateTime,
+                                  startLocation: currentEvent.startLocation, 
+                                  endLocation: currentEvent.endLocation } 
+        setExtendedFields(newExtendedFields);
+        }
+    }
+  }, [currentEvent]);
 
   function dateFormatter(dateTime) {
     if (dateTime !== null) {
@@ -81,27 +108,35 @@ export default function Event() {
   //using an if statement to handle the async setCurrentEvent could also use {(currentEvent) ? (<div>…</div>) :( <></>)}
   if (!currentEvent) return null;
   return (
-    <div>
-      {!authState.token ? <Login></Login> : <></>}
-      <div className="eventDetails">
-        <h1>{currentEvent.name}</h1>
-        <h3>
-          {currentEvent.organization} | {currentEvent.type}
-        </h3>
-        <p>{currentEvent.description}</p>
-        <p>Status: {currentEvent.status}</p>
+    <>
+      {(!authState.token)?(<Login handleClose={handleClose}></Login>):(<></>)}
+      
+      {(!editMode)?(
+      <>  
+        <div className='eventDetails'>
+          <h1>{currentEvent.name}</h1>
+          <h3>
+            {currentEvent.organization} | {currentEvent.type}
+          </h3>
+          <p>{currentEvent.description}</p>
+          <p>Status: {currentEvent.status}</p>
+        </div>
+        <div className='locationDetails'>
+          <h2>When and Where</h2>
+          <h3>Start Time: {dateFormatter(extendedFields.startDateTime)}</h3>
+          <h3>End Time: {dateFormatter(extendedFields.endDateTime)}</h3>
+          <h3>Start Location: {locationFormatter(extendedFields.startLocation)}</h3>
+          <h3>End Location: {locationFormatter(extendedFields.endLocation)}</h3>
+        </div>
+        <div className='baseCost'>
+          <h3>Base Cost: ${currentEvent.baseCost}</h3>
+        </div>
+      </>
+      ):(<EditEvent event={currentEvent} setCurrentEvent={setCurrentEvent} setEditMode={setEditMode}/>)}
+      <div>
+        {(userIsOwner) ? (<OrganizerControl event={ currentEvent } setCurrentEvent={ setCurrentEvent } editMode={editMode} setEditMode={setEditMode} />):(<></>)}
       </div>
-      <div className="locationDetails">
-        <h2>When and Where</h2>
-        <h3>Start Time: {dateFormatter(currentEvent.startDateTime)}</h3>
-        <h3>End Time: {dateFormatter(currentEvent.endDateTime)}</h3>
-        <h3>Start Location: {locationFormatter(currentEvent.startLocation)}</h3>
-        <h3>End Location: {locationFormatter(currentEvent.endLocation)}</h3>
-      </div>
-      <div className="baseCost">
-        <h3>Base Cost: ${currentEvent.baseCost}</h3>
-      </div>
-      <div>{userIsOwner ? <OrganizerControl event={currentEvent} setCurrentEvent={setCurrentEvent} /> : <></>}</div>
-    </div>
+    </>
+
   );
 }

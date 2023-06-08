@@ -14,6 +14,8 @@ function CreateEvent({ setCreationStep, setEvent }) {
   const [isPublic, setIsPublic] = useState(false);
   const [authState] = useContext(AuthContext);
 
+  const handleClose = () => {};
+
   function postNewEvent(eventName, organization, description, eventType, eventCost) {
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
@@ -55,7 +57,7 @@ function CreateEvent({ setCreationStep, setEvent }) {
 
   return (
     <div className="eventSubmit">
-      {!authState.token ? <Login></Login> : <></>}
+      {!authState.token ? <Login handleClose={handleClose}></Login> : <></>}
       <h2>Create A New Event</h2>
       <form
         action=""
