@@ -1,0 +1,12 @@
+.img-selection-icon-container {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+}
+
+.img-selection-icon {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block
+}
