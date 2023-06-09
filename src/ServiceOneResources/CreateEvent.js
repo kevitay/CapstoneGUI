@@ -93,7 +93,7 @@ function CreateEvent({ setCreationStep, setEvent }) {
         <br />
         <TextField name="description" rows="6" cols="33" value={description} onChange={(e) => setDescription(e.target.value)} required />
         <br />
-        <br />
+
 
         <fieldset>
           <legend>Public or Private:</legend>
