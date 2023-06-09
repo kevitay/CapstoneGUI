@@ -45,7 +45,7 @@ function CreateEvent({ setCreationStep, setEvent }) {
       .then((result) => {
         if (result.id !== null) {
           setEvent(result);
-          setCreationStep(2);
+          setCreationStep(3);
         }
       })
       .catch((error) => console.log('error', error));

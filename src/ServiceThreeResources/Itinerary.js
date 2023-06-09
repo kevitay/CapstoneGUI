@@ -38,6 +38,8 @@ const formatDate = function(date){
 
 return (
     <div className="Itinerary">
+        {creationStep === 3 && <button onClick={() => setCreationStep(4)}>Next</button>}
+
         <h2 style={{color:'red'}}>Create Activity Component</h2>
         <CreateNewActivity states={states} setStates={setStates} eventId={eventId}/>
 
