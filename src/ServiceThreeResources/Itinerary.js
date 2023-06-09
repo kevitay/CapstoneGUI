@@ -8,7 +8,7 @@ import AuthContext from '../IdentityResources/Contexts/AuthContext';
 
 
 
-function Itinerary({eventId, creationStep, setCreationStep}) {
+function Itinerary({eventId, creationStep, setCreationStep, userIsOwner}) {
   const [authState] = useContext(AuthContext);
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const [buttonDate, setButtonDate] = useState("");
 const [closeActivityDetailsButton, setCloseActivityDetailsButton] = useState(false); 
 const [editForm, setEditForm] = useState(false)
 
-const states = {itineraryJSON, displayActivityDetails, dateArray, buttonDate, closeActivityDetailsButton, editForm, authState};
+const states = {itineraryJSON, displayActivityDetails, dateArray, buttonDate, closeActivityDetailsButton, editForm, authState, userIsOwner};
 const setStates = {setItineraryJSON, setDisplayActivityDetails, setDateArray, setButtonDate, setCloseActivityDetailsButton, setEditForm};
 
 const formatDate = function(date){
@@ -41,7 +41,7 @@ return (
         {creationStep === 3 && <button onClick={() => setCreationStep(4)}>Next</button>}
 
         <h2 style={{color:'red'}}>Create Activity Component</h2>
-        <CreateNewActivity states={states} setStates={setStates} eventId={eventId}/>
+        {userIsOwner && <CreateNewActivity states={states} setStates={setStates} eventId={eventId}/>}
 
         <h2 style={{color: 'red'}}>Date Selector Component</h2>
         <DateSelector formatDate={formatDate} states={states} setStates={setStates}/>
