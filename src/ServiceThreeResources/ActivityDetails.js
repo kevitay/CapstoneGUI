@@ -18,7 +18,7 @@ export default function ActivityDetails({states, setStates}) {
             activityJSON.id = states.displayActivityDetails.id
             if(activityJSON.indoor === undefined && states.displayActivityDetails.indoor !== undefined) activityJSON.indoor = states.displayActivityDetails.indoor
             if(activityJSON.mandatory === undefined && states.displayActivityDetails.mandatory !== undefined) activityJSON.mandatory = states.displayActivityDetails.mandatory
-            fetchFunction({type: ACTIONS.UPDATE_ACTIVITY, payload: activityJSON, dispatch: setStates.setItineraryJSON, itinerary: states.itineraryJSON})
+            fetchFunction({type: ACTIONS.UPDATE_ACTIVITY, payload: activityJSON, dispatch: setStates.setItineraryJSON, itinerary: states.itineraryJSON, authState: states.authState})
     
             setStates.setCloseActivityDetailsButton(true);
             setStates.setEditForm(false)
@@ -42,7 +42,7 @@ export default function ActivityDetails({states, setStates}) {
             {states.displayActivityDetails.id && states.closeActivityDetailsButton && <button onClick={() => {
                 const confirmed = window.confirm("Are you sure you want to delete this activity?");
                 if (confirmed) {
-                    fetchFunction({ type: ACTIONS.DELETE_ACTIVITY, payload:states.displayActivityDetails, dispatch: setStates.setItineraryJSON, itinerary: states.itineraryJSON });
+                    fetchFunction({ type: ACTIONS.DELETE_ACTIVITY, payload:states.displayActivityDetails, dispatch: setStates.setItineraryJSON, itinerary: states.itineraryJSON, authState: states.authState });
                     setStates.setDisplayActivityDetails({});
                     setStates.setCloseActivityDetailsButton(false);
             }}}>Delete Activity</button>}

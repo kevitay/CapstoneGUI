@@ -14,7 +14,7 @@ export default function ActivityForm({setForm, states, setStates, eventId}) {
             activityJSON[key] = value; 
         }
         activityJSON.eventId = eventId;
-        fetchFunction({dispatch: setStates.setItineraryJSON, type: ACTIONS.CREATE_ACTIVITY, payload: activityJSON, itinerary: states.itineraryJSON})
+        fetchFunction({dispatch: setStates.setItineraryJSON, type: ACTIONS.CREATE_ACTIVITY, payload: activityJSON, itinerary: states.itineraryJSON, authState: states.authState})
     }
 
     return (

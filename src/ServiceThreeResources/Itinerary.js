@@ -1,15 +1,19 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import ActivityList from "./ActivityList";
 import ActivityDetails from "./ActivityDetails";
 import DateSelector from "./DateSelector";
 import CreateNewActivity from "./CreateNewActivity";
 import { fetchFunction, ACTIONS } from "./FetchFunctions";
+import AuthContext from '../IdentityResources/Contexts/AuthContext';
+
+
 
 function Itinerary({eventId, creationStep, setCreationStep}) {
+  const [authState] = useContext(AuthContext);
 
   useEffect(() => {
     fetchFunction({dispatch: setItineraryJSON, type: ACTIONS.GET_ACTIVITIES, eventId});
-  },[]);
+  },[eventId]);
   
 const [itineraryJSON, setItineraryJSON] = useState({activities:[]});
 const [displayActivityDetails, setDisplayActivityDetails] = useState({}); 
@@ -18,7 +22,7 @@ const [buttonDate, setButtonDate] = useState("");
 const [closeActivityDetailsButton, setCloseActivityDetailsButton] = useState(false); 
 const [editForm, setEditForm] = useState(false)
 
-const states = {itineraryJSON, displayActivityDetails, dateArray, buttonDate, closeActivityDetailsButton, editForm};
+const states = {itineraryJSON, displayActivityDetails, dateArray, buttonDate, closeActivityDetailsButton, editForm, authState};
 const setStates = {setItineraryJSON, setDisplayActivityDetails, setDateArray, setButtonDate, setCloseActivityDetailsButton, setEditForm};
 
 const formatDate = function(date){
