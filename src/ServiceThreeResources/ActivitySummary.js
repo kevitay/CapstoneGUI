@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Button from "@mui/material/Button";
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
@@ -15,42 +15,42 @@ import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
-// export default function ActivitySummary({activity, states, setStates}) {
-//     const time = new Date(activity.startTime); 
-//     const formattedTime = time.toLocaleTimeString('en-US', {
-//         hour: 'numeric',
-//         minute: 'numeric'
-//     });
+export default function ActivitySummary({activity, states, setStates}) {
+    const time = new Date(activity.startTime); 
+    const formattedTime = time.toLocaleTimeString('en-US', {
+        hour: 'numeric',
+        minute: 'numeric'
+    });
+    
+    // return (
+    //     <div>
+    //         <h3 >{activity.activityName}</h3>
+    //         <p >{activity.description}</p>
+    //         <p >Activity Start Time:{formattedTime}</p>
 
-//     return (
-//         <div>
-//             <h3 >{activity.activityName}</h3>
-//             <p >{activity.description}</p>
-//             <p >Activity Start Time:{formattedTime}</p>
+    //         {!editForm && <Button  onClick={() => {setDisplayActivityDetails(activity); setCloseActivityDetailsButton(true)}} variant="contained">Expand Details</Button>}
+    //     </div>
+    // )
 
-//             {!editForm && <Button  onClick={() => {setDisplayActivityDetails(activity); setCloseActivityDetailsButton(true)}} variant="contained">Expand Details</Button>}
-//         </div>
-//     )
-
-function createData(name, address, startTime, endTime) {
+function createData(activity) {
     return {
-      name,
-      address,
-      startTime,
-      endTime,
+      name: activity.activityName,
+      address: activity.address,
+      startTime: activity.startTime,
+      endTime: activity.endTime,
       history: [
         {
-          mandatory: 'Yes',
-          importantReminder: 'Do not forget shoes',
-          indoor: 'Indoor',
-          price: 3.00,
-          groupSize: 5,
-          address: '123 Street',
-          city: 'Some City',
-          state: 'Statington',
-          zip: '12345',
-          activityURL: 'www.activity.com',
-          activityType: 'meal'
+          mandatory: activity.mandatory,
+          importantReminder: activity.importantReminder,
+          indoor: activity.indoor,
+          price: activity.price,
+          groupSize: activity.groupSize,
+          address: activity.address,
+          city: activity.city,
+          state: activity.state,
+          zip: activity.zip,
+          activityURL: activity.url,
+          activityType: activity.type,
         },
       ],
     };
@@ -154,12 +154,11 @@ function createData(name, address, startTime, endTime) {
       price: PropTypes.number.isRequired,
     }).isRequired,
   };
-
-  const rows = [
-    createData('T Party', "123 Street", "5/16/23 8:00 AM", "5/16/23 10:00 AM"),
-  ];
   
-  export default function CollapsibleTable(activity, states, setStates) {
+  const rows = [];
+
+    states.itineraryJSON.activities.map(activity => {rows.push(createData(activity))})
+  
     return (
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
