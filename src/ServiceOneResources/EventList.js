@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect, useContext } from 'react';
 import EventBrief from './EventBrief';
 import { EventContext } from './EventsContext';
-import { Stack } from '@mui/material';
+import { Button, Stack, Typography } from '@mui/material';
 import AuthContext from '../IdentityResources/Contexts/AuthContext';
 
 
@@ -43,11 +43,11 @@ export default function EventList() {
     <div>
       <h1>Event List</h1>
       <Stack className="userEvents" direction="row" useFlexGap flexWrap="wrap" justifyContent="center">
-        {pageState > 1 ? <button onClick={() => setPageState(pageState - 1)}>Prev</button> : <></>}
+        {pageState > 1 ? <Button variant='text' onClick={() => setPageState(pageState - 1)}>Prev</Button> : <></>}
         {state.eventsList.slice(cardsPerPage * (pageState - 1), cardsPerPage * pageState).map((event) => {
           return <EventBrief event={event} key={event.id} />;
         })}
-        {cardsPerPage * pageState < state.eventsList.length ? <button onClick={() => setPageState(pageState + 1)}>Next</button> : <></>}
+        {cardsPerPage * pageState < state.eventsList.length ? <Button variant='text' onClick={() => setPageState(pageState + 1)}>Next</Button> : <></>}
       </Stack>
     </div>
   );
