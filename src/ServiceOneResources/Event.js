@@ -38,7 +38,10 @@ export default function Event() {
 
 
 
-//manages state for the accordians.  
+//manages state for the accordians. 
+//expanded contains the label for which panel is open and false if none are open. 
+//handle change is called and it either expands or collapses the panel that was clicked 
+//and collapses any other panels that were expanded.
     const [expanded, setExpanded] = useState("panel1");
     const handleChange = (panel) => (expanded, isExpanded) => {
       setExpanded(isExpanded ? panel : false);
