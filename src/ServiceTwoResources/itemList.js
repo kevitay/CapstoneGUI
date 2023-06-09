@@ -1,3 +1,4 @@
+import { TableRow, TableCell, Input, Button, Checkbox, TextField } from "@mui/material";
 import React, { useEffect } from "react";
 
 function ItemList({ items, setPackingList, eventId }) {
@@ -92,31 +93,42 @@ function ItemList({ items, setPackingList, eventId }) {
     // console.log("editList: ", editList);
     setPackingList(editList);
   }
-  console.log("item array", items);
 
 
   return (
     <>
       {items.map((item, index) => (
-        <tr key={item.id}>
-          <td><input type="text" name="description" value={item.description} onChange={(e) => onChangeInput(e, index)}></input></td>
-          <td><select name="type" onChange={(e) => onChangeInput(e, index)}>
-            {(item.type === "packing list")
-              ? <option value="packing list" selected> Packing List </option>
-              : <option value="packing list" > Packing List </option>
-            }
-            {(item.type === "signup list")
-              ? <option value="signup list" selected> Signup List </option>
-              : <option value="signup list" > Signup List </option>
-            }
-            </select></td>
-          <td><input type="number" name="quantity" value={item.quantity} onChange={(e) => onChangeInput(e, index)}></input></td>
-          <td><input type="checkbox" name="required" checked={item.required} onChange={(e) => onChangeInput(e, index)}></input></td>
-          <td>
-            <button onClick={() => handleUpdateItem(item, index)}>Update Item</button>
-            <button onClick={() => handleDeleteItem(item, index)}>Delete Item</button>
-          </td>
-        </tr>
+        <TableRow key={item.id} variant="contained">
+          <TableCell>
+            <TextField
+              type="text"
+              name="description"
+              value={item.description}
+              sx={{ width: 350 }}
+              onChange={(e) => onChangeInput(e, index)}>
+            </TextField>
+          </TableCell>
+          <TableCell><TextField select name="type" defaultValue={item.type} onChange={(e) => onChangeInput(e, index)}>
+            <option value="packing list" > Packing List </option>
+            <option value="signup list" > Signup List </option>
+          </TextField></TableCell>
+          <TableCell align="center">
+            <TextField
+              type="number"
+              label="Quantity"
+              name="quantity"
+              min="1"
+              inputProps={{ style: { textAlign: 'center' } }}
+              value={item.quantity} onChange={(e) => onChangeInput(e, index)}>
+
+            </TextField>
+          </TableCell>
+          <TableCell align="center"><Checkbox name="required" checked={item.required} onChange={(e) => onChangeInput(e, index)}></Checkbox></TableCell>
+          <TableCell align="center">
+            <Button variant="contained" onClick={() => handleUpdateItem(item, index)}>Update Item</Button>
+            <Button variant="contained" onClick={() => handleDeleteItem(item, index)}>Delete Item</Button>
+          </TableCell>
+        </TableRow>
       ))}
     </>
   )
