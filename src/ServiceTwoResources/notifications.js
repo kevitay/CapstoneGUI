@@ -45,6 +45,7 @@ const Notifications = () => {
         e.preventDefault();
         if (e.target.elements.response.value === "Not Going") {
             deleteNotification(e.target.elements.msgId.value);
+            alert("You responded you are Not Going. \n\nNotification has been removed.");
         } else {
             addParticipant(e.target.elements.msgId.value, e.target.elements.eventId.value, e.target.elements.response.value, username);
         }
@@ -60,8 +61,9 @@ const Notifications = () => {
         fetch(notificationsUrl + "/" + msgId, requestOptions)
             .then(response => {
                 if (response.ok) {
-                    console.log('Notification was deleted', msgId);
+                    console.log('Notification has been removed', msgId);
                 } else {
+                    alert("Notification remove failed.");
                     throw new Error('Removed failed', msgId);
                 }
                 getNotificationsByUserName();
@@ -90,9 +92,11 @@ const Notifications = () => {
                 if (response.status === 409) {
                     deleteNotification(msgId);
                     //user already invited
+                    alert("You have already responded to this event invite. \n\nNotification has been removed.");
                     throw new Error("User already invited.");
                 } else if (response.ok) {
                     deleteNotification(msgId);
+                    alert("You responded that you are " + status + ".\n\nNotification has been removed.");
                     return response.text();
                 } else {
                     throw new Error("Invite failed.");
