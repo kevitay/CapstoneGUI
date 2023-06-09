@@ -120,15 +120,15 @@ function CurrentEvent({ event, eventInfo }) {
     <Card
       sx={{
         margin:1,
-        backgroundColor: "#F4F4F4",
+        // backgroundColor: "#F5F5F5",
         width: "30em",
         height: "100%",
         p: "1.5em",
         borderRadius: "8px",
-        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.2)",
+        boxShadow: "0 2px 4px rgba(0, 0, 0, 0.5)",
       }} >
         <CardActionArea onClick={handleEventCardClick} rel="noopener noreferrer" sx={{height: '100%'}}>
-      <Typography variant="h5" fontWeight="bold" gutterBottom>
+      <Typography variant="h5" fontWeight="bold" gutterBottom >
         {eventInfo[index].name}
       </Typography>
       <Typography variant="body1" gutterBottom>

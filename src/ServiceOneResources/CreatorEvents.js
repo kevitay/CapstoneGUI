@@ -2,10 +2,13 @@ import React from "react";
 import { useState, useEffect, useContext } from "react";
 import AuthContext from "../IdentityResources/Contexts/AuthContext";
 import EventBrief from "./EventBrief";
+import { Button, Stack } from "@mui/material";
 
 export default function CreatorEvents() {
   const [userEvents, setUserEvents] = useState(null);
   const [authState, ] = useContext(AuthContext);
+  const [pageState, setPageState] = useState(1);
+  const [cardsPerPage,] = useState(4);
 
   useEffect(() => {
     function getEventsByUsername() {
@@ -43,14 +46,15 @@ export default function CreatorEvents() {
         <></>
       ) : (
         <div>
-          <h1>Creator Events</h1>
-          <hr></hr>
-          <div className='userEvents'>
-            {userEvents.map((event) => {
-              return <EventBrief event={event} key={event.id} />;
-            })}
-          </div>
-        </div>
+      <h1>Events I've Created</h1>
+      <Stack className="userEvents" direction="row" useFlexGap flexWrap="wrap" justifyContent="center">
+        {pageState > 1 ? <Button variant='text' onClick={() => setPageState(pageState - 1)}>Prev</Button> : <></>}
+        {userEvents.slice(cardsPerPage * (pageState - 1), cardsPerPage * pageState).map((event) => {
+          return <EventBrief event={event} key={event.id} />;
+        })}
+        {cardsPerPage * pageState < userEvents.length ? <Button variant='text' onClick={() => setPageState(pageState + 1)}>Next</Button> : <></>}
+      </Stack>
+    </div>
       )}
     </>
   );
