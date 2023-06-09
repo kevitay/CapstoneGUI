@@ -1,7 +1,7 @@
 import { React, useState, useEffect } from "react";
 import { FormControl, Button, Input} from '@mui/material';
 
-function InviteNameSearch({ users, setUserState, resetStatus }) {
+function InviteNameSearch({ userState, setUserState, resetStatus }) {
 
     const [searchTerm, setSearchTerm] = useState("");
 
@@ -13,23 +13,23 @@ function InviteNameSearch({ users, setUserState, resetStatus }) {
     }
 
     function handleSearch(e) {
-        console.log(searchTerm)
         e.preventDefault()
-        const categories = users.filter(x => x.user.firstName + " " + x.user.lastName === searchTerm);
-        console.log(categories)
-        setUserState(categories);
+        console.log("Search button")
+        const results = userState.filter(x => x.firstName === searchTerm);
+        console.log(results)
+        setUserState(results);
     }
 
     useEffect(() => { setSearchTerm("") }, [resetStatus]);
 
     return (
         <form onSubmit={(e) => handleSearch(e)}>
-            <FormControl>
+            <FormControl >
                 <Input onChange={(e) => captureCategory(e)} type="text" value={searchTerm} placeholder="Enter Name"></Input>
                 <Button type="submit" >Search</Button>
             </FormControl>
-
-        </form>
+        </form> 
+            
     )
 }
 

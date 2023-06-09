@@ -1,42 +1,28 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import UserData from "./UserData";
-import InviteNameSearch from "./inviteNameSearch";
+import InviteNameSearch from "./InviteNameSearch";
 
 import { Table, TableBody, TableContainer, TableRow, FormControl, TableHead, TableCell, Button, TablePagination } from '@mui/material';
 
-function Users({ eventId }) {
+function Users({ eventId, userState, setUser }) {
 
-    const [userState, setUser] = useState([]);
-    const [loading, setLoadState] = useState(false);
+
+
     const [inviteSuccess, setSuccess] = useState("")
-    const [originalState, setLoadingState] = useState([]);
+    const [originalState, setLoadedState] = useState([]);
     const [resetStatus, setResetStatus] = useState(false);
-  
+
 
     function stateReset(e) {
         setResetStatus(!resetStatus);
         console.log(originalState);
         e.preventDefault();
-        setLoadingState(originalState);
+        setUser(originalState);
     }
 
     let selectedUsers = [];
 
-    useEffect(() => {
-        var requestOptions = {
-            method: 'GET',
-            redirect: 'follow'
-        };
-        setLoadState(true);
-        fetch("http://a53e50bf576c64141b52293976658417-1117441751.us-west-2.elb.amazonaws.com/api/users", requestOptions)
-            .then(response => response.json())
-            .then(result => {
-                setUser(result.users)
-            })
-            .then(result => {setLoadingState(result)})
-            .then(setLoadState(false))
-            .catch(error => console.log('error', error));
-    }, []);
+
 
     function sendInvite(e) {
         console.log("sent")
@@ -89,28 +75,27 @@ function Users({ eventId }) {
 
     return (
         <div>
+            <InviteNameSearch resetStatus={resetStatus} userState={userState} setUserState={setUser}></InviteNameSearch>
             <form className="invite-form" onSubmit={(e) => sendInvite(e)}>
                 <FormControl >
                     <TableContainer>
                         <Table
-                        sx={{ minWidth: 750 }}
-                        aria-labelledby="Participant Invite"
-                        size={"Large"}
+                            sx={{ minWidth: 750 }}
+                            aria-labelledby="Participant Invite"
+                            size={"Large"}
                         >
-                            <TableBody>
+                            <TableHead>
                                 <TableRow>
-                                    <TableHead>
-                                        <TableRow>
-                                            <TableCell ><button onClick={(e) => stateReset(e)}>Clear Filters</button></TableCell>
-                                            <TableCell>Invite</TableCell>
-                                            <TableCell><InviteNameSearch resetStatus={resetStatus} users={userState} setUserState={setUser}></InviteNameSearch></TableCell>
-                                            <TableCell>Location</TableCell>
-                                        </TableRow>
-                                    </TableHead>
-                                    {
-                                        loading ? "" : userState.map((user) => (<UserData selectedUsers={selectedUsers} invitee={user}></UserData>))
-                                    }
+                                    <TableCell ><button onClick={(e) => stateReset(e)}>Clear Filters</button></TableCell>
+                                    <TableCell>Invite</TableCell>
+                                    <TableCell>Name</TableCell>
+                                    <TableCell>Location</TableCell>
                                 </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                    {
+                                        userState.map((user) => (<UserData key={user.username} selectedUsers={selectedUsers} invitee={user}></UserData>))
+                                    }
                             </TableBody>
                             <TablePagination
                                 rowsPerPageOptions={[5, 10, 25]}

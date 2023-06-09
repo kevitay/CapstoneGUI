@@ -19,7 +19,7 @@ function ServiceFourApp() {
             <MyEvents></MyEvents>
             <ParticipantsList eventId={eventId}></ParticipantsList> */}
             <InviteList eventId={eventId}></InviteList>
-            <ProfilePage></ProfilePage>
+            {/* <ProfilePage></ProfilePage> */}
         </div>
     )
 }
