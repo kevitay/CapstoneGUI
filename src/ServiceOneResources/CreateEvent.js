@@ -54,7 +54,7 @@ function CreateEvent({ setCreationStep, setEvent }) {
 
   const radioEvent = (event) => {
     setIsPublic(event.target.value === 'true');
-    console.log(event.target.value)
+    // console.log(event.target.value)
   };
 
   return (
