@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../../IdentityResources/Contexts/AuthContext.js";
-import { Button } from "@mui/material";
+import { Box, Button } from "@mui/material";
+import ProfilePicUpload from "./ProfilePicUpload.js"
 
 const ProfilePic = () => {
     const [authState] = useContext(AuthContext);
     const [img, setImg] = useState("");
-    const [selectedFile, setSelectedFile] = useState(null);
 
     const fetchProfilePicture = (username) => {
         fetch('http://a53e50bf576c64141b52293976658417-1117441751.us-west-2.elb.amazonaws.com/api/users/' + username)
@@ -16,47 +16,17 @@ const ProfilePic = () => {
             .catch(error => console.log('error', error));
     };
 
-    //Fetch image when component loads or logged in user changes
     useEffect(() => {
         fetchProfilePicture(authState.username);
     }, [authState.username]);
 
-    const sendFile = async (event) => {
-        event.preventDefault();
-        const formData = new FormData();
-        formData.append('profilePic', selectedFile);
-
-        try {
-            const response = await fetch('http://a53e50bf576c64141b52293976658417-1117441751.us-west-2.elb.amazonaws.com/api/users/' + authState.username + '/pic', {
-                method: 'PATCH',
-                body: formData
-            });
-
-            if (response.ok) {
-                fetchProfilePicture(authState.username);
-            } else {
-                console.error('ERROR: Profile picture failed to update');
-            }
-        } catch (error) {
-            console.error('ERROR: Profile picture failed to update', error);
-        }
-    };
-
-    const handleFileChange = (event) => {
-        const fileSelection = event.target.files[0];
-        setSelectedFile(fileSelection);
-        console.log(fileSelection);
-    };
-
     return (
         <div>
-            <form>
-                <Button sx={{mr:'1em',mb: '1em',maxBlockSize:'2em',width:'11em', height:'3em', fontSize:'.5em'}}variant="contained" type="file" accept="image/*" onChange={handleFileChange}>Change pic</Button>
-                <Button sx={{mb: '1em',maxBlockSize:'2em',width:'11em', height:'3em', fontSize:'.5em'}}variant="outlined" onClick={sendFile}>Upload</Button>
-            </form>
-            <div>
+            <Box>
                 <img src={"data:image/jpg;base64," + img} height="200px" width="200px" alt="profile pic" />
-            </div>
+                <br></br>
+                <ProfilePicUpload fetchProfilePicture={fetchProfilePicture}></ProfilePicUpload>
+            </Box>
         </div>
     );
 };
