@@ -10,6 +10,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Itinerary from "../ServiceThreeResources/Itinerary";
 
 const emptyLocation = {address:'', city:'',state:'',zipCode:''};
 const initialExtendedFields = {startDateTime:'', endDateTime:'',startLocation: emptyLocation, endLocation:emptyLocation };
@@ -209,7 +210,7 @@ export default function Event() {
         </AccordionSummary>
         <AccordionDetails>
         {/* Team Component goes here  */}
-        <p>placeholder for Itinerary user view </p>    
+        <Itinerary eventId = {currentEvent.id} userIsOwner = {userIsOwner}/>  
         </AccordionDetails>
       </Accordion>
       <Accordion

@@ -1,7 +1,7 @@
 import { ACTIONS, fetchFunction } from "./FetchFunctions";
 import React from "react";
 
-export default function ActivityDetails({editForm, setEditForm, dispatch, displayActivityDetails, setDisplayActivityDetails, closeActivityDetailsButton, setCloseActivityDetailsButton}) {
+export default function ActivityDetails({states, setStates}) {
 
 
 
@@ -15,51 +15,51 @@ export default function ActivityDetails({editForm, setEditForm, dispatch, displa
             for (let [key, value] of formData.entries()) {
                 activityJSON[key] = value; 
             }
-            activityJSON.id = displayActivityDetails.id
-            if(activityJSON.indoor === undefined && displayActivityDetails.indoor !== undefined) activityJSON.indoor = displayActivityDetails.indoor
-            if(activityJSON.mandatory === undefined && displayActivityDetails.mandatory !== undefined) activityJSON.mandatory = displayActivityDetails.mandatory
-            fetchFunction({type: ACTIONS.UPDATE_ACTIVITY, payload: activityJSON, dispatch: dispatch.setItineraryJSON, itinerary: dispatch.itineraryJSON})
+            activityJSON.id = states.displayActivityDetails.id
+            if(activityJSON.indoor === undefined && states.displayActivityDetails.indoor !== undefined) activityJSON.indoor = states.displayActivityDetails.indoor
+            if(activityJSON.mandatory === undefined && states.displayActivityDetails.mandatory !== undefined) activityJSON.mandatory = states.displayActivityDetails.mandatory
+            fetchFunction({type: ACTIONS.UPDATE_ACTIVITY, payload: activityJSON, dispatch: setStates.setItineraryJSON, itinerary: states.itineraryJSON, authState: states.authState})
     
-            setCloseActivityDetailsButton(true);
-            setEditForm(false)
-            setDisplayActivityDetails(activityJSON)
+            setStates.setCloseActivityDetailsButton(true);
+            setStates.setEditForm(false)
+            setStates.setDisplayActivityDetails(activityJSON)
         }
     }
 
     return (
         <div>
-            {closeActivityDetailsButton && <button onClick={() => {setDisplayActivityDetails({}); setCloseActivityDetailsButton(false)}}>Close Details</button>}
+            {states.closeActivityDetailsButton && <button onClick={() => {setStates.setDisplayActivityDetails({}); setStates.setCloseActivityDetailsButton(false)}}>Close Details</button>}
 
-            {displayActivityDetails.id && closeActivityDetailsButton && <button onClick={() => {
-                setEditForm(true)
-                setCloseActivityDetailsButton(false);
+            {states.userIsOwner && states.displayActivityDetails.id && states.closeActivityDetailsButton && <button onClick={() => {
+                setStates.setEditForm(true)
+                setStates.setCloseActivityDetailsButton(false);
             }}>Edit Activity</button>}
             
 
 
 
 
-            {displayActivityDetails.id && closeActivityDetailsButton && <button onClick={() => {
+            {states.userIsOwner && states.displayActivityDetails.id && states.closeActivityDetailsButton && <button onClick={() => {
                 const confirmed = window.confirm("Are you sure you want to delete this activity?");
                 if (confirmed) {
-                    fetchFunction({ type: ACTIONS.DELETE_ACTIVITY, payload:displayActivityDetails, dispatch: dispatch.setItineraryJSON, itinerary: dispatch.itineraryJSON });
-                    setDisplayActivityDetails({});
-                    setCloseActivityDetailsButton(false);
+                    fetchFunction({ type: ACTIONS.DELETE_ACTIVITY, payload:states.displayActivityDetails, dispatch: setStates.setItineraryJSON, itinerary: states.itineraryJSON, authState: states.authState });
+                    setStates.setDisplayActivityDetails({});
+                    setStates.setCloseActivityDetailsButton(false);
             }}}>Delete Activity</button>}
 
             <ul>
-            {!editForm && Object.entries(displayActivityDetails).map(([key, value], index) => value && <li key={index}><h4>{key}</h4><p>{value}</p></li>)}
+            {!states.editForm && Object.entries(states.displayActivityDetails).map(([key, value], index) => value && <li key={index}><h4>{key}</h4><p>{value}</p></li>)}
             </ul>
 
-            {editForm && <div>
+            {states.editForm && <div>
             <form onSubmit={(event) => handleSubmit(event)}>
                 <label>Activity Name
-                <input defaultValue={displayActivityDetails.activityName} name= "activityName" label="Activity Name" required/>
+                <input defaultValue={states.displayActivityDetails.activityName} name= "activityName" label="Activity Name" required/>
                 </label>
                 <br/>
 
                 <label>Description
-                <input defaultValue={displayActivityDetails.description} name="description" label="Description"/>
+                <input defaultValue={states.displayActivityDetails.description} name="description" label="Description"/>
                 </label>
                 <br/>
 
@@ -72,17 +72,17 @@ export default function ActivityDetails({editForm, setEditForm, dispatch, displa
                 <br/>
                 
                 <label>Image URL
-                <input defaultValue={displayActivityDetails.imageURL} name="imageURL" label="Image URL"/>
+                <input defaultValue={states.displayActivityDetails.imageURL} name="imageURL" label="Image URL"/>
                 </label>
                 <br/>
                 
                 <label>Important Reminder
-                <input defaultValue={displayActivityDetails.importantReminder} name="importantReminder" label="Important Reminder"/>
+                <input defaultValue={states.displayActivityDetails.importantReminder} name="importantReminder" label="Important Reminder"/>
                 </label>
                 <br/>
                 
                 <label>Group Size
-                <input defaultValue={displayActivityDetails.groupSize} name="groupSize" type="number" label="Group Size"/>
+                <input defaultValue={states.displayActivityDetails.groupSize} name="groupSize" type="number" label="Group Size"/>
                 </label>
                 <br/>
                 
@@ -92,13 +92,13 @@ export default function ActivityDetails({editForm, setEditForm, dispatch, displa
                 <br/>
                 
                 <label>price
-                <input defaultValue={displayActivityDetails.price} name="price" type="number" label="price"/>
+                <input defaultValue={states.displayActivityDetails.price} name="price" type="number" label="price"/>
                 </label>
                 <br/>
                 
                 <label>Type
                 <select name="type" label="Activity Name">
-                    <option defaultValue={displayActivityDetails.type}></option>
+                    <option defaultValue={states.displayActivityDetails.type}></option>
                     <option value="Music">Music</option>
                     <option value="Sports">Sports</option>
                     <option value="Professional">Professional</option>
@@ -112,23 +112,23 @@ export default function ActivityDetails({editForm, setEditForm, dispatch, displa
                 <br/>
                 
                 <label>Event URL
-                <input defaultValue={displayActivityDetails.url} name="url" label="Event URL"/>
+                <input defaultValue={states.displayActivityDetails.url} name="url" label="Event URL"/>
                 </label>
                 <br/>
                 
                 <label>Address
-                <input defaultValue={displayActivityDetails.address} name="address" label="Address"/>
+                <input defaultValue={states.displayActivityDetails.address} name="address" label="Address"/>
                 </label>
                 <br/>
                 
                 <label>City
-                <input defaultValue={displayActivityDetails.city} name="city" label="City"/>
+                <input defaultValue={states.displayActivityDetails.city} name="city" label="City"/>
                 </label>
                 <br/>
                 
                 <label>State
                 <select name="state" label="State">
-                    <option defaultValue={displayActivityDetails.state}></option>
+                    <option defaultValue={states.displayActivityDetails.state}></option>
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
                     <option value="AZ">Arizona</option>
@@ -185,25 +185,25 @@ export default function ActivityDetails({editForm, setEditForm, dispatch, displa
                 <br/>
                 
                 <label>Zip Code
-                <input defaultValue={displayActivityDetails.zip} name="zip" type="number" label="Zip Code"/>
+                <input defaultValue={states.displayActivityDetails.zip} name="zip" type="number" label="Zip Code"/>
                 </label>
                 <br/>
                 
                 <label>Start Time
-                <input defaultValue={displayActivityDetails.startTime.slice(0, 16)} name="startTime" type="datetime-local" label="Start Time" required/>
+                <input defaultValue={states.displayActivityDetails.startTime.slice(0, 16)} name="startTime" type="datetime-local" label="Start Time" required/>
                 </label>
                 <br/>
                 
                 <label>End Time
-                <input defaultValue={displayActivityDetails.endTime.slice(0, 16)} name="endTime" type="datetime-local" label="End Time"/>
+                <input defaultValue={states.displayActivityDetails.endTime.slice(0, 16)} name="endTime" type="datetime-local" label="End Time"/>
                 </label>
                 <br/>
 
                 <input value="Save Changes" type="submit" ></input>
             </form>
             <button onClick={() => {
-                setCloseActivityDetailsButton(true);
-                setEditForm(false)
+                setStates.setCloseActivityDetailsButton(true);
+                setStates.setEditForm(false)
             }}>Cancel</button>
         </div>}
         </div>
