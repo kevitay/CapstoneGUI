@@ -63,7 +63,7 @@ function Header() {
   };
   function handleProfileClicked() {
     //handles navigation to profile page
-    navigate("/serviceFour/profile");
+    navigate("/profile/");
     handleMenuClose()
   }
   const logout = (e) => {
