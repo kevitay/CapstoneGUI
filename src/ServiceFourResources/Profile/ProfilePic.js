@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../../IdentityResources/Contexts/AuthContext.js";
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
 import ProfilePicUpload from "./ProfilePicUpload.js"
 
 const ProfilePic = () => {

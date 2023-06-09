@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../../IdentityResources/Contexts/AuthContext.js";
-import { css } from "@emotion/react";
-import { Typography, Paper } from "@mui/material";
+import { Typography } from "@mui/material";
 
 function UserProfile() {
   const [userProfileState, setUserProfile] = useState([]);
