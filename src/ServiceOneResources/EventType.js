@@ -1,6 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Select, MenuItem, TextField } from '@mui/material';
+import { Select, MenuItem, TextField, InputLabel } from '@mui/material';
 
 const optionList = ['--Select event type--', 'Party', 'Celebration', 'Social', 'Reunion', 'Convention', 'Business Meeting', 'Trip', 'Alumni Gathering', 'Club Outing', 'Other'];
 
@@ -22,6 +22,7 @@ function EventType({ eventType, setEventType }) {
   return (
     <>
       <label>Event Type</label>
+
       <Select name="event-type" id="event-type" value={optionListSelection} onChange={(e) => setOptionListSelection(e.target.value)} required>
         {optionList.map((optionType, index) => (
           <MenuItem key={index} value={optionType}>
@@ -34,7 +35,7 @@ function EventType({ eventType, setEventType }) {
         <>
           <br />
 
-          <TextField label="Other Event Type" type="text" name="eventType" value={otherType} onChange={(e) => setOtherType(e.target.value)} required />
+          <TextField label="Enter Other Event Type" type="text" name="eventType" value={otherType} onChange={(e) => setOtherType(e.target.value)} required />
         </>
       ) : (
         <></>
