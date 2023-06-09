@@ -6,8 +6,6 @@ import Login from '../IdentityResources/Login';
 import EventType from './EventType';
 import { Box, FormControl, FormControlLabel, Input, InputAdornment, TextField, InputLabel, Container, Paper, Button, OutlinedInput } from '@mui/material';
 
-
-
 function CreateEvent({ setCreationStep, setEvent }) {
   const [eventName, setName] = useState('');
   const [organization, setOrganization] = useState('');
@@ -77,8 +75,16 @@ function CreateEvent({ setCreationStep, setEvent }) {
           postNewEvent(eventName, organization, description, eventType, eventCost);
         }}
       >
-        <Box>
-          <FormControl>
+        <Box
+          sx={{
+            marginTop: '50px',
+            marginBottom: '50px',
+            marginLeft: '30%',
+            width: '50%',
+            height: '100vh',
+          }}
+        >
+          <FormControl sx={{ width: '50%' }}>
             <TextField id="outlined-basic" label="Event Name" variant="outlined" name="eventName" value={eventName} onChange={(e) => setName(e.target.value)} required />
             <br />
 
@@ -91,9 +97,7 @@ function CreateEvent({ setCreationStep, setEvent }) {
             <TextField placeholder="$" label="Cost" className="numberField" type="number" min="0.00" name="eventCost" value={eventCost} onChange={(e) => setEventCost(e.target.value)} required />
             <br />
 
-            <label>Event Description</label>
-            <br />
-            <TextField name="description" rows="6" cols="33" value={description} onChange={(e) => setDescription(e.target.value)} required />
+            <TextField label="Event Description" multiline maxRows={4} name="description" rows="6" cols="33" value={description} onChange={(e) => setDescription(e.target.value)} required />
             <br />
 
             <fieldset>
@@ -110,12 +114,10 @@ function CreateEvent({ setCreationStep, setEvent }) {
             {/* <Button variant="contained" disabled={!authState.token} type="submit" onClick={() => postNewEvent}>
           Next &#8250;
         </Button> */}
+            <Button sx={{width: '30%', marginLeft: '30%'}} variant="contained" disabled={!authState.token} type="submit">
+              Next &#8250;
+            </Button>
           </FormControl>
-        </Box>
-        <Box>
-          <Button variant="contained" disabled={!authState.token} type="submit">
-            Next &#8250;
-          </Button>
         </Box>
       </form>
       {/* </Paper>
