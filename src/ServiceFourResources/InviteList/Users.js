@@ -1,14 +1,16 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import UserData from "./UserData";
+import InviteNameSearch from "./InviteSearch";
+
+import { Table, TableBody, TableContainer, TableRow, FormControl, TableHead, TableCell, Button, TablePagination } from '@mui/material';
 
 function Users({event}) {
 
+    const [inviteSuccess, setSuccess] = useState("")
+    const [originalState, setLoadedState] = useState([]);
+    const [resetStatus, setResetStatus] = useState(false);
     const [userState, setUser] = useState([]);
     const [loading, setLoadState] = useState(false);
-    const [inviteSuccess, setSuccess] = useState("")
-    // const [usersToInvite, setUsersToInvite] = useState([]);
-
-    let selectedUsers = [];
 
     useEffect(() => {
         var requestOptions = {
@@ -20,10 +22,24 @@ function Users({event}) {
             .then(response => response.json())
             .then(result => {
                 setUser(result.users)
+                setLoadedState(result.users)
             })
             .then(setLoadState(false))
+            
             .catch(error => console.log('error', error));
     }, []);
+
+
+    function stateReset(e) {
+        setResetStatus(!resetStatus);
+        console.log(originalState);
+        e.preventDefault();
+        setUser(originalState);
+    }
+
+    let selectedUsers = [];
+
+
 
     function sendInvite(e) {
         e.preventDefault();
@@ -68,24 +84,48 @@ function Users({event}) {
 
     }
 
+
     //useEffect(() => { console.log(usersToInvite) }, [usersToInvite]);
 
     return (
-        <div className="Users">
+        <div>
+            <InviteNameSearch resetStatus={resetStatus} userState={userState} setUserState={setUser}></InviteNameSearch>
             <form className="invite-form" onSubmit={(e) => sendInvite(e)}>
-                <table className="user-data-table">
-                    <tr>
-                        <th></th>
-                        <th>Name</th>
-                        <th>Location</th>
-                        <th>Invite?</th>
-                    </tr>
-                    {
-                        loading ? "" : userState.map((user) => (<UserData selectedUsers={selectedUsers} invitee={user}></UserData>))
-                    } </table>
-                <input type="submit" value="Invite"></input>
-                {inviteSuccess && <p>{inviteSuccess}</p>}
+                <FormControl >
+                    <TableContainer>
+                        <Table
+                            sx={{ minWidth: 750 }}
+                            aria-labelledby="Participant Invite"
+                            size={"Large"}
+                        >
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell ><button onClick={(e) => stateReset(e)}>Clear Filters</button></TableCell>
+                                    <TableCell>Invite</TableCell>
+                                    <TableCell>Name</TableCell>
+                                    <TableCell>Location</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                    {
+                                    
+                                        loading ? "" : userState.map((user) => (<UserData key={user.username} selectedUsers={selectedUsers} invitee={user}></UserData>))
+                                    }
+                            </TableBody>
+                            <TablePagination
+                                rowsPerPageOptions={[5, 10, 25]}
+                                component="div"
+                                count={userState.length}
+                                rowsPerPage={5}
+                                page={1}
+                            />
+                        </Table>
+                    </TableContainer>
+                    <Button type="submit" label="Invite">Invite</Button>
+                    {inviteSuccess && <p>{inviteSuccess}</p>}
+                </FormControl>
             </form>
+
         </div>)
 }
 
