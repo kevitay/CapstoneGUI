@@ -12,7 +12,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-import FormLabel from '@mui/material/FormLabel';
+import Button from '@mui/material/Button';
 
 const Notifications = () => {
     const notificationsUrl = "http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/notifications";
@@ -43,10 +43,10 @@ const Notifications = () => {
 
     const sendResponse = (e) => {
         e.preventDefault();
-        if (e.target.response.value === "Not Going") {
-            deleteNotification(e.target.msgId.value);
+        if (e.target.elements.response.value === "Not Going") {
+            deleteNotification(e.target.elements.msgId.value);
         } else {
-            addParticipant(e.target.msgId.value, e.target.eventId.value, e.target.response.value, username);
+            addParticipant(e.target.elements.msgId.value, e.target.elements.eventId.value, e.target.elements.response.value, username);
         }
     };
 
@@ -115,7 +115,7 @@ const Notifications = () => {
                             <TableCell sx={{ width: 350, fontWeight: 'bold' }}>From</TableCell>
                             <TableCell sx={{ width: 350, fontWeight: 'bold' }}>Subject</TableCell>
                             <TableCell sx={{ width: 350, fontWeight: 'bold' }}>Message</TableCell>
-                            <TableCell sx={{ width: 700, fontWeight: 'bold' }}>Response</TableCell>
+                            <TableCell sx={{ width: 600, fontWeight: 'bold' }}>Response</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -125,17 +125,18 @@ const Notifications = () => {
                                 <TableCell>{result.subject}</TableCell>
                                 <TableCell>{result.messageText}</TableCell>
                                 <TableCell>
+                                    <form onSubmit={(e) => {sendResponse(e)}}>
                                     <FormControl component="fieldset">
-                                        <RadioGroup row onSubmit={(e) => sendResponse(e)}>
-                                            <FormControlLabel value={result.eventId} disabled control={<Radio />} label="" />
-                                            <FormControlLabel value={result.msgId} disabled control={<Radio />} label="" />
-                                            <FormControlLabel value="going" control={<Radio />} label="Going" />
-                                            <FormControlLabel value="notGoing" control={<Radio />} label="Not Going" />
-                                            <FormControlLabel value="tentative" control={<Radio />} label="Tentative" />
-                                            &nbsp; &nbsp; &nbsp;
-                                        <input type="submit" value="Send Response" />
+                                        <RadioGroup row>
+                                            <FormControlLabel name="response" value="Going" control={<Radio />} label="Going" />
+                                            <FormControlLabel name="response" value="Not Going" control={<Radio />} label="Not Going" />
+                                            <FormControlLabel name="response" value="Tentative" control={<Radio />} label="Tentative" />
+                                            <FormControlLabel name="eventId" sx={{opacity: 0}} value={result.eventId} disabled control={<Radio />} label="" />
+                                            <FormControlLabel name="msgId" sx={{opacity: 0}} value={result.msgId} disabled control={<Radio />} label="" />
                                         </RadioGroup>
+                                        <Button type="submit" variant="contained" > Send Response </Button>
                                     </FormControl>
+                                    </form>
                                 </TableCell>
                             </TableRow>
                         )) : <TableRow><TableCell colSpan="4">No Notifications</TableCell></TableRow>
