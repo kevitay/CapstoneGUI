@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import { FormControl, FormLabel, FormControlLabel, Stack, RadioGroup, Radio, Checkbox, Select, MenuItem } from '@mui/material';
+import { FormGroup, FormControl, FormLabel, FormControlLabel, Stack, RadioGroup, Radio, Checkbox, Select, MenuItem } from '@mui/material';
 import { DateTimePicker } from '@mui/x-date-pickers';
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -36,6 +36,7 @@ export default function ActivityForm({setForm, dispatch}) {
                 <FormControl>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
                 <Stack spacing={2} sx={{marginBottom: 2}}>
+          
                 <TextField label='Activity Name'name="activityName" id="outlined-size-small" defaultValue="" size="small" required/>          
                 <TextField label='Description' multiline name="description" id="outlined-size-small" size="small"/>
                 </Stack>
@@ -46,8 +47,8 @@ export default function ActivityForm({setForm, dispatch}) {
 
                 <Stack spacing={2} sx={{marginBottom: 2}}>
                 <RadioGroup row name="indoor-outdoor-radio-group">
-                <FormControlLabel label='Outdoor' name="indoor" value="false" control={<Radio />}/>
-                <FormControlLabel label='Indoor' name="indoor" value="true" control={<Radio />}/>
+                <FormControlLabel label='Outdoor' id="outdoor" name="indoor" value="false" control={<Radio />}/>
+                <FormControlLabel label='Indoor' id="indoor" name="indoor" value="true" control={<Radio />}/>
                 </RadioGroup>
                 </Stack>
                 
@@ -58,17 +59,20 @@ export default function ActivityForm({setForm, dispatch}) {
                 </Stack>
 
                 <Stack spacing={2} sx={{marginBottom: 0}}>
-                <FormLabel id="mandatory-checkbox">Is Event Mandatory?</FormLabel>
+                <FormLabel id="mandatory-checkbox">Is Activity Mandatory?</FormLabel>
                 </Stack>
-
+              
+                <FormGroup>
                 <Stack spacing={2} sx={{marginBottom: 2}}>
                 <Checkbox label='Mandatory' name="mandatory" value="true"/>
                 </Stack>
-                
+                </FormGroup>
+
                 <Stack spacing={2} sx={{marginBottom: 4}}>
                 <TextField label='Price' name="price" type="number" id="outlined-size-small" defaultValue="" size="small"/>
                 
-                <FormLabel id="type-select">Event Type</FormLabel>
+                <FormGroup>
+                <FormLabel id="type-select">Activity Type</FormLabel>
                 <Select name="type" variant="outlined" defaultValue="">
                     <MenuItem value=""></MenuItem>
                     <MenuItem value="Music">Music</MenuItem>
@@ -80,13 +84,15 @@ export default function ActivityForm({setForm, dispatch}) {
                     <MenuItem value="Family">Family</MenuItem>
                     <MenuItem value="Entertainment">Entertainment</MenuItem>
                 </Select>
+                </FormGroup>
                 
-                <TextField label='Event URL' name="url" id="outlined-size-small" defaultValue="" size="small"/>
+                <TextField label='Activity URL' name="url" id="outlined-size-small" defaultValue="" size="small"/>
                 
                 <TextField label='Address' name="address" id="outlined-size-small" defaultValue="" size="small"/>
 
                 <TextField label='City' name="city" id="outlined-size-small" defaultValue="" size="small"/>
           
+                <FormGroup>
                 <FormLabel id="state-select">State</FormLabel>
                 <Select name="state" defaultValue="">
                     <MenuItem value=""></MenuItem>
@@ -142,8 +148,9 @@ export default function ActivityForm({setForm, dispatch}) {
                     <MenuItem value="WI">Wisconsin</MenuItem>
                     <MenuItem value="WY">Wyoming</MenuItem>
                 </Select>
+                </FormGroup>
                 
-                <TextField label='Zip Code' name="zip" type="number" id="outlined-size-small" defaultValue="e" size="small"/>
+                <TextField label='Zip Code' name="zip" type="number" id="outlined-size-small" defaultValue="" size="small"/>
                 
                 <DateTimePicker label='Start Time*' onChange={date => setStartTime(date)} id="outlined-size-small" size="small" required />
                 
