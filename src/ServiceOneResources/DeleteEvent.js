@@ -1,9 +1,11 @@
 import React, { useEffect } from 'react';
 import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router';
 import AuthContext from '../IdentityResources/Contexts/AuthContext';
 
 //will need to change to account for cascading delete to other components
 export default function DeleteEvent({ id }) {
+  const navigate = useNavigate();
   // Deletion steps: 1-Checklist, 2-Participants, 3-Activities, 4-Event
   const [deletionStep, setDeletionStep] = useState(0);
   let [deleteStatus, setDeleteStatus] = useState('preDelete');
@@ -12,11 +14,14 @@ export default function DeleteEvent({ id }) {
 
   useEffect(() => {
     function handleDeleteEvent() {
+      var myHeaders = new Headers();
+      myHeaders.append('Content-Type', 'application/json');
+      myHeaders.append('Authorization', authState.token);
 
       var requestOptions = {
         method: 'DELETE',
         mode: 'cors',
-        authorization: authState.token,
+        headers: myHeaders
       };
 
       switch (deletionStep) {
@@ -46,10 +51,10 @@ export default function DeleteEvent({ id }) {
             .then(setDeletionStep(0))
             .catch((error) => console.log(error));
           break;
-        default: return;
+        default:
+          return;
       }
 
-      
       // fetch('http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist?eventId=' + id, requestOptions)
       //   .then((response) => console.log('Success- Checklist ' + id + ' Deleted'))
       //   .catch((error) => console.log(error))
@@ -75,8 +80,12 @@ export default function DeleteEvent({ id }) {
     }
 
     handleDeleteEvent();
-
   }, [deletionStep, id, setDeleteStatus, authState]);
+
+    function handleReturnToEvents() {
+      //navigates to event list
+      navigate("/serviceOne/");
+    }
 
   return (
     <>
@@ -94,9 +103,7 @@ export default function DeleteEvent({ id }) {
       )}
       {deleteStatus === 'pending' ? <p>Deleting...</p> : <></>}
       {deleteStatus === 'deleted' ? (
-        <a href={`/serviceOne/`} rel="noopener noreferrer">
-          <button>Return to Events </button>
-        </a>
+          <button onClick={handleReturnToEvents}>Return to Events</button>
       ) : (
         <></>
       )}
