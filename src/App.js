@@ -10,7 +10,6 @@ import CreateEventFlow from './ServiceOneResources/CreateEventFlow';
 import EventImages from "./ServiceFourResources/EventImages/EventImages";
 import { EventProvider } from './ServiceOneResources/EventsContext';
 import EventList from './ServiceOneResources/EventList';
-import EditEvent from './ServiceOneResources/EditEvent';
 import AuthContext from './IdentityResources/Contexts/AuthContext';
 import { useReducer } from 'react';
 import Header from './Header';
@@ -48,7 +47,6 @@ function App() {
             <Route path={'/'} element={<Home />}></Route>
             <Route path={'/serviceOne/*'} element={<EventList />}></Route>
             <Route path={'/serviceOne/event/:id'} element={<Event />}></Route>
-            <Route path={'/serviceOne/editEvent/:id'} element={<EditEvent />}></Route>
             <Route path={'/serviceOne/createEventFlow'} element={<CreateEventFlow />}></Route>
             <Route path={'/serviceTwo/*'} element={<ServiceTwoApp />}></Route>
             <Route path={'/serviceThree/*'} element={<ServiceThreeApp />}></Route>
