@@ -10,7 +10,6 @@ import CreateEventFlow from './ServiceOneResources/CreateEventFlow';
 import EventImages from "./ServiceFourResources/EventImages/EventImages";
 import { EventProvider } from './ServiceOneResources/EventsContext';
 import EventList from './ServiceOneResources/EventList';
-import EditEvent from './ServiceOneResources/EditEvent';
 import AuthContext from './IdentityResources/Contexts/AuthContext';
 import { useReducer } from 'react';
 import Header from './Header';
