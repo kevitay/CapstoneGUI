@@ -114,8 +114,8 @@ const Notifications = () => {
                         <TableRow>
                             <TableCell sx={{ width: 200, fontWeight: 'bold' }}>From</TableCell>
                             <TableCell sx={{ width: 200, fontWeight: 'bold' }}>Subject</TableCell>
-                            <TableCell sx={{ width: 200, fontWeight: 'bold' }}>Message</TableCell>
-                            <TableCell sx={{ width: 200, fontWeight: 'bold' }}>Response</TableCell>
+                            <TableCell sx={{ width: 250, fontWeight: 'bold' }}>Message</TableCell>
+                            <TableCell sx={{ width: 175, fontWeight: 'bold' }} align="center">Response</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -125,17 +125,17 @@ const Notifications = () => {
                                 <TableCell>{result.subject}</TableCell>
                                 <TableCell>{result.messageText}</TableCell>
                                 <TableCell align="center">
-                                    <form onSubmit={(e) => {sendResponse(e)}}>
-                                    <FormControl component="fieldset">
-                                        <RadioGroup row>
-                                            <FormControlLabel name="response" value="Going" control={<Radio />} label="Going" />
-                                            <FormControlLabel name="response" value="Not Going" control={<Radio />} label="Not Going" />
-                                            <FormControlLabel name="response" value="Tentative" control={<Radio />} label="Tentative" />
-                                            <FormControlLabel name="eventId" sx={{opacity: 0}} value={result.eventId} disabled control={<Radio />} label="" />
-                                            <FormControlLabel name="msgId" sx={{opacity: 0}} value={result.msgId} disabled control={<Radio />} label="" />
-                                        </RadioGroup>
-                                        <Button sx={{width: 175}} type="submit" variant="contained" > Send Response </Button>
-                                    </FormControl>
+                                    <form onSubmit={(e) => { sendResponse(e) }}>
+                                        <FormControl component="fieldset">
+                                            <RadioGroup row>
+                                                <FormControlLabel name="response" value="Going" control={<Radio />} label="Going" />
+                                                <FormControlLabel name="response" value="Not Going" control={<Radio />} label="Not Going" />
+                                                <FormControlLabel name="response" value="Tentative" control={<Radio />} label="Tentative" />
+                                                <FormControlLabel name="eventId" sx={{ width: 0, opacity: 0 }} value={result.eventId} disabled control={<Radio />} label="" />
+                                                <FormControlLabel name="msgId" sx={{ width: 0, opacity: 0 }} value={result.msgId} disabled control={<Radio />} label="" />
+                                            </RadioGroup>
+                                            <Button sx={{ width: 175 }} type="submit" variant="contained" > Send Response </Button>
+                                        </FormControl>
                                     </form>
                                 </TableCell>
                             </TableRow>

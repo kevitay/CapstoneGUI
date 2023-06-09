@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TableCell, TableRow, Button, TextField, CheckBox } from '@mui/material';
+import { TableCell, TableRow, Button, TextField, Checkbox } from '@mui/material';
 
 function AddListItem({ eventId, setPackingList, packingList }) {
     const [itemInput, setItemInput] = useState('');
@@ -94,7 +94,7 @@ function AddListItem({ eventId, setPackingList, packingList }) {
                     onChange={handleQuantityChange}
                 />
             </TableCell>
-            <TableCell align="center"><CheckBox checked={required} onChange={handleCheckboxChange} /></TableCell>
+            <TableCell align="center"><Checkbox checked={required} onChange={handleCheckboxChange} /></TableCell>
             <TableCell align="center"><Button variant="contained" onClick={addItem}> Add Item </Button></TableCell>
         </TableRow>)
 

@@ -115,7 +115,6 @@ function ItemList({ items, setPackingList, eventId }) {
           <TableCell align="center">
             <TextField
               type="number"
-              label="Quantity"
               name="quantity"
               min="1"
               inputProps={{ style: { textAlign: 'center' } }}
@@ -126,6 +125,7 @@ function ItemList({ items, setPackingList, eventId }) {
           <TableCell align="center"><Checkbox name="required" checked={item.required} onChange={(e) => onChangeInput(e, index)}></Checkbox></TableCell>
           <TableCell align="center">
             <Button variant="contained" onClick={() => handleUpdateItem(item, index)}>Update Item</Button>
+            &nbsp; &nbsp;
             <Button variant="contained" onClick={() => handleDeleteItem(item, index)}>Delete Item</Button>
           </TableCell>
         </TableRow>
