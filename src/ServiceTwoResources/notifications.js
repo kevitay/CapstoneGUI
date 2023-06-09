@@ -1,5 +1,18 @@
 import React, { useState, useEffect, useContext } from 'react';
 import AuthContext from '../IdentityResources/Contexts/AuthContext';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import { Typography } from '@mui/material';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
 
 const Notifications = () => {
     const notificationsUrl = "http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/notifications";
@@ -92,44 +105,45 @@ const Notifications = () => {
     useEffect(getNotificationsByUserName, [username]);
 
     return (
-        <div>
-            <h2>Notifications</h2>
-            <p> User ID: {username}</p>
-            <table>
-                <thead>
-                    <tr>
-                        <th>From</th>
-                        <th>Subject</th>
-                        <th>Message</th>
-                        <th>Response</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {notifications ? notifications.map(result => (
-                        <tr key={result.msgId}>
-                            <td>{result.messageFrom}</td>
-                            <td>{result.subject}</td>
-                            <td>{result.messageText}</td>
-                            <td>
-                                <form onSubmit={(e) => sendResponse(e)}>
-                                    <input type="hidden" id="eventId" name="eventId" value={result.eventId} />
-                                    <input type="hidden" id="msgId" name="msgId" value={result.msgId} />
-                                    <input type="radio" id="going" name="response" value="Going" />
-                                    <label htmlFor="going">Going</label>
-                                    <input type="radio" id="notGoing" name="response" value="Not Going" />
-                                    <label htmlFor="notGoing">Not Going</label>
-                                    <input type="radio" id="tentative" name="response" value="Tentative" />
-                                    <label htmlFor="tentative">Tentative</label>
-                                    &nbsp; &nbsp; &nbsp;
-                                    <input type="submit" value="Send Response" />
-                                </form>
-                            </td>
-                        </tr>
-                    )) : <tr><td colSpan="4">No Notifications</td></tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+        <>
+            <Typography variant="h4">Notifications</Typography>
+            <p> User Name: {username}</p>
+            <TableContainer component={Paper}>
+                <Table size="small" aria-label="a dense table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell sx={{ width: 350, fontWeight: 'bold' }}>From</TableCell>
+                            <TableCell sx={{ width: 350, fontWeight: 'bold' }}>Subject</TableCell>
+                            <TableCell sx={{ width: 350, fontWeight: 'bold' }}>Message</TableCell>
+                            <TableCell sx={{ width: 700, fontWeight: 'bold' }}>Response</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {notifications ? notifications.map(result => (
+                            <TableRow key={result.msgId}>
+                                <TableCell>{result.messageFrom}</TableCell>
+                                <TableCell>{result.subject}</TableCell>
+                                <TableCell>{result.messageText}</TableCell>
+                                <TableCell>
+                                    <FormControl component="fieldset">
+                                        <RadioGroup row onSubmit={(e) => sendResponse(e)}>
+                                            <FormControlLabel value={result.eventId} disabled control={<Radio />} label="" />
+                                            <FormControlLabel value={result.msgId} disabled control={<Radio />} label="" />
+                                            <FormControlLabel value="going" control={<Radio />} label="Going" />
+                                            <FormControlLabel value="notGoing" control={<Radio />} label="Not Going" />
+                                            <FormControlLabel value="tentative" control={<Radio />} label="Tentative" />
+                                            &nbsp; &nbsp; &nbsp;
+                                        <input type="submit" value="Send Response" />
+                                        </RadioGroup>
+                                    </FormControl>
+                                </TableCell>
+                            </TableRow>
+                        )) : <TableRow><TableCell colSpan="4">No Notifications</TableCell></TableRow>
+                        }
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </>
     )
 
 };
