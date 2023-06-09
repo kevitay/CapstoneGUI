@@ -2,7 +2,8 @@ import React from 'react';
 import { useState, useEffect, useContext } from 'react';
 import EventBrief from './EventBrief';
 import { EventContext } from './EventsContext';
-import { Button, Stack, Typography } from '@mui/material';
+import { Stack } from '@mui/material';
+import Button from '@mui/material/Button';
 import AuthContext from '../IdentityResources/Contexts/AuthContext';
 
 
@@ -42,11 +43,23 @@ export default function EventList() {
   return (
     <div>
       <Stack className="userEvents" direction="row" useFlexGap flexWrap="wrap" justifyContent="center">
-        {pageState > 1 ? <Button variant='text' onClick={() => setPageState(pageState - 1)}>Prev</Button> : <></>}
+        {pageState > 1 ? (
+          <Button size="large" sx={{ marginRight: '16px', height: '225px', fontSize: '200px', paddingBottom: '35px' }} variant="text" onClick={() => setPageState(pageState - 1)}>
+            &#8249;
+          </Button>
+        ) : (
+          <></>
+        )}
         {state.eventsList.slice(cardsPerPage * (pageState - 1), cardsPerPage * pageState).map((event) => {
           return <EventBrief event={event} key={event.id} />;
         })}
-        {cardsPerPage * pageState < state.eventsList.length ? <Button variant='text' onClick={() => setPageState(pageState + 1)}>Next</Button> : <></>}
+        {cardsPerPage * pageState < state.eventsList.length ? (
+          <Button size="large" sx={{ height: '225px', fontSize: '200px', paddingBottom: '35px' }} variant="text" onClick={() => setPageState(pageState + 1)}>
+            &#8250;
+          </Button>
+        ) : (
+          <></>
+        )}
       </Stack>
     </div>
   );
