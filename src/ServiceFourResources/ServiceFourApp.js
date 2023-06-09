@@ -19,8 +19,7 @@ function ServiceFourApp() {
         <MyEventsNav eventId={eventId} />
         <ParticipantsList eventId={eventId} />
         <InviteList eventId={eventId} />
-        <ProfilePage />
-        
+        <ProfilePage />       
       </div>
     )
 }
