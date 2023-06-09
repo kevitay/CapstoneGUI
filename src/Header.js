@@ -47,6 +47,10 @@ function Header() {
     navigate("/serviceOne/createEventFlow");
   }
 
+  function handleMyEventsClicked(){
+    navigate("/myEvents/")
+  }
+
   const [anchorEl, setAnchorEl] = useState(null);
   const openMenu = Boolean(anchorEl);
   const handleMenuClick = (event) => {
@@ -100,6 +104,9 @@ function Header() {
                 {" "}
                 <Button variant='outlined' color='inherit' onClick={handleCreateEvent}>
                   Create Event
+                </Button>
+                <Button variant='outlined' color='inherit' onClick={handleMyEventsClicked}>
+                  My Events
                 </Button>
                 <IconButton onClick={colorMode.toggleColorMode} color='inherit'>
                   {theme.palette.mode === "dark" ? <Brightness4Icon /> : <Brightness7Icon />}
