@@ -1,16 +1,7 @@
 import React, { useState } from "react";
 import AddListItem from "./addListItem";
 import ItemList from "./itemList";
-import Table from '@mui/material/Table';
-import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
-import TableContainer from '@mui/material/TableContainer';
-import TableHead from '@mui/material/TableHead';
-import TableRow from '@mui/material/TableRow';
-import Paper from '@mui/material/Paper';
-import { Typography } from '@mui/material';
-import Button from '@mui/material/Button';
-
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 
 function BeforeEvent({ eventId }) {
   const [packingList, setPackingList] = useState([]);

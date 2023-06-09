@@ -1,4 +1,4 @@
-import { TableRow, TableCell, Input, Button, Checkbox, TextField } from "@mui/material";
+import { TableRow, TableCell, Button, Checkbox, TextField } from "@mui/material";
 import React, { useEffect } from "react";
 
 function ItemList({ items, setPackingList, eventId }) {

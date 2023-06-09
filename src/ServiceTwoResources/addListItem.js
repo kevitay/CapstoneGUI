@@ -1,12 +1,5 @@
 import React, { useState } from "react";
-import TableCell from '@mui/material/TableCell';
-import TableRow from '@mui/material/TableRow';
-import Button from '@mui/material/Button';
-import TextField from '@mui/material/TextField';
-import MenuItem from '@mui/material/MenuItem';
-import Input from '@mui/material/Input';
-import CheckBox from "@mui/material/Checkbox";
-import { TextFormatRounded } from "@mui/icons-material";
+import { TableCell, TableRow, Button, TextField, CheckBox } from '@mui/material';
 
 function AddListItem({ eventId, setPackingList, packingList }) {
     const [itemInput, setItemInput] = useState('');
