@@ -1,4 +1,4 @@
-import { Box, Divider, Typography } from "@mui/material";
+import { Box, Container, Divider, Typography } from "@mui/material";
 import React from "react";
 import EventList from "./ServiceOneResources/EventList";
 
@@ -15,9 +15,11 @@ function Home() {
         <div className="Home">
            <Box sx={boxStyle} />
            <Box/>
-           <Typography variant="h3" color='inherit'sx={{padding:2, margin:1}}>Public Events</Typography>
+           <Container maxWidth='xl'>
+           <Typography variant="h3" color='inherit'sx={{padding:2 }}>Public Events</Typography>
            <Divider/>
            <EventList/>
+           </Container>
         </div>
     )
 }

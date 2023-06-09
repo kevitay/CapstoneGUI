@@ -41,7 +41,6 @@ export default function EventList() {
 
   return (
     <div>
-      <h1>Event List</h1>
       <Stack className="userEvents" direction="row" useFlexGap flexWrap="wrap" justifyContent="center">
         {pageState > 1 ? <Button variant='text' onClick={() => setPageState(pageState - 1)}>Prev</Button> : <></>}
         {state.eventsList.slice(cardsPerPage * (pageState - 1), cardsPerPage * pageState).map((event) => {

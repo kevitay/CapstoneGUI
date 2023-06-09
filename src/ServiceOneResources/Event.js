@@ -4,6 +4,7 @@ import OrganizerControl from "./OrganizerControl";
 import AuthContext from "../IdentityResources/Contexts/AuthContext";
 import { useParams } from "react-router-dom";
 import EditEvent from "./EditEvent";
+import { Container } from "@mui/material";
 
 const emptyLocation = {address:'', city:'',state:'',zipCode:''};
 const initialExtendedFields = {startDateTime:'', endDateTime:'',startLocation: emptyLocation, endLocation:emptyLocation };
@@ -109,6 +110,7 @@ export default function Event() {
   if (!currentEvent) return null;
   return (
     <>
+    <Container maxWidth='lg' >
       {(!authState.token)?(<Login handleClose={handleClose}></Login>):(<></>)}
       
       {(!editMode)?(
@@ -139,6 +141,7 @@ export default function Event() {
       <p>placeholder for Participants list user view (assume your own component returns empty if not applicable)</p>
     <p>placeholder for Itinerary user view (assume your own component returns empty if not applicable)</p>    
     <p>placeholder for Checklist user view (assume your own component returns empty if not applicable)</p>
+    </Container>
     </>
 
   );

@@ -5,18 +5,17 @@ import { Box, Divider, Stack } from "@mui/material";
 import { Container } from "@mui/system";
 
 function MyEvents() {
-    const boxStyle = {
-        background: "url(MapGirl.jpg)",
+    const boxStyles = {
+        background: "url(../osaka.jpg)",
         backgroundSize: "cover",
-        backgroundPosition: "bottom",
+        backgroundPosition: "center",
         bgcolor: "#cfe8fc",
         height: "50vh",
         /* Add other desired background properties here */
       };
-      
     return (
         <>
-        <Box sx={boxStyle} />
+        <Box sx={boxStyles} />
            <Box/>
         <Container maxWidth='lg'>
         <Stack spacing={5}>
