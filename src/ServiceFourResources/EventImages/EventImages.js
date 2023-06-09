@@ -3,7 +3,7 @@ import EventImage from "./EventImage";
 import UploadInterface from "./UploadInterface";
 import { useParams } from "react-router-dom";
 import ImageList from '@mui/material/ImageList';
-import { Card } from '@mui/material';
+import { Card, Box } from '@mui/material';
 
 function EventImages() {
     const [imageList, setImageList] = useState([]);
@@ -29,6 +29,7 @@ function EventImages() {
     return (
         <Card sx={{
             width: 1080,
+            height: 720,
             fontSize: '20px',
             display: 'flex',
             flexDirection: 'column',
@@ -38,9 +39,11 @@ function EventImages() {
 
         }}>
             <UploadInterface fetchEventImages={fetchEventImages} eventId={eventId}></UploadInterface>
-            <ImageList sx={{ width: 1070, height: 720 }} cols={3} rowHeight={240}>
-                {loading ? "" : imageList.map((img) => (<EventImage img={img}></EventImage>))}
-            </ImageList>
+            <Box sx={{ width: '98%', height: '100%', overflowY: 'scroll', marginTop: '10px' }}>
+                <ImageList variant="masonry" cols={4} gap={10}>
+                    {loading ? "" : imageList.map((img) => (<EventImage img={img}></EventImage>))}
+                </ImageList>
+            </Box>
         </Card>
     )
 }
