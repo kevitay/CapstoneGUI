@@ -1,15 +1,19 @@
 import React from 'react';
-import { useEffect, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import EventBrief from './EventBrief';
 import { EventContext } from './EventsContext';
 import { Stack } from '@mui/material';
+import Button from '@mui/material/Button';
 import AuthContext from '../IdentityResources/Contexts/AuthContext';
+
 
 // const eventsJson = require("./events.json")
 //This component is to display our EventList, inside the return is an EventBrief that organizes the data from the fetch call to display only a brief summary.
 export default function EventList() {
   const { state, dispatch } = useContext(EventContext);
   const [authState] = useContext(AuthContext);
+  const [pageState, setPageState] = useState(1);
+  const [cardsPerPage,] = useState(4);
 
   useEffect(() => {
     function getEvents() {
@@ -38,11 +42,24 @@ export default function EventList() {
 
   return (
     <div>
-      <h1>Event List</h1>
       <Stack className="userEvents" direction="row" useFlexGap flexWrap="wrap" justifyContent="center">
-        {state.eventsList.map((event) => {
+        {pageState > 1 ? (
+          <Button size="large" sx={{ marginRight: '16px', height: '225px', fontSize: '200px', paddingBottom: '35px' }} variant="text" onClick={() => setPageState(pageState - 1)}>
+            &#8249;
+          </Button>
+        ) : (
+          <></>
+        )}
+        {state.eventsList.slice(cardsPerPage * (pageState - 1), cardsPerPage * pageState).map((event) => {
           return <EventBrief event={event} key={event.id} />;
         })}
+        {cardsPerPage * pageState < state.eventsList.length ? (
+          <Button size="large" sx={{ height: '225px', fontSize: '200px', paddingBottom: '35px' }} variant="text" onClick={() => setPageState(pageState + 1)}>
+            &#8250;
+          </Button>
+        ) : (
+          <></>
+        )}
       </Stack>
     </div>
   );

@@ -22,15 +22,11 @@ function EventType({ eventType, setEventType }) {
     <>
       <label htmlFor="event-type">Event Type</label>
       <select name="event-type" id="event-type" value={optionListSelection} onChange={(e) => setOptionListSelection(e.target.value)} required>
-        {optionList.map((optionType, index) => {
-          return (
-            <>
+        {optionList.map((optionType, index) => 
               <option key={index} value={optionType}>
                 {optionType}
               </option>
-            </>
-          );
-        })}
+        )}
       </select>
 
       {optionListSelection === 'Other' ? (
