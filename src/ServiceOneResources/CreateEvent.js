@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useContext } from 'react';
 import AuthContext from '../IdentityResources/Contexts/AuthContext';
 //import { EventContext } from "./EventsContext";
-import Login from '../IdentityResources/Login';
+// import Login from '../IdentityResources/Login';
 import EventType from './EventType';
 import { Box, FormControl, TextField, Button, Radio, RadioGroup, FormLabel, FormControlLabel } from '@mui/material';
 
@@ -14,8 +14,6 @@ function CreateEvent({ setCreationStep, setEvent }) {
   const [eventCost, setEventCost] = useState('');
   const [isPublic, setIsPublic] = useState(false);
   const [authState] = useContext(AuthContext);
-
-  const handleClose = () => {};
 
   function postNewEvent(eventName, organization, description, eventType, eventCost) {
     var myHeaders = new Headers();
