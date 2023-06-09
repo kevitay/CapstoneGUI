@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../../IdentityResources/Contexts/AuthContext.js";
+import { Button } from "@mui/material";
 
 const ProfilePic = () => {
     const [authState] = useContext(AuthContext);
@@ -32,7 +33,6 @@ const ProfilePic = () => {
             });
 
             if (response.ok) {
-                console.log('Profile picture updated');
                 fetchProfilePicture(authState.username);
             } else {
                 console.error('ERROR: Profile picture failed to update');
@@ -51,8 +51,8 @@ const ProfilePic = () => {
     return (
         <div>
             <form>
-                <input type="file" accept="image/*" onChange={handleFileChange} />
-                <button onClick={sendFile}>Upload</button>
+                <Button sx={{mr:'1em',mb: '1em',maxBlockSize:'2em',width:'11em', height:'3em', fontSize:'.5em'}}variant="contained" type="file" accept="image/*" onChange={handleFileChange}>Change pic</Button>
+                <Button sx={{mb: '1em',maxBlockSize:'2em',width:'11em', height:'3em', fontSize:'.5em'}}variant="outlined" onClick={sendFile}>Upload</Button>
             </form>
             <div>
                 <img src={"data:image/jpg;base64," + img} height="200px" width="200px" alt="profile pic" />
