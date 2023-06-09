@@ -12,7 +12,7 @@ import DeleteIcon from '@mui/icons-material/Delete';
 
 function UploadInterface({ fetchEventImages, eventId }) {
     const [selectedFile, setSelectedFile] = useState(null);
-    const [open, setOpen] = React.useState(false);
+    const [open, setOpen] = useState(false);
 
     const style = {
         position: 'absolute',
@@ -32,8 +32,11 @@ function UploadInterface({ fetchEventImages, eventId }) {
     };
 
     const handleOpen = () => setOpen(true);
-    const handleClose = () => setOpen(false);
 
+    const handleClose = () => {
+        setOpen(false);
+        clearFiles();
+    }
     const handleFileChange = (event) => {
         const fileSelection = event.target.files[0];
         setSelectedFile(fileSelection);
@@ -91,12 +94,13 @@ function UploadInterface({ fetchEventImages, eventId }) {
                                         <DeleteIcon />
                                     </IconButton>
                                     <ListItemAvatar>
-                                        <Avatar>
+                                        <Avatar sx={{ width: 40, height: 40 }}>
                                             <img
                                                 src={URL.createObjectURL(selectedFile)}
                                                 alt="Failed to load"
                                                 loading="lazy"
                                                 className="img-selection-icon"
+                                                style={{ objectFit: 'cover', width: '100%', height: '100%' }}
                                             />
                                         </Avatar>
                                     </ListItemAvatar>
