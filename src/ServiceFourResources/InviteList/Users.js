@@ -1,16 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import UserData from "./UserData";
 import InviteNameSearch from "./inviteNameSearch";
 
 import { Table, TableBody, TableContainer, TableRow, FormControl, TableHead, TableCell, Button, TablePagination } from '@mui/material';
 
-function Users({ eventId, userState, setUser }) {
+function Users({eventId}) {
 
 
 
     const [inviteSuccess, setSuccess] = useState("")
     const [originalState, setLoadedState] = useState([]);
     const [resetStatus, setResetStatus] = useState(false);
+    const [userState, setUser] = useState([]);
+    const [loading, setLoadState] = useState(false);
+
+    useEffect(() => {
+        var requestOptions = {
+            method: 'GET',
+            redirect: 'follow'
+        };
+        setLoadState(true);
+        fetch("http://a53e50bf576c64141b52293976658417-1117441751.us-west-2.elb.amazonaws.com/api/users", requestOptions)
+            .then(response => response.json())
+            .then(result => {
+                setUser(result.users)
+                setLoadedState(result.users)
+            })
+            .then(setLoadState(false))
+            
+            .catch(error => console.log('error', error));
+    }, []);
 
 
     function stateReset(e) {
@@ -94,7 +113,8 @@ function Users({ eventId, userState, setUser }) {
                             </TableHead>
                             <TableBody>
                                     {
-                                        userState.map((user) => (<UserData key={user.username} selectedUsers={selectedUsers} invitee={user}></UserData>))
+                                    
+                                        loading ? "" : userState.map((user) => (<UserData key={user.username} selectedUsers={selectedUsers} invitee={user}></UserData>))
                                     }
                             </TableBody>
                             <TablePagination
