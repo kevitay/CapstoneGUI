@@ -4,7 +4,8 @@ import AuthContext from '../IdentityResources/Contexts/AuthContext';
 //import { EventContext } from "./EventsContext";
 import Login from '../IdentityResources/Login';
 import EventType from './EventType';
-import { Box, FormControl, FormControlLabel, Input, InputAdornment, TextField, InputLabel, Container, Paper, Button, OutlinedInput } from '@mui/material';
+import { Box, FormControl, TextField, Button, Radio, RadioGroup, FormLabel, FormControlLabel } from '@mui/material';
+import { Label } from '@mui/icons-material';
 
 function CreateEvent({ setCreationStep, setEvent }) {
   const [eventName, setName] = useState('');
@@ -58,9 +59,6 @@ function CreateEvent({ setCreationStep, setEvent }) {
 
   return (
     <>
-      {/* <Container maxWidth="md" sx={{ backgroundColor: 'white', height: '100vh' }}>
-        <Paper elevation={5} sx={{ backgroundColor: '#f5f5f5', height: '100vh', alignContent: 'center', padding: '50px', borderRadius: '10px' }}> */}
-      {/* {!authState.token ? <Login handleClose={handleClose}></Login> : <></>} */}
       <form
         action=""
         method="POST"
@@ -100,28 +98,20 @@ function CreateEvent({ setCreationStep, setEvent }) {
             <TextField label="Event Description" multiline maxRows={4} name="description" rows="6" cols="33" value={description} onChange={(e) => setDescription(e.target.value)} required />
             <br />
 
-            <fieldset>
-              <legend>Public or Private:</legend>
-              <input type="radio" id="public" name="publicPrivate" value={true} checked={isPublic === true} onChange={radioEvent} />
-              <label forhtml="public">Public</label>
-              <br />
-              <input type="radio" id="private" name="publicPrivate" value={false} checked={isPublic === false} onChange={radioEvent} />
-              <label forhtml="private">Private</label>
-              <br />
-            </fieldset>
-            <br />
-            <br />
-            {/* <Button variant="contained" disabled={!authState.token} type="submit" onClick={() => postNewEvent}>
-          Next &#8250;
-        </Button> */}
-            <Button sx={{width: '30%', marginLeft: '30%'}} variant="contained" disabled={!authState.token} type="submit">
+            <FormControl>
+              <FormLabel id="publicPrivate">Public or Private Event?</FormLabel>
+              <RadioGroup defaultValue={false}>
+                <FormControlLabel control={<Radio />} label="Private" value={false} name="publicPrivate" checked={isPublic === false} onChange={radioEvent} />
+                <FormControlLabel control={<Radio />} label="Public" value={true} name="publicPrivate" checked={isPublic === true} onChange={radioEvent} />
+              </RadioGroup>
+            </FormControl>
+
+            <Button sx={{ width: '30%', marginLeft: '30%' }} variant="contained" disabled={!authState.token} type="submit">
               Next &#8250;
             </Button>
           </FormControl>
         </Box>
       </form>
-      {/* </Paper>
-      </Container> */}
     </>
   );
 }
