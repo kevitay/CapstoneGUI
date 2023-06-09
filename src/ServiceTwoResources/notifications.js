@@ -116,10 +116,10 @@ const Notifications = () => {
                 <Table size="small" aria-label="a dense table">
                     <TableHead>
                         <TableRow>
-                            <TableCell sx={{ width: 200, fontWeight: 'bold' }}>From</TableCell>
-                            <TableCell sx={{ width: 200, fontWeight: 'bold' }}>Subject</TableCell>
-                            <TableCell sx={{ width: 250, fontWeight: 'bold' }}>Message</TableCell>
-                            <TableCell sx={{ width: 175, fontWeight: 'bold' }} align="center">Response</TableCell>
+                            <TableCell sx={{ width: 200, fontWeight: 'bold' }}>FROM</TableCell>
+                            <TableCell sx={{ width: 200, fontWeight: 'bold' }}>SUBJECT</TableCell>
+                            <TableCell sx={{ width: 250, fontWeight: 'bold' }}>MESSAGE</TableCell>
+                            <TableCell sx={{ width: 175, fontWeight: 'bold' }} align="center">RESPONSE</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

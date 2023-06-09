@@ -12,11 +12,11 @@ function BeforeEvent({ eventId }) {
         <Table size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
-              <TableCell sx={{ width: 350, fontWeight: 'bold' }}>Description</TableCell>
-              <TableCell sx={{ width: 250, fontWeight: 'bold' }}>Type</TableCell>
-              <TableCell sx={{ width: 150, fontWeight: 'bold' }} align="center">Quantity</TableCell>
-              <TableCell sx={{ width: 150, fontWeight: 'bold' }} align="center">Required</TableCell>
-              <TableCell sx={{ width: 350, fontWeight: 'bold' }}></TableCell>
+              <TableCell sx={{ width: 350, fontWeight: 'bold' }}>DESCRIPTION</TableCell>
+              <TableCell sx={{ width: 250, fontWeight: 'bold' }}>TYPE</TableCell>
+              <TableCell sx={{ width: 150, fontWeight: 'bold' }} align="center">QUANTITY</TableCell>
+              <TableCell sx={{ width: 150, fontWeight: 'bold' }} align="center">REQUIRED</TableCell>
+              <TableCell sx={{ width: 350, fontWeight: 'bold' }} align="center">ACTION</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
