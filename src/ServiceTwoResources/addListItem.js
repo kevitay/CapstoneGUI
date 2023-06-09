@@ -70,6 +70,7 @@ function AddListItem({ eventId, setPackingList, packingList }) {
                 <TextField
                     type="text"
                     value={itemInput}
+                    size="small"
                     sx={{ width: 350, fontWeight: 'bold' }}
                     onChange={handleInputChange}
                 />
@@ -78,6 +79,7 @@ function AddListItem({ eventId, setPackingList, packingList }) {
                 <TextField
                     select
                     name="type"
+                    size="small"
                     defaultValue="packing list"
                     onChange={handleTypeChange}
                 >
@@ -89,6 +91,7 @@ function AddListItem({ eventId, setPackingList, packingList }) {
                 <TextField
                     type="number"
                     min="1"
+                    size="small"
                     inputProps={{ style: { textAlign: 'center' } }}
                     value={quantity}
                     onChange={handleQuantityChange}

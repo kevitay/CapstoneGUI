@@ -1,4 +1,4 @@
-import { TableRow, TableCell, Button, Checkbox, TextField } from "@mui/material";
+import { TableRow, TableCell, Button, Checkbox, TextField, MenuItem, Select } from "@mui/material";
 import React, { useEffect } from "react";
 
 function ItemList({ items, setPackingList, eventId }) {
@@ -103,23 +103,26 @@ function ItemList({ items, setPackingList, eventId }) {
             <TextField
               type="text"
               name="description"
+              size="small"
               value={item.description}
               sx={{ width: 350 }}
               onChange={(e) => onChangeInput(e, index)}>
             </TextField>
           </TableCell>
-          <TableCell><TextField select name="type" defaultValue={item.type} onChange={(e) => onChangeInput(e, index)}>
-            <option value="packing list" > Packing List </option>
-            <option value="signup list" > Signup List </option>
-          </TextField></TableCell>
+          <TableCell>
+            <Select name="type" size="small" value={item.type} onChange={(e) => onChangeInput(e, index)}>
+              <MenuItem size="small" value="packing list">Packing List</MenuItem>
+              <MenuItem size="small" value="signup list">Signup List</MenuItem>
+            </Select>
+          </TableCell>
           <TableCell align="center">
             <TextField
               type="number"
               name="quantity"
+              size="small"
               min="1"
               inputProps={{ style: { textAlign: 'center' } }}
               value={item.quantity} onChange={(e) => onChangeInput(e, index)}>
-
             </TextField>
           </TableCell>
           <TableCell align="center"><Checkbox name="required" checked={item.required} onChange={(e) => onChangeInput(e, index)}></Checkbox></TableCell>

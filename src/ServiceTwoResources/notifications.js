@@ -132,14 +132,14 @@ const Notifications = () => {
                                     <form onSubmit={(e) => { sendResponse(e) }}>
                                         <FormControl component="fieldset">
                                             <RadioGroup row>
-                                                <FormControlLabel name="response" value="Going" control={<Radio />} label="Going" />
-                                                <FormControlLabel name="response" value="Not Going" control={<Radio />} label="Not Going" />
-                                                <FormControlLabel name="response" value="Tentative" control={<Radio />} label="Tentative" />
-                                                <FormControlLabel name="eventId" sx={{ width: 0, opacity: 0 }} value={result.eventId} disabled control={<Radio />} label="" />
-                                                <FormControlLabel name="msgId" sx={{ width: 0, opacity: 0 }} value={result.msgId} disabled control={<Radio />} label="" />
+                                                <FormControlLabel name="response" size="small" value="Going" control={<Radio />} label="Going" />
+                                                <FormControlLabel name="response" size="small" value="Not Going" control={<Radio />} label="Not Going" />
+                                                <FormControlLabel name="response" size="small" value="Tentative" control={<Radio />} label="Tentative" />
+                                                <FormControlLabel name="eventId" size="small" sx={{ width: 0, opacity: 0 }} value={result.eventId} disabled control={<Radio />} label="" />
+                                                <FormControlLabel name="msgId" size="small" sx={{ width: 0, opacity: 0 }} value={result.msgId} disabled control={<Radio />} label="" />
                                             </RadioGroup>
-                                            <Button sx={{ width: 175 }} type="submit" variant="contained" > Send Response </Button>
                                         </FormControl>
+                                        <Button sx={{ width: 175 }} type="submit" variant="contained" > Send Response </Button>
                                     </form>
                                 </TableCell>
                             </TableRow>
