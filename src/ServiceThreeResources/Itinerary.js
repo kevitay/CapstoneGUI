@@ -40,16 +40,12 @@ return (
     <div className="Itinerary">
         {creationStep === 3 && <button onClick={() => setCreationStep(4)}>Next</button>}
 
-        <h2 style={{color:'red'}}>Create Activity Component</h2>
         {userIsOwner && <CreateNewActivity states={states} setStates={setStates} eventId={eventId}/>}
 
-        <h2 style={{color: 'red'}}>Date Selector Component</h2>
         <DateSelector formatDate={formatDate} states={states} setStates={setStates}/>
 
-        <h2 style={{color: 'red'}}>Activity List Component</h2>
         <ActivityList formatDate={formatDate} states={states} setStates={setStates} setDateArray={setDateArray}/>
         
-        <h2 style={{color: 'red'}}>Activity Details Component</h2>
         <ActivityDetails states={states} setStates={setStates}/> 
     </div>
   );
