@@ -13,6 +13,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router';
 
 const Notifications = () => {
     const notificationsUrl = "http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/notifications";
@@ -20,6 +21,7 @@ const Notifications = () => {
     const [notifications, setNotifications] = useState([]);
     const [authState,] = useContext(AuthContext);
     const username = authState.username;
+    const navigate = useNavigate();
 
     const getNotificationsByUserName = () => {
         var requestOptions = {
@@ -108,6 +110,10 @@ const Notifications = () => {
 
     useEffect(getNotificationsByUserName, [username]);
 
+    function handleEventClick(eventId) {
+        navigate(`/serviceOne/event/${eventId}`);
+    }
+
     return (
         <>
             <Typography variant="h4">Notifications</Typography>
@@ -117,7 +123,7 @@ const Notifications = () => {
                     <TableHead>
                         <TableRow>
                             <TableCell sx={{ width: 200, fontWeight: 'bold' }}>FROM</TableCell>
-                            <TableCell sx={{ width: 200, fontWeight: 'bold' }}>SUBJECT</TableCell>
+                            <TableCell sx={{ width: 200, fontWeight: 'bold' }}>SUBJECT (click to open event details)</TableCell>
                             <TableCell sx={{ width: 250, fontWeight: 'bold' }}>MESSAGE</TableCell>
                             <TableCell sx={{ width: 175, fontWeight: 'bold' }} align="center">RESPONSE</TableCell>
                         </TableRow>
@@ -126,7 +132,7 @@ const Notifications = () => {
                         {notifications ? notifications.map(result => (
                             <TableRow key={result.msgId}>
                                 <TableCell>{result.messageFrom}</TableCell>
-                                <TableCell>{result.subject}</TableCell>
+                                <TableCell sx={{ cursor: 'pointer' }} onClick={(e) => { handleEventClick(result.eventId) }}>{result.subject}</TableCell>
                                 <TableCell>{result.messageText}</TableCell>
                                 <TableCell align="center">
                                     <form onSubmit={(e) => { sendResponse(e) }}>
