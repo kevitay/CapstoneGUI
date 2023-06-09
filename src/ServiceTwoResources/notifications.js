@@ -112,10 +112,10 @@ const Notifications = () => {
                 <Table size="small" aria-label="a dense table">
                     <TableHead>
                         <TableRow>
-                            <TableCell sx={{ width: 350, fontWeight: 'bold' }}>From</TableCell>
-                            <TableCell sx={{ width: 350, fontWeight: 'bold' }}>Subject</TableCell>
-                            <TableCell sx={{ width: 350, fontWeight: 'bold' }}>Message</TableCell>
-                            <TableCell sx={{ width: 600, fontWeight: 'bold' }}>Response</TableCell>
+                            <TableCell sx={{ width: 200, fontWeight: 'bold' }}>From</TableCell>
+                            <TableCell sx={{ width: 200, fontWeight: 'bold' }}>Subject</TableCell>
+                            <TableCell sx={{ width: 200, fontWeight: 'bold' }}>Message</TableCell>
+                            <TableCell sx={{ width: 200, fontWeight: 'bold' }}>Response</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
@@ -124,7 +124,7 @@ const Notifications = () => {
                                 <TableCell>{result.messageFrom}</TableCell>
                                 <TableCell>{result.subject}</TableCell>
                                 <TableCell>{result.messageText}</TableCell>
-                                <TableCell>
+                                <TableCell align="center">
                                     <form onSubmit={(e) => {sendResponse(e)}}>
                                     <FormControl component="fieldset">
                                         <RadioGroup row>
@@ -134,7 +134,7 @@ const Notifications = () => {
                                             <FormControlLabel name="eventId" sx={{opacity: 0}} value={result.eventId} disabled control={<Radio />} label="" />
                                             <FormControlLabel name="msgId" sx={{opacity: 0}} value={result.msgId} disabled control={<Radio />} label="" />
                                         </RadioGroup>
-                                        <Button type="submit" variant="contained" > Send Response </Button>
+                                        <Button sx={{width: 175}} type="submit" variant="contained" > Send Response </Button>
                                     </FormControl>
                                     </form>
                                 </TableCell>
