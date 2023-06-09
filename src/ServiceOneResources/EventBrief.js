@@ -57,10 +57,10 @@ export default function EventBrief({ event }) {
             {event.name}
           </Typography>
           <Typography gutterBottom variant="p" component="div">
-            Location: {locationFormatter(event.startLocation)}
+            {(event.hasOwnProperty('startLocation')) ?'Location:' + locationFormatter(event.startLocation):""}
           </Typography>
           <Typography gutterBottom variant="p" component="div">
-            Time: {dateFormatter(event.startDateTime)}
+          {(event.hasOwnProperty('startDateTime')) ?'Time:' + dateFormatter(event.startDateTime):""}
           </Typography>
           <Typography gutterBottom variant="p" component="div">
             Type: {event.type}
