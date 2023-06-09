@@ -47,7 +47,6 @@ function App() {
             <Route path={'/'} element={<Home />}></Route>
             <Route path={'/serviceOne/*'} element={<EventList />}></Route>
             <Route path={'/serviceOne/event/:id'} element={<Event />}></Route>
-            <Route path={'/serviceOne/editEvent/:id'} element={<EditEvent />}></Route>
             <Route path={'/serviceOne/createEventFlow'} element={<CreateEventFlow />}></Route>
             <Route path={'/serviceTwo/*'} element={<ServiceTwoApp />}></Route>
             <Route path={'/serviceThree/*'} element={<ServiceThreeApp />}></Route>
