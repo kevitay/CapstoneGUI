@@ -38,8 +38,8 @@ export default function Event() {
 
 
 
-
-    const [expanded, setExpanded] = useState(false);
+//manages state for the accordians.  
+    const [expanded, setExpanded] = useState("panel1");
     const handleChange = (panel) => (expanded, isExpanded) => {
       setExpanded(isExpanded ? panel : false);
     };
