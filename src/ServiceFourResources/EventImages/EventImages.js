@@ -28,7 +28,7 @@ function EventImages() {
 
     return (
         <Card sx={{
-            width: 1000,
+            width: 1080,
             fontSize: '20px',
             display: 'flex',
             flexDirection: 'column',
@@ -38,7 +38,7 @@ function EventImages() {
 
         }}>
             <UploadInterface fetchEventImages={fetchEventImages} eventId={eventId}></UploadInterface>
-            <ImageList sx={{ width: 1000, height: 500 }} variant="woven" cols={4} gap={8}>
+            <ImageList sx={{ width: 1070, height: 720 }} cols={3} rowHeight={240}>
                 {loading ? "" : imageList.map((img) => (<EventImage img={img}></EventImage>))}
             </ImageList>
         </Card>

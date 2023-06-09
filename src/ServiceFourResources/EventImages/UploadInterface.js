@@ -57,6 +57,7 @@ function UploadInterface({ fetchEventImages, eventId }) {
                 console.log('Picture upload successful');
                 fetchEventImages(eventId);
                 handleClose();
+                clearFiles();
             } else {
                 console.error('ERROR: Picture failed to upload');
             }
@@ -67,7 +68,7 @@ function UploadInterface({ fetchEventImages, eventId }) {
 
     return (
         <>
-            <Button variant="contained" onClick={handleOpen} sx={{ margin: '5px' }}>
+            <Button variant="contained" onClick={handleOpen} sx={{ marginTop: '15px' }}>
                 Add Photos
             </Button>
             <Modal
