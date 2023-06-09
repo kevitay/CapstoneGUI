@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { Select } from '@mui/material'; 
 
 const optionList = ['--Select event type--', 'Party', 'Celebration', 'Social', 'Reunion', 'Convention', 'Business Meeting', 'Trip', 'Alumni Gathering', 'Club Outing', 'Other'];
 
@@ -21,13 +22,13 @@ function EventType({ eventType, setEventType }) {
   return (
     <>
       <label htmlFor="event-type">Event Type</label>
-      <select name="event-type" id="event-type" value={optionListSelection} onChange={(e) => setOptionListSelection(e.target.value)} required>
+      <Select name="event-type" id="event-type" value={optionListSelection} onChange={(e) => setOptionListSelection(e.target.value)} required>
         {optionList.map((optionType, index) => 
               <option key={index} value={optionType}>
                 {optionType}
               </option>
         )}
-      </select>
+      </Select>
 
       {optionListSelection === 'Other' ? (
         <>
