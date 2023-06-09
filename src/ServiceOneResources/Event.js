@@ -5,6 +5,7 @@ import AuthContext from "../IdentityResources/Contexts/AuthContext";
 import { useParams } from "react-router-dom";
 import EditEvent from "./EditEvent";
 import { Container } from "@mui/material";
+import Itinerary from "../ServiceThreeResources/Itinerary";
 
 const emptyLocation = {address:'', city:'',state:'',zipCode:''};
 const initialExtendedFields = {startDateTime:'', endDateTime:'',startLocation: emptyLocation, endLocation:emptyLocation };
@@ -139,6 +140,7 @@ export default function Event() {
         {(userIsOwner) ? (<OrganizerControl event={ currentEvent } setCurrentEvent={ setCurrentEvent } editMode={editMode} setEditMode={setEditMode} />):(<></>)}
       </div>
       <p>placeholder for Participants list user view (assume your own component returns empty if not applicable)</p>
+    <Itinerary eventId = {currentEvent.id} />
     <p>placeholder for Itinerary user view (assume your own component returns empty if not applicable)</p>    
     <p>placeholder for Checklist user view (assume your own component returns empty if not applicable)</p>
     </Container>
