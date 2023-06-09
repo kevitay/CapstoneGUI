@@ -46,7 +46,7 @@ export default function CreatorEvents() {
         <></>
       ) : (
         <div>
-      <h1>Creator Events</h1>
+      <h1>Events I've Created</h1>
       <Stack className="userEvents" direction="row" useFlexGap flexWrap="wrap" justifyContent="center">
         {pageState > 1 ? <Button variant='text' onClick={() => setPageState(pageState - 1)}>Prev</Button> : <></>}
         {userEvents.slice(cardsPerPage * (pageState - 1), cardsPerPage * pageState).map((event) => {

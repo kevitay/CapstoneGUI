@@ -6,7 +6,7 @@ import { Container } from "@mui/system";
 
 function MyEvents() {
     const boxStyles = {
-        background: "url(../osaka.jpg)",
+        background: "url(../MapGirl.jpg)",
         backgroundSize: "cover",
         backgroundPosition: "center",
         bgcolor: "#cfe8fc",
@@ -17,7 +17,7 @@ function MyEvents() {
         <>
         <Box sx={boxStyles} />
            <Box/>
-        <Container maxWidth='lg'>
+        <Container maxWidth='xl'>
         <Stack spacing={5}>
         <CreatorEvents></CreatorEvents>
         <Divider/>
