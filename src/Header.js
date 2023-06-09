@@ -30,6 +30,8 @@ function Header() {
   const navigate = useNavigate();
   const [authState, authDispatch] = useContext(AuthContext);
   const [open, setOpen] = useState(false);
+  const [img, setImg] = useState("");
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -45,6 +47,10 @@ function Header() {
   function handleCreateEvent() {
     //handles navigation to home page
     navigate("/serviceOne/createEventFlow");
+  }
+
+  function handleMyEventsClicked(){
+    navigate("/myEvents/")
   }
 
   const [anchorEl, setAnchorEl] = useState(null);
@@ -64,6 +70,14 @@ function Header() {
     authDispatch({type: 'saveAuth', payload: {username: '', token: ''}})
     handleMenuClose()
   }
+  const fetchProfilePicture = (username) => {
+        fetch('http://a53e50bf576c64141b52293976658417-1117441751.us-west-2.elb.amazonaws.com/api/users/' + username)
+            .then(response => response.json())
+            .then(result => {
+                setImg(result.profilePicture);
+            })
+            .catch(error => console.log('error', error));
+    };
 
   return (
     <AppBar position='relative'>
@@ -97,15 +111,19 @@ function Header() {
               </>
             ) : (
               <>
+                {fetchProfilePicture(authState.username)}
                 {" "}
                 <Button variant='outlined' color='inherit' onClick={handleCreateEvent}>
                   Create Event
+                </Button>
+                <Button variant='outlined' color='inherit' onClick={handleMyEventsClicked}>
+                  My Events
                 </Button>
                 <IconButton onClick={colorMode.toggleColorMode} color='inherit'>
                   {theme.palette.mode === "dark" ? <Brightness4Icon /> : <Brightness7Icon />}
                 </IconButton>
                 <IconButton onClick={handleMenuClick}>
-                <Avatar alt='My Profile'/>
+                <Avatar alt='My Profile' src={"data:image/jpg;base64," + img}/>
                 </IconButton>
                 <Menu
                   id='basic-menu'
