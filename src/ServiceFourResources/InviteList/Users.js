@@ -6,8 +6,6 @@ import { Table, TableBody, TableContainer, TableRow, FormControl, TableHead, Tab
 
 function Users({event}) {
 
-
-
     const [inviteSuccess, setSuccess] = useState("")
     const [originalState, setLoadedState] = useState([]);
     const [resetStatus, setResetStatus] = useState(false);
