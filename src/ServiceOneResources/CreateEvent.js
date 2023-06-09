@@ -5,7 +5,6 @@ import AuthContext from '../IdentityResources/Contexts/AuthContext';
 import Login from '../IdentityResources/Login';
 import EventType from './EventType';
 import { Box, FormControl, TextField, Button, Radio, RadioGroup, FormLabel, FormControlLabel } from '@mui/material';
-import { Label } from '@mui/icons-material';
 
 function CreateEvent({ setCreationStep, setEvent }) {
   const [eventName, setName] = useState('');
@@ -55,6 +54,7 @@ function CreateEvent({ setCreationStep, setEvent }) {
 
   const radioEvent = (event) => {
     setIsPublic(event.target.value === 'true');
+    console.log(event.target.value)
   };
 
   return (
@@ -95,7 +95,7 @@ function CreateEvent({ setCreationStep, setEvent }) {
             <TextField placeholder="$" label="Cost" className="numberField" type="number" min="0.00" name="eventCost" value={eventCost} onChange={(e) => setEventCost(e.target.value)} required />
             <br />
 
-            <TextField label="Event Description" multiline maxRows={4} name="description" rows="6" cols="33" value={description} onChange={(e) => setDescription(e.target.value)} required />
+            <TextField label="Event Description" multiline rows="6" name="description" cols="33" value={description} onChange={(e) => setDescription(e.target.value)} required />
             <br />
 
             <FormControl>
@@ -106,7 +106,7 @@ function CreateEvent({ setCreationStep, setEvent }) {
               </RadioGroup>
             </FormControl>
 
-            <Button sx={{ width: '30%', marginLeft: '30%' }} variant="contained" disabled={!authState.token} type="submit">
+            <Button sx={{ width: '30%', marginLeft: '30%', marginTop: '50px'}} variant="contained" disabled={!authState.token} type="submit">
               Next &#8250;
             </Button>
           </FormControl>
