@@ -75,9 +75,9 @@ function createData(name, address, startTime, endTime) {
           <TableCell component="th" scope="row">
             {row.name}
           </TableCell>
-          <TableCell align="right">{row.address}</TableCell>
-          <TableCell align="right">{row.startTime}</TableCell>
-          <TableCell align="right">{row.endTime}</TableCell>
+          <TableCell align="left">{row.address}</TableCell>
+          <TableCell align="left">{row.startTime}</TableCell>
+          <TableCell align="left">{row.endTime}</TableCell>
         </TableRow>
         <TableRow>
           <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -109,15 +109,15 @@ function createData(name, address, startTime, endTime) {
                           {historyRow.mandatory}
                         </TableCell>
                         <TableCell>{historyRow.importantReminder}</TableCell>
-                        <TableCell align="right">{historyRow.indoor}</TableCell>
-                        <TableCell align="right">{historyRow.price}</TableCell>
-                        <TableCell align="right">{historyRow.groupSize}</TableCell>
-                        <TableCell align="right">{historyRow.address}</TableCell>
-                        <TableCell align="right">{historyRow.city}</TableCell>
-                        <TableCell align="right">{historyRow.state}</TableCell>
-                        <TableCell align="right">{historyRow.zip}</TableCell>
-                        <TableCell align="right">{historyRow.activityURL}</TableCell>
-                        <TableCell align="right">{historyRow.activityType}</TableCell>
+                        <TableCell align="left">{historyRow.indoor}</TableCell>
+                        <TableCell align="left">{historyRow.price}</TableCell>
+                        <TableCell align="left">{historyRow.groupSize}</TableCell>
+                        <TableCell align="left">{historyRow.address}</TableCell>
+                        <TableCell align="left">{historyRow.city}</TableCell>
+                        <TableCell align="left">{historyRow.state}</TableCell>
+                        <TableCell align="left">{historyRow.zip}</TableCell>
+                        <TableCell align="left">{historyRow.activityURL}</TableCell>
+                        <TableCell align="left">{historyRow.activityType}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -154,22 +154,22 @@ function createData(name, address, startTime, endTime) {
       price: PropTypes.number.isRequired,
     }).isRequired,
   };
-  //I want this to use
+
   const rows = [
     createData('T Party', "123 Street", "5/16/23 8:00 AM", "5/16/23 10:00 AM"),
   ];
   
-  export default function CollapsibleTable() {
+  export default function CollapsibleTable(activity, states, setStates) {
     return (
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
           <TableHead>
             <TableRow>
               <TableCell />
-              <TableCell>Activity Name</TableCell>
-              <TableCell align="right">Address</TableCell>
-              <TableCell align="right">Start Time</TableCell>
-              <TableCell align="right">End Time</TableCell>
+              <TableCell align="left">Activity Name</TableCell>
+              <TableCell align="left">Address</TableCell>
+              <TableCell align="left">Start Time</TableCell>
+              <TableCell align="left">End Time</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -181,7 +181,7 @@ function createData(name, address, startTime, endTime) {
       </TableContainer>
     );
 
-            {!states.editForm && <button  onClick={() => {setStates.setDisplayActivityDetails(activity); setStates.setCloseActivityDetailsButton(true)}}>Expand Details</button>}
+            {!states.editForm && <Button  onClick={() => {setStates.setDisplayActivityDetails(activity); setStates.setCloseActivityDetailsButton(true)}}>Expand Details</Button>}
         // </div>
     // )
 }; 

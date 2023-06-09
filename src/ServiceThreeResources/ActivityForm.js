@@ -62,8 +62,8 @@ export default function ActivityForm({setForm, states, setStates, eventId}) {
                 </Stack>
               
                 <FormGroup>
-                <Stack spacing={2} sx={{marginBottom: 2}}>
-                <Checkbox label='Mandatory' name="mandatory" value="true"/>
+                <Stack spacing={0} sx={{marginBottom: 2}}>
+                <Checkbox label='Mandatory' name="mandatory" value="true" size="small" style={{ width: "20px", padding:2 }}/>
                 </Stack>
                 </FormGroup>
 
@@ -72,7 +72,7 @@ export default function ActivityForm({setForm, states, setStates, eventId}) {
                 
                 <FormGroup>
                 <FormLabel id="type-select">Activity Type</FormLabel>
-                <Select name="type" variant="outlined" defaultValue="">
+                <Select name="type" variant="outlined" style={{ height: '2.5em' }} defaultValue="">
                     <MenuItem value=""></MenuItem>
                     <MenuItem value="Music">Music</MenuItem>
                     <MenuItem value="Sports">Sports</MenuItem>
@@ -93,7 +93,7 @@ export default function ActivityForm({setForm, states, setStates, eventId}) {
           
                 <FormGroup>
                 <FormLabel id="state-select">State</FormLabel>
-                <Select name="state" defaultValue="">
+                <Select name="state" style={{ height: '2.5em' }} defaultValue="">
                     <MenuItem value=""></MenuItem>
                     <MenuItem value="AL">Alabama</MenuItem>
                     <MenuItem value="AK">Alaska</MenuItem>
@@ -151,9 +151,9 @@ export default function ActivityForm({setForm, states, setStates, eventId}) {
                 
                 <TextField label='Zip Code' name="zip" type="number" id="outlined-size-small" defaultValue="" size="small"/>
                 
-                <DateTimePicker label='Start Time*' onChange={date => setStartTime(date)} id="outlined-size-small" size="small" required />
+                <DateTimePicker label='Start Time*' style={{ height: '2.5em' }} onChange={date => setStartTime(date)} id="outlined-size-small" size="small" required />
                 
-                <DateTimePicker label='End Time*' onChange={date => setEndTime(date)} id="outlined-size-small" size="small" required/>
+                <DateTimePicker label='End Time*' style={{ height: '2.5em' }} onChange={date => setEndTime(date)} id="outlined-size-small" size="small" required/>
 
                 <Button value="Save Activity" type="submit" variant="contained">Save Activity</Button>
                 
