@@ -42,28 +42,6 @@ function App() {
       <AuthContext.Provider value={[authState, authDispatch]}>
       <ColorModeProvider>
       <Header/>
-      <nav>
-        <ul>
-          <li>
-            <NavLink to={'/'}>Home</NavLink>
-          </li>
-          <li>
-            <NavLink to={'/serviceOne'}>Service One</NavLink>
-          </li>
-          <li>
-            <NavLink to={'/serviceTwo'}>Service Two</NavLink>
-          </li>
-          <li>
-            <NavLink to={'/serviceThree'}>Service Three</NavLink>
-          </li>
-          <li>
-            <NavLink to={'/serviceFour'}>Service Four</NavLink>
-          </li>
-          <li>
-            <NavLink to={'/identity'}>Identity</NavLink>
-          </li>
-        </ul>
-      </nav>
         <EventProvider>
           <Routes>
             <Route path={'/'} element={<Home />}></Route>
