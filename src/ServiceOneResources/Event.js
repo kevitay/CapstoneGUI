@@ -4,12 +4,13 @@ import OrganizerControl from "./OrganizerControl";
 import AuthContext from "../IdentityResources/Contexts/AuthContext";
 import { useParams } from "react-router-dom";
 import EditEvent from "./EditEvent";
-import { Container } from "@mui/material";
+import { Box, Container, Drawer, Stack } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { width } from "@mui/system";
 
 const emptyLocation = {address:'', city:'',state:'',zipCode:''};
 const initialExtendedFields = {startDateTime:'', endDateTime:'',startLocation: emptyLocation, endLocation:emptyLocation };
@@ -129,6 +130,8 @@ export default function Event() {
   return (
     <>
     <Container maxWidth='lg' >
+      <Stack direction='row'>
+      <Container>
       {(!authState.token)?(<Login handleClose={handleClose}></Login>):(<></>)}
       
       {(!editMode)?(
@@ -137,7 +140,7 @@ export default function Event() {
           <h1>{currentEvent.name}</h1>
         </div>
         <Accordion
-        sx={{ width: "75%" }}
+        sx={{ width: "100%" }}
         expanded={expanded === "panel1"}
         onChange={handleChange("panel1")}
         >
@@ -171,11 +174,8 @@ export default function Event() {
       </Accordion>
       </>
       ):(<EditEvent event={currentEvent} setCurrentEvent={setCurrentEvent} setEditMode={setEditMode}/>)}
-      <div>
-        {(userIsOwner) ? (<OrganizerControl event={ currentEvent } setCurrentEvent={ setCurrentEvent } editMode={editMode} setEditMode={setEditMode} />):(<></>)}
-      </div>
       <Accordion
-        sx={{ width: "75%" }}
+        sx={{ width: "100%" }}
         expanded={expanded === "panel2"}
         onChange={handleChange("panel2")}
         >
@@ -194,7 +194,7 @@ export default function Event() {
         </AccordionDetails>
       </Accordion>
       <Accordion
-        sx={{ width: "75%" }}
+        sx={{ width: "100%" }}
         expanded={expanded === "panel3"}
         onChange={handleChange("panel3")}
         >
@@ -213,7 +213,7 @@ export default function Event() {
         </AccordionDetails>
       </Accordion>
       <Accordion
-        sx={{ width: "75%" }}
+        sx={{ width: "100%" }}
         expanded={expanded === "panel4"}
         onChange={handleChange("panel4")}
         >
@@ -231,6 +231,19 @@ export default function Event() {
         <p>placeholder for Checklist user view</p>
         </AccordionDetails>
       </Accordion>
+      </Container>
+      <Box sx={{
+    borderRadius: '10px',
+    boxShadow: '0px 2px 6px rgba(0, 0, 0, 0.15)',
+    padding: 2,
+    height: '20vh',
+    width: '25vh'
+  }}>
+        {(userIsOwner) ? (
+        <OrganizerControl event={ currentEvent } setCurrentEvent={ setCurrentEvent } editMode={editMode} setEditMode={setEditMode} />
+        ):(<></>)}
+      </Box>
+      </Stack>
     </Container>
     </>
 
