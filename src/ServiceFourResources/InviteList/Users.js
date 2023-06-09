@@ -13,7 +13,6 @@ function Users({event}) {
     const [loading, setLoadState] = useState(false);
 
     useEffect(() => {
-        console.log(event)
         var requestOptions = {
             method: 'GET',
             redirect: 'follow'
