@@ -4,7 +4,7 @@ import AuthContext from '../IdentityResources/Contexts/AuthContext';
 //import { EventContext } from "./EventsContext";
 import Login from '../IdentityResources/Login';
 import EventType from './EventType';
-import { FormControl, FormControlLabel, Input, TextField, InputLabel, Container, Paper } from '@mui/material';
+import { FormControl, FormControlLabel, Input, TextField, InputLabel, Container, Paper, Button } from '@mui/material';
 
 
 function CreateEvent({ setCreationStep, setEvent }) {
@@ -78,21 +78,20 @@ function CreateEvent({ setCreationStep, setEvent }) {
       >
         <TextField id="outlined-basic" label="Event Name" variant="outlined" name="eventName" value={eventName} onChange={(e) => setName(e.target.value)} required />
         <br />
-        <br />
+
 
         <TextField id="outlined-basic" label="Organization" variant="outlined" name="organization" value={organization} onChange={(e) => setOrganization(e.target.value)} required />
         <br />
-        <br />
+
         <EventType eventType={eventType} setEventType={setEventType} />
         <br />
+
+        <TextField label="Cost" className="numberField" type="number" min="0.00" name="eventCost" value={eventCost} onChange={(e) => setEventCost(e.target.value)} required />
         <br />
-        <label>Event Cost</label>
-        <input className="numberField" type="number" min="0.00" name="eventCost" value={eventCost} onChange={(e) => setEventCost(e.target.value)} required />
-        <br />
-        <br />
+
         <label>Event Description</label>
         <br />
-        <textarea name="description" rows="6" cols="33" value={description} onChange={(e) => setDescription(e.target.value)} required />
+        <TextField name="description" rows="6" cols="33" value={description} onChange={(e) => setDescription(e.target.value)} required />
         <br />
         <br />
 
@@ -107,9 +106,9 @@ function CreateEvent({ setCreationStep, setEvent }) {
         </fieldset>
         <br />
         <br />
-        <button disabled={!authState.token} type="submit">
-          Submit
-        </button>
+        <Button variant="contained" disabled={!authState.token} type="submit">
+          Next &#8250;
+        </Button>
       </FormControl>
       {/* </Paper>
       </Container> */}
