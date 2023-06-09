@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import UserData from "./UserData";
-import InviteNameSearch from "./InviteNameSearch";
+import InviteNameSearch from "./inviteNameSearch";
 
 import { Table, TableBody, TableContainer, TableRow, FormControl, TableHead, TableCell, Button, TablePagination } from '@mui/material';
 
