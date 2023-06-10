@@ -10,6 +10,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import Itinerary from "../ServiceThreeResources/Itinerary";
 
 
 const emptyLocation = { address: "", city: "", state: "", zipCode: "" };
@@ -176,6 +177,7 @@ export default function Event() {
                         allowfullscreen=''
                         loading='lazy'
                         referrerpolicy='no-referrer-when-downgrade'
+                        title='myMap'
                       ></iframe>
                     </Grid>
                     <Grid item xs={12} sm container>
@@ -269,7 +271,7 @@ export default function Event() {
               </AccordionSummary>
               <AccordionDetails>
                 {/* Team Component goes here  */}
-                <p>placeholder for Itinerary user view </p>
+                <Itinerary eventId = {currentEvent.id} userIsOwner = {userIsOwner}/>
               </AccordionDetails>
             </Accordion>
             <Accordion
