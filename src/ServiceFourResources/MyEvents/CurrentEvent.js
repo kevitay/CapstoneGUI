@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { Box, Button, FormControl, Modal, FormLabel, RadioGroup, FormControlLabel, Radio, Checkbox, TextField, Card, Divider, Typography, CardActionArea } from '@mui/material';
+import { Box, Button, FormControl, Modal, FormLabel, RadioGroup, FormControlLabel, Radio, Checkbox, TextField, Card, Divider, Typography, CardActionArea, Container } from '@mui/material';
 
 function CurrentEvent({ event, eventInfo }) {
   const [editMode, setEditMode] = useState(false);
