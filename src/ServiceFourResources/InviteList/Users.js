@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import UserData from "./UserData";
-import InviteNameSearch from "./inviteNameSearch";
+import InviteNameSearch from "./InviteSearch";
 
 import { Table, TableBody, TableContainer, TableRow, FormControl, TableHead, TableCell, Button, TablePagination } from '@mui/material';
 
-function Users({eventId}) {
-
-
+function Users({event}) {
 
     const [inviteSuccess, setSuccess] = useState("")
     const [originalState, setLoadedState] = useState([]);
@@ -44,48 +42,45 @@ function Users({eventId}) {
 
 
     function sendInvite(e) {
-        console.log("sent")
         e.preventDefault();
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
-        selectedUsers.forEach(element => {
-            var raw = JSON.stringify({
-                "eventId": eventId,
-                "user": {
-                    "username": element,
-                }
+        selectedUsers.forEach(userName => {
+            var raw = JSON.stringify({             
+                    "eventId": event.id,
+                    "messageFrom": event.creatorID,
+                    "messageTo": userName,
+                    "subject": event.name + ", " + event.organization,
+                    "messageText": "Please respond"      
             });
-
+    
             var requestOptions = {
                 method: 'POST',
                 headers: myHeaders,
                 body: raw,
                 redirect: 'follow'
             };
-
-            fetch("http://a53e50bf576c64141b52293976658417-1117441751.us-west-2.elb.amazonaws.com/api/participants", requestOptions)
-                .then(response => {
-                    if (response.ok) {
-                        setSuccess("\u2705 User(s) invited successfully");
-                        return response.text();
-                    } else if (response.status === 409) {
-                        setSuccess("\u274C User(s) has already been invited to this event")
-                        throw new Error("Conflict: User already invited");
-                    } else {
-                        setSuccess("\u274C User(s) invite failed")
-                        throw new Error("Failed to invite users");
-                    }
-                })
+    
+            fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/notifications", requestOptions)
+            .then(response => {
+                console.log(response)
+                if (response.status === 201) {
+                    setSuccess("\u2705 User(s) invited successfully");
+                    return response.text();
+                } else {
+                    setSuccess("\u274C User(s) invite failed")
+                    throw new Error("Failed to invite users");
+                }
+            })
                 .then(result => console.log(result))
                 .catch(error => {
-
-                    console.log('here is the ERROR', error)
-                });
-
+                    
+                    console.log('here is the ERROR', error)});
+        
 
             // setUsersToInvite(selectedUsers);
         });
-
+        
 
     }
 

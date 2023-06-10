@@ -60,7 +60,7 @@ const Registration = () => {
     }
 
     return (
-        <div style={{backgroundColor:'lightgray'}} className="Registration">
+        <div className="Registration">
             <Card
             sx={{
                 width:500,
@@ -70,8 +70,8 @@ const Registration = () => {
                 justifyContent: 'center', 
                 alignItems: 'center', 
                 margin: 'auto', 
-                // marginTop: '20px',
-                // marginBottom: '20px',
+                boxShadow:15,
+                marginTop: '20px',
                 }}>
             <h1>Create your profile</h1>
           <form onSubmit={processRegistration}>

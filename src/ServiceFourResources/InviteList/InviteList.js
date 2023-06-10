@@ -1,12 +1,12 @@
 import React from "react";
 import Users from "./Users";
 
-function InviteList({eventId}) {
+function InviteList({event}) {
     
     return (
         <div className="InviteList">
             <h1>Invite Users</h1>
-           <Users eventId={eventId}></Users>
+           <Users event={event}></Users>
         </div>
     )
 }
