@@ -254,7 +254,8 @@ export default function Event() {
               />
             )}
             <Accordion
-              sx={{ width: "100%" }}
+              sx={{ width: "100%", backgroundColor: (theme) =>
+              theme.palette.mode === "dark" ? "#1A2027" : "#fff"}}
               expanded={expanded === "panel2"}
               onChange={handleChange("panel2")}
             >
@@ -273,7 +274,8 @@ export default function Event() {
               </AccordionDetails>
             </Accordion>
             <Accordion
-              sx={{ width: "100%" }}
+              sx={{ width: "100%", backgroundColor: (theme) =>
+              theme.palette.mode === "dark" ? "#1A2027" : "#fff" }}
               expanded={expanded === "panel3"}
               onChange={handleChange("panel3")}
             >
@@ -292,7 +294,8 @@ export default function Event() {
               </AccordionDetails>
             </Accordion>
             <Accordion
-              sx={{ width: "100%" }}
+              sx={{ width: "100%", backgroundColor: (theme) =>
+              theme.palette.mode === "dark" ? "#1A2027" : "#fff" }}
               expanded={expanded === "panel4"}
               onChange={handleChange("panel4")}
             >
