@@ -16,6 +16,7 @@ export default function CreatorEvents() {
       var myHeaders = new Headers();
       myHeaders.append('Content-Type', 'application/json');
       myHeaders.append('Authorization', authState.token);
+      // console.log(authState)
 
       // TODO needs to be put into fetch call
       var requestOptions = {
