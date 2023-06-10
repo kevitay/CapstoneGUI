@@ -57,7 +57,7 @@ const totalPages = Math.ceil((filteredEvents?.length || 0) / cardsPerPage);
         </Paper>
       ) : (
         <Container maxWidth='xl' sx={{ marginTop: 2 }}>
-          <Stack direction='row' spacing={35}>
+          <Stack direction='row' spacing={38}>
           <Typography variant='h4' fontWeight='bold' gutterBottom>
             Events I've Created
           </Typography>
@@ -109,7 +109,7 @@ const totalPages = Math.ceil((filteredEvents?.length || 0) / cardsPerPage);
               <></>
             )}
           </Stack>
-          <Typography color="text.secondary" marginLeft={81}>{pageState}/{totalPages}</Typography>
+          <Typography color="text.secondary" marginLeft={88}>{pageState}/{totalPages}</Typography>
         </Container>
       )}
     </>
