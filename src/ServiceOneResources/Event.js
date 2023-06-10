@@ -12,7 +12,6 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Itinerary from "../ServiceThreeResources/Itinerary";
 
-
 const emptyLocation = { address: "", city: "", state: "", zipCode: "" };
 const initialExtendedFields = {
   startDateTime: "",
@@ -118,7 +117,7 @@ export default function Event() {
         .toString()
         .padStart(2, "0")} ${amPm}`;
     } else {
-      return "TBD";
+      return 'TDB';
     }
   }
 
@@ -126,14 +125,14 @@ export default function Event() {
     if (location !== null) {
       // console.log(location.address);
       return (
-        <p>
+        <>
           {location.address}
-          <br />
+          <br/>
           {location.city}, {location.state} {location.zipCode}
-        </p>
+        </>
       );
     } else {
-      return "TBD";
+      return 'TDB';
     }
   }
 
@@ -144,7 +143,18 @@ export default function Event() {
       : currentEvent?.status === "Planned"
       ? "success"
       : "error";
+
+  function handleMap(location) {
+    if (location !== null) {
+      const baseUrl = `https://www.google.com/maps/embed/v1/place?key=${process.env.REACT_APP_APIKEY}&`;
+      const addressComplete = `${location.address},${location.city},${location.state},${location.zipCode}`;
+      const params = new URLSearchParams(`q=${addressComplete}`);
+      return `${baseUrl}${params.toString()}`;
+    }
+    return "";
+  }
   //using an if statement to handle the async setCurrentEvent could also use {(currentEvent) ? (<div>…</div>) :( <></>)}
+  //AIzaSyCvQmZJBjFQKdFJt92CFC13mksPKj-pvh4
   if (!currentEvent) return null;
   return (
     <>
@@ -157,7 +167,7 @@ export default function Event() {
               <>
                 <div className='eventDetails'>{/* <h1>{currentEvent.name}</h1> */}</div>
                 <Paper
-                elevation={3}
+                  elevation={3}
                   sx={{
                     p: 2,
                     margin: "auto",
@@ -170,13 +180,13 @@ export default function Event() {
                   <Grid container spacing={2}>
                     <Grid item>
                       <iframe
-                        src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3346.10078805794!2d-96.70470802291328!3d33.00111817249723!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864c192619ad2c29%3A0xd8beb64b91648296!2sState%20Farm%20ONE%20CityLine!5e0!3m2!1sen!2sus!4v1686366373286!5m2!1sen!2sus'
+                        src={handleMap(extendedFields.startLocation)}
                         width='220'
                         height='220'
                         style={{ border: 0 }}
-                        allowfullscreen=''
+                        allowFullScreen=''
                         loading='lazy'
-                        referrerpolicy='no-referrer-when-downgrade'
+                        referrerPolicy='no-referrer-when-downgrade'
                         title='myMap'
                       ></iframe>
                     </Grid>
@@ -189,7 +199,10 @@ export default function Event() {
                           >
                             {currentEvent.name}
                           </Typography>
-                          <Typography variant='subtitle1' sx={{ fontWeight: "bold", marginLeft: .5, marginTop: 1}}>
+                          <Typography
+                            variant='subtitle1'
+                            sx={{ fontWeight: "bold", marginLeft: 0.5, marginTop: 1 }}
+                          >
                             Organization: {currentEvent.organization} | Type: {currentEvent.type}
                           </Typography>
                           <Stack direction='row' spacing={2} sx={{ marginLeft: 1 }}>
@@ -206,18 +219,22 @@ export default function Event() {
                           <Typography variant='body2' sx={{ marginLeft: 1 }}>
                             Meeting at: {locationFormatter(extendedFields.startLocation)}
                           </Typography>
-                          <Typography variant='body2' sx={{ marginLeft: 1}}>
+                          <Typography variant='body2' sx={{ marginLeft: 1 }}>
                             Ending at: {locationFormatter(extendedFields.endLocation)}
                           </Typography>
-                          <Typography variant='body1' sx={{ marginLeft: .5, fontWeight: "bold" }}>
-                          Description:
-                    </Typography>
-                          <Typography variant='body2' color='text.secondary' sx={{ marginLeft: 1.5 }}>
-                      {currentEvent.description}
-                    </Typography>
+                          <Typography variant='body1' sx={{ marginLeft: 0.5, fontWeight: "bold" }}>
+                            Description:
+                          </Typography>
+                          <Typography
+                            variant='body2'
+                            color='text.secondary'
+                            sx={{ marginLeft: 1.5 }}
+                          >
+                            {currentEvent.description}
+                          </Typography>
                         </Grid>
                         <Grid item>
-                          <Typography sx={{ marginLeft: .5 }} variant='body2'>
+                          <Typography sx={{ marginLeft: 0.5 }} variant='body2'>
                             Cost: ${currentEvent.baseCost}
                           </Typography>
                         </Grid>
@@ -252,7 +269,7 @@ export default function Event() {
               </AccordionSummary>
               <AccordionDetails>
                 {/* Team Component goes here  */}
-                <p>placeholder for Participants list user view</p>
+                <Typography>placeholder for Participants list user view</Typography>
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -271,7 +288,7 @@ export default function Event() {
               </AccordionSummary>
               <AccordionDetails>
                 {/* Team Component goes here  */}
-                <Itinerary eventId = {currentEvent.id} userIsOwner = {userIsOwner}/>
+                <Itinerary eventId={currentEvent.id} userIsOwner={userIsOwner} />
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -290,7 +307,7 @@ export default function Event() {
               </AccordionSummary>
               <AccordionDetails>
                 {/* Team Component goes here  */}
-                <p>placeholder for Checklist user view</p>
+                <Typography>placeholder for Checklist user view</Typography>
               </AccordionDetails>
             </Accordion>
           </Container>
