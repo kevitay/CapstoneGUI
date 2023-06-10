@@ -4,7 +4,7 @@ import OrganizerControl from "./OrganizerControl";
 import AuthContext from "../IdentityResources/Contexts/AuthContext";
 import { useParams } from "react-router-dom";
 import EditEvent from "./EditEvent";
-import { Box, Container, Drawer, Stack } from "@mui/material";
+import { Box, Chip, Container, Divider, Drawer, Stack } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -125,6 +125,7 @@ export default function Event() {
     }
   }
 
+  const statusColor = currentEvent.status === 'Draft' ? 'warning' : currentEvent.status === 'Planned' ? 'success' : 'error'
   //using an if statement to handle the async setCurrentEvent could also use {(currentEvent) ? (<div>…</div>) :( <></>)}
   if (!currentEvent) return null;
   return (
@@ -155,13 +156,14 @@ export default function Event() {
         </AccordionSummary>
         <AccordionDetails>
         {/* Team Component goes here  */}
-          <h3>
+          <Chip label={currentEvent.status} color={statusColor}/>
+          <Typography variant='body1' sx={{fontWeight: 'bold', margin: 2}}>
             {currentEvent.organization} | {currentEvent.type}
-          </h3>
-          <p>{currentEvent.description}</p>
-          <p>Status: {currentEvent.status}</p>
+          </Typography>
+          <Typography variant='body1'>{currentEvent.description}</Typography>
           <div className='locationDetails'>
             <h2>When and Where</h2>
+            <Divider/>
             <h3>Start Time: {dateFormatter(extendedFields.startDateTime)}</h3>
             <h3>End Time: {dateFormatter(extendedFields.endDateTime)}</h3>
             <h3>Start Location: {locationFormatter(extendedFields.startLocation)}</h3>
