@@ -20,14 +20,6 @@ const initialExtendedFields = {
   endLocation: emptyLocation,
 };
 
-const emptyLocation = { address: "", city: "", state: "", zipCode: "" };
-const initialExtendedFields = {
-  startDateTime: "",
-  endDateTime: "",
-  startLocation: emptyLocation,
-  endLocation: emptyLocation,
-};
-
 //react event
 export default function Event() {
   //stores the returned event from event API. After an edit, the event is updated with the result of the post and the extended fields are lost.
