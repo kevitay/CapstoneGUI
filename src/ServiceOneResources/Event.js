@@ -117,7 +117,7 @@ export default function Event() {
         .toString()
         .padStart(2, "0")} ${amPm}`;
     } else {
-      return 'TDB';
+      return 'TBD';
     }
   }
 
@@ -132,7 +132,7 @@ export default function Event() {
         </>
       );
     } else {
-      return 'TDB';
+      return 'TBD';
     }
   }
 
@@ -146,7 +146,7 @@ export default function Event() {
 //This function handles the google api and needs a .env.local file with the API Key to be able to run 
   function handleMap(location) {
     if (location !== null) {
-      const baseUrl = `https://www.google.com/maps/embed/v1/place?key=${process.env.REACT_APP_APIKEY}&`;
+      const baseUrl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyCvQmZJBjFQKdFJt92CFC13mksPKj-pvh4&`;
       const addressComplete = `${location.address},${location.city},${location.state},${location.zipCode}`;
       const params = new URLSearchParams(`q=${addressComplete}`);
       return `${baseUrl}${params.toString()}`;
