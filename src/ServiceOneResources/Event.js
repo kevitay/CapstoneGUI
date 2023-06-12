@@ -203,7 +203,7 @@ export default function Event() {
                       ></iframe>
                     </Grid>
                     <Grid item xs={12} sm container>
-                      <Grid item xs container direction='column' spacing={2}>
+                      <Grid item xs container direction={{ xs: 'column', sm: 'row' }} spacing={2}>
                         <Grid item xs>
                           <Typography
                             variant='h4'
@@ -245,8 +245,6 @@ export default function Event() {
                           >
                             {currentEvent.description}
                           </Typography>
-                        </Grid>
-                        <Grid item>
                           <Typography sx={{ marginLeft: 0.5 }} variant='body2'>
                             Cost: ${currentEvent.baseCost}
                           </Typography>
