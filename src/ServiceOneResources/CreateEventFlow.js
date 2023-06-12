@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect, useContext } from 'react';
 import CreateEvent from './CreateEvent';
+import InviteList from "../ServiceFourResources/InviteList/InviteList";
 import AuthContext from '../IdentityResources/Contexts/AuthContext';
 import Itinerary from '../ServiceThreeResources/Itinerary';
 
@@ -42,12 +43,24 @@ function CreateEventFlow() {
       {event ? <h1>{event.name}</h1> : <h1>Create Your Event</h1>}
       <p>Step {creationStep} of 5</p>
       {creationStep === 1 ? <CreateEvent setCreationStep={setCreationStep} setEvent={setEvent} /> : <></>}
-      {creationStep === 2 ? <><p>Add participants</p></> : <></>}
+      {creationStep === 2 ? <InviteList eventId={event.id}/> : <></>}
       {creationStep === 3 ? <Itinerary creationStep={creationStep} setCreationStep={setCreationStep} eventId={event.id} /> : <></>}
-      {creationStep === 4 ? <><p>Add items</p></> : <></>}
-      {creationStep === 5 ? <><p>Add tasks</p></> : <></>}
-      <br/>
-      <br/>
+      {creationStep === 4 ? (
+        <>
+          <p>Add items</p>
+        </>
+      ) : (
+        <></>
+      )}
+      {creationStep === 5 ? (
+        <>
+          <p>Add tasks</p>
+        </>
+      ) : (
+        <></>
+      )}
+      <br />
+      <br />
     </div>
   );
 }
