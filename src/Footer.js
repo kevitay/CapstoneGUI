@@ -8,14 +8,13 @@ import {
 function Footer() {
     //leaving in tech image sources below for discussion on which to include.
     return (
-     <>
-       <Paper sx={{marginTop: 'calc(10% + 60px)',
-        position: 'relative',
-        bottom: 0,
-        width: '100%',
-        backgroundColor: '#25252D',
-        color: 'white',
-        }} component="footer" square variant="outlined">
+      <div style={{ minHeight: '75vh', display: 'flex', flexDirection: 'column' }}>
+      <div style={{ flex: 1 }}>
+      </div>
+       <Paper sx={{ backgroundColor: '#25252D',
+          color: 'white',
+          padding: '30px',
+          marginTop: 'auto',}}>
         <p>Site created by ASE January 2023 SDI Cohort</p>
         <p>Technology Stack</p>
         <Stack direction='row' alignItems='center' sx={{width: '10%'}} justifyContent='space-between'  flexGrow={1}>
@@ -32,7 +31,7 @@ function Footer() {
         {/* <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original-wordmark.svg" alt="Gradle" width="45" height="45"/> */}
         </Stack>
       </Paper>  
-    </>    
+    </div>    
     );
 }
 
