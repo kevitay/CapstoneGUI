@@ -3,6 +3,7 @@ import './EventParticipant.css';
 import EventParticipantData from "./EventParticipantData";
 import DropDownFilter from "./DropDownFilter";
 import NameSearch from "./NameSearch";
+import { Button } from "@mui/material";
 
 function EventParticipant({ originalState, participantState, setEventParticipants }) {
 
@@ -20,7 +21,7 @@ function EventParticipant({ originalState, participantState, setEventParticipant
             <table className="participant-data-table">
                 <tr>
                     <th>
-                        <button onClick={(e) => stateReset(e)}>Clear Filters</button>
+                        <Button onClick={(e) => stateReset(e)}>Clear Filters</Button>
                     </th>
 
                     <th className="NameSearch">
