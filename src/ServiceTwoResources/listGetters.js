@@ -47,11 +47,12 @@ export const getListData = (eventId, userName) => {
 
   return getChecklistByEventId(eventId)
     .then((checklist) => {
+      // console.log("look here", checklist.length)
       if(checklist.length > 0){
         data.packingList = checklist.filter(item => item.type === "packing list");
         data.availableSignups = checklist.filter(item => item.type === "signup list");
         return getAssigneeListsForItems(data.availableSignups);
-      }
+      } else {return []}
     }) 
     .then(assigneeLists => {
       return assigneeLists.reduce((assignedCounts, list) => {
