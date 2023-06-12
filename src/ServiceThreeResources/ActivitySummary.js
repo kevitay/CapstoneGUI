@@ -96,9 +96,9 @@ function createData(activity) {
                       <TableCell>Group Size</TableCell>
                       <TableCell>Address</TableCell>
                       <TableCell>City</TableCell>
-                      <TableCell align="right">State</TableCell>
-                      <TableCell align="right">Zip</TableCell>
-                      <TableCell align="right">Activity URL</TableCell>
+                      <TableCell>State</TableCell>
+                      <TableCell>Zip</TableCell>
+                      <TableCell>Activity URL</TableCell>
                       <TableCell>Activity Type</TableCell>
                     </TableRow>
                   </TableHead>
@@ -156,8 +156,7 @@ function createData(activity) {
   };
   
   const rows = [];
-
-    states.itineraryJSON.activities.map(activity => {rows.push(createData(activity))})
+  rows.push(createData(activity));
   
     return (
       <TableContainer component={Paper}>
