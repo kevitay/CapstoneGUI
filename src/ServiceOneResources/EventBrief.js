@@ -27,15 +27,18 @@ export default function EventBrief({ event }) {
   }
 
   function locationFormatter(location) {
-    if (location !== null) {
+    if (location === null) {
+      return 'TBD';
+    } else if (location.address === '') {
+      return 'TBD';
+    } else {
+
       // console.log(location.address);
       return (
         <>
           {location.address}, {location.city}, {location.state} {location.zipCode}
         </>
       );
-    } else {
-      return 'TBD';
     }
   }
 
