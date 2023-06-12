@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useEffect, useContext } from 'react';
 import EventBrief from './EventBrief';
 import { EventContext } from './EventsContext';
-import { Stack } from '@mui/material';
+import { Container, Stack, TextField, Typography } from '@mui/material';
 import Button from '@mui/material/Button';
 import AuthContext from '../IdentityResources/Contexts/AuthContext';
 
@@ -14,6 +14,7 @@ export default function EventList() {
   const [authState] = useContext(AuthContext);
   const [pageState, setPageState] = useState(1);
   const [cardsPerPage,] = useState(4);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     function getEvents() {
@@ -38,10 +39,15 @@ export default function EventList() {
     getEvents();
   }, [dispatch, authState.token]);
 
+  const filteredEvents = state.eventsList.filter((event) =>
+    event.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  const totalPages = Math.ceil((filteredEvents?.length || 0) / cardsPerPage);
   // console.log(state.eventsList)
 
   return (
-    <div>
+    <Container maxWidth='xl' sx={{padding: 2}}>
+      <TextField autoComplete id="searchBar" variant="standard" placeholder="Search Events By Name" value={searchQuery} onChange={(e)=> setSearchQuery(e.target.value)}/>
       <Stack className="userEvents" direction="row" useFlexGap flexWrap="wrap" justifyContent="center">
         {pageState > 1 ? (
           <Button size="large" sx={{ marginRight: '16px', height: '225px', fontSize: '200px', paddingBottom: '35px' }} variant="text" onClick={() => setPageState(pageState - 1)}>
@@ -50,7 +56,7 @@ export default function EventList() {
         ) : (
           <></>
         )}
-        {state.eventsList.slice(cardsPerPage * (pageState - 1), cardsPerPage * pageState).map((event) => {
+        {filteredEvents.slice(cardsPerPage * (pageState - 1), cardsPerPage * pageState).map((event) => {
           return <EventBrief event={event} key={event.id} />;
         })}
         {cardsPerPage * pageState < state.eventsList.length ? (
@@ -61,6 +67,7 @@ export default function EventList() {
           <></>
         )}
       </Stack>
-    </div>
+      <Typography color="text.secondary" marginLeft={88}>{pageState}/{totalPages}</Typography>
+    </Container>
   );
 }

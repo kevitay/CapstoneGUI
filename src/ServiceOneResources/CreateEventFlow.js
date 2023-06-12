@@ -43,7 +43,7 @@ function CreateEventFlow() {
       {event ? <h1>{event.name}</h1> : <h1>Create Your Event</h1>}
       <p>Step {creationStep} of 5</p>
       {creationStep === 1 ? <CreateEvent setCreationStep={setCreationStep} setEvent={setEvent} /> : <></>}
-      {creationStep === 2 ? <InviteList event={event}/> : <></>}
+      {creationStep === 2 ? <InviteList setCreationStep={setCreationStep} event={event}/> : <></>}
       {creationStep === 3 ? <Itinerary creationStep={creationStep} setCreationStep={setCreationStep} eventId={event.id} userIsOwner={true} /> : <></>}
       {creationStep === 4 ? (
         <>

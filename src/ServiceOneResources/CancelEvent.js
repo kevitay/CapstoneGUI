@@ -1,6 +1,7 @@
 import React from 'react';
 import { useContext } from 'react';
 import AuthContext from '../IdentityResources/Contexts/AuthContext';
+import { Button } from '@mui/material';
 
 export default function CancelEvent({ event, setCurrentEvent }) {
   const [authState] = useContext(AuthContext);
@@ -32,13 +33,13 @@ export default function CancelEvent({ event, setCurrentEvent }) {
 
   return (
     <>
-      <button
+      <Button variant='outlined'
         onClick={() => {
           handleCancelEvent();
         }}
       >
         Cancel Event
-      </button>
+      </Button>
     </>
   );
 }
