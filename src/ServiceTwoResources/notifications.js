@@ -129,13 +129,14 @@ const Notifications = () => {
                         </TableRow>
                     </TableHead>
                     <TableBody>
-                        {notifications ? notifications.map(result => (
+                        {notifications ? notifications.sort((a,b) => parseInt(b.msgId) - parseInt(a.msgId)).map(result => (
                             <TableRow key={result.msgId}>
                                 <TableCell>{result.messageFrom}</TableCell>
                                 <TableCell sx={{ cursor: 'pointer' }} onClick={(e) => { handleEventClick(result.eventId) }}>{result.subject}</TableCell>
                                 <TableCell>{result.messageText}</TableCell>
                                 <TableCell align="center">
-                                    <form onSubmit={(e) => { sendResponse(e) }}>
+                                    {result.subject.substring(0,10).toLowerCase() === "invite to:"
+                                    ? <form onSubmit={(e) => { sendResponse(e) }}>
                                         <FormControl component="fieldset">
                                             <RadioGroup row>
                                                 <FormControlLabel name="response" size="small" value="Going" control={<Radio />} label="Going" />
@@ -147,6 +148,8 @@ const Notifications = () => {
                                         </FormControl>
                                         <Button sx={{ width: 175 }} type="submit" variant="contained" > Send Response </Button>
                                     </form>
+                                    : ""
+                                    }                                    
                                 </TableCell>
                             </TableRow>
                         )) : <TableRow><TableCell colSpan="4">No Notifications</TableCell></TableRow>
