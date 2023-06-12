@@ -2,6 +2,16 @@ import React, { useState, useEffect, useContext } from 'react';
 import Signup from './signup';
 import { getListData, signupForItem } from './listGetters';
 import AuthContext from '../IdentityResources/Contexts/AuthContext';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import { Typography } from '@mui/material';
+import Button from '@mui/material/Button';
+
 
 
 const ParticipantView = ({ eventId }) => {
@@ -67,81 +77,95 @@ const ParticipantView = ({ eventId }) => {
   useEffect(refreshData, [eventId, username]);
 
   return (
-    <div>
-      <h2>Participant View</h2>
+    <>
+      <Typography variant="h4">Participant View</Typography>
       <p>User ID: {username ? username : "You are not logged in. Please login to continue."}</p>
       <p>Event ID: {eventId}</p>
-      <h3>Packing List Items for event {eventId}</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Description</th>
-            <th>Quantity</th>
-            <th>Required</th>
-          </tr>
-        </thead>
-        <tbody>
-          {packingList.length > 0 ? packingList.map(result => (
-            <tr key={result.id}>
-              <td>{result.description}</td>
-              <td>{result.quantity}</td>
-              <td>
-                {(result.required) ? "yes" : ""}
-              </td>
-            </tr>
-          ))
-            : <tr><td colSpan="3">No Packing List Items</td></tr>
-          }
-        </tbody>
-      </table>
-      <h3>Signup List Items I've Signed Up For</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Description</th>
-            <th>Quantity</th>
-            <th>Required</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {assignedList.length > 0 ? assignedList.map(result => (
-            <tr key={result.id}>
-              <td>{result.description}</td>
-              <td>{result.quantity}</td>
-              <td>
-                {(result.required) ? "yes" : ""}
-              </td>
-              <td><button onClick={() => removeSignup(result.id)}> Remove Signup </button></td>
-            </tr>
-          ))
-            : <tr><td colSpan="4">You haven't signed up for anything</td></tr>
-          }
-        </tbody>
-      </table>
-      <h3>Signup List Items Available</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Description</th>
-            <th># Remaining</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          {signupList.length > 0 ? signupList.map(result => (
-            <Signup
-              key={result.id}
-              username={username}
-              signupListItem={result}
-              handleAddAssignee={addSignup}
-            />
-          ))
-            : <tr><td colSpan="3">No Signup List Items Available</td></tr>
-          }
-        </tbody>
-      </table>
-    </div>
+      <Typography variant="h6">Packing List Items for event {eventId}</Typography>
+
+      <TableContainer component={Paper}>
+        <Table size="small" aria-label="a dense table">
+          <TableHead>
+            <TableRow >
+              <TableCell sx={{width: 350, fontWeight: 'bold'}}>DESCRIPTION</TableCell>
+              <TableCell sx={{width: 350, fontWeight: 'bold'}} align="center">QUANTITY</TableCell>
+              <TableCell sx={{width: 350, fontWeight: 'bold'}} align="center">REQUIRED</TableCell>
+              <TableCell sx={{width: 350}}></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {packingList.length > 0 ? packingList.map(result => (
+              <TableRow key={result.id} sx={{}}>
+                <TableCell>{result.description}</TableCell>
+                <TableCell align="center">{result.quantity}</TableCell>
+                <TableCell align="center">
+                  {(result.required) ? "yes" : ""}
+                </TableCell>
+                <TableCell></TableCell>
+              </TableRow>
+            ))
+              : <TableRow><TableCell colSpan="3">No Packing List Items</TableCell></TableRow>
+            }
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      <Typography variant="h6">Signup List Items I've Signed Up For</Typography>
+
+      <TableContainer component={Paper}>
+        <Table size="small" aria-label="a dense table">
+          <TableHead>
+            <TableRow>
+              <TableCell sx={{width: 350, fontWeight: 'bold'}}>DESCRIPTION</TableCell>
+              <TableCell sx={{width: 350, fontWeight: 'bold'}} align="center">QUANTITY</TableCell>
+              <TableCell sx={{width: 350, fontWeight: 'bold'}} align="center">REQUIRED</TableCell>
+              <TableCell sx={{width: 350}}></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {assignedList.length > 0 ? assignedList.map(result => (
+              <TableRow key={result.id}>
+                <TableCell>{result.description}</TableCell>
+                <TableCell align="center">{result.quantity}</TableCell>
+                <TableCell align="center">
+                  {(result.required) ? "yes" : ""}
+                </TableCell>
+                <TableCell align="center"><Button variant="contained" onClick={() => removeSignup(result.id)}> Remove </Button></TableCell>
+              </TableRow>
+            ))
+              : <TableRow><TableCell colSpan="4">You haven't signed up for anything</TableCell></TableRow>
+            }
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      <Typography variant="h6">Signup List Items Available</Typography>
+
+      <TableContainer component={Paper}>
+        <Table size="small" aria-label="a dense table">
+          <TableHead>
+            <TableRow>
+              <TableCell sx={{width: 350, fontWeight: 'bold'}}>DESCRIPTION</TableCell>
+              <TableCell sx={{width: 350, fontWeight: 'bold'}} align="center"># REMAINING</TableCell>
+              <TableCell sx={{width: 350, fontWeight: 'bold'}} align="center">REQUIRED</TableCell>
+              <TableCell sx={{width: 350}}></TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {signupList.length > 0 ? signupList.map(result => (
+              <Signup 
+                key={result.id}
+                username={username}
+                signupListItem={result}
+                handleAddAssignee={addSignup}
+              />
+            ))
+              : <TableRow><TableCell colSpan="3">No Signup List Items Available</TableCell></TableRow>
+            }
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </>
   );
 }
 

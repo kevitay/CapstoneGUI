@@ -20,6 +20,8 @@ function CurrentEvent({ event, eventInfo }) {
     border: '2px solid #000',
     boxShadow: 24,
     p: 4,
+    backgroundColor: (theme) =>
+              theme.palette.mode === "dark" ? "#1A2027" : "#fff"
   };
   
   useEffect(() => {
@@ -54,13 +56,12 @@ function CurrentEvent({ event, eventInfo }) {
       .then(result => {
       })
       .catch(error => console.log('error', error));
-
-    setEditMode(false);
+      setEditMode(false);
   };
 
   if (editMode) {
    
-    console.log("part id", event.eventParticipantId)
+    // console.log("part id", event.eventParticipantId)
     return (
       <Modal
       open={handleEditClick}
@@ -92,7 +93,7 @@ function CurrentEvent({ event, eventInfo }) {
                 inputProps={{ 'aria-label': 'controlled' }}
               />} label="Carpooling? " />
             </p>
-            <p>
+            
               <TextField
                 id="seats-avail"
                 onChange={(e) => setSeatsAvail(parseInt(e.target.value))}
@@ -104,7 +105,7 @@ function CurrentEvent({ event, eventInfo }) {
                 }}
                 variant="standard"
               />
-            </p>
+            
             <Button variant="contained" onClick={handleSaveClick}>Save</Button>
           </div>
         </Box>
@@ -122,10 +123,12 @@ function CurrentEvent({ event, eventInfo }) {
         margin:1,
         // backgroundColor: "#F5F5F5",
         width: "30em",
-        height: "100%",
+        height: "",
         p: "1.5em",
         borderRadius: "8px",
         boxShadow: "0 2px 4px rgba(0, 0, 0, 0.5)",
+        backgroundColor: (theme) =>
+              theme.palette.mode === "dark" ? "#1A2027" : "#fff"
       }} >
         <CardActionArea onClick={handleEventCardClick} rel="noopener noreferrer" sx={{height: '100%'}}>
       <Typography variant="h5" fontWeight="bold" gutterBottom >
@@ -141,9 +144,6 @@ function CurrentEvent({ event, eventInfo }) {
         Event Type: {eventInfo[index].type}
       </Typography>
       <Divider sx={{ my: "1em" }} />
-      <Typography variant="body1" gutterBottom>
-        Description: {eventInfo[index].description}
-      </Typography>
       <Typography variant="body1" gutterBottom>
         Base Cost: {eventInfo[index].baseCost}
       </Typography>
@@ -169,7 +169,7 @@ function CurrentEvent({ event, eventInfo }) {
       </strong>
     </Typography>
     </CardActionArea>
-      <Button onClick={handleEditClick} variant="contained" sx={{ mt: 2 }}>
+      <Button onClick={handleEditClick} variant="contained" fullWidth sx={{ mt: 2}}>
         Edit
       </Button>
     </Card>

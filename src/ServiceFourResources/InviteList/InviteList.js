@@ -1,12 +1,12 @@
 import React from "react";
 import Users from "./Users";
 
-function InviteList({event}) {
+function InviteList({setCreationStep, event, editMode}) {
     
     return (
         <div className="InviteList">
             <h1>Invite Users</h1>
-           <Users event={event}></Users>
+           <Users editMode={editMode} setCreationStep={setCreationStep}  event={event}></Users>
         </div>
     )
 }
