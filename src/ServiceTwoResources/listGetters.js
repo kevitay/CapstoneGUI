@@ -12,7 +12,13 @@ const getChecklistByEventId = (eventId) => {
   };
 
   return fetch(checklistUrl + "/" + eventId, requestOptions)
-    .then(response => response.json())
+    .then(response => {
+      if(response.status === 200){
+        return response.json().checklist;
+      } else {
+        return [];
+      }
+    })
     .catch(error => console.log('error', error));
 };
 
@@ -40,11 +46,13 @@ export const getListData = (eventId, userName) => {
   };
 
   return getChecklistByEventId(eventId)
-    .then(({ checklist }) => {
-      data.packingList = checklist.filter(item => item.type === "packing list");
-      data.availableSignups = checklist.filter(item => item.type === "signup list");
-      return getAssigneeListsForItems(data.availableSignups);
-    })
+    .then((checklist) => {
+      if(checklist.length > 0){
+        data.packingList = checklist.filter(item => item.type === "packing list");
+        data.availableSignups = checklist.filter(item => item.type === "signup list");
+        return getAssigneeListsForItems(data.availableSignups);
+      }
+    }) 
     .then(assigneeLists => {
       return assigneeLists.reduce((assignedCounts, list) => {
         if (list.assigneeList) {
