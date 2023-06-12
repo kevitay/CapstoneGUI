@@ -58,8 +58,8 @@ function App() {
             <Route path={'/identity/*'} element={<IdentityApp />}></Route>
           </Routes>
         </EventProvider>
-        <Footer/> 
-        </ColorModeProvider>
+      <Footer/> 
+      </ColorModeProvider>
       </AuthContext.Provider>
     </div>
   );
