@@ -3,7 +3,7 @@ import { useState, useContext } from 'react';
 // import { useParams, useLocation } from 'react-router-dom';
 import EventType from './EventType';
 import AuthContext from '../IdentityResources/Contexts/AuthContext';
-import { Box, FormControl, TextField, Button, Radio, RadioGroup, FormLabel, FormControlLabel } from '@mui/material';
+import { Box, Grid, FormControl, TextField, Button, Radio, RadioGroup, FormLabel, FormControlLabel } from '@mui/material';
 
 
 function EditEvent({event, setCurrentEvent, setEditMode}) {
@@ -116,12 +116,14 @@ function EditEvent({event, setCurrentEvent, setEditMode}) {
               </RadioGroup>
             </FormControl>
             {/* might include Edit Itinerary component , might need to create logic to flow from editing basic event details to itinerary */}
-            <Button sx={{ width: '50%', marginLeft: '30%', marginTop: '50px'}} variant="contained">
-              Submit
-            </Button>
-            <Button sx={{ width: '50%', marginLeft: '30%', marginTop: '50px'}} variant="contained" onClick={() => setEditMode(false)}>
-              Cancel Edit{' '}
-            </Button>
+            <Grid sx={{marginTop: '24px', marginBottom: '24px'}}>
+              <Button sx={{ width: '48%', marginRight: '8px' }} variant="contained">
+                Submit
+              </Button>
+              <Button sx={{ width: '48%'}} variant="contained" onClick={() => setEditMode(false)}>
+                Cancel Edit{' '}
+              </Button>
+            </Grid>
           </FormControl>
         </Box>
       </form>
