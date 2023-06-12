@@ -1,10 +1,7 @@
 import React from "react";
 import BeforeEvent from "./beforeEvent";
-import AuthContext from '../IdentityResources/Contexts/AuthContext';
-import { useContext } from "react";
 
 function OrganizerViewApp({ eventId }) {
-    const [authState,] = useContext(AuthContext);
 
     return (
         <div className="OrganizerView">
