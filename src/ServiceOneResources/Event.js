@@ -143,7 +143,7 @@ export default function Event() {
       : currentEvent?.status === "Planned"
       ? "success"
       : "error";
-
+//This function handles the google api and needs a .env.local file with the API Key to be able to run 
   function handleMap(location) {
     if (location !== null) {
       const baseUrl = `https://www.google.com/maps/embed/v1/place?key=${process.env.REACT_APP_APIKEY}&`;
@@ -154,7 +154,6 @@ export default function Event() {
     return "";
   }
   //using an if statement to handle the async setCurrentEvent could also use {(currentEvent) ? (<div>…</div>) :( <></>)}
-  //AIzaSyCvQmZJBjFQKdFJt92CFC13mksPKj-pvh4
   if (!currentEvent) return null;
   return (
     <>
