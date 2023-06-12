@@ -1,3 +1,4 @@
+import { Button } from "@mui/material";
 import {React, useState, useEffect} from "react";
 
 function NameSearch({ resetStatus, participantState, setEventParticipants }) {
@@ -23,7 +24,7 @@ function NameSearch({ resetStatus, participantState, setEventParticipants }) {
     return (
         <form onSubmit={(e) => handleSearch(e)}>
             <input onChange={(e) => captureCategory(e)} type="text" value={searchTerm} placeholder="Enter Name"></input>
-            <button type="submit">Search</button>
+            <Button sx={{ml:'.5em',height:'1.5em'}} variant="contained" type="submit">Search</Button>
         </form>
     )
 }

@@ -1,3 +1,4 @@
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 import React, { useState, useEffect } from "react";
 
 function DropDownFilter({ resetStatus, filterOn, filterName, participantState, dataToFilter, setEventParticipants }) {
@@ -41,16 +42,36 @@ function DropDownFilter({ resetStatus, filterOn, filterName, participantState, d
 
     return (
         <div>
-            <form>
-                <select value={filterState} name={filterState} onChange={(e) => captureCategory(e)}>
-                    <option hidden={true} selected value='' defaultValue={filterName}>{filterName}</option>
-                    {uniqueData.map((option) => (
-                        option ? <option value={option}>{option}</option> : ''
-                    ))}
-                </select>
-            </form>
+          <FormControl sx={{ minWidth: 200 }}>
+            <InputLabel
+              sx={{
+                // position: "relative",
+                top: -9,
+                // background: "white",
+              }}
+            >
+              {filterName}
+            </InputLabel>
+            <Select 
+              value={filterState}
+              name={filterState}
+              onChange={(e) => captureCategory(e)}
+              sx={{height:'2em' }}
+            >
+              <MenuItem value="" disabled>
+                {filterName}
+              </MenuItem>
+              {uniqueData.map((option) =>
+                option ? (
+                  <MenuItem key={option} value={option}>
+                    {option}
+                  </MenuItem>
+                ) : null
+              )}
+            </Select>
+          </FormControl>
         </div>
-    )
+      );
 }
 
 export default DropDownFilter;
