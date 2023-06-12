@@ -74,10 +74,8 @@ function CreateEvent({ setCreationStep, setEvent }) {
         <Box
           sx={{
             marginTop: '50px',
-            marginBottom: '50px',
             marginLeft: '30%',
             width: '50%',
-            height: '100vh',
           }}
         >
           <FormControl sx={{ width: '50%' }}>
