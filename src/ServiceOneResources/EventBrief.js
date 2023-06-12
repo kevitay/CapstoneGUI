@@ -1,8 +1,9 @@
 import React from 'react';
-import { Card, CardActionArea, Stack } from '@mui/material';
+import { Card, CardActionArea, Stack, colors } from '@mui/material';
 import { useNavigate } from 'react-router';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
+import { Divider } from '@mui/material';
 
 export default function EventBrief({ event }) {
   const navigate = useNavigate();
@@ -52,18 +53,18 @@ export default function EventBrief({ event }) {
 
   return (
     // <Card key={event.id} sx={{ height: '250px', width: '250px', marginRight: '16px', marginBottom: '16px', border: '1px solid lightgray'}}>
-    <Card key={event.id} sx={{ width: '200px', height: '225px', marginRight: '16px', backgroundColor: (theme) =>
-    theme.palette.mode === "dark" ? "#1A2027" : "#fff", }}>
-      <CardActionArea onClick={handleEventCardClick} rel="noopener noreferrer" sx={{height: '100%'}}>
+    <Card key={event.id} sx={{ width: '200px', height: '225px', marginRight: '16px', backgroundColor: (theme) => (theme.palette.mode === 'dark' ? '#1A2027' : '#fff') }}>
+      <CardActionArea onClick={handleEventCardClick} rel="noopener noreferrer" sx={{ height: '100%' }}>
         <CardContent>
-          <Typography gutterBottom variant="p" component="div" sx={{ fontWeight: 'bold' }}>
+          <Typography gutterBottom variant="p" component="div" sx={{ fontWeight: 'bold', color: '#1976d2' }}>
             {event.name}
           </Typography>
+          <Divider sx={{ color: '#1976d2'}}></Divider>
           <Typography gutterBottom variant="subtitle1" component="div">
-            {(event.hasOwnProperty('startLocation')) ?'Location:' + locationFormatter(event.startLocation):""}
+            {event.hasOwnProperty('startLocation') ? 'Location:' + locationFormatter(event.startLocation) : ''}
           </Typography>
           <Typography gutterBottom variant="subtitle1" component="div">
-          {(event.hasOwnProperty('startDateTime')) ?'Time:' + dateFormatter(event.startDateTime):""}
+            {event.hasOwnProperty('startDateTime') ? 'Time:' + dateFormatter(event.startDateTime) : ''}
           </Typography>
           <Typography gutterBottom variant="body2" component="div">
             Type: {event.type}
