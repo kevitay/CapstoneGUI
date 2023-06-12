@@ -27,24 +27,33 @@ function EventImages() {
     }, [eventId]);
 
     return (
-        <Card sx={{
-            width: 1080,
-            height: 720,
-            fontSize: '20px',
+        <Box sx={{
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
             alignItems: 'center',
             margin: 'auto',
-
+            marginTop: '20px'
         }}>
-            <UploadInterface fetchEventImages={fetchEventImages} eventId={eventId}></UploadInterface>
-            <Box sx={{ width: 'auto', height: '100%', overflowY: 'scroll', marginTop: '10px' }}>
-                <ImageList variant="masonry" cols={4} gap={6}>
-                    {loading ? "" : imageList.map((img) => (<EventImage img={img}></EventImage>))}
-                </ImageList>
-            </Box>
-        </Card>
+            <Card sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}>
+                <UploadInterface fetchEventImages={fetchEventImages} eventId={eventId}></UploadInterface>
+                <Box sx={{
+                    height: '600px',
+                    width: '1040px',
+                    overflowY: 'auto',
+                    margin: '10px'
+                }}>
+                    <ImageList variant="masonry" cols={4} gap={6}>
+                        {loading ? "" : imageList.map((img) => (<EventImage img={img}></EventImage>))}
+                    </ImageList>
+                </Box>
+            </Card>
+        </Box>
     )
 }
 
