@@ -5,12 +5,11 @@
 
 const checklistUrl = "http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist";
 
-const getChecklistByEventId = (eventId) => {
+  async function getChecklistByEventId(eventId){
   var requestOptions = {
     method: 'GET',
     redirect: 'follow'
   };
-
   return fetch(checklistUrl + "/" + eventId, requestOptions)
     .then(response => {
       if(response.status === 200){
@@ -20,6 +19,7 @@ const getChecklistByEventId = (eventId) => {
       }
     })
     .catch(error => console.log('error', error));
+    
 };
 
 const getAssigneeListForItem = (itemId) => {
@@ -47,7 +47,7 @@ export const getListData = (eventId, userName) => {
 
   return getChecklistByEventId(eventId)
     .then((checklist) => {
-      // console.log("look here", checklist.length)
+      if(checklist == null) {return []}
       if(checklist.length > 0){
         data.packingList = checklist.filter(item => item.type === "packing list");
         data.availableSignups = checklist.filter(item => item.type === "signup list");
