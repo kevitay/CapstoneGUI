@@ -1,10 +1,12 @@
 import React from 'react';
 import { Card, CardActionArea } from '@mui/material';
-
+import { useNavigate } from 'react-router';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
 export default function EventBrief({ event }) {
+  const navigate = useNavigate();
+  
   function dateFormatter(dateTime) {
     if (dateTime !== null) {
       const date = new Date(dateTime);
@@ -41,21 +43,27 @@ export default function EventBrief({ event }) {
   //   return <button>{children}</button>;
   // }
 
+  function handleEventCardClick() {
+    //navigates to event details page without losing context
+    navigate(`/serviceOne/event/${event.id}`);
+  }
+
   return (
     // <Card key={event.id} sx={{ height: '250px', width: '250px', marginRight: '16px', marginBottom: '16px', border: '1px solid lightgray'}}>
-    <Card key={event.id} sx={{ width: '250px', height: '250px', marginRight: '16px', marginBottom: '16px' }}>
-      <CardActionArea href={`/serviceOne/event/${event.id}`} rel="noopener noreferrer" sx={{height: '100%'}}>
+    <Card key={event.id} sx={{ width: '250px', height: '250px', marginRight: '16px', marginBottom: '16px',backgroundColor: (theme) =>
+    theme.palette.mode === "dark" ? "#1A2027" : "#fff", }}>
+      <CardActionArea onClick={handleEventCardClick} rel="noopener noreferrer" sx={{height: '100%'}}>
         <CardContent>
-          <Typography gutterBottom variant="p" component="div" sx={{ fontWeight: 'bold' }}>
+          <Typography gutterBottom variant="h6" component="div" sx={{ fontWeight: 'bold' }}>
             {event.name}
           </Typography>
-          <Typography gutterBottom variant="p" component="div">
-            Location: {locationFormatter(event.startLocation)}
+          <Typography gutterBottom variant="subtitle1" component="div">
+            {(event.hasOwnProperty('startLocation')) ?'Location:' + locationFormatter(event.startLocation):""}
           </Typography>
-          <Typography gutterBottom variant="p" component="div">
-            Time: {dateFormatter(event.startDateTime)}
+          <Typography gutterBottom variant="subtitle1" component="div">
+          {(event.hasOwnProperty('startDateTime')) ?'Time:' + dateFormatter(event.startDateTime):""}
           </Typography>
-          <Typography gutterBottom variant="p" component="div">
+          <Typography gutterBottom variant="body2" component="div">
             Type: {event.type}
           </Typography>
         </CardContent>

@@ -1,34 +1,34 @@
 import React from 'react';
 import { useState, useContext } from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+// import { useParams, useLocation } from 'react-router-dom';
 import EventType from './EventType';
 import AuthContext from '../IdentityResources/Contexts/AuthContext';
+import { Box, Grid, FormControl, TextField, Button, Radio, RadioGroup, FormLabel, FormControlLabel } from '@mui/material';
 
 
-function EditEvent() {
-  let { id } = useParams();
-  const location = useLocation();
-  const state = location.state;
-  const [eventName, setName] = useState(state.name);
-  const [organization, setOrganization] = useState(state.organization);
-  const [description, setDescription] = useState(state.description);
-  const [eventType, setEventType] = useState(state.type);
-  const [eventCost, setEventCost] = useState(state.baseCost);
-  const [isPublic, setIsPublic] = useState(state.public);
+function EditEvent({event, setCurrentEvent, setEditMode}) {
+  // let { id } = useParams();
+  // const location = useLocation();
+  // const state = location.state;
+  const [eventName, setName] = useState(event.name);
+  const [organization, setOrganization] = useState(event.organization);
+  const [description, setDescription] = useState(event.description);
+  const [eventType, setEventType] = useState(event.type);
+  const [eventCost, setEventCost] = useState(event.baseCost);
+  const [isPublic, setIsPublic] = useState(event.public);
   const [authState, ] = useContext(AuthContext);
 
   const radioEvent = (event) => {
     setIsPublic(event.target.value === 'true');
   };
 
-  async function updateEvent(eventName, organization, description, eventType, eventCost) {
-
+  function updateEvent(eventName, organization, description, eventType, eventCost) {
     var myHeaders = new Headers();
     myHeaders.append('Content-Type', 'application/json');
     myHeaders.append('Authorization', authState.token);
 
     var raw = JSON.stringify({
-      id: id,
+      id: event.id,
       creatorID: authState.username,
       name: eventName,
       organization: organization,
@@ -47,23 +47,29 @@ function EditEvent() {
       redirect: 'follow',
     };
 
-    fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/' + id, requestOptions)
+    fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/' + event.id, requestOptions)
       .then((response) => response.json())
+      //converts response to json
+      //then update the currentEvent state in Event with the updated event from the response body
+      .then((response) => {setCurrentEvent(response);
+        setEditMode(false);
+      })
       .catch((error) => console.log('error', error));
     // will have to delete if we add other components
 
-    await routeToEvent();
+    // await routeToEvent();
   }
 
   // will have to delete if we add other components
-  async function routeToEvent() {
-    // might be better to route to edit itinerary component page 
-    window.location.replace(`/serviceOne/event/${id}`);
-  }
+  // async function routeToEvent() {
+  //   // might be better to route to edit itinerary component page 
+  //   window.location.replace(`/serviceOne/event/${id}`);
+  // }
   
   return (
-    <div className="eventSubmit">
+    <>
       <h2>Edit Event</h2>
+
       <form
         action=""
         method=""
@@ -79,43 +85,49 @@ function EditEvent() {
           // will have to delete if we add other components
         }}
       >
-        <label>Event Name</label>
-        <input type="text" name="eventName" value={eventName} onChange={(e) => setName(e.target.value)} />
-        <br />
-        <br />
-        <label>Organization</label>
-        <input type="text" name="organization" value={organization} onChange={(e) => setOrganization(e.target.value)} />
-        <br />
-        <br />
-        <EventType eventType={eventType} setEventType={setEventType} />
-        <br />
-        <br />
-        <label>Event Cost</label>
-        <input className="numberField" type="number" min="0.00" name="eventCost" value={eventCost} onChange={(e) => setEventCost(e.target.value)} />
-        <br />
-        <br />
-        <label>Event Description</label>
-        <br />
-        <textarea name="description" rows="6" cols="33" value={description} onChange={(e) => setDescription(e.target.value)} />
-        <br />
-        <br />
-        <fieldset>
-          <legend>Public or Private:</legend>
-          <input type="radio" id="public" name="publicPrivate" value={true} checked={isPublic === true} onChange={radioEvent} />
-          <label forhtml="public">Public</label>
-          <br />
-          <input type="radio" id="private" name="publicPrivate" value={false} checked={isPublic === false} onChange={radioEvent} />
-          <label forhtml="private">Private</label>
-          <br />
-        </fieldset>
-        <br />
-        {/* might include Edit Itinerary component , might need to create logic to flow from editing basic event details to itinerary */}
-        <button type="submit">Submit</button>
+        <Box
+          sx={{
+            marginTop: 6,
+            marginLeft: '30%',
+            width: '50%',
+          }}
+        >
+          <FormControl sx={{ width: '50%' }}>
+            <TextField id="outlined-basic" label="Event Name" variant="outlined" name="eventName" value={eventName} onChange={(e) => setName(e.target.value)} required />
+            <br />
+
+            <TextField id="outlined-basic" label="Organization" variant="outlined" name="organization" value={organization} onChange={(e) => setOrganization(e.target.value)} required />
+            <br />
+
+            <EventType eventType={eventType} setEventType={setEventType} />
+            <br />
+
+            <TextField placeholder="$" label="Cost" className="numberField" type="number" min="0.00" name="eventCost" value={eventCost} onChange={(e) => setEventCost(e.target.value)} required />
+            <br />
+
+            <TextField label="Event Description" multiline rows="6" name="description" cols="33" value={description} onChange={(e) => setDescription(e.target.value)} required />
+            <br />
+
+            <FormControl>
+              <FormLabel id="publicPrivate">Public or Private Event?</FormLabel>
+              <RadioGroup defaultValue={false}>
+                <FormControlLabel control={<Radio />} label="Private" value={false} name="publicPrivate" checked={isPublic === false} onChange={radioEvent} />
+                <FormControlLabel control={<Radio />} label="Public" value={true} name="publicPrivate" checked={isPublic === true} onChange={radioEvent} />
+              </RadioGroup>
+            </FormControl>
+            {/* might include Edit Itinerary component , might need to create logic to flow from editing basic event details to itinerary */}
+            <Grid sx={{marginTop: 3, marginBottom: 3}}>
+              <Button sx={{ width: '48%', marginRight: 1}} variant="contained">
+                Submit
+              </Button>
+              <Button sx={{ width: '48%'}} variant="contained" onClick={() => setEditMode(false)}>
+                Cancel Edit{' '}
+              </Button>
+            </Grid>
+          </FormControl>
+        </Box>
       </form>
-      <a href={`/serviceOne/event/${id}`} rel="noopener noreferrer">
-        <button>Cancel Edit </button>
-      </a>
-    </div>
+    </>
   );
 }
 

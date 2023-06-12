@@ -1,5 +1,6 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import { Select, MenuItem, TextField } from '@mui/material';
 
 const optionList = ['--Select event type--', 'Party', 'Celebration', 'Social', 'Reunion', 'Convention', 'Business Meeting', 'Trip', 'Alumni Gathering', 'Club Outing', 'Other'];
 
@@ -20,23 +21,20 @@ function EventType({ eventType, setEventType }) {
 
   return (
     <>
-      <label htmlFor="event-type">Event Type</label>
-      <select name="event-type" id="event-type" value={optionListSelection} onChange={(e) => setOptionListSelection(e.target.value)} required>
-        {optionList.map((optionType, index) => {
-          return (
-            <>
-              <option key={index} value={optionType}>
-                {optionType}
-              </option>
-            </>
-          );
-        })}
-      </select>
+      {/* <label>Event Type</label> */}
+      <Select placeholder="Select Event Type" name="event-type" id="event-type" value={optionListSelection} onChange={(e) => setOptionListSelection(e.target.value)} required>
+        {optionList.map((optionType, index) => (
+          <MenuItem key={index} value={optionType}>
+            {optionType}
+          </MenuItem>
+        ))}
+      </Select>
 
       {optionListSelection === 'Other' ? (
         <>
-          <label>Other Event Type</label>
-          <input type="text" name="eventType" value={otherType} onChange={(e) => setOtherType(e.target.value)} required />
+          <br />
+
+          <TextField label="Enter Other Event Type" type="text" name="eventType" value={otherType} onChange={(e) => setOtherType(e.target.value)} required />
         </>
       ) : (
         <></>

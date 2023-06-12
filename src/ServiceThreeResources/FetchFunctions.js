@@ -23,22 +23,33 @@ export const fetchFunction = function(action){
       }
 }
 
-
-
 const getActivities = function(action){
-    fetch(`http://a08cb134e19c8438285f05f4a630b6bd-117037464.us-west-2.elb.amazonaws.com/api/activities`)
-    .catch((err)=> console.error(err))
-    .then((response) => response.json())
+  const id = action.eventId ? action.eventId : ""; 
+  fetch(`http://a08cb134e19c8438285f05f4a630b6bd-117037464.us-west-2.elb.amazonaws.com/api/activities/${id}`)
+    .then((response) => {
+      if (response.status === 204) {
+        action.dispatch({ activities: [] });
+      } else {
+        return response.json();
+      }
+    })
     .then((data) => {
-    action.dispatch(data);
-  });
+      console.log(data);
+      if (data) {
+        action.dispatch(data);
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+    });
   }
 
   const createActivity = function(action){
     fetch('http://a08cb134e19c8438285f05f4a630b6bd-117037464.us-west-2.elb.amazonaws.com/api/activities', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json'
+          'Content-Type': 'application/json',
+          'Authorization': action.authState.token
         },
         body: JSON.stringify(action.payload)
       })
@@ -52,13 +63,13 @@ const getActivities = function(action){
         });
   }
 
-
 const updateActivity = function(action)
   {      const id = action.payload.id;
     fetch(`http://a08cb134e19c8438285f05f4a630b6bd-117037464.us-west-2.elb.amazonaws.com/api/activities/${id}`, {
       method: 'PATCH',
       headers: {
-        'Content-Type': 'application/json'
+        'Content-Type': 'application/json',
+        'Authorization': action.authState.token
       },
       body: JSON.stringify(action.payload)
     })
@@ -74,12 +85,13 @@ const updateActivity = function(action)
       });
 }
 
-
-
 const deleteActivity = function(action){
     const id = action.payload.id;
     fetch(`http://a08cb134e19c8438285f05f4a630b6bd-117037464.us-west-2.elb.amazonaws.com/api/activities/${id}`, {
-      method: 'DELETE'
+      method: 'DELETE',
+      headers: {
+        'Authorization': action.authState.token
+      }
     })
       .then(data => {
         console.log('DELETE request succeeded with JSON response:', data);

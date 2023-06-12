@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../../IdentityResources/Contexts/AuthContext.js";
 import CurrentEvent from "./CurrentEvent.js";
+import { Box, Container, Typography } from '@mui/material'; 
 
 function CurrentEvents() {
 
@@ -36,11 +37,18 @@ function CurrentEvents() {
     },[authState]);
 
     return (
-        <div>
+      <Container maxWidth='xl'>
+      <Typography variant="h4" fontWeight="bold" gutterBottom>
+        Events I've been invited to
+      </Typography>
+          <Box sx={{
+            display: 'flex'
+            }}>
             {
             loading ? "" : userEventsList.map((event) => <><CurrentEvent event={event} eventInfo={eventInfo}></CurrentEvent></>)
             }
-        </div>
+            </Box>
+       </Container>
     )
 
 }

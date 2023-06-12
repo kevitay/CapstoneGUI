@@ -1,9 +1,12 @@
 import React, { useEffect } from 'react';
 import { useState, useContext } from 'react';
+import { useNavigate } from 'react-router';
 import AuthContext from '../IdentityResources/Contexts/AuthContext';
+import { Button } from '@mui/material';
 
 //will need to change to account for cascading delete to other components
 export default function DeleteEvent({ id }) {
+  const navigate = useNavigate();
   // Deletion steps: 1-Checklist, 2-Participants, 3-Activities, 4-Event
   const [deletionStep, setDeletionStep] = useState(0);
   let [deleteStatus, setDeleteStatus] = useState('preDelete');
@@ -80,25 +83,28 @@ export default function DeleteEvent({ id }) {
     handleDeleteEvent();
   }, [deletionStep, id, setDeleteStatus, authState]);
 
+    function handleReturnToEvents() {
+      //navigates to event list
+      navigate("/myEvents/");
+    }
+
   return (
     <>
       {deleteStatus === 'preDelete' ? (
-        <button
+        <Button variant='outlined'
           onClick={() => {
             // handleDeleteEvent();
             setDeletionStep(1);
           }}
         >
           Delete Event
-        </button>
+        </Button>
       ) : (
         <></>
       )}
       {deleteStatus === 'pending' ? <p>Deleting...</p> : <></>}
       {deleteStatus === 'deleted' ? (
-        <a href={`/serviceOne/`} rel="noopener noreferrer">
-          <button>Return to Events </button>
-        </a>
+          <Button variant='outlined' onClick={handleReturnToEvents}>Return to Events</Button>
       ) : (
         <></>
       )}

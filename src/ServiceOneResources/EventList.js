@@ -1,15 +1,20 @@
 import React from 'react';
-import { useEffect, useContext } from 'react';
+import { useState, useEffect, useContext } from 'react';
 import EventBrief from './EventBrief';
 import { EventContext } from './EventsContext';
-import { Stack } from '@mui/material';
+import { Container, Stack, TextField, Typography } from '@mui/material';
+import Button from '@mui/material/Button';
 import AuthContext from '../IdentityResources/Contexts/AuthContext';
+
 
 // const eventsJson = require("./events.json")
 //This component is to display our EventList, inside the return is an EventBrief that organizes the data from the fetch call to display only a brief summary.
 export default function EventList() {
   const { state, dispatch } = useContext(EventContext);
   const [authState] = useContext(AuthContext);
+  const [pageState, setPageState] = useState(1);
+  const [cardsPerPage,] = useState(4);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     function getEvents() {
@@ -34,16 +39,35 @@ export default function EventList() {
     getEvents();
   }, [dispatch, authState.token]);
 
+  const filteredEvents = state.eventsList.filter((event) =>
+    event.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
+  const totalPages = Math.ceil((filteredEvents?.length || 0) / cardsPerPage);
   // console.log(state.eventsList)
 
   return (
-    <div>
-      <h1>Event List</h1>
+    <Container maxWidth='xl' sx={{padding: 2}}>
+      <TextField autoComplete id="searchBar" variant="standard" placeholder="Search Events By Name" value={searchQuery} onChange={(e)=> setSearchQuery(e.target.value)}/>
       <Stack className="userEvents" direction="row" useFlexGap flexWrap="wrap" justifyContent="center">
-        {state.eventsList.map((event) => {
+        {pageState > 1 ? (
+          <Button size="large" sx={{ marginRight: '16px', height: '225px', fontSize: '200px', paddingBottom: '35px' }} variant="text" onClick={() => setPageState(pageState - 1)}>
+            &#8249;
+          </Button>
+        ) : (
+          <></>
+        )}
+        {filteredEvents.slice(cardsPerPage * (pageState - 1), cardsPerPage * pageState).map((event) => {
           return <EventBrief event={event} key={event.id} />;
         })}
+        {cardsPerPage * pageState < state.eventsList.length ? (
+          <Button size="large" sx={{ height: '225px', fontSize: '200px', paddingBottom: '35px' }} variant="text" onClick={() => setPageState(pageState + 1)}>
+            &#8250;
+          </Button>
+        ) : (
+          <></>
+        )}
       </Stack>
-    </div>
+      <Typography color="text.secondary" marginLeft={88}>{pageState}/{totalPages}</Typography>
+    </Container>
   );
 }
