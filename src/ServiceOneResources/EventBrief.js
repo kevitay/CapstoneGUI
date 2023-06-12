@@ -32,7 +32,6 @@ export default function EventBrief({ event }) {
     } else if (location.address === '') {
       return 'TBD';
     } else {
-
       // console.log(location.address);
       return (
         <>
