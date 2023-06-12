@@ -11,6 +11,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Itinerary from "../ServiceThreeResources/Itinerary";
+import EventImageNav from "../ServiceFourResources/EventImages/EventImageNav";
 
 const emptyLocation = { address: "", city: "", state: "", zipCode: "" };
 const initialExtendedFields = {
@@ -197,6 +198,7 @@ export default function Event() {
                             sx={{ width: "75%", flexShrink: 0, fontWeight: "bold" }}
                           >
                             {currentEvent.name}
+                            <EventImageNav eventId={id}/>
                           </Typography>
                           <Typography
                             variant='subtitle1'
