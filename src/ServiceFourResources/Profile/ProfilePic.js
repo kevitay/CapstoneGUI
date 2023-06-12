@@ -27,7 +27,7 @@ const ProfilePic = () => {
     return (
         <div >
             <Box>
-                <img src={imgString()} height="200px" width="200px" alt="profile pic" />
+                <img src={imgString()} style={{objectFit:'cover'}} height="200px" width="200px" alt="profile pic" />
                 <br></br>
                 <ProfilePicUpload fetchProfilePicture={fetchProfilePicture}></ProfilePicUpload>
             </Box>
