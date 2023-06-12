@@ -8,7 +8,7 @@ function EventImage({ img }) {
                 src={`data:image/jpg;base64,${img.data}`}
                 alt={"Failed to load"}
                 loading="lazy"
-                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+                style={{ width: '250px', height: 'auto', objectFit: 'cover' }}
             />
         </ImageListItem>
     )

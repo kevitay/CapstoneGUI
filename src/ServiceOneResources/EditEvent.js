@@ -69,8 +69,7 @@ function EditEvent({event, setCurrentEvent, setEditMode, editMode}) {
   
   return (
     <>
-      <h2>Edit Event</h2>
-
+      <h2>Edit My Event</h2>
       <form
         action=""
         method=""
@@ -90,7 +89,7 @@ function EditEvent({event, setCurrentEvent, setEditMode, editMode}) {
           sx={{
             marginTop: 6,
             marginLeft: '30%',
-            width: '50%',
+            width: '80%',
           }}
         >
           <FormControl sx={{ width: '50%' }}>
