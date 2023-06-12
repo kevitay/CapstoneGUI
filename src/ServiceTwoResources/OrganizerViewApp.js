@@ -5,7 +5,6 @@ import { useContext } from "react";
 
 function OrganizerViewApp({ eventId }) {
     const [authState,] = useContext(AuthContext);
-    const username = authState.username;
 
     return (
         <div className="OrganizerView">
