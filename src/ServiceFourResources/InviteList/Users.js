@@ -4,7 +4,7 @@ import InviteNameSearch from "./InviteSearch";
 
 import { Table, TableBody, TableContainer, TableRow, FormControl, TableHead, TableCell, Button, TablePagination } from '@mui/material';
 
-function Users({event}) {
+function Users({ setCreationStep, event }) {
 
     const [inviteSuccess, setSuccess] = useState("")
     const [originalState, setLoadedState] = useState([]);
@@ -25,7 +25,7 @@ function Users({event}) {
                 setLoadedState(result.users)
             })
             .then(setLoadState(false))
-            
+
             .catch(error => console.log('error', error));
     }, []);
 
@@ -46,42 +46,47 @@ function Users({event}) {
         var myHeaders = new Headers();
         myHeaders.append("Content-Type", "application/json");
         selectedUsers.forEach(userName => {
-            var raw = JSON.stringify({             
-                    "eventId": event.id,
-                    "messageFrom": event.creatorID,
-                    "messageTo": userName,
-                    "subject": event.name + ", " + event.organization,
-                    "messageText": "Please respond"      
+            var raw = JSON.stringify({
+                "eventId": event.id,
+                "messageFrom": event.creatorID,
+                "messageTo": userName,
+                "subject": "Invite to:" + event.name + ", " + event.organization,
+                "messageText": "Please respond"
             });
-    
+
             var requestOptions = {
                 method: 'POST',
                 headers: myHeaders,
                 body: raw,
                 redirect: 'follow'
             };
-    
+
             fetch("http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/notifications", requestOptions)
-            .then(response => {
-                console.log(response)
-                if (response.status === 201) {
-                    setSuccess("\u2705 User(s) invited successfully");
-                    return response.text();
-                } else {
-                    setSuccess("\u274C User(s) invite failed")
-                    throw new Error("Failed to invite users");
-                }
-            })
+                .then(response => {
+                    console.log(response)
+                    if (response.status === 201) {
+                        setSuccess("\u2705 User(s) invited successfully");
+                        return response.text();
+                    } else {
+                        setSuccess("\u274C User(s) invite failed")
+                        throw new Error("Failed to invite users");
+                    }
+                })
                 .then(result => console.log(result))
                 .catch(error => {
-                    
-                    console.log('here is the ERROR', error)});
-        
+
+                    console.log('here is the ERROR', error)
+                });
+
 
             // setUsersToInvite(selectedUsers);
         });
-        
+    }
 
+    function toItinerary(e) {
+        console.log("changed")
+        e.preventDefault()
+        setCreationStep(3)
     }
 
 
@@ -107,10 +112,10 @@ function Users({event}) {
                                 </TableRow>
                             </TableHead>
                             <TableBody>
-                                    {
-                                    
-                                        loading ? "" : userState.map((user) => (<UserData key={user.username} selectedUsers={selectedUsers} invitee={user}></UserData>))
-                                    }
+                                {
+
+                                    loading ? "" : userState.map((user) => (<UserData key={user.username} selectedUsers={selectedUsers} invitee={user}></UserData>))
+                                }
                             </TableBody>
                             <TablePagination
                                 rowsPerPageOptions={[5, 10, 25]}
@@ -125,6 +130,7 @@ function Users({event}) {
                     {inviteSuccess && <p>{inviteSuccess}</p>}
                 </FormControl>
             </form>
+            <Button onClick={(e) => toItinerary(e)} label="Invite">Next: Build Itinerary</Button>
 
         </div>)
 }

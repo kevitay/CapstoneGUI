@@ -50,19 +50,20 @@ export default function EventBrief({ event }) {
 
   return (
     // <Card key={event.id} sx={{ height: '250px', width: '250px', marginRight: '16px', marginBottom: '16px', border: '1px solid lightgray'}}>
-    <Card key={event.id} sx={{ width: '225px', height: '225px', marginRight: '16px', marginBottom: '16px' }}>
+    <Card key={event.id} sx={{ width: '250px', height: '250px', marginRight: '16px', marginBottom: '16px',backgroundColor: (theme) =>
+    theme.palette.mode === "dark" ? "#1A2027" : "#fff", }}>
       <CardActionArea onClick={handleEventCardClick} rel="noopener noreferrer" sx={{height: '100%'}}>
         <CardContent>
-          <Typography gutterBottom variant="p" component="div" sx={{ fontWeight: 'bold' }}>
+          <Typography gutterBottom variant="h6" component="div" sx={{ fontWeight: 'bold' }}>
             {event.name}
           </Typography>
-          <Typography gutterBottom variant="p" component="div">
+          <Typography gutterBottom variant="subtitle1" component="div">
             {(event.hasOwnProperty('startLocation')) ?'Location:' + locationFormatter(event.startLocation):""}
           </Typography>
-          <Typography gutterBottom variant="p" component="div">
+          <Typography gutterBottom variant="subtitle1" component="div">
           {(event.hasOwnProperty('startDateTime')) ?'Time:' + dateFormatter(event.startDateTime):""}
           </Typography>
-          <Typography gutterBottom variant="p" component="div">
+          <Typography gutterBottom variant="body2" component="div">
             Type: {event.type}
           </Typography>
         </CardContent>
