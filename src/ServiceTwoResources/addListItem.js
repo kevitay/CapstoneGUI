@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { TableCell, TableRow, Button, TextField, Checkbox } from '@mui/material';
+import { TableCell, TableRow, Button, TextField, Checkbox, Select, MenuItem } from '@mui/material';
 
 function AddListItem({ eventId, setPackingList, packingList }) {
     const [itemInput, setItemInput] = useState('');
@@ -76,16 +76,15 @@ function AddListItem({ eventId, setPackingList, packingList }) {
                 />
             </TableCell>
             <TableCell>
-                <TextField
-                    select
+                <Select
                     name="type"
                     size="small"
                     defaultValue="packing list"
                     onChange={handleTypeChange}
                 >
-                    <option value="packing list"> Packing List </option>
-                    <option value="signup list"> Signup List </option>
-                </TextField>
+                    <MenuItem size="small" value="packing list">Packing List</MenuItem>
+                    <MenuItem size="small" value="signup list">Signup List</MenuItem>
+                </Select>
             </TableCell>
             <TableCell align="center">
                 <TextField
