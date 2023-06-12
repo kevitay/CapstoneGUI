@@ -73,7 +73,7 @@ function CreateEvent({ setCreationStep, setEvent }) {
       >
         <Box
           sx={{
-            marginTop: '50px',
+            marginTop: 6,
             marginLeft: '30%',
             width: '50%',
           }}
@@ -102,7 +102,7 @@ function CreateEvent({ setCreationStep, setEvent }) {
               </RadioGroup>
             </FormControl>
 
-            <Button sx={{ width: '30%', marginLeft: '30%', marginTop: '50px'}} variant="contained" disabled={!authState.token} type="submit">
+            <Button sx={{ width: '30%', marginLeft: '30%', marginTop: 6}} variant="contained" disabled={!authState.token} type="submit">
               Next &#8250;
             </Button>
           </FormControl>

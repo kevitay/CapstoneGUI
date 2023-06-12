@@ -87,7 +87,7 @@ function EditEvent({event, setCurrentEvent, setEditMode}) {
       >
         <Box
           sx={{
-            marginTop: '50px',
+            marginTop: 6,
             marginLeft: '30%',
             width: '50%',
           }}
@@ -116,8 +116,8 @@ function EditEvent({event, setCurrentEvent, setEditMode}) {
               </RadioGroup>
             </FormControl>
             {/* might include Edit Itinerary component , might need to create logic to flow from editing basic event details to itinerary */}
-            <Grid sx={{marginTop: '24px', marginBottom: '24px'}}>
-              <Button sx={{ width: '48%', marginRight: '8px' }} variant="contained">
+            <Grid sx={{marginTop: 3, marginBottom: 3}}>
+              <Button sx={{ width: '48%', marginRight: 1}} variant="contained">
                 Submit
               </Button>
               <Button sx={{ width: '48%'}} variant="contained" onClick={() => setEditMode(false)}>
