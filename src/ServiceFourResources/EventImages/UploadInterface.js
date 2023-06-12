@@ -71,7 +71,7 @@ function UploadInterface({ fetchEventImages, eventId }) {
 
     return (
         <>
-            <Button variant="contained" onClick={handleOpen} sx={{ marginTop: '15px' }}>
+            <Button variant="contained" onClick={handleOpen} sx={{ marginTop: '15px', marginBotton: '15px' }}>
                 Add Photos
             </Button>
             <Modal
