@@ -50,7 +50,7 @@ export default function EventList() {
       <TextField  id="searchBar" variant="standard" placeholder="Search Events By Name" value={searchQuery} onChange={(e)=> setSearchQuery(e.target.value)}/>
       <Stack className="userEvents" direction="row" useFlexGap flexWrap="wrap" justifyContent="center">
         {pageState > 1 ? (
-          <Button size="large" sx={{ height: '200px', fontSize: '200px', paddingBottom: '35px' }} variant="text" onClick={() => setPageState(pageState - 1)}>
+          <Button size="large" sx={{ height: '200px', fontSize: '200px', paddingBottom: '35px', marginRight: 2}} variant="text" onClick={() => setPageState(pageState - 1)}>
             &#8249;
           </Button>
         ) : (
