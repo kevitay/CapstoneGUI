@@ -35,7 +35,7 @@ export default function CreatorEvents() {
           //  console.log(response.eventList)
         })
         .catch((error) => console.log("error", error));
-      console.log(authState);
+      // console.log(authState);
     }
 
     getEventsByUsername();
