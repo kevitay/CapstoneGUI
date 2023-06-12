@@ -4,7 +4,7 @@ import OrganizerControl from "./OrganizerControl";
 import AuthContext from "../IdentityResources/Contexts/AuthContext";
 import { useParams } from "react-router-dom";
 import EditEvent from "./EditEvent";
-import { Box, Chip, Container, Grid, Paper, Stack, Button } from "@mui/material";
+import { Box, Chip, Container, Grid, Paper, Stack } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -12,7 +12,7 @@ import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Itinerary from "../ServiceThreeResources/Itinerary";
 import ParticipantsList from "../ServiceFourResources/ParticipantsList/ParticipantsList";
-import InviteList from "../ServiceFourResources/InviteList/InviteList";
+import EventImageNav from "../ServiceFourResources/EventImages/EventImageNav";
 
 const emptyLocation = { address: "", city: "", state: "", zipCode: "" };
 const initialExtendedFields = {
@@ -124,7 +124,11 @@ export default function Event() {
   }
 
   function locationFormatter(location) {
-    if (location !== null) {
+    if (location === null) {
+      return 'TBD';
+    } else if (location.address === '') {
+      return 'TBD';
+    } else {
       // console.log(location.address);
       return (
         <>
@@ -133,8 +137,6 @@ export default function Event() {
           {location.city}, {location.state} {location.zipCode}
         </>
       );
-    } else {
-      return 'TBD';
     }
   }
 
@@ -145,9 +147,19 @@ export default function Event() {
       : currentEvent?.status === "Planned"
       ? "success"
       : "error";
-//This function handles the google api and needs a .env.local file with the API Key to be able to run 
+
+      //This function handles the google maps api  
   function handleMap(location) {
-    if (location !== null) {
+    //todo: add default image beside empty address for first two conditions.
+    
+    //check for missing address
+    if (location === null) return "";
+
+    //separately check for "" address
+    else if (location.address === "") return "";
+    
+    //finally return our desired google map when address is valid.
+    else if (location !== null) {
       const baseUrl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyCvQmZJBjFQKdFJt92CFC13mksPKj-pvh4&`;
       const addressComplete = `${location.address},${location.city},${location.state},${location.zipCode}`;
       const params = new URLSearchParams(`q=${addressComplete}`);
@@ -192,13 +204,14 @@ export default function Event() {
                       ></iframe>
                     </Grid>
                     <Grid item xs={12} sm container>
-                      <Grid item xs container direction='column' spacing={2}>
+                      <Grid item xs container direction={{ xs: 'column', sm: 'row' }} spacing={2}>
                         <Grid item xs>
                           <Typography
                             variant='h4'
                             sx={{ width: "75%", flexShrink: 0, fontWeight: "bold" }}
                           >
                             {currentEvent.name}
+                            <EventImageNav eventId={id}/>
                           </Typography>
                           <Typography
                             variant='subtitle1'
@@ -233,8 +246,6 @@ export default function Event() {
                           >
                             {currentEvent.description}
                           </Typography>
-                        </Grid>
-                        <Grid item>
                           <Typography sx={{ marginLeft: 0.5 }} variant='body2'>
                             Cost: ${currentEvent.baseCost}
                           </Typography>
