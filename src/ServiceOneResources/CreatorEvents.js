@@ -50,7 +50,7 @@ const totalPages = Math.ceil((filteredEvents?.length || 0) / cardsPerPage);
     <>
       {authState.username === "" || userEvents === null ? (
         <Paper sx={{textAlign: 'center', padding: 2}} elevation={3}>
-        <Stack spacing={{ xs: 1, sm: 2 }} direction="column " useFlexGap flexWrap="wrap" >
+        <Stack spacing={{ xs: 1, sm: 2 }} direction="column " gap={2} flexWrap="wrap" >
         <Typography variant='h4' fontWeight='bold' gutterBottom > Looks Like You haven't Created any Events! </Typography>
         <Button variant="contained" sx={{justifyContent: 'center'}}>Create Event</Button>
         </Stack>
