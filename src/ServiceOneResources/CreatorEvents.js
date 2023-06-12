@@ -73,7 +73,7 @@ const totalPages = Math.ceil((filteredEvents?.length || 0) / cardsPerPage);
                 size='large'
                 sx={{
                   marginRight: "16px",
-                  height: "225px",
+                  height: "200px",
                   fontSize: "200px",
                   paddingBottom: "35px",
                 }}
@@ -97,7 +97,7 @@ const totalPages = Math.ceil((filteredEvents?.length || 0) / cardsPerPage);
             {cardsPerPage * pageState < userEvents.length ? (
               <Button
                 size='large'
-                sx={{ height: "225px", fontSize: "200px", paddingBottom: "35px" }}
+                sx={{ height: "200px", fontSize: "200px", paddingBottom: "35px" }}
                 variant='text'
                 onClick={() => setPageState(pageState + 1)}
               >
