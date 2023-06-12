@@ -4,6 +4,7 @@ import CreateEvent from './CreateEvent';
 import InviteList from "../ServiceFourResources/InviteList/InviteList";
 import AuthContext from '../IdentityResources/Contexts/AuthContext';
 import Itinerary from '../ServiceThreeResources/Itinerary';
+import BeforeEventOrganizer from '../ServiceTwoResources/beforeEventOrganizer';
 
 function CreateEventFlow() {
   // Steps are: 1-New, 2-Invite, 3-Itinerary, 4-Items, 5-Tasks
@@ -12,7 +13,7 @@ function CreateEventFlow() {
   const [authState] = useContext(AuthContext);
 
   useEffect(() => {
-    if (creationStep === 4) {
+    if (creationStep === 5) {
       var myHeaders = new Headers();
       myHeaders.append('Content-Type', 'application/json');
       myHeaders.append('Authorization', authState.token);
@@ -45,13 +46,7 @@ function CreateEventFlow() {
       {creationStep === 1 ? <CreateEvent setCreationStep={setCreationStep} setEvent={setEvent} /> : <></>}
       {creationStep === 2 ? <InviteList setCreationStep={setCreationStep} event={event}/> : <></>}
       {creationStep === 3 ? <Itinerary creationStep={creationStep} setCreationStep={setCreationStep} eventId={event.id} userIsOwner={true} /> : <></>}
-      {creationStep === 4 ? (
-        <>
-          <p>Add items</p>
-        </>
-      ) : (
-        <></>
-      )}
+      {creationStep === 4 ? <BeforeEventOrganizer setCreationStep={setCreationStep} eventId={event.id} /> : <></>}
       {creationStep === 5 ? (
         <>
           <p>Add tasks</p>
