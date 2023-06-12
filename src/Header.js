@@ -63,7 +63,7 @@ function Header() {
   };
   function handleProfileClicked() {
     //handles navigation to profile page
-    navigate("/serviceFour/profile");
+    navigate("/profile/");
     handleMenuClose()
   }
   const logout = (e) => {
@@ -78,6 +78,13 @@ function Header() {
             })
             .catch(error => console.log('error', error));
     };
+
+ function handleProfilePic(image) {
+  if (image === undefined) {
+    return ''
+  }
+  return "data:image/jpg;base64," + image;
+ }   
 
   return (
     <AppBar position='relative'>
@@ -123,7 +130,7 @@ function Header() {
                   {theme.palette.mode === "dark" ? <Brightness4Icon /> : <Brightness7Icon />}
                 </IconButton>
                 <IconButton onClick={handleMenuClick}>
-                <Avatar alt='My Profile' src={"data:image/jpg;base64," + img}/>
+                <Avatar alt='My Profile' src={handleProfilePic(img)}/>
                 </IconButton>
                 <Menu
                   id='basic-menu'

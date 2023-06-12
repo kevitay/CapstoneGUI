@@ -1,5 +1,19 @@
 import React, { useState, useEffect, useContext } from 'react';
 import AuthContext from '../IdentityResources/Contexts/AuthContext';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import { Typography } from '@mui/material';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import Button from '@mui/material/Button';
+import { useNavigate } from 'react-router';
 
 const Notifications = () => {
     const notificationsUrl = "http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/notifications";
@@ -7,6 +21,7 @@ const Notifications = () => {
     const [notifications, setNotifications] = useState([]);
     const [authState,] = useContext(AuthContext);
     const username = authState.username;
+    const navigate = useNavigate();
 
     const getNotificationsByUserName = () => {
         var requestOptions = {
@@ -30,10 +45,11 @@ const Notifications = () => {
 
     const sendResponse = (e) => {
         e.preventDefault();
-        if (e.target.response.value === "Not Going") {
-            deleteNotification(e.target.msgId.value);
+        if (e.target.elements.response.value === "Not Going") {
+            deleteNotification(e.target.elements.msgId.value);
+            alert("You responded you are Not Going. \n\nNotification has been removed.");
         } else {
-            addParticipant(e.target.msgId.value, e.target.eventId.value, e.target.response.value, username);
+            addParticipant(e.target.elements.msgId.value, e.target.elements.eventId.value, e.target.elements.response.value, username);
         }
     };
 
@@ -47,8 +63,9 @@ const Notifications = () => {
         fetch(notificationsUrl + "/" + msgId, requestOptions)
             .then(response => {
                 if (response.ok) {
-                    console.log('Notification was deleted', msgId);
+                    console.log('Notification has been removed', msgId);
                 } else {
+                    alert("Notification remove failed.");
                     throw new Error('Removed failed', msgId);
                 }
                 getNotificationsByUserName();
@@ -77,9 +94,11 @@ const Notifications = () => {
                 if (response.status === 409) {
                     deleteNotification(msgId);
                     //user already invited
+                    alert("You have already responded to this event invite. \n\nNotification has been removed.");
                     throw new Error("User already invited.");
                 } else if (response.ok) {
                     deleteNotification(msgId);
+                    alert("You responded that you are " + status + ".\n\nNotification has been removed.");
                     return response.text();
                 } else {
                     throw new Error("Invite failed.");
@@ -91,45 +110,54 @@ const Notifications = () => {
 
     useEffect(getNotificationsByUserName, [username]);
 
+    function handleEventClick(eventId) {
+        navigate(`/serviceOne/event/${eventId}`);
+    }
+
     return (
-        <div>
-            <h2>Notifications</h2>
-            <p> User ID: {username}</p>
-            <table>
-                <thead>
-                    <tr>
-                        <th>From</th>
-                        <th>Subject</th>
-                        <th>Message</th>
-                        <th>Response</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {notifications ? notifications.map(result => (
-                        <tr key={result.msgId}>
-                            <td>{result.messageFrom}</td>
-                            <td>{result.subject}</td>
-                            <td>{result.messageText}</td>
-                            <td>
-                                <form onSubmit={(e) => sendResponse(e)}>
-                                    <input type="hidden" id="eventId" name="eventId" value={result.eventId} />
-                                    <input type="hidden" id="msgId" name="msgId" value={result.msgId} />
-                                    <input type="radio" id="going" name="response" value="Going" />
-                                    <label htmlFor="going">Going</label>
-                                    <input type="radio" id="notGoing" name="response" value="Not Going" />
-                                    <label htmlFor="notGoing">Not Going</label>
-                                    <input type="radio" id="tentative" name="response" value="Tentative" />
-                                    <label htmlFor="tentative">Tentative</label>
-                                    &nbsp; &nbsp; &nbsp;
-                                    <input type="submit" value="Send Response" />
-                                </form>
-                            </td>
-                        </tr>
-                    )) : <tr><td colSpan="4">No Notifications</td></tr>
-                    }
-                </tbody>
-            </table>
-        </div>
+        <>
+            <Typography variant="h4">Notifications</Typography>
+            <p> User Name: {username}</p>
+            <TableContainer component={Paper}>
+                <Table size="small" aria-label="a dense table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell sx={{ width: 200, fontWeight: 'bold' }}>FROM</TableCell>
+                            <TableCell sx={{ width: 200, fontWeight: 'bold' }}>SUBJECT (click to open event details)</TableCell>
+                            <TableCell sx={{ width: 250, fontWeight: 'bold' }}>MESSAGE</TableCell>
+                            <TableCell sx={{ width: 175, fontWeight: 'bold' }} align="center">RESPONSE</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        {notifications ? notifications.sort((a,b) => parseInt(b.msgId) - parseInt(a.msgId)).map(result => (
+                            <TableRow key={result.msgId}>
+                                <TableCell>{result.messageFrom}</TableCell>
+                                <TableCell sx={{ cursor: 'pointer' }} onClick={(e) => { handleEventClick(result.eventId) }}>{result.subject}</TableCell>
+                                <TableCell>{result.messageText}</TableCell>
+                                <TableCell align="center">
+                                    {result.subject.substring(0,10).toLowerCase() === "invite to:"
+                                    ? <form onSubmit={(e) => { sendResponse(e) }}>
+                                        <FormControl component="fieldset">
+                                            <RadioGroup row>
+                                                <FormControlLabel name="response" size="small" value="Going" control={<Radio />} label="Going" />
+                                                <FormControlLabel name="response" size="small" value="Not Going" control={<Radio />} label="Not Going" />
+                                                <FormControlLabel name="response" size="small" value="Tentative" control={<Radio />} label="Tentative" />
+                                                <FormControlLabel name="eventId" size="small" sx={{ width: 0, opacity: 0 }} value={result.eventId} disabled control={<Radio />} label="" />
+                                                <FormControlLabel name="msgId" size="small" sx={{ width: 0, opacity: 0 }} value={result.msgId} disabled control={<Radio />} label="" />
+                                            </RadioGroup>
+                                        </FormControl>
+                                        <Button sx={{ width: 175 }} type="submit" variant="contained" > Send Response </Button>
+                                    </form>
+                                    : <Button sx={{ width: 175 }} variant="contained" onClick={() => { deleteNotification(result.msgId) }}> Delete Message </Button>
+                                    }                                    
+                                </TableCell>
+                            </TableRow>
+                        )) : <TableRow><TableCell colSpan="4">No Notifications</TableCell></TableRow>
+                        }
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </>
     )
 
 };

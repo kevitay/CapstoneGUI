@@ -16,7 +16,6 @@ function MyEvents() {
     return (
         <>
         <Box sx={boxStyles} />
-           <Box/>
         <Container maxWidth='xl'>
         <Stack spacing={5}>
         <CreatorEvents></CreatorEvents>

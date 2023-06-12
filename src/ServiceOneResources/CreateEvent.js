@@ -2,8 +2,9 @@ import React from 'react';
 import { useState, useContext } from 'react';
 import AuthContext from '../IdentityResources/Contexts/AuthContext';
 //import { EventContext } from "./EventsContext";
-import Login from '../IdentityResources/Login';
+// import Login from '../IdentityResources/Login';
 import EventType from './EventType';
+import { Box, FormControl, TextField, Button, Radio, RadioGroup, FormLabel, FormControlLabel } from '@mui/material';
 
 function CreateEvent({ setCreationStep, setEvent }) {
   const [eventName, setName] = useState('');
@@ -13,8 +14,6 @@ function CreateEvent({ setCreationStep, setEvent }) {
   const [eventCost, setEventCost] = useState('');
   const [isPublic, setIsPublic] = useState(false);
   const [authState] = useContext(AuthContext);
-
-  const handleClose = () => {};
 
   function postNewEvent(eventName, organization, description, eventType, eventCost) {
     var myHeaders = new Headers();
@@ -53,12 +52,11 @@ function CreateEvent({ setCreationStep, setEvent }) {
 
   const radioEvent = (event) => {
     setIsPublic(event.target.value === 'true');
+    // console.log(event.target.value)
   };
 
   return (
-    <div className="eventSubmit">
-      {!authState.token ? <Login handleClose={handleClose}></Login> : <></>}
-      <h2>Create A New Event</h2>
+    <>
       <form
         action=""
         method="POST"
@@ -73,43 +71,44 @@ function CreateEvent({ setCreationStep, setEvent }) {
           postNewEvent(eventName, organization, description, eventType, eventCost);
         }}
       >
-        <label>Event Name</label>
-        <input type="text" name="eventName" value={eventName} onChange={(e) => setName(e.target.value)} required />
-        <br />
-        <br />
-        <label>Organization</label>
-        <input type="text" name="organization" value={organization} onChange={(e) => setOrganization(e.target.value)} required />
-        <br />
-        <br />
-        <EventType eventType={eventType} setEventType={setEventType} />
-        <br />
-        <br />
-        <label>Event Cost</label>
-        <input className="numberField" type="number" min="0.00" name="eventCost" value={eventCost} onChange={(e) => setEventCost(e.target.value)} required />
-        <br />
-        <br />
-        <label>Event Description</label>
-        <br />
-        <textarea name="description" rows="6" cols="33" value={description} onChange={(e) => setDescription(e.target.value)} required />
-        <br />
-        <br />
+        <Box
+          sx={{
+            marginTop: 6,
+            marginLeft: '30%',
+            width: '50%',
+          }}
+        >
+          <FormControl sx={{ width: '50%' }}>
+            <TextField id="outlined-basic" label="Event Name" variant="outlined" name="eventName" value={eventName} onChange={(e) => setName(e.target.value)} required />
+            <br />
 
-        <fieldset>
-          <legend>Public or Private:</legend>
-          <input type="radio" id="public" name="publicPrivate" value={true} checked={isPublic === true} onChange={radioEvent} />
-          <label forhtml="public">Public</label>
-          <br />
-          <input type="radio" id="private" name="publicPrivate" value={false} checked={isPublic === false} onChange={radioEvent} />
-          <label forhtml="private">Private</label>
-          <br />
-        </fieldset>
-        <br />
-        <br />
-        <button disabled={!authState.token} type="submit">
-          Submit
-        </button>
+            <TextField id="outlined-basic" label="Organization" variant="outlined" name="organization" value={organization} onChange={(e) => setOrganization(e.target.value)} required />
+            <br />
+
+            <EventType eventType={eventType} setEventType={setEventType} />
+            <br />
+
+            <TextField placeholder="$" label="Cost" className="numberField" type="number" min="0.00" name="eventCost" value={eventCost} onChange={(e) => setEventCost(e.target.value)} required />
+            <br />
+
+            <TextField label="Event Description" multiline rows="6" name="description" cols="33" value={description} onChange={(e) => setDescription(e.target.value)} required />
+            <br />
+
+            <FormControl>
+              <FormLabel id="publicPrivate">Public or Private Event?</FormLabel>
+              <RadioGroup defaultValue={false}>
+                <FormControlLabel control={<Radio />} label="Private" value={false} name="publicPrivate" checked={isPublic === false} onChange={radioEvent} />
+                <FormControlLabel control={<Radio />} label="Public" value={true} name="publicPrivate" checked={isPublic === true} onChange={radioEvent} />
+              </RadioGroup>
+            </FormControl>
+
+            <Button sx={{ width: '30%', marginLeft: '30%', marginTop: 6}} variant="contained" disabled={!authState.token} type="submit">
+              Next &#8250;
+            </Button>
+          </FormControl>
+        </Box>
       </form>
-    </div>
+    </>
   );
 }
 

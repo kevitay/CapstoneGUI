@@ -7,16 +7,16 @@ function EventParticipantData({ participant }) {
                 {participant.user.profilePicture ? (
                     <img
                         src={"data:image/jpg;base64," + participant.user.profilePicture}
-                        height="100px"
-                        width="100px"
+                        height="50px"
+                        width="50px"
                         alt="profile pic"
                     />
                 ) : (
                     <img
                         alt="Profile Pic"
                         src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
-                        height="100px"
-                        width="100px"
+                        height="50px"
+                        width="50px"
                     />
                 )}
             </td>

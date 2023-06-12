@@ -6,7 +6,6 @@ function UserData({ selectedUsers, invitee }) {
     function captureSelection(e) {
         let isChecked = e.target.checked;
         if (isChecked) {
-            console.log(e.target.id)
             selectedUsers.push(e.target.id);
         } else {
             let index = selectedUsers.indexOf(e.target.id);
@@ -22,16 +21,16 @@ function UserData({ selectedUsers, invitee }) {
                 {invitee.profilePicture ? (
                     <img
                         src={"data:image/jpg;base64," + invitee.profilePicture}
-                        height="100px"
-                        width="100px"
+                        height="50px"
+                        width="50px"
                         alt="profile pic"
                     />
                 ) : (
                     <img
                         alt="Profile Pic"
                         src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png"
-                        height="100px"
-                        width="100px"
+                        height="50px"
+                        width="50px"
                     />
                 )}
 

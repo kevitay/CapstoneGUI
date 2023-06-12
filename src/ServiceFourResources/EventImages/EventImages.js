@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import EventImage from "./EventImage";
+import UploadInterface from "./UploadInterface";
 import { useParams } from "react-router-dom";
+import ImageList from '@mui/material/ImageList';
+import { Card, Box } from '@mui/material';
 
 function EventImages() {
     const [imageList, setImageList] = useState([]);
     const [loading, setLoadState] = useState(false);
-    const [selectedFile, setSelectedFile] = useState(null);
 
     const { eventId } = useParams();
 
@@ -20,46 +22,38 @@ function EventImages() {
             .catch(error => console.log('error', error));
     };
 
-    const handleFileChange = (event) => {
-        const fileSelection = event.target.files[0];
-        setSelectedFile(fileSelection);
-        console.log(fileSelection);
-    };
-
-    const sendFile = async (event) => {
-        event.preventDefault();
-        const formData = new FormData();
-        formData.append('eventImg', selectedFile);
-
-        try {
-            const response = await fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/' + eventId + '/eventImages', {
-                method: 'POST',
-                body: formData
-            });
-
-            if (response.ok) {
-                console.log('Picture upload successful');
-                fetchEventImages(eventId);
-            } else {
-                console.error('ERROR: Picture failed to upload');
-            }
-        } catch (error) {
-            console.error('ERROR: Picture failed to upload', error);
-        }
-    };
-
     useEffect(() => {
         fetchEventImages(eventId);
     }, [eventId]);
 
     return (
-        <div>
-            <form>
-                <input type="file" accept="image/*" onChange={handleFileChange} />
-                <button onClick={sendFile}>Upload</button>
-            </form>
-            {loading ? "" : imageList.map((img) => (<EventImage img={img}></EventImage>))}
-        </div>
+        <Box sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
+            alignItems: 'center',
+            margin: 'auto',
+            marginTop: '20px'
+        }}>
+            <Card sx={{
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+                alignItems: 'center',
+            }}>
+                <UploadInterface fetchEventImages={fetchEventImages} eventId={eventId}></UploadInterface>
+                <Box sx={{
+                    height: '600px',
+                    width: '1040px',
+                    overflowY: 'auto',
+                    margin: '10px'
+                }}>
+                    <ImageList variant="masonry" cols={4} gap={6}>
+                        {loading ? "" : imageList.map((img) => (<EventImage img={img}></EventImage>))}
+                    </ImageList>
+                </Box>
+            </Card>
+        </Box>
     )
 }
 

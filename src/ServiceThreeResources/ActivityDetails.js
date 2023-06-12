@@ -30,15 +30,16 @@ export default function ActivityDetails({states, setStates}) {
     return (
         <div>
 
-            {states.closeActivityDetailsButton && <Button onClick={() => {setStates.setDisplayActivityDetails({}); setStates.setCloseActivityDetailsButton(false)}} variant="contained">Close Details</Button>}
-
-            {states.displayActivityDetails.id && states.closeActivityDetailsButton && <Button onClick={() => {
+            {states.userIsOwner && states.displayActivityDetails.id && states.closeActivityDetailsButton && <Button onClick={() => {
                 setStates.setEditForm(true)
                 setStates.setCloseActivityDetailsButton(false);
             }} variant="contained">Edit Activity</Button>}
             
 
-            {states.displayActivityDetails.id && states.closeActivityDetailsButton && <Button onClick={() => {
+
+
+
+            {states.userIsOwner && states.displayActivityDetails.id && states.closeActivityDetailsButton && <Button onClick={() => {
                 const confirmed = window.confirm("Are you sure you want to delete this activity?");
                 if (confirmed) {
                     fetchFunction({ type: ACTIONS.DELETE_ACTIVITY, payload:states.displayActivityDetails, dispatch: setStates.setItineraryJSON, itinerary: states.itineraryJSON, authState: states.authState });
