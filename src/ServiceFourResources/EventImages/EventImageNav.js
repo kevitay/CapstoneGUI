@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { IconButton } from "@mui/material";
 import PhotoLibraryIcon from '@mui/icons-material/PhotoLibrary';
+import Tooltip from '@mui/material/Tooltip';
 
 function EventImageNav({ eventId }) {
     const navigate = useNavigate();
@@ -11,10 +12,11 @@ function EventImageNav({ eventId }) {
     }
 
     return (
-        //<button><NavLink to={'/eventImages/' + eventId}>Event Images</NavLink></button>
-        <IconButton onClick={handlePhotoIconClick}>
-            <PhotoLibraryIcon />
-        </IconButton>
+        <Tooltip title="View Photo Gallery">
+            <IconButton onClick={handlePhotoIconClick}>
+                <PhotoLibraryIcon />
+            </IconButton>
+        </Tooltip>
     )
 }
 
