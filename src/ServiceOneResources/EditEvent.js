@@ -117,7 +117,6 @@ function EditEvent({event, setCurrentEvent, setEditMode, editMode}) {
             </FormControl>
             {/* might include Edit Itinerary component , might need to create logic to flow from editing basic event details to itinerary */}
             <Grid sx={{marginTop: 3, marginBottom: 3}}>
-              <InviteList editMode={editMode} eventId={event.id}></InviteList> 
 
         <Button sx={{ width: '48%', marginRight: 1}} variant="contained">
                 Submit
@@ -129,6 +128,7 @@ function EditEvent({event, setCurrentEvent, setEditMode, editMode}) {
           </FormControl>
         </Box>
       </form>
+      <InviteList editMode={editMode} event={event}></InviteList> 
     </>
   );
 }
