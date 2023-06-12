@@ -123,7 +123,11 @@ export default function Event() {
   }
 
   function locationFormatter(location) {
-    if (location !== null) {
+    if (location === null) {
+      return 'TBD';
+    } else if (location.address === '') {
+      return 'TBD';
+    } else {
       // console.log(location.address);
       return (
         <>
@@ -132,8 +136,6 @@ export default function Event() {
           {location.city}, {location.state} {location.zipCode}
         </>
       );
-    } else {
-      return 'TBD';
     }
   }
 
@@ -144,9 +146,19 @@ export default function Event() {
       : currentEvent?.status === "Planned"
       ? "success"
       : "error";
-//This function handles the google api and needs a .env.local file with the API Key to be able to run 
+
+      //This function handles the google maps api  
   function handleMap(location) {
-    if (location !== null) {
+    //todo: add default image beside empty address for first two conditions.
+    
+    //check for missing address
+    if (location === null) return "";
+
+    //separately check for "" address
+    else if (location.address === "") return "";
+    
+    //finally return our desired google map when address is valid.
+    else if (location !== null) {
       const baseUrl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyCvQmZJBjFQKdFJt92CFC13mksPKj-pvh4&`;
       const addressComplete = `${location.address},${location.city},${location.state},${location.zipCode}`;
       const params = new URLSearchParams(`q=${addressComplete}`);
