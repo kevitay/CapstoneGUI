@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardActionArea } from '@mui/material';
+import { Card, CardActionArea, Stack } from '@mui/material';
 import { useNavigate } from 'react-router';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
@@ -50,11 +50,11 @@ export default function EventBrief({ event }) {
 
   return (
     // <Card key={event.id} sx={{ height: '250px', width: '250px', marginRight: '16px', marginBottom: '16px', border: '1px solid lightgray'}}>
-    <Card key={event.id} sx={{ width: '250px', height: '250px', marginRight: '16px', marginBottom: '16px',backgroundColor: (theme) =>
+    <Card key={event.id} sx={{ width: '200px', height: '225px', marginRight: '16px', backgroundColor: (theme) =>
     theme.palette.mode === "dark" ? "#1A2027" : "#fff", }}>
       <CardActionArea onClick={handleEventCardClick} rel="noopener noreferrer" sx={{height: '100%'}}>
         <CardContent>
-          <Typography gutterBottom variant="h6" component="div" sx={{ fontWeight: 'bold' }}>
+          <Typography gutterBottom variant="p" component="div" sx={{ fontWeight: 'bold' }}>
             {event.name}
           </Typography>
           <Typography gutterBottom variant="subtitle1" component="div">
