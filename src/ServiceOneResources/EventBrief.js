@@ -1,5 +1,5 @@
 import React from 'react';
-import { Card, CardActionArea, Stack, colors } from '@mui/material';
+import { Card, CardActionArea } from '@mui/material';
 import { useNavigate } from 'react-router';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
