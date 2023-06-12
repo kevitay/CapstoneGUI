@@ -11,6 +11,7 @@ import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Itinerary from "../ServiceThreeResources/Itinerary";
+import ParticipantsList from "../ServiceFourResources/ParticipantsList/ParticipantsList";
 import EventImageNav from "../ServiceFourResources/EventImages/EventImageNav";
 
 const emptyLocation = { address: "", city: "", state: "", zipCode: "" };
@@ -262,6 +263,7 @@ export default function Event() {
                 event={currentEvent}
                 setCurrentEvent={setCurrentEvent}
                 setEditMode={setEditMode}
+                editMode={editMode}
               />
             )}
             <Accordion
@@ -278,10 +280,11 @@ export default function Event() {
                 <Typography sx={{ width: "50%", flexShrink: 0 }}>
                   {currentEvent.name} - Event Participants
                 </Typography>
+                
               </AccordionSummary>
               <AccordionDetails>
-                {/* Team Component goes here  */}
-                <Typography>placeholder for Participants list user view</Typography>
+              {/* {!editMode ? "" : <InviteList editMode={true} eventId={currentEvent.id}></InviteList> } */}
+                <ParticipantsList eventId={currentEvent.id}></ParticipantsList>
               </AccordionDetails>
             </Accordion>
             <Accordion
