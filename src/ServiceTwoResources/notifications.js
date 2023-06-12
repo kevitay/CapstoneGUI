@@ -148,7 +148,7 @@ const Notifications = () => {
                                         </FormControl>
                                         <Button sx={{ width: 175 }} type="submit" variant="contained" > Send Response </Button>
                                     </form>
-                                    : ""
+                                    : <Button sx={{ width: 175 }} variant="contained" onClick={() => { deleteNotification(result.msgId) }}> Delete Message </Button>
                                     }                                    
                                 </TableCell>
                             </TableRow>
