@@ -78,10 +78,7 @@ const ParticipantView = ({ eventId }) => {
 
   return (
     <>
-      <Typography variant="h4">Participant View</Typography>
-      <p>User ID: {username ? username : "You are not logged in. Please login to continue."}</p>
-      <p>Event ID: {eventId}</p>
-      <Typography variant="h6">Packing List Items for event {eventId}</Typography>
+      <Typography variant="h6">Packing List Items</Typography>
 
       <TableContainer component={Paper}>
         <Table size="small" aria-label="a dense table">
@@ -130,7 +127,7 @@ const ParticipantView = ({ eventId }) => {
                 <TableCell align="center">
                   {(result.required) ? "yes" : ""}
                 </TableCell>
-                <TableCell align="center"><Button variant="contained" onClick={() => removeSignup(result.id)}> Remove </Button></TableCell>
+                <TableCell> <Button variant="contained" onClick={() => removeSignup(result.id)}> Remove </Button></TableCell>
               </TableRow>
             ))
               : <TableRow><TableCell colSpan="4">You haven't signed up for anything</TableCell></TableRow>
