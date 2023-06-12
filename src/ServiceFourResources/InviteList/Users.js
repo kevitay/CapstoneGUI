@@ -4,7 +4,7 @@ import InviteNameSearch from "./InviteSearch";
 
 import { Table, TableBody, TableContainer, TableRow, FormControl, TableHead, TableCell, Button, TablePagination } from '@mui/material';
 
-function Users({ setCreationStep, event }) {
+function Users({ setCreationStep, event, editMode }) {
 
     const [inviteSuccess, setSuccess] = useState("")
     const [originalState, setLoadedState] = useState([]);
@@ -130,8 +130,9 @@ function Users({ setCreationStep, event }) {
                     {inviteSuccess && <p>{inviteSuccess}</p>}
                 </FormControl>
             </form>
+            {editMode ? "" :
             <Button onClick={(e) => toItinerary(e)} label="Invite">Next: Build Itinerary</Button>
-
+                            }
         </div>)
 }
 
