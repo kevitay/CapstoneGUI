@@ -2,7 +2,7 @@ import React from "react";
 import UserProfile from "./UserProfile"; 
 import ProfilePic from "./ProfilePic";
 import './Profile.css';
-import { Box, Paper, Typography, CardContent, Card } from "@mui/material";
+import { Typography, CardContent, Card } from "@mui/material";
 
 function ProfilePage() {
     return (
