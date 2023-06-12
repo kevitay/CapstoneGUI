@@ -21,7 +21,7 @@ const ProfilePic = () => {
     }, [authState.username]);
 
     return (
-        <div>
+        <div >
             <Box>
                 <img src={"data:image/jpg;base64," + img} height="200px" width="200px" alt="profile pic" />
                 <br></br>
