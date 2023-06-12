@@ -50,7 +50,8 @@ export default function EventBrief({ event }) {
 
   return (
     // <Card key={event.id} sx={{ height: '250px', width: '250px', marginRight: '16px', marginBottom: '16px', border: '1px solid lightgray'}}>
-    <Card key={event.id} sx={{ width: '250px', height: '250px', marginRight: '16px', marginBottom: '16px' }}>
+    <Card key={event.id} sx={{ width: '250px', height: '250px', marginRight: '16px', marginBottom: '16px',backgroundColor: (theme) =>
+    theme.palette.mode === "dark" ? "#1A2027" : "#fff", }}>
       <CardActionArea onClick={handleEventCardClick} rel="noopener noreferrer" sx={{height: '100%'}}>
         <CardContent>
           <Typography gutterBottom variant="h6" component="div" sx={{ fontWeight: 'bold' }}>
