@@ -4,13 +4,15 @@ import OrganizerControl from "./OrganizerControl";
 import AuthContext from "../IdentityResources/Contexts/AuthContext";
 import { useParams } from "react-router-dom";
 import EditEvent from "./EditEvent";
-import { Box, Chip, Container, Grid, Paper, Stack } from "@mui/material";
+import { Box, Chip, Container, Grid, Paper, Stack, Button } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Itinerary from "../ServiceThreeResources/Itinerary";
+import ParticipantsList from "../ServiceFourResources/ParticipantsList/ParticipantsList";
+import InviteList from "../ServiceFourResources/InviteList/InviteList";
 
 const emptyLocation = { address: "", city: "", state: "", zipCode: "" };
 const initialExtendedFields = {
@@ -250,6 +252,7 @@ export default function Event() {
                 event={currentEvent}
                 setCurrentEvent={setCurrentEvent}
                 setEditMode={setEditMode}
+                editMode={editMode}
               />
             )}
             <Accordion
@@ -266,10 +269,11 @@ export default function Event() {
                 <Typography sx={{ width: "50%", flexShrink: 0 }}>
                   {currentEvent.name} - Event Participants
                 </Typography>
+                
               </AccordionSummary>
               <AccordionDetails>
-                {/* Team Component goes here  */}
-                <Typography>placeholder for Participants list user view</Typography>
+              {/* {!editMode ? "" : <InviteList editMode={true} eventId={currentEvent.id}></InviteList> } */}
+                <ParticipantsList eventId={currentEvent.id}></ParticipantsList>
               </AccordionDetails>
             </Accordion>
             <Accordion

@@ -3,9 +3,10 @@ import { useState, useContext } from 'react';
 // import { useParams, useLocation } from 'react-router-dom';
 import EventType from './EventType';
 import AuthContext from '../IdentityResources/Contexts/AuthContext';
+import InviteList from '../ServiceFourResources/InviteList/InviteList';
 
 
-function EditEvent({event, setCurrentEvent, setEditMode}) {
+function EditEvent({event, setCurrentEvent, setEditMode, editMode}) {
   // let { id } = useParams();
   // const location = useLocation();
   // const state = location.state;
@@ -115,6 +116,8 @@ function EditEvent({event, setCurrentEvent, setEditMode}) {
         </fieldset>
         <br />
         {/* might include Edit Itinerary component , might need to create logic to flow from editing basic event details to itinerary */}
+        <InviteList editMode={editMode} eventId={event.id}></InviteList> 
+
         <button type="submit">Submit</button>
       </form>
       {/* <a href={`/serviceOne/event/${id}`} rel="noopener noreferrer"> */}
