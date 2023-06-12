@@ -39,8 +39,8 @@ function EventImages() {
 
         }}>
             <UploadInterface fetchEventImages={fetchEventImages} eventId={eventId}></UploadInterface>
-            <Box sx={{ width: '98%', height: '100%', overflowY: 'scroll', marginTop: '10px' }}>
-                <ImageList variant="masonry" cols={4} gap={10}>
+            <Box sx={{ width: 'auto', height: '100%', overflowY: 'scroll', marginTop: '10px' }}>
+                <ImageList variant="masonry" cols={4} gap={6}>
                     {loading ? "" : imageList.map((img) => (<EventImage img={img}></EventImage>))}
                 </ImageList>
             </Box>
