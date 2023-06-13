@@ -91,7 +91,7 @@ export default function DeleteEvent({ id }) {
   return (
     <>
       {deleteStatus === 'preDelete' ? (
-        <Button variant='outlined'
+        <Button size="small" variant='outlined'
           onClick={() => {
             // handleDeleteEvent();
             setDeletionStep(1);

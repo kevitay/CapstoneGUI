@@ -335,8 +335,8 @@ export default function Event() {
                 borderRadius: "10px",
                 boxShadow: "0px 2px 6px rgba(0, 0, 0, 0.15)",
                 padding: 2,
-                height: "20vh",
-                width: "20vh",
+                height: "25vh",
+                width: "auto",
                 backgroundColor: (theme) => (theme.palette.mode === "dark" ? "#1A2027" : "#fff"),
               }}
             >
