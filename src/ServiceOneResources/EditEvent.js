@@ -4,7 +4,7 @@ import { useState, useContext } from 'react';
 import EventType from './EventType';
 import AuthContext from '../IdentityResources/Contexts/AuthContext';
 import { Box, Grid, FormControl, TextField, Button, Radio, RadioGroup, FormLabel, FormControlLabel } from '@mui/material';
-import InviteList from '../ServiceFourResources/InviteList/InviteList';
+
 
 
 function EditEvent({event, setCurrentEvent, setEditMode, editMode}) {
