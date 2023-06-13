@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useContext } from "react";
 import AuthContext from "../../IdentityResources/Contexts/AuthContext.js";
 import CurrentEvent from "./CurrentEvent.js";
-import { Box, Container, Typography } from '@mui/material'; 
+import { Button, Container, Typography } from '@mui/material'; 
+import { Stack } from "@mui/system";
 
 function CurrentEvents() {
 
@@ -9,6 +10,10 @@ function CurrentEvents() {
     const [userEventsList, setUserEventsList] = useState([])
     const [loading, setLoadState] = useState(false);
     const [eventInfo, setEventInfo] = useState([]);
+    const [pageState, setPageState] = useState(1);
+    const [cardsPerPage,] = useState(3);
+
+    const totalPages = Math.ceil((userEventsList?.length || 0) / cardsPerPage);
 
     useEffect(() => {
         var requestOptions = {
@@ -37,20 +42,38 @@ function CurrentEvents() {
     },[authState]);
 
     return (
-      <Container maxWidth='xl'>
+      <Container maxWidth='xl' sx={{padding: 2}}>
       <Typography variant="h4" fontWeight="bold" gutterBottom >
         Events I've been invited to
       </Typography>
-          <Box sx={{
-            display: 'flex'
-            }}>
-            {
-            loading ? "" : userEventsList.map((event) => <><CurrentEvent event={event} eventInfo={eventInfo}></CurrentEvent></>)
-            }
-            </Box>
-       </Container>
-    )
+        {loading ? <></>:
+        <>
+          <Stack className="invitedEvents" direction="row" useFlexGap flexWrap="wrap" justifyContent="center">
+            {pageState > 1 ? (
+              <Button size="large" sx={{ height: '200px', fontSize: '200px', paddingBottom: '35px', marginRight: 2}} variant="text" onClick={() => setPageState(pageState - 1)}>
+                &#8249;
+              </Button>
+            ) : (
+              <></>
+            )}
 
+            {/* {userEventsList.map((event) => <><CurrentEvent event={event} eventInfo={eventInfo}></CurrentEvent></>)} */}
+            {userEventsList.slice(cardsPerPage * (pageState - 1), cardsPerPage * pageState).map((event) => <><CurrentEvent event={event} eventInfo={eventInfo}></CurrentEvent></>)}
+            {cardsPerPage * pageState < userEventsList.length ? (
+            <Button size="large" sx={{ height: '200px', fontSize: '200px', paddingBottom: '35px' }} variant="text" onClick={() => setPageState(pageState + 1)}>
+              &#8250;
+            </Button>
+            ) : (
+              <></>
+              )}
+          
+          </Stack>
+          <Typography color="text.secondary" marginLeft={88}>
+            {pageState}/{totalPages}
+          </Typography>
+        </>}
+      </Container>
+    )
 }
 
 export default CurrentEvents; 

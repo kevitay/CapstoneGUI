@@ -10,7 +10,7 @@ export default function CreatorEvents() {
   const [authState] = useContext(AuthContext);
   const [pageState, setPageState] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
-  const [cardsPerPage] = useState(4);
+  const [cardsPerPage] = useState(3);
   const navigate = useNavigate();
 
   useEffect(() => {
