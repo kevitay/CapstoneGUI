@@ -10,7 +10,7 @@ import { Stepper, Step, StepLabel } from "@mui/material";
 
 function CreateEventFlow() {
   // Steps are: 1-New, 2-Invite, 3-Itinerary, 4-Items, 5-Tasks
-  const [creationStep, setCreationStep] = useState(1);
+  const [creationStep, setCreationStep] = useState(5);
   const [event, setEvent] = useState(null);
   const [authState] = useContext(AuthContext);
   const navigate = useNavigate();
@@ -51,9 +51,9 @@ function CreateEventFlow() {
     navigate(`/serviceOne/event/${event.id}`);
   }
 
-  function handleHomeClick() {
+  function handleMyEventsClick() {
     //navigates to event details page without losing context
-    navigate(`/`);
+    navigate(`/myEvents/`);
   }
 
   return (
@@ -134,14 +134,14 @@ function CreateEventFlow() {
               }}
             >
               <Stack justifyContent='center' alignItems='center' spacing={5}>
-                <Typography variant='h4' fontWeight={500} sx={{ color: "green" }}>
-                  You succesfully created an event
+                <Typography variant='h4' fontWeight={500} sx={{ color: "green", fontFamily: "Alice"}}>
+                  You successfully created an event !
                 </Typography>
                 <Stack direction='row' spacing={5}>
                   <Button variant='contained' size='large' onClick={handleNewEventClick}>
                     Seek Your New Event
                   </Button>
-                  <Button variant='outlined' size='large' onClick={handleHomeClick}>
+                  <Button variant='outlined' size='large' onClick={handleMyEventsClick}>
                     Go to your Events
                   </Button>
                 </Stack>

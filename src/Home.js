@@ -16,7 +16,7 @@ function Home() {
            <Box sx={boxStyle} />
            <Box/>
            <Container maxWidth='xl'>
-           <Typography variant="h3" color='inherit'sx={{padding:2 }}>Public Events</Typography>
+           <Typography variant="h3" color='inherit'sx={{padding:2, marginTop: 5,fontFamily: "Alice"}}>Public Events</Typography>
            <Divider/>
            <EventList/>
            </Container>

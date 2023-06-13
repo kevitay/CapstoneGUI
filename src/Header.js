@@ -23,15 +23,18 @@ import SailingIcon from "@mui/icons-material/Sailing";
 import PersonIcon from '@mui/icons-material/Person';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Login from "./IdentityResources/Login";
+import { useLocation } from "react-router-dom";
 
 function Header() {
   const theme = useTheme();
   const colorMode = useContext(colorModeContext);
   const navigate = useNavigate();
+  const location = useLocation()
   const [authState, authDispatch] = useContext(AuthContext);
   const [open, setOpen] = useState(false);
   const [img, setImg] = useState("");
 
+  
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -120,12 +123,12 @@ function Header() {
               <>
                 {fetchProfilePicture(authState.username)}
                 {" "}
-                <Button variant='outlined' color='inherit' onClick={handleCreateEvent}>
+                {(location.pathname === '/serviceOne/createEventFlow')? <></> :<Button variant='outlined' color='inherit' onClick={handleCreateEvent}>
                   Create Event
-                </Button>
-                <Button variant='outlined' color='inherit' onClick={handleMyEventsClicked}>
+                </Button>}
+                {(location.pathname === '/myEvents/') ? <></>:<Button variant='outlined' color='inherit' onClick={handleMyEventsClicked}>
                   My Events
-                </Button>
+                </Button>}
                 <IconButton onClick={colorMode.toggleColorMode} color='inherit'>
                   {theme.palette.mode === "dark" ? <Brightness4Icon /> : <Brightness7Icon />}
                 </IconButton>
