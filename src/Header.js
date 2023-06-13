@@ -71,7 +71,9 @@ function Header() {
   }
   const logout = (e) => {
     authDispatch({type: 'saveAuth', payload: {username: '', token: ''}})
-    handleMenuClose()
+    handleMenuClose();
+    handleLogoClicked()
+
   }
   const fetchProfilePicture = (username) => {
         fetch('http://a53e50bf576c64141b52293976658417-1117441751.us-west-2.elb.amazonaws.com/api/users/' + username)
