@@ -68,7 +68,6 @@ export default function ActivityList({ formatDate, states, setStates }) {
 
     function Row(props) {
         const { row, activity } = props;
-        setCurrentActivity(activity);
         const [open, setOpen] = React.useState(false);
 
         return (
@@ -87,7 +86,7 @@ export default function ActivityList({ formatDate, states, setStates }) {
                     <TableCell align="left">{row.address}</TableCell>
                     <TableCell align="left">{row.startTime}</TableCell>
                     <TableCell align="left">{row.endTime}</TableCell>
-                    <TableCell align="left"><EditAndDelete activity={activity} states={states} setStates={setStates} /></TableCell>
+                    <TableCell align="left"><EditAndDelete setCurrentActivity={setCurrentActivity} activity={activity} states={states} setStates={setStates} /></TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
