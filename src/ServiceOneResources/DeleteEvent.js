@@ -47,7 +47,7 @@ export default function DeleteEvent({ id, setDeleted }) {
           break;
         case 4:
           fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/' + id, requestOptions)
-            .then((response) => alert('Success- Event ' + id + ' Deleted'))
+            .then((response) => console.log('Success- Event ' + id + ' Deleted'))
             .then((response) => setDeleteStatus('deleted'))
             .then(setDeletionStep(0))
             .then(setDeleted(true))
