@@ -13,7 +13,7 @@ import {
   TablePagination
 } from "@mui/material";
 
-function Users({ setCreationStep, event, editMode }) {
+function Users({ setCreationStep, event, editMode, setAddMode }) {
   const [inviteSuccess, setSuccess] = useState("");
   const [originalState, setLoadedState] = useState([]);
   const [resetStatus, setResetStatus] = useState(false);
@@ -162,7 +162,7 @@ function Users({ setCreationStep, event, editMode }) {
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
-          {invitesSet ? "" : <Button sx={{width:'15em'}}variant="contained" type="submit" label="Invite">Set Invite List</Button>}
+          {invitesSet ? "" : <Button sx={{width:'15em', mb:'1em'}}variant="contained" type="submit" label="Invite">Set Invite List</Button>}
           {/* {inviteSuccess && <p>{inviteSuccess}</p>} */}
         </FormControl>
       </form>
@@ -170,7 +170,9 @@ function Users({ setCreationStep, event, editMode }) {
       {!invitesSet ? "" : <Button sx={{width:'15em'}}variant="contained" type="submit" label="Invite">Send Invites</Button>}
       {inviteSuccess && <p>{inviteSuccess}</p>}
       </form>
-      {editMode ? "" :
+      {editMode ? <Button sx={{ width: '15em'}} variant="contained" onClick={() => setAddMode(false)}>
+                Cancel Edit{' '}
+              </Button> :
         <Button variant="outlined" onClick={(e) => toItinerary(e)} label="Invite">Next: Build Itinerary</Button>
       }
     </div>
