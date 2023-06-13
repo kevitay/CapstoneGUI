@@ -16,6 +16,7 @@ import EventImageNav from "../ServiceFourResources/EventImages/EventImageNav";
 import BeforeEvent from "../ServiceTwoResources/beforeEvent";
 import ParticipantView from "../ServiceTwoResources/participantView";
 import { useNavigate } from "react-router";
+import InviteList from "../ServiceFourResources/InviteList/InviteList";
 
 const emptyLocation = { address: "", city: "", state: "", zipcode: "" };
 const initialExtendedFields = {
@@ -41,6 +42,9 @@ export default function Event() {
 
   //Toggle between read only and edit mode. Edit Mode is set from Organizer Control.
   const [editMode, setEditMode] = useState(false);
+
+  //Toggle between read only and edit mode. Edit Mode is set from Organizer Control.
+  const [addMode, setAddMode] = useState(false);
 
   //state to prop drill and manage a post-delete splash page after an event is deleted
   const [deleted, setDeleted] = useState(false);
@@ -315,8 +319,8 @@ export default function Event() {
                 
               </AccordionSummary>
               <AccordionDetails>
-              {/* {!editMode ? "" : <InviteList editMode={true} eventId={currentEvent.id}></InviteList> } */}
-                <ParticipantsList eventId={currentEvent.id}></ParticipantsList>
+              {!addMode ? <ParticipantsList eventId={currentEvent.id}></ParticipantsList> : <InviteList editMode={true} setAddMode={setAddMode} event={currentEvent}></InviteList> }
+                
               </AccordionDetails>
             </Accordion>
             <Accordion
@@ -398,6 +402,8 @@ export default function Event() {
                 editMode={editMode}
                 setEditMode={setEditMode}
                 setDeleted={setDeleted}
+                addMode={addMode}
+                setAddMode={setAddMode}
               />
             </Box>
           ) : (
