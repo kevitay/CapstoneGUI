@@ -14,25 +14,21 @@ function Itinerary({eventId, creationStep, setCreationStep, userIsOwner}) {
   },[eventId]);
   
 const [itineraryJSON, setItineraryJSON] = useState({activities:[]});
-const [displayActivityDetails, setDisplayActivityDetails] = useState({}); 
 const [dateArray, setDateArray] = useState([]); 
 const [buttonDate, setButtonDate] = useState("");
-const [closeActivityDetailsButton, setCloseActivityDetailsButton] = useState(false); 
 const [editForm, setEditForm] = useState(false)
 
-const states = {itineraryJSON, displayActivityDetails, dateArray, buttonDate, closeActivityDetailsButton, editForm, authState, userIsOwner};
-const setStates = {setItineraryJSON, setDisplayActivityDetails, setDateArray, setButtonDate, setCloseActivityDetailsButton, setEditForm};
+const states = {itineraryJSON, dateArray, buttonDate, editForm, authState, userIsOwner};
+const setStates = {setItineraryJSON, setDateArray, setButtonDate, setEditForm};
 
 const formatDate = function(date){
         const tempDate = new Date(date);
-        // tempDate.setHours(23, 59, 59, 999);
         const newDate = tempDate.toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
             day: 'numeric',
             timeZone: 'UTC'
         });
-        // newDate.day++;
         return newDate;
 }
 
@@ -45,8 +41,6 @@ return (
         <DateSelector formatDate={formatDate} states={states} setStates={setStates}/>
 
         <ActivityList formatDate={formatDate} states={states} setStates={setStates} setDateArray={setDateArray}/>
-        
-        {/* <ActivityDetails states={states} setStates={setStates}/>  */}
     </div>
   );
 }

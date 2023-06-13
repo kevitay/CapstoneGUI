@@ -2,10 +2,11 @@ import { ACTIONS, fetchFunction } from "./FetchFunctions";
 import Button from "@mui/material/Button";
 import React from "react";
 
-export default function DateSelector({formatDate, states, setStates}) {
+export default function DateSelector({formatDate, states, setStates, activity}) {
 
     function handleSubmit(event) {
         event.preventDefault();
+        console.log(activity)
 
         const confirmed = window.confirm("Are you sure you want to edit this activity?");
         if (confirmed) {
@@ -14,14 +15,12 @@ export default function DateSelector({formatDate, states, setStates}) {
             for (let [key, value] of formData.entries()) {
                 activityJSON[key] = value; 
             }
-            activityJSON.id = states.displayActivityDetails.id
-            if(activityJSON.indoor === undefined && states.displayActivityDetails.indoor !== undefined) activityJSON.indoor = states.displayActivityDetails.indoor
-            if(activityJSON.mandatory === undefined && states.displayActivityDetails.mandatory !== undefined) activityJSON.mandatory = states.displayActivityDetails.mandatory
+            activityJSON.id = activity.id
+            if(activityJSON.indoor === undefined && activity.indoor !== undefined) activityJSON.indoor = activity.indoor
+            if(activityJSON.mandatory === undefined && activity.mandatory !== undefined) activityJSON.mandatory = activity.mandatory
             fetchFunction({type: ACTIONS.UPDATE_ACTIVITY, payload: activityJSON, dispatch: setStates.setItineraryJSON, itinerary: states.itineraryJSON, authState: states.authState})
     
-            setStates.setCloseActivityDetailsButton(true);
             setStates.setEditForm(false)
-            setStates.setDisplayActivityDetails(activityJSON)
         }
     }
     
@@ -30,12 +29,12 @@ export default function DateSelector({formatDate, states, setStates}) {
             {states.editForm && <div>
             <form onSubmit={(event) => handleSubmit(event)}>
                 <label>Activity Name
-                <input defaultValue={states.displayActivityDetails.activityName} name= "activityName" label="Activity Name" required/>
+                <input defaultValue={activity.activityName} name= "activityName" label="Activity Name" required/>
                 </label>
                 <br/>
 
                 <label>Description
-                <input defaultValue={states.displayActivityDetails.description} name="description" label="Description"/>
+                <input defaultValue={activity.description} name="description" label="Description"/>
                 </label>
                 <br/>
 
@@ -48,17 +47,17 @@ export default function DateSelector({formatDate, states, setStates}) {
                 <br/>
                 
                 <label>Image URL
-                <input defaultValue={states.displayActivityDetails.imageURL} name="imageURL" label="Image URL"/>
+                <input defaultValue={activity.imageURL} name="imageURL" label="Image URL"/>
                 </label>
                 <br/>
                 
                 <label>Important Reminder
-                <input defaultValue={states.displayActivityDetails.importantReminder} name="importantReminder" label="Important Reminder"/>
+                <input defaultValue={activity.importantReminder} name="importantReminder" label="Important Reminder"/>
                 </label>
                 <br/>
                 
                 <label>Group Size
-                <input defaultValue={states.displayActivityDetails.groupSize} name="groupSize" type="number" label="Group Size"/>
+                <input defaultValue={activity.groupSize} name="groupSize" type="number" label="Group Size"/>
                 </label>
                 <br/>
                 
@@ -68,13 +67,13 @@ export default function DateSelector({formatDate, states, setStates}) {
                 <br/>
                 
                 <label>price
-                <input defaultValue={states.displayActivityDetails.price} name="price" type="number" label="price"/>
+                <input defaultValue={activity.price} name="price" type="number" label="price"/>
                 </label>
                 <br/>
                 
                 <label>Type
                 <select name="type" label="Activity Name">
-                    <option defaultValue={states.displayActivityDetails.type}></option>
+                    <option defaultValue={activity.type}></option>
                     <option value="Music">Music</option>
                     <option value="Sports">Sports</option>
                     <option value="Professional">Professional</option>
@@ -88,23 +87,23 @@ export default function DateSelector({formatDate, states, setStates}) {
                 <br/>
                 
                 <label>Event URL
-                <input defaultValue={states.displayActivityDetails.url} name="url" label="Event URL"/>
+                <input defaultValue={activity.url} name="url" label="Event URL"/>
                 </label>
                 <br/>
                 
                 <label>Address
-                <input defaultValue={states.displayActivityDetails.address} name="address" label="Address"/>
+                <input defaultValue={activity.address} name="address" label="Address"/>
                 </label>
                 <br/>
                 
                 <label>City
-                <input defaultValue={states.displayActivityDetails.city} name="city" label="City"/>
+                <input defaultValue={activity.city} name="city" label="City"/>
                 </label>
                 <br/>
                 
                 <label>State
                 <select name="state" label="State">
-                    <option defaultValue={states.displayActivityDetails.state}></option>
+                    <option defaultValue={activity.state}></option>
                     <option value="AL">Alabama</option>
                     <option value="AK">Alaska</option>
                     <option value="AZ">Arizona</option>
@@ -161,17 +160,17 @@ export default function DateSelector({formatDate, states, setStates}) {
                 <br/>
                 
                 <label>Zip Code
-                <input defaultValue={states.displayActivityDetails.zip} name="zip" type="number" label="Zip Code"/>
+                <input defaultValue={activity.zip} name="zip" type="number" label="Zip Code"/>
                 </label>
                 <br/>
                 
                 <label>Start Time
-                <input defaultValue={states.displayActivityDetails.startTime.slice(0, 16)} name="startTime" type="datetime-local" label="Start Time" required/>
+                <input defaultValue={activity.startTime} name="startTime" type="datetime-local" label="Start Time" required/>
                 </label>
                 <br/>
                 
                 <label>End Time
-                <input defaultValue={states.displayActivityDetails.endTime.slice(0, 16)} name="endTime" type="datetime-local" label="End Time"/>
+                <input defaultValue={activity.endTime} name="endTime" type="datetime-local" label="End Time"/>
                 </label>
                 <br/>
 
