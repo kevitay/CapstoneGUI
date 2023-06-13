@@ -21,6 +21,11 @@ function Users({ setCreationStep, event, editMode }) {
   const [loading, setLoadState] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [selectedUsers, setInvite] = useState([]);
+  const [notifyUsers, setlistforNotifications] = useState([]);
+  const [invitesSet, changeinvitesset] = useState(false);
+
+  
 
   useEffect(() => {
     var requestOptions = {
@@ -39,19 +44,25 @@ function Users({ setCreationStep, event, editMode }) {
   }, []);
 
   function stateReset(e) {
+    e.preventDefault();
     setResetStatus(!resetStatus);
     console.log(originalState);
-    e.preventDefault();
     setUser(originalState);
   }
 
-  let selectedUsers = [];
+  // let selectedUsers = [];
+  function setinviteList(e){
+    e.preventDefault()
+    setlistforNotifications(selectedUsers)
+    changeinvitesset(true)
+  }
 
   function sendInvite(e) {
     e.preventDefault();
+  
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    selectedUsers.forEach(userName => {
+    notifyUsers.forEach(userName => {
       var raw = JSON.stringify({
         "eventId": event.id,
         "messageFrom": event.creatorID,
@@ -83,6 +94,9 @@ function Users({ setCreationStep, event, editMode }) {
           console.log('here is the ERROR', error)
         });
     });
+    setInvite([])
+    setlistforNotifications([])
+    changeinvitesset(false)
   }
 
   function toItinerary(e) {
@@ -105,7 +119,7 @@ function Users({ setCreationStep, event, editMode }) {
   return (
     <div>
       <InviteNameSearch resetStatus={resetStatus} userState={userState} setUserState={setUser}></InviteNameSearch>
-      <form className="invite-form" onSubmit={(e) => sendInvite(e)}>
+      <form className="invite-form" onSubmit={(e) => setinviteList(e)}>
         <FormControl>
           <TableContainer>
             <Table sx={{ minWidth: 750 }}>
@@ -128,7 +142,7 @@ function Users({ setCreationStep, event, editMode }) {
                   userState
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((user) => (
-                      <UserData key={user.username} selectedUsers={selectedUsers} invitee={user} />
+                      <UserData key={user.username} selectedUsers={selectedUsers} invitee={user} setInvite={setInvite} />
                     ))
                 )}
                 {emptyRows > 0 && (
@@ -148,9 +162,13 @@ function Users({ setCreationStep, event, editMode }) {
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
-          <Button sx={{width:'15em'}}variant="contained" type="submit" label="Invite">Invite</Button>
-          {inviteSuccess && <p>{inviteSuccess}</p>}
+          {invitesSet ? "" : <Button sx={{width:'15em'}}variant="contained" type="submit" label="Invite">Set Invite List</Button>}
+          {/* {inviteSuccess && <p>{inviteSuccess}</p>} */}
         </FormControl>
+      </form>
+      <form onSubmit={(e) => sendInvite(e)}>
+      {!invitesSet ? "" : <Button sx={{width:'15em'}}variant="contained" type="submit" label="Invite">Send Invites</Button>}
+      {inviteSuccess && <p>{inviteSuccess}</p>}
       </form>
       {editMode ? "" :
         <Button variant="outlined" onClick={(e) => toItinerary(e)} label="Invite">Next: Build Itinerary</Button>
