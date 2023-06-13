@@ -58,10 +58,10 @@ function CreateEventFlow() {
 
   return (
     <Container>
-      {event ? <h1>{event.name}</h1> : <h1>Create Your Event</h1>}   
-      <Stepper activeStep={creationStep - 1} alternativeLabel>
+      {event ? <h1>{event.name}</h1> : <></>}   
+      <Stepper activeStep={creationStep - 1} alternativeLabel sx={{marginTop: 10, marginBottom: 2}}>
         <Step>
-          <StepLabel>Fill out your Event Details</StepLabel>
+          <StepLabel>Create Event</StepLabel>
         </Step>
         <Step>
           <StepLabel>Seek Some Friends</StepLabel>
