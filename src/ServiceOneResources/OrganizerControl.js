@@ -17,7 +17,7 @@ function OrganizerControl({ event, setCurrentEvent, editMode, setEditMode }) {
         <button>Edit Event</button>
       </Link> */}
       <Stack direction="column" spacing={1}>
-        <Button variant="outlined" disabled={editMode} type="button" onClick={() => setEditMode(true)}>
+        <Button size="small" variant="outlined" disabled={editMode} type="button" onClick={() => setEditMode(true)}>
           Edit Event
         </Button>
         {event.status === "cancelled" ?

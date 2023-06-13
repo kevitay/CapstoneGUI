@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect, useContext } from "react";
 import AuthContext from "../IdentityResources/Contexts/AuthContext";
 import EventBrief from "./EventBrief";
+import { useNavigate } from "react-router-dom";
 import { Button, Container, Paper, Stack, TextField, Typography } from "@mui/material";
 
 export default function CreatorEvents() {
@@ -10,6 +11,7 @@ export default function CreatorEvents() {
   const [pageState, setPageState] = useState(1);
   const [searchQuery, setSearchQuery] = useState('');
   const [cardsPerPage] = useState(4);
+  const navigate = useNavigate();
 
   useEffect(() => {
     function getEventsByUsername() {
@@ -44,6 +46,10 @@ export default function CreatorEvents() {
   const filteredEvents = userEvents && userEvents.filter((event) =>
   event.name.toLowerCase().includes(searchQuery.toLowerCase())
 );
+function handleCreateEvent() {
+  //handles navigation to home page
+  navigate("/serviceOne/createEventFlow");
+}
 
 const totalPages = Math.ceil((filteredEvents?.length || 0) / cardsPerPage);
   return (
@@ -51,12 +57,12 @@ const totalPages = Math.ceil((filteredEvents?.length || 0) / cardsPerPage);
       {authState.username === "" || userEvents === null ? (
         <Paper sx={{textAlign: 'center', padding: 2}} elevation={3}>
         <Typography variant='h4' fontWeight='bold' gutterBottom > Looks Like You haven't Created any Events! </Typography>
-        <Button variant="contained" sx={{justifyContent: 'center'}}>Create Event</Button>
+        <Button variant="contained" sx={{justifyContent: 'center'}}onClick={handleCreateEvent}>Create Event</Button>
         </Paper>
       ) : (
         <Container maxWidth='xl' sx={{ marginTop: 2 }}>
           <Stack direction='row' spacing={38}>
-          <Typography variant='h4' fontWeight='bold' gutterBottom>
+          <Typography variant='h4' fontWeight='bold' gutterBottom >
             Events I've Created
           </Typography>
           <TextField id="searchBar" variant="standard" placeholder="Search Events By Name" value={searchQuery} onChange={(e)=> setSearchQuery(e.target.value)}/>
