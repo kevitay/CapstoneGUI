@@ -1,11 +1,12 @@
 import React from "react";
+import Button from "@mui/material/Button";
 
 export default function DateSelector({formatDate, states, setStates}) {
 
     return (
         <div>
-            <button onClick={() => setStates.setButtonDate("")}>Select All</button>
-            {states.dateArray.map((date, index) => <button onClick={() => setStates.setButtonDate(date)} key={index}>{formatDate(date)}</button>)}
+            <Button variant="contained" onClick={() => setStates.setButtonDate("")}>Select All</Button>
+            {states.dateArray.map((date, index) => <Button variant="contained" onClick={() => setStates.setButtonDate(date)} key={index}>{formatDate(date)}</Button>)}
         </div>
     )
 }

@@ -19,17 +19,20 @@ function UserProfile() {
 
   return (
       <div>
-        <Typography variant="h4" sx={{}}>
-          {userProfileState.firstName + " " + userProfileState.lastName}
-        </Typography>
-        <Typography variant="body1" sx={{}}>
-          {userProfileState.city + ", " + userProfileState.state}
-        </Typography>
-        <Typography variant="body1" sx={{}}>
-          {userProfileState.phoneNumber}
-        </Typography>
+          <Typography variant="h4" sx={{}}>
+            {userProfileState.firstName + " " + userProfileState.lastName}
+          </Typography>
+          <Typography variant="body1" sx={{}}>
+            {userProfileState.city + ", " + userProfileState.state}
+          </Typography>
+          <Typography variant="body1" sx={{}}>
+            {userProfileState.phoneNumber}
+          </Typography>
       </div>
   );
+
+  
 }
+
 
 export default UserProfile;

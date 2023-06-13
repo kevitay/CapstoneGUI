@@ -1,7 +1,8 @@
 import React from 'react';
 import {
     Stack,
-    Paper
+    Paper,
+    Typography
   } from "@mui/material";
 
 
@@ -30,6 +31,10 @@ function Footer() {
         {/* <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-original-wordmark.svg" alt="AWS" width="45" height="45" /> */}
         {/* <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original-wordmark.svg" alt="Gradle" width="45" height="45"/> */}
         </Stack>
+        <br></br>
+        <Typography variant="caption" color="white" >
+            Copyright ©2023. [] Limited
+          </Typography>
       </Paper>  
     </div>    
     );
