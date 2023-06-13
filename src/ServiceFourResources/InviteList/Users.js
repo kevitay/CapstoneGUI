@@ -23,6 +23,8 @@ function Users({ setCreationStep, event, editMode }) {
   const [rowsPerPage, setRowsPerPage] = useState(5);
   const [selectedUsers, setInvite] = useState([]);
   const [notifyUsers, setlistforNotifications] = useState([]);
+  const [invitesSet, changeinvitesset] = useState(false);
+
   
 
   useEffect(() => {
@@ -49,10 +51,14 @@ function Users({ setCreationStep, event, editMode }) {
   }
 
   // let selectedUsers = [];
+  function setinviteList(e){
+    e.preventDefault()
+    setlistforNotifications(selectedUsers)
+    changeinvitesset(true)
+  }
 
   function sendInvite(e) {
     e.preventDefault();
-    setlistforNotifications(selectedUsers)
   
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
@@ -88,8 +94,9 @@ function Users({ setCreationStep, event, editMode }) {
           console.log('here is the ERROR', error)
         });
     });
-    // setInvite([])
-    // setlistforNotifications([])
+    setInvite([])
+    setlistforNotifications([])
+    changeinvitesset(false)
   }
 
   function toItinerary(e) {
@@ -112,7 +119,7 @@ function Users({ setCreationStep, event, editMode }) {
   return (
     <div>
       <InviteNameSearch resetStatus={resetStatus} userState={userState} setUserState={setUser}></InviteNameSearch>
-      <form className="invite-form" onSubmit={(e) => sendInvite(e)}>
+      <form className="invite-form" onSubmit={(e) => setinviteList(e)}>
         <FormControl>
           <TableContainer>
             <Table sx={{ minWidth: 750 }}>
@@ -155,9 +162,13 @@ function Users({ setCreationStep, event, editMode }) {
             onPageChange={handleChangePage}
             onRowsPerPageChange={handleChangeRowsPerPage}
           />
-          <Button sx={{width:'15em'}}variant="contained" type="submit" label="Invite">Invite</Button>
-          {inviteSuccess && <p>{inviteSuccess}</p>}
+          {invitesSet ? "" : <Button sx={{width:'15em'}}variant="contained" type="submit" label="Invite">Set Invite List</Button>}
+          {/* {inviteSuccess && <p>{inviteSuccess}</p>} */}
         </FormControl>
+      </form>
+      <form onSubmit={(e) => sendInvite(e)}>
+      {!invitesSet ? "" : <Button sx={{width:'15em'}}variant="contained" type="submit" label="Invite">Send Invites</Button>}
+      {inviteSuccess && <p>{inviteSuccess}</p>}
       </form>
       {editMode ? "" :
         <Button variant="outlined" onClick={(e) => toItinerary(e)} label="Invite">Next: Build Itinerary</Button>
