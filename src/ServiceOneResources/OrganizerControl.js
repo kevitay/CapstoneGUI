@@ -23,7 +23,7 @@ function OrganizerControl({ event, setCurrentEvent, editMode, setEditMode }) {
         {event.status === "cancelled" ?
           (<></>) : (<CancelEvent event={event} setCurrentEvent={setCurrentEvent} />)
         }
-        <DeleteEvent id={event.id} />
+        <DeleteEvent id={event.id} setCurrentEvent={setCurrentEvent}/>
       </Stack>
     </div>
   );
