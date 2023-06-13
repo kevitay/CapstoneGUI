@@ -28,6 +28,7 @@ export default function EventBrief({ event }) {
   }
 
   function locationFormatter(location) {
+    console.log(location)
     if (location === null) {
       return 'TBD';
     } else if (location.address === '') {
@@ -36,7 +37,7 @@ export default function EventBrief({ event }) {
       // console.log(location.address);
       return (
         <>
-          {location.address}, {location.city}, {location.state} {location.zipCode}
+          {location.address}, {location.city}, {location.state} {location.zipcode}
         </>
       );
     }
@@ -61,7 +62,7 @@ export default function EventBrief({ event }) {
           </Typography>
           <Divider sx={{ color: '#1976d2'}}></Divider>
           <Typography gutterBottom variant="subtitle1" component="div">
-            {event.hasOwnProperty('startLocation') ? 'Location:' + locationFormatter(event.startLocation) : ''}
+            {event.hasOwnProperty('startLocation') ? <div> Location: {locationFormatter(event.startLocation)} </div>: null}
           </Typography>
           <Typography gutterBottom variant="subtitle1" component="div">
             {event.hasOwnProperty('startDateTime') ? 'Time:' + dateFormatter(event.startDateTime) : ''}
