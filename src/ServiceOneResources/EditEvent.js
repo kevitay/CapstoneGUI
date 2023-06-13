@@ -128,7 +128,6 @@ function EditEvent({event, setCurrentEvent, setEditMode, editMode}) {
           </FormControl>
         </Box>
       </form>
-      <InviteList editMode={editMode} event={event}></InviteList> 
     </>
   );
 }
