@@ -16,7 +16,7 @@ import EventImageNav from "../ServiceFourResources/EventImages/EventImageNav";
 import BeforeEvent from "../ServiceTwoResources/beforeEvent";
 import ParticipantView from "../ServiceTwoResources/participantView";
 
-const emptyLocation = { address: "", city: "", state: "", zipCode: "" };
+const emptyLocation = { address: "", city: "", state: "", zipcode: "" };
 const initialExtendedFields = {
   startDateTime: "",
   endDateTime: "",
@@ -136,7 +136,7 @@ export default function Event() {
         <>
           {location.address}
           <br/>
-          {location.city}, {location.state} {location.zipCode}
+          {location.city}, {location.state} {location.zipcode}
         </>
       );
     }
@@ -163,7 +163,7 @@ export default function Event() {
     //finally return our desired google map when address is valid.
     else if (location !== null) {
       const baseUrl = `https://www.google.com/maps/embed/v1/place?key=AIzaSyCvQmZJBjFQKdFJt92CFC13mksPKj-pvh4&`;
-      const addressComplete = `${location.address},${location.city},${location.state},${location.zipCode}`;
+      const addressComplete = `${location.address},${location.city},${location.state},${location.zipcode}`;
       const params = new URLSearchParams(`q=${addressComplete}`);
       return `${baseUrl}${params.toString()}`;
     }
