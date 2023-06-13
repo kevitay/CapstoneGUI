@@ -13,7 +13,7 @@ export default function EventList() {
   const { state, dispatch } = useContext(EventContext);
   const [authState] = useContext(AuthContext);
   const [pageState, setPageState] = useState(1);
-  const [cardsPerPage,] = useState(4);
+  const [cardsPerPage,] = useState(3);
   const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {

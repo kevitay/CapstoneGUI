@@ -145,8 +145,8 @@ function CurrentEvent({ event, eventInfo }) {
     <Card
       sx={{
         margin: 1,
-        width: "30em",
-        height: "",
+        width: "300px",
+        height: "600px",
         p: "1.5em",
         borderRadius: "8px",
         boxShadow: "0 2px 4px rgba(0, 0, 0, 0.5)",
@@ -154,7 +154,7 @@ function CurrentEvent({ event, eventInfo }) {
           theme.palette.mode === "dark" ? "#1A2027" : "#fff",
       }}
     >
-      <CardActionArea onClick={handleEventCardClick} rel="noopener noreferrer" sx={{ height: '100%' }}>
+      <CardActionArea onClick={handleEventCardClick} rel="noopener noreferrer" sx={{ height: '90%' }}>
         <Typography variant="h5" fontWeight="bold" gutterBottom>
           {eventInfo[index].name}
         </Typography>
