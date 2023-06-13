@@ -177,7 +177,6 @@ export default function DateSelector({formatDate, states, setStates, activity}) 
                 <input value="Save Changes" type="submit" ></input>
             </form>
             <Button onClick={() => {
-                setStates.setCloseActivityDetailsButton(true);
                 setStates.setEditForm(false)
             }}>Cancel</Button>
         </div>}
