@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink, Route, Routes } from "react-router-dom";
-import OrganizerViewApp from "./OrganizerViewApp";
+import  BeforeEventOrganizer from "./beforeEventOrganizer";
 import ParticipantView from "./participantView";
 import Notifications from "./notifications";
 
@@ -26,7 +26,7 @@ function ServiceTwoApp(eventId) {
                 </ul>
             </nav>
             <Routes>
-                <Route path={'/organizerView/*'} element={<OrganizerViewApp eventId={eventId} />}></Route>
+                <Route path={'/organizerView/*'} element={<BeforeEventOrganizer eventId={eventId} />}></Route>
                 <Route path={'/participantView/*'} element={<ParticipantView eventId={eventId} />}></Route>
                 <Route path={'/notifications/*'} element={<Notifications />}></Route>
             </Routes>

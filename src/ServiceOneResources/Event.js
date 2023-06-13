@@ -13,6 +13,8 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import Itinerary from "../ServiceThreeResources/Itinerary";
 import ParticipantsList from "../ServiceFourResources/ParticipantsList/ParticipantsList";
 import EventImageNav from "../ServiceFourResources/EventImages/EventImageNav";
+import BeforeEvent from "../ServiceTwoResources/beforeEvent";
+import ParticipantView from "../ServiceTwoResources/participantView";
 
 const emptyLocation = { address: "", city: "", state: "", zipCode: "" };
 const initialExtendedFields = {
@@ -308,6 +310,7 @@ export default function Event() {
                 <Itinerary eventId={currentEvent.id} userIsOwner={userIsOwner} />
               </AccordionDetails>
             </Accordion>
+            {userIsOwner ? 
             <Accordion
               sx={{ width: "100%", backgroundColor: (theme) =>
               theme.palette.mode === "dark" ? "#1A2027" : "#fff" }}
@@ -320,12 +323,32 @@ export default function Event() {
                 id='panel1bh-header'
               >
                 <Typography sx={{ width: "50%", flexShrink: 0 }}>
-                  {currentEvent.name} - Event Checklist
+                  {currentEvent.name} - Event Checklist Organizer View
                 </Typography>
               </AccordionSummary>
               <AccordionDetails>
-                {/* Team Component goes here  */}
-                <Typography>placeholder for Checklist user view</Typography>
+                <BeforeEvent eventId={currentEvent.id} />
+              </AccordionDetails>
+            </Accordion>
+            : <></>
+            }
+            <Accordion
+              sx={{ width: "100%", backgroundColor: (theme) =>
+              theme.palette.mode === "dark" ? "#1A2027" : "#fff" }}
+              expanded={expanded === "panel5"}
+              onChange={handleChange("panel5")}
+            >
+              <AccordionSummary
+                expandIcon={<ExpandMoreIcon />}
+                aria-controls='panel1bh-content'
+                id='panel1bh-header'
+              >
+                <Typography sx={{ width: "50%", flexShrink: 0 }}>
+                  {currentEvent.name} - Event Checklist Participant View
+                </Typography>
+              </AccordionSummary>
+              <AccordionDetails>
+                <ParticipantView eventId={currentEvent.id} />
               </AccordionDetails>
             </Accordion>
           </Container>

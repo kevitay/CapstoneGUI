@@ -73,10 +73,16 @@ function ItemList({ items, setPackingList, eventId }) {
     };
 
     fetch(checklistUrl + "/" + eventId, requestOptions)
-      .then(response => response.json())
+      .then(response => {
+        if(response.status !== 204){
+          return response.json();
+        }})
       .then(result => {
-        // console.log("result: ", result);
-        setPackingList((result.checklist.length > 1) ? result.checklist.sort((a, b) => parseInt(a.id) - parseInt(b.id)) : result.checklist);
+        if(result) {
+          setPackingList((result.checklist.length > 1) ? result.checklist.sort((a, b) => parseInt(a.id) - parseInt(b.id)) : result.checklist);
+        } else {
+          setPackingList([]);
+        }
       })
       .catch(error => console.log('error', error));
   };

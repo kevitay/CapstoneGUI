@@ -5,15 +5,20 @@
 
 const checklistUrl = "http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/checklist";
 
-const getChecklistByEventId = (eventId) => {
+async function getChecklistByEventId(eventId) {
   var requestOptions = {
     method: 'GET',
     redirect: 'follow'
   };
-
   return fetch(checklistUrl + "/" + eventId, requestOptions)
-    .then(response => response.json())
+    .then(response => {
+      if (response.status === 200) {
+        return response.json();
+      }
+    })
+    .then(result => (result ? result.checklist : []))
     .catch(error => console.log('error', error));
+
 };
 
 const getAssigneeListForItem = (itemId) => {
@@ -40,10 +45,13 @@ export const getListData = (eventId, userName) => {
   };
 
   return getChecklistByEventId(eventId)
-    .then(({ checklist }) => {
-      data.packingList = checklist.filter(item => item.type === "packing list");
-      data.availableSignups = checklist.filter(item => item.type === "signup list");
-      return getAssigneeListsForItems(data.availableSignups);
+    .then((checklist) => {
+      if (checklist == null) { return [] }
+      if (checklist.length > 0) {
+        data.packingList = checklist.filter(item => item.type === "packing list");
+        data.availableSignups = checklist.filter(item => item.type === "signup list");
+        return getAssigneeListsForItems(data.availableSignups);
+      } else { return [] }
     })
     .then(assigneeLists => {
       return assigneeLists.reduce((assignedCounts, list) => {

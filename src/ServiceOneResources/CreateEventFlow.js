@@ -2,8 +2,9 @@ import React from "react";
 import { useState, useEffect, useContext } from "react";
 import CreateEvent from "./CreateEvent";
 import InviteList from "../ServiceFourResources/InviteList/InviteList";
-import AuthContext from "../IdentityResources/Contexts/AuthContext";
-import Itinerary from "../ServiceThreeResources/Itinerary";
+import AuthContext from '../IdentityResources/Contexts/AuthContext';
+import Itinerary from '../ServiceThreeResources/Itinerary';
+import BeforeEventOrganizer from '../ServiceTwoResources/beforeEventOrganizer';
 import { Button, Container, Paper, Stack, Typography } from "@mui/material";
 import { useNavigate } from "react-router";
 import { Stepper, Step, StepLabel } from "@mui/material";
@@ -16,7 +17,7 @@ function CreateEventFlow() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (creationStep === 4) {
+    if (creationStep === 5) {
       var myHeaders = new Headers();
       myHeaders.append("Content-Type", "application/json");
       myHeaders.append("Authorization", authState.token);
@@ -36,7 +37,7 @@ function CreateEventFlow() {
 
       fetch(
         "http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/" +
-          event.id,
+        event.id,
         requestOptions
       )
         .then((response) => response.json())
@@ -58,8 +59,8 @@ function CreateEventFlow() {
 
   return (
     <Container>
-      {event ? <h1>{event.name}</h1> : <></>}   
-      <Stepper activeStep={creationStep - 1} alternativeLabel sx={{marginTop: 10, marginBottom: 2}}>
+      {event ? <h1>{event.name}</h1> : <></>}
+      <Stepper activeStep={creationStep - 1} alternativeLabel sx={{ marginTop: 10, marginBottom: 2 }}>
         <Step>
           <StepLabel>Create Event</StepLabel>
         </Step>
@@ -118,9 +119,17 @@ function CreateEventFlow() {
         <></>
       )}
       {creationStep === 4 ? (
-        <>
-          <p>Add items</p>
-        </>
+        <Paper
+          sx={{
+            padding: 4,
+            backgroundColor: (theme) => (theme.palette.mode === "dark" ? "#1A2027" : "#fff"),
+          }}
+        >
+          <BeforeEventOrganizer
+            setCreationStep={setCreationStep}
+            eventId={event.id}
+          />
+        </Paper>
       ) : (
         <></>
       )}
@@ -134,7 +143,7 @@ function CreateEventFlow() {
               }}
             >
               <Stack justifyContent='center' alignItems='center' spacing={5}>
-                <Typography variant='h4' fontWeight={500} sx={{ color: "green"}}>
+                <Typography variant='h4' fontWeight={500} sx={{ color: "green" }}>
                   You successfully created an event !
                 </Typography>
                 <Stack direction='row' spacing={5}>
