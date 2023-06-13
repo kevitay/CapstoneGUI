@@ -38,7 +38,7 @@ function CurrentEvents() {
 
     return (
       <Container maxWidth='xl'>
-      <Typography variant="h4" fontWeight="bold" gutterBottom sx={{fontFamily: "Alice"}}>
+      <Typography variant="h4" fontWeight="bold" gutterBottom >
         Events I've been invited to
       </Typography>
           <Box sx={{

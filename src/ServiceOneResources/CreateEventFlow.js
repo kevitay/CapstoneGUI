@@ -134,7 +134,7 @@ function CreateEventFlow() {
               }}
             >
               <Stack justifyContent='center' alignItems='center' spacing={5}>
-                <Typography variant='h4' fontWeight={500} sx={{ color: "green", fontFamily: "Alice"}}>
+                <Typography variant='h4' fontWeight={500} sx={{ color: "green"}}>
                   You successfully created an event !
                 </Typography>
                 <Stack direction='row' spacing={5}>

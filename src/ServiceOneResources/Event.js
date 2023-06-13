@@ -209,7 +209,7 @@ export default function Event() {
                         <Grid item xs>
                           <Typography
                             variant='h4'
-                            sx={{ width: "75%", flexShrink: 0, fontWeight: "bold", fontFamily: "Alice"}}
+                            sx={{ width: "75%", flexShrink: 0, fontWeight: "bold"}}
                           >
                             {currentEvent.name}
                             <EventImageNav eventId={id}/>

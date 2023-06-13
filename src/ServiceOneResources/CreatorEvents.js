@@ -56,7 +56,7 @@ const totalPages = Math.ceil((filteredEvents?.length || 0) / cardsPerPage);
       ) : (
         <Container maxWidth='xl' sx={{ marginTop: 2 }}>
           <Stack direction='row' spacing={38}>
-          <Typography variant='h4' fontWeight='bold' gutterBottom sx={{fontFamily: "Alice"}}>
+          <Typography variant='h4' fontWeight='bold' gutterBottom >
             Events I've Created
           </Typography>
           <TextField id="searchBar" variant="standard" placeholder="Search Events By Name" value={searchQuery} onChange={(e)=> setSearchQuery(e.target.value)}/>
