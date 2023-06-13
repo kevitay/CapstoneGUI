@@ -40,7 +40,7 @@ export default function DateSelector({formatDate, states, setStates, activity}) 
             <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Stack spacing={2} sx={{marginBottom: 2, marginLeft: 4.75}}>
       
-            <TextField label='Activity Name'name="activityName" id="outlined-size-small" defaultValue="" size="small" required/>          
+            <TextField label='Activity Name'name="activityName" id="outlined-size-small" placeholder={activity.name} size="small" required/>          
             <TextField label='Description' multiline name="description" id="outlined-size-small" size="small"/>
             </Stack>
 
