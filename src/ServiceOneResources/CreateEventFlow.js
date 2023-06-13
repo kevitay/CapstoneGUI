@@ -10,7 +10,7 @@ import { Stepper, Step, StepLabel } from "@mui/material";
 
 function CreateEventFlow() {
   // Steps are: 1-New, 2-Invite, 3-Itinerary, 4-Items, 5-Tasks
-  const [creationStep, setCreationStep] = useState(5);
+  const [creationStep, setCreationStep] = useState(1);
   const [event, setEvent] = useState(null);
   const [authState] = useContext(AuthContext);
   const navigate = useNavigate();

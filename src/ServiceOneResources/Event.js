@@ -184,6 +184,7 @@ export default function Event() {
                   sx={{
                     p: 2,
                     margin: "auto",
+                    height: "auto",
                     maxWidth: "100%",
                     flexGrow: 1,
                     backgroundColor: (theme) =>
