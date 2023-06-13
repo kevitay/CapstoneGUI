@@ -4,7 +4,7 @@ import OrganizerControl from "./OrganizerControl";
 import AuthContext from "../IdentityResources/Contexts/AuthContext";
 import { useParams } from "react-router-dom";
 import EditEvent from "./EditEvent";
-import { Box, Chip, Container, Grid, Paper, Stack } from "@mui/material";
+import { Button, Box, Chip, Container, Grid, Paper, Stack } from "@mui/material";
 import Accordion from "@mui/material/Accordion";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import AccordionSummary from "@mui/material/AccordionSummary";
@@ -15,6 +15,7 @@ import ParticipantsList from "../ServiceFourResources/ParticipantsList/Participa
 import EventImageNav from "../ServiceFourResources/EventImages/EventImageNav";
 import BeforeEvent from "../ServiceTwoResources/beforeEvent";
 import ParticipantView from "../ServiceTwoResources/participantView";
+import { useNavigate } from "react-router";
 
 const emptyLocation = { address: "", city: "", state: "", zipCode: "" };
 const initialExtendedFields = {
@@ -26,6 +27,8 @@ const initialExtendedFields = {
 
 //react event
 export default function Event() {
+  const navigate = useNavigate();
+
   //stores the returned event from event API. After an edit, the event is updated with the result of the post and the extended fields are lost.
   const [currentEvent, setCurrentEvent] = useState(null);
 
@@ -38,6 +41,9 @@ export default function Event() {
 
   //Toggle between read only and edit mode. Edit Mode is set from Organizer Control.
   const [editMode, setEditMode] = useState(false);
+
+  //state to prop drill and manage a post-delete splash page after an event is deleted
+  const [deleted, setDeleted] = useState(false);
 
   //used for modified Login component which expects a function from signin button.
   const handleClose = () => {};
@@ -142,6 +148,11 @@ export default function Event() {
     }
   }
 
+  function handleMyEventsClick() {
+    //navigates to event details page without losing context
+    navigate(`/myEvents/`);
+  }
+
   //the ternary checks if status is a property
   const statusColor =
     currentEvent?.status === "Draft"
@@ -173,6 +184,24 @@ export default function Event() {
   if (!currentEvent) return null;
   return (
     <>
+    {deleted ? 
+        <Container>
+        <Paper
+          sx={{
+            padding: 4,
+            backgroundColor: (theme) => (theme.palette.mode === "dark" ? "#1A2027" : "#fff"),
+          }}
+        >
+          <Stack justifyContent='center' alignItems='center' spacing={5}>
+            <Typography variant='h4' fontWeight={500} sx={{ color: "green" }}>
+              Your event was deleted
+            </Typography>
+              <Button variant='outlined' size='large' onClick={handleMyEventsClick}>
+                Go to your Events
+              </Button>
+          </Stack>
+        </Paper>
+      </Container> :  
       <Container maxWidth='xl' sx={{ marginTop: 4 }}>
         <Stack direction='row'>
           <Container maxWidth='xl'>
@@ -368,13 +397,14 @@ export default function Event() {
                 setCurrentEvent={setCurrentEvent}
                 editMode={editMode}
                 setEditMode={setEditMode}
+                setDeleted={setDeleted}
               />
             </Box>
           ) : (
             <></>
           )}
         </Stack>
-      </Container>
+      </Container>}
     </>
   );
 }
