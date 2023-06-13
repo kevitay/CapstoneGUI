@@ -7,7 +7,7 @@ import { Button } from '@mui/material';
 //will need to change to account for cascading delete to other components
 export default function DeleteEvent({ id, setDeleted }) {
   const navigate = useNavigate();
-  // Deletion steps: 1-Checklist, 2-Participants, 3-Activities, 4-Event
+  // Deletion steps: 1-Checklist, 2-Participants, 3-Activities, 4-Notifications, 5-Event
   const [deletionStep, setDeletionStep] = useState(0);
   let [deleteStatus, setDeleteStatus] = useState('preDelete');
   const [authState] = useContext(AuthContext);
@@ -46,6 +46,12 @@ export default function DeleteEvent({ id, setDeleted }) {
             .catch((error) => console.log(error));
           break;
         case 4:
+          fetch('http://aa2d2637139cf431aa862ecc08beb8fa-796957187.us-west-2.elb.amazonaws.com/api/notifications?eventId=' + id, requestOptions)
+            .then((response) => console.log('Success- Notifications ' + id + ' Deleted'))
+            .then(setDeletionStep(5))
+            .catch((error) => console.log(error));
+          break;
+        case 5:
           fetch('http://ad0bcd07c990f4a9d9879e71472608fa-1526526031.us-west-2.elb.amazonaws.com/api/event/' + id, requestOptions)
             .then((response) => console.log('Success- Event ' + id + ' Deleted'))
             .then((response) => setDeleteStatus('deleted'))
