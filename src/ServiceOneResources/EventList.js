@@ -47,10 +47,10 @@ export default function EventList() {
 
   return (
     <Container maxWidth='xl' sx={{padding: 2}}>
-      <TextField autoComplete id="searchBar" variant="standard" placeholder="Search Events By Name" value={searchQuery} onChange={(e)=> setSearchQuery(e.target.value)}/>
+      <TextField  id="searchBar" variant="standard" placeholder="Search Events By Name" value={searchQuery} onChange={(e)=> setSearchQuery(e.target.value)}/>
       <Stack className="userEvents" direction="row" useFlexGap flexWrap="wrap" justifyContent="center">
         {pageState > 1 ? (
-          <Button size="large" sx={{ marginRight: '16px', height: '225px', fontSize: '200px', paddingBottom: '35px' }} variant="text" onClick={() => setPageState(pageState - 1)}>
+          <Button size="large" sx={{ height: '200px', fontSize: '200px', paddingBottom: '35px', marginRight: 2}} variant="text" onClick={() => setPageState(pageState - 1)}>
             &#8249;
           </Button>
         ) : (
@@ -60,14 +60,16 @@ export default function EventList() {
           return <EventBrief event={event} key={event.id} />;
         })}
         {cardsPerPage * pageState < state.eventsList.length ? (
-          <Button size="large" sx={{ height: '225px', fontSize: '200px', paddingBottom: '35px' }} variant="text" onClick={() => setPageState(pageState + 1)}>
+          <Button size="large" sx={{ height: '200px', fontSize: '200px', paddingBottom: '35px' }} variant="text" onClick={() => setPageState(pageState + 1)}>
             &#8250;
           </Button>
         ) : (
           <></>
         )}
       </Stack>
-      <Typography color="text.secondary" marginLeft={88}>{pageState}/{totalPages}</Typography>
+      <Typography color="text.secondary" marginLeft={88}>
+        {pageState}/{totalPages}
+      </Typography>
     </Container>
   );
 }

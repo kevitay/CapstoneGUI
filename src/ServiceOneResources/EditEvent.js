@@ -4,9 +4,10 @@ import { useState, useContext } from 'react';
 import EventType from './EventType';
 import AuthContext from '../IdentityResources/Contexts/AuthContext';
 import { Box, Grid, FormControl, TextField, Button, Radio, RadioGroup, FormLabel, FormControlLabel } from '@mui/material';
+import InviteList from '../ServiceFourResources/InviteList/InviteList';
 
 
-function EditEvent({event, setCurrentEvent, setEditMode}) {
+function EditEvent({event, setCurrentEvent, setEditMode, editMode}) {
   // let { id } = useParams();
   // const location = useLocation();
   // const state = location.state;
@@ -68,8 +69,7 @@ function EditEvent({event, setCurrentEvent, setEditMode}) {
   
   return (
     <>
-      <h2>Edit Event</h2>
-
+      <h2>Edit My Event</h2>
       <form
         action=""
         method=""
@@ -89,7 +89,7 @@ function EditEvent({event, setCurrentEvent, setEditMode}) {
           sx={{
             marginTop: 6,
             marginLeft: '30%',
-            width: '50%',
+            width: '80%',
           }}
         >
           <FormControl sx={{ width: '50%' }}>
@@ -117,7 +117,8 @@ function EditEvent({event, setCurrentEvent, setEditMode}) {
             </FormControl>
             {/* might include Edit Itinerary component , might need to create logic to flow from editing basic event details to itinerary */}
             <Grid sx={{marginTop: 3, marginBottom: 3}}>
-              <Button sx={{ width: '48%', marginRight: 1}} variant="contained">
+
+        <Button sx={{ width: '48%', marginRight: 1}} variant="contained">
                 Submit
               </Button>
               <Button sx={{ width: '48%'}} variant="contained" onClick={() => setEditMode(false)}>
@@ -127,6 +128,7 @@ function EditEvent({event, setCurrentEvent, setEditMode}) {
           </FormControl>
         </Box>
       </form>
+      <InviteList editMode={editMode} event={event}></InviteList> 
     </>
   );
 }

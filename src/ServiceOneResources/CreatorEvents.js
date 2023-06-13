@@ -50,10 +50,8 @@ const totalPages = Math.ceil((filteredEvents?.length || 0) / cardsPerPage);
     <>
       {authState.username === "" || userEvents === null ? (
         <Paper sx={{textAlign: 'center', padding: 2}} elevation={3}>
-        <Stack spacing={{ xs: 1, sm: 2 }} direction="column " useFlexGap flexWrap="wrap" >
         <Typography variant='h4' fontWeight='bold' gutterBottom > Looks Like You haven't Created any Events! </Typography>
         <Button variant="contained" sx={{justifyContent: 'center'}}>Create Event</Button>
-        </Stack>
         </Paper>
       ) : (
         <Container maxWidth='xl' sx={{ marginTop: 2 }}>
@@ -75,7 +73,7 @@ const totalPages = Math.ceil((filteredEvents?.length || 0) / cardsPerPage);
                 size='large'
                 sx={{
                   marginRight: "16px",
-                  height: "225px",
+                  height: "200px",
                   fontSize: "200px",
                   paddingBottom: "35px",
                 }}
@@ -99,7 +97,7 @@ const totalPages = Math.ceil((filteredEvents?.length || 0) / cardsPerPage);
             {cardsPerPage * pageState < userEvents.length ? (
               <Button
                 size='large'
-                sx={{ height: "225px", fontSize: "200px", paddingBottom: "35px" }}
+                sx={{ height: "200px", fontSize: "200px", paddingBottom: "35px" }}
                 variant='text'
                 onClick={() => setPageState(pageState + 1)}
               >

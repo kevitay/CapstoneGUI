@@ -1,4 +1,5 @@
 import { ACTIONS, fetchFunction } from "./FetchFunctions";
+import Button from "@mui/material/Button";
 import React from "react";
 
 export default function ActivityDetails({states, setStates}) {
@@ -28,24 +29,24 @@ export default function ActivityDetails({states, setStates}) {
 
     return (
         <div>
-            {states.closeActivityDetailsButton && <button onClick={() => {setStates.setDisplayActivityDetails({}); setStates.setCloseActivityDetailsButton(false)}}>Close Details</button>}
 
-            {states.userIsOwner && states.displayActivityDetails.id && states.closeActivityDetailsButton && <button onClick={() => {
+            {states.userIsOwner && states.displayActivityDetails.id && states.closeActivityDetailsButton && <Button onClick={() => {
                 setStates.setEditForm(true)
                 setStates.setCloseActivityDetailsButton(false);
-            }}>Edit Activity</button>}
+            }} variant="contained">Edit Activity</Button>}
             
 
 
 
 
-            {states.userIsOwner && states.displayActivityDetails.id && states.closeActivityDetailsButton && <button onClick={() => {
+            {states.userIsOwner && states.displayActivityDetails.id && states.closeActivityDetailsButton && <Button onClick={() => {
                 const confirmed = window.confirm("Are you sure you want to delete this activity?");
                 if (confirmed) {
                     fetchFunction({ type: ACTIONS.DELETE_ACTIVITY, payload:states.displayActivityDetails, dispatch: setStates.setItineraryJSON, itinerary: states.itineraryJSON, authState: states.authState });
                     setStates.setDisplayActivityDetails({});
                     setStates.setCloseActivityDetailsButton(false);
-            }}}>Delete Activity</button>}
+                }}} variant="contained">Delete Activity</Button>}
+            
 
             <ul>
             {!states.editForm && Object.entries(states.displayActivityDetails).map(([key, value], index) => value && <li key={index}><h4>{key}</h4><p>{value}</p></li>)}

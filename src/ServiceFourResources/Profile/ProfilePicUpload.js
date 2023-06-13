@@ -74,7 +74,7 @@ function ProfilePicUpload({fetchProfilePicture}){
     };
     return (
         <>
-        <Button variant="contained" onClick={handleOpen} sx={{ml:'4em',mt:'1em',mr:'13em',mb: '1em',maxBlockSize:'2em',width:'11em', height:'3em', fontSize:'.5em'}}>
+        <Button variant="contained" onClick={handleOpen} sx={{ml:'4em',mt:'1em',mr:'8em',mb: '2em',maxBlockSize:'2em',width:'15em', height:'3em', fontSize:'.5em'}}>
             Change pic
         </Button>
         <Modal
