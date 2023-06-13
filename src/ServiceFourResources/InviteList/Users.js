@@ -21,6 +21,9 @@ function Users({ setCreationStep, event, editMode }) {
   const [loading, setLoadState] = useState(false);
   const [page, setPage] = useState(0);
   const [rowsPerPage, setRowsPerPage] = useState(5);
+  const [selectedUsers, setInvite] = useState([]);
+  const [notifyUsers, setlistforNotifications] = useState([]);
+  
 
   useEffect(() => {
     var requestOptions = {
@@ -39,19 +42,21 @@ function Users({ setCreationStep, event, editMode }) {
   }, []);
 
   function stateReset(e) {
+    e.preventDefault();
     setResetStatus(!resetStatus);
     console.log(originalState);
-    e.preventDefault();
     setUser(originalState);
   }
 
-  let selectedUsers = [];
+  // let selectedUsers = [];
 
   function sendInvite(e) {
     e.preventDefault();
+    setlistforNotifications(selectedUsers)
+  
     var myHeaders = new Headers();
     myHeaders.append("Content-Type", "application/json");
-    selectedUsers.forEach(userName => {
+    notifyUsers.forEach(userName => {
       var raw = JSON.stringify({
         "eventId": event.id,
         "messageFrom": event.creatorID,
@@ -83,6 +88,8 @@ function Users({ setCreationStep, event, editMode }) {
           console.log('here is the ERROR', error)
         });
     });
+    // setInvite([])
+    // setlistforNotifications([])
   }
 
   function toItinerary(e) {
@@ -128,7 +135,7 @@ function Users({ setCreationStep, event, editMode }) {
                   userState
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((user) => (
-                      <UserData key={user.username} selectedUsers={selectedUsers} invitee={user} />
+                      <UserData key={user.username} selectedUsers={selectedUsers} invitee={user} setInvite={setInvite} />
                     ))
                 )}
                 {emptyRows > 0 && (

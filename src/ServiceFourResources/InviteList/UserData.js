@@ -1,17 +1,21 @@
 import React from "react";
 import {TableRow, TableCell, Checkbox } from '@mui/material'
 
-function UserData({ selectedUsers, invitee }) {
+function UserData({ selectedUsers, invitee, setInvite}) {
 
     function captureSelection(e) {
         let isChecked = e.target.checked;
         if (isChecked) {
-            selectedUsers.push(e.target.id);
+            // selectedUsers.push(e.target.id);
+            setInvite([...selectedUsers, e.target.id])
         } else {
-            let index = selectedUsers.indexOf(e.target.id);
+            let list = selectedUsers
+            let index = list.indexOf(e.target.id);
             if (index !== -1) {
-                selectedUsers.splice(index, 1);
+                list.splice(index, 1);
+                setInvite(list)
             }
+
         }
     }
 
