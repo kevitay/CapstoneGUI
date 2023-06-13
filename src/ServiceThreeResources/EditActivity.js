@@ -1,8 +1,17 @@
 import { ACTIONS, fetchFunction } from "./FetchFunctions";
 import Button from "@mui/material/Button";
-import React from "react";
+import React, { useState } from "react";
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+import { FormGroup, FormControl, FormLabel, FormControlLabel, Stack, RadioGroup, Radio, Checkbox, Select, MenuItem } from '@mui/material';
+import { DateTimePicker } from '@mui/x-date-pickers';
+import { LocalizationProvider } from "@mui/x-date-pickers";
+import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 export default function DateSelector({formatDate, states, setStates, activity}) {
+
+    const [startTime, setStartTime] = useState(new Date());
+    const [endTime, setEndTime] = useState(new Date());
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -25,161 +34,137 @@ export default function DateSelector({formatDate, states, setStates, activity}) 
     }
     
     return (
-    <div>
-            {states.editForm && <div>
-            <form onSubmit={(event) => handleSubmit(event)}>
-                <label>Activity Name
-                <input defaultValue={activity.activityName} name= "activityName" label="Activity Name" required/>
-                </label>
-                <br/>
+        <Box>
+        <form onSubmit={(event) => handleSubmit(event)}>
+            <FormControl>
+            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <Stack spacing={2} sx={{marginBottom: 2, marginLeft: 4.75}}>
+      
+            <TextField label='Activity Name'name="activityName" id="outlined-size-small" defaultValue="" size="small" required/>          
+            <TextField label='Description' multiline name="description" id="outlined-size-small" size="small"/>
+            </Stack>
 
-                <label>Description
-                <input defaultValue={activity.description} name="description" label="Description"/>
-                </label>
-                <br/>
+            <Stack spacing={2} sx={{marginLeft: 4.75}}>
+            <FormLabel id="indoor-outdoor-radio-group" sx={{display: 'inline'}}>Indoor/Outdoor</FormLabel>
+            </Stack>
 
-                <label>Outdoor
-                <input name="indoor" value="false" type="radio" label="Outdoor"/>
-                </label>
-                <label>Indoor
-                <input name="indoor" value="true" type="radio" label="Indoor"/>
-                </label>
-                <br/>
-                
-                <label>Image URL
-                <input defaultValue={activity.imageURL} name="imageURL" label="Image URL"/>
-                </label>
-                <br/>
-                
-                <label>Important Reminder
-                <input defaultValue={activity.importantReminder} name="importantReminder" label="Important Reminder"/>
-                </label>
-                <br/>
-                
-                <label>Group Size
-                <input defaultValue={activity.groupSize} name="groupSize" type="number" label="Group Size"/>
-                </label>
-                <br/>
-                
-                <label>mandatory
-                <input name="mandatory" value="true" type="checkbox" label="mandatory"/>
-                </label>
-                <br/>
-                
-                <label>price
-                <input defaultValue={activity.price} name="price" type="number" label="price"/>
-                </label>
-                <br/>
-                
-                <label>Type
-                <select name="type" label="Activity Name">
-                    <option defaultValue={activity.type}></option>
-                    <option value="Music">Music</option>
-                    <option value="Sports">Sports</option>
-                    <option value="Professional">Professional</option>
-                    <option value="Meals">Meals</option>
-                    <option value="Education">Education</option>
-                    <option value="Festivals">Festivals</option>
-                    <option value="Family">Family</option>
-                    <option value="Entertainment">Entertainment</option>
-                </select>
-                </label>
-                <br/>
-                
-                <label>Event URL
-                <input defaultValue={activity.url} name="url" label="Event URL"/>
-                </label>
-                <br/>
-                
-                <label>Address
-                <input defaultValue={activity.address} name="address" label="Address"/>
-                </label>
-                <br/>
-                
-                <label>City
-                <input defaultValue={activity.city} name="city" label="City"/>
-                </label>
-                <br/>
-                
-                <label>State
-                <select name="state" label="State">
-                    <option defaultValue={activity.state}></option>
-                    <option value="AL">Alabama</option>
-                    <option value="AK">Alaska</option>
-                    <option value="AZ">Arizona</option>
-                    <option value="AR">Arkansas</option>
-                    <option value="CA">California</option>
-                    <option value="CO">Colorado</option>
-                    <option value="CT">Connecticut</option>
-                    <option value="DE">Delaware</option>
-                    <option value="DC">District Of Columbia</option>
-                    <option value="FL">Florida</option>
-                    <option value="GA">Georgia</option>
-                    <option value="HI">Hawaii</option>
-                    <option value="ID">Idaho</option>
-                    <option value="IL">Illinois</option>
-                    <option value="IN">Indiana</option>
-                    <option value="IA">Iowa</option>
-                    <option value="KS">Kansas</option>
-                    <option value="KY">Kentucky</option>
-                    <option value="LA">Louisiana</option>
-                    <option value="ME">Maine</option>
-                    <option value="MD">Maryland</option>
-                    <option value="MA">Massachusetts</option>
-                    <option value="MI">Michigan</option>
-                    <option value="MN">Minnesota</option>
-                    <option value="MS">Mississippi</option>
-                    <option value="MO">Missouri</option>
-                    <option value="MT">Montana</option>
-                    <option value="NE">Nebraska</option>
-                    <option value="NV">Nevada</option>
-                    <option value="NH">New Hampshire</option>
-                    <option value="NJ">New Jersey</option>
-                    <option value="NM">New Mexico</option>
-                    <option value="NY">New York</option>
-                    <option value="NC">North Carolina</option>
-                    <option value="ND">North Dakota</option>
-                    <option value="OH">Ohio</option>
-                    <option value="OK">Oklahoma</option>
-                    <option value="OR">Oregon</option>
-                    <option value="PA">Pennsylvania</option>
-                    <option value="RI">Rhode Island</option>
-                    <option value="SC">South Carolina</option>
-                    <option value="SD">South Dakota</option>
-                    <option value="TN">Tennessee</option>
-                    <option value="TX">Texas</option>
-                    <option value="UT">Utah</option>
-                    <option value="VT">Vermont</option>
-                    <option value="VA">Virginia</option>
-                    <option value="WA">Washington</option>
-                    <option value="WV">West Virginia</option>
-                    <option value="WI">Wisconsin</option>
-                    <option value="WY">Wyoming</option>
-                </select>
-                </label>
-                <br/>
-                
-                <label>Zip Code
-                <input defaultValue={activity.zip} name="zip" type="number" label="Zip Code"/>
-                </label>
-                <br/>
-                
-                <label>Start Time
-                <input defaultValue={activity.startTime} name="startTime" type="datetime-local" label="Start Time" required/>
-                </label>
-                <br/>
-                
-                <label>End Time
-                <input defaultValue={activity.endTime} name="endTime" type="datetime-local" label="End Time"/>
-                </label>
-                <br/>
+            <Stack spacing={2} sx={{marginBottom: 2, marginLeft: 4.75}}>
+            <RadioGroup row name="indoor-outdoor-radio-group">
+            <FormControlLabel label='Outdoor' id="outdoor" name="indoor" value="false" control={<Radio />}/>
+            <FormControlLabel label='Indoor' id="indoor" name="indoor" value="true" control={<Radio />}/>
+            </RadioGroup>
+            </Stack>
+            
+            <Stack spacing={2} sx={{marginBottom: 2, marginLeft: 4.75}}>
+            <TextField label='Image URL' name="imageURL" id="outlined-size-small" defaultValue="" size="small"/>    
+            <TextField label='Important Reminder' name="importantReminder" id="outlined-size-small" defaultValue="" size="small"/>
+            <TextField label='Group Size' name="groupSize" type="number" id="outlined-size-small" defaultValue="" size="small"/>
+            </Stack>
 
-                <input value="Save Changes" type="submit" ></input>
-            </form>
-            <Button onClick={() => {
-                setStates.setEditForm(false)
-            }}>Cancel</Button>
-        </div>}
-    </div>
+            <Stack spacing={2} sx={{marginBottom: 0, marginLeft: 4.75}}>
+            <FormLabel id="mandatory-checkbox">Is Activity Mandatory?</FormLabel>
+            </Stack>
+          
+            <FormGroup>
+            <Stack spacing={0} sx={{marginBottom: 2, marginLeft: 4.75}}>
+            <Checkbox label='Mandatory' name="mandatory" value="true" size="small" style={{ width: "20px", padding:2 }}/>
+            </Stack>
+            </FormGroup>
+
+            <Stack spacing={2} sx={{marginBottom: 4, marginLeft: 4.75}}>
+            <TextField label='Price' name="price" type="number" id="outlined-size-small" defaultValue="" size="small"/>
+            
+            <FormGroup>
+            <FormLabel id="type-select">Activity Type</FormLabel>
+            <Select name="type" variant="outlined" style={{ height: '2.5em' }} defaultValue="">
+                <MenuItem value=""></MenuItem>
+                <MenuItem value="Music">Music</MenuItem>
+                <MenuItem value="Sports">Sports</MenuItem>
+                <MenuItem value="Professional">Professional</MenuItem>
+                <MenuItem value="Meals">Meals</MenuItem>
+                <MenuItem value="Education">Education</MenuItem>
+                <MenuItem value="Festivals">Festivals</MenuItem>
+                <MenuItem value="Family">Family</MenuItem>
+                <MenuItem value="Entertainment">Entertainment</MenuItem>
+            </Select>
+            </FormGroup>
+            
+            <TextField label='Activity URL' name="url" id="outlined-size-small" defaultValue="" size="small"/>
+            
+            <TextField label='Address' name="address" id="outlined-size-small" defaultValue="" size="small"/>
+
+            <TextField label='City' name="city" id="outlined-size-small" defaultValue="" size="small"/>
+      
+            <FormGroup>
+            <FormLabel id="state-select">State</FormLabel>
+            <Select name="state" style={{ height: '2.5em' }} defaultValue="">
+                <MenuItem value=""></MenuItem>
+                <MenuItem value="AL">Alabama</MenuItem>
+                <MenuItem value="AK">Alaska</MenuItem>
+                <MenuItem value="AZ">Arizona</MenuItem>
+                <MenuItem value="AR">Arkansas</MenuItem>
+                <MenuItem value="CA">California</MenuItem>
+                <MenuItem value="CO">Colorado</MenuItem>
+                <MenuItem value="CT">Connecticut</MenuItem>
+                <MenuItem value="DE">Delaware</MenuItem>
+                <MenuItem value="DC">District Of Columbia</MenuItem>
+                <MenuItem value="FL">Florida</MenuItem>
+                <MenuItem value="GA">Georgia</MenuItem>
+                <MenuItem value="HI">Hawaii</MenuItem>
+                <MenuItem value="ID">Idaho</MenuItem>
+                <MenuItem value="IL">Illinois</MenuItem>
+                <MenuItem value="IN">Indiana</MenuItem>
+                <MenuItem value="IA">Iowa</MenuItem>
+                <MenuItem value="KS">Kansas</MenuItem>
+                <MenuItem value="KY">Kentucky</MenuItem>
+                <MenuItem value="LA">Louisiana</MenuItem>
+                <MenuItem value="ME">Maine</MenuItem>
+                <MenuItem value="MD">Maryland</MenuItem>
+                <MenuItem value="MA">Massachusetts</MenuItem>
+                <MenuItem value="MI">Michigan</MenuItem>
+                <MenuItem value="MN">Minnesota</MenuItem>
+                <MenuItem value="MS">Mississippi</MenuItem>
+                <MenuItem value="MO">Missouri</MenuItem>
+                <MenuItem value="MT">Montana</MenuItem>
+                <MenuItem value="NE">Nebraska</MenuItem>
+                <MenuItem value="NV">Nevada</MenuItem>
+                <MenuItem value="NH">New Hampshire</MenuItem>
+                <MenuItem value="NJ">New Jersey</MenuItem>
+                <MenuItem value="NM">New Mexico</MenuItem>
+                <MenuItem value="NY">New York</MenuItem>
+                <MenuItem value="NC">North Carolina</MenuItem>
+                <MenuItem value="ND">North Dakota</MenuItem>
+                <MenuItem value="OH">Ohio</MenuItem>
+                <MenuItem value="OK">Oklahoma</MenuItem>
+                <MenuItem value="OR">Oregon</MenuItem>
+                <MenuItem value="PA">Pennsylvania</MenuItem>
+                <MenuItem value="RI">Rhode Island</MenuItem>
+                <MenuItem value="SC">South Carolina</MenuItem>
+                <MenuItem value="SD">South Dakota</MenuItem>
+                <MenuItem value="TN">Tennessee</MenuItem>
+                <MenuItem value="TX">Texas</MenuItem>
+                <MenuItem value="UT">Utah</MenuItem>
+                <MenuItem value="VT">Vermont</MenuItem>
+                <MenuItem value="VA">Virginia</MenuItem>
+                <MenuItem value="WA">Washington</MenuItem>
+                <MenuItem value="WV">West Virginia</MenuItem>
+                <MenuItem value="WI">Wisconsin</MenuItem>
+                <MenuItem value="WY">Wyoming</MenuItem>
+            </Select>
+            </FormGroup>
+            
+            <TextField label='Zip Code' name="zip" type="number" id="outlined-size-small" defaultValue="" size="small"/>
+            
+            <DateTimePicker label='Start Time*' style={{ height: '2.5em' }} onChange={date => setStartTime(date)} id="outlined-size-small" size="small" required />
+            
+            <DateTimePicker label='End Time*' style={{ height: '2.5em' }} onChange={date => setEndTime(date)} id="outlined-size-small" size="small" required/>
+
+            <Button value="Save Activity" type="submit" variant="contained">Save Activity</Button>
+            
+            </Stack>
+            </LocalizationProvider>
+            </FormControl>
+        </form>
+    </Box>
     )
 }
