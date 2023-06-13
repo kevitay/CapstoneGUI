@@ -22,7 +22,7 @@ export default function DeleteEvent({ id, setDeleted }) {
       var requestOptions = {
         method: 'DELETE',
         mode: 'cors',
-        headers: myHeaders
+        headers: myHeaders,
       };
 
       switch (deletionStep) {
@@ -67,15 +67,17 @@ export default function DeleteEvent({ id, setDeleted }) {
     handleDeleteEvent();
   }, [deletionStep, id, setDeleteStatus, authState, setDeleted]);
 
-    function handleReturnToEvents() {
-      //navigates to event list
-      navigate("/myEvents/");
-    }
+  function handleReturnToEvents() {
+    //navigates to event list
+    navigate('/myEvents/');
+  }
 
   return (
     <>
       {deleteStatus === 'preDelete' ? (
-        <Button size="small" variant='outlined'
+        <Button
+          size="small"
+          variant="outlined"
           onClick={() => {
             // handleDeleteEvent();
             setDeletionStep(1);
@@ -88,7 +90,9 @@ export default function DeleteEvent({ id, setDeleted }) {
       )}
       {deleteStatus === 'pending' ? <p>Deleting...</p> : <></>}
       {deleteStatus === 'deleted' ? (
-          <Button variant='outlined' onClick={handleReturnToEvents}>Return to Events</Button>
+        <Button variant="outlined" onClick={handleReturnToEvents}>
+          Return to Events
+        </Button>
       ) : (
         <></>
       )}
