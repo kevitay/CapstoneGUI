@@ -404,6 +404,7 @@ export default function Event() {
                 setDeleted={setDeleted}
                 addMode={addMode}
                 setAddMode={setAddMode}
+                setExpanded={setExpanded}
               />
             </Box>
           ) : (

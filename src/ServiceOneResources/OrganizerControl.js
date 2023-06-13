@@ -4,7 +4,7 @@ import CancelEvent from "./CancelEvent";
 import { Button, Divider, Stack, Typography } from "@mui/material";
 // import { Link } from "react-router-dom";
 
-function OrganizerControl({ event, setCurrentEvent, editMode, setEditMode, setDeleted, setAddMode, addMode }) {
+function OrganizerControl({ event, setCurrentEvent, editMode, setEditMode, setDeleted, setAddMode, addMode, setExpanded }) {
   return (
     <div>
       <Typography variant="h6">Organizer Options</Typography>
@@ -20,7 +20,7 @@ function OrganizerControl({ event, setCurrentEvent, editMode, setEditMode, setDe
         <Button size="small" variant="outlined" disabled={editMode} type="button" onClick={() => setEditMode(true)}>
           Edit Event
         </Button>
-        <Button size="small" variant="outlined" disabled={addMode} type="button" onClick={() => setAddMode(true)}>
+        <Button size="small" variant="outlined" disabled={addMode} type="button" onClick={() => {setExpanded("panel2"); setAddMode(true)}}>
           ADD Participants
         </Button>
         {event.status === "cancelled" ?
