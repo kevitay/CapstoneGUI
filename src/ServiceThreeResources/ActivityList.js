@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 // import Button from "@mui/material/Button";
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
+import Button from "@mui/material/Button";
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
 import Table from '@mui/material/Table';
@@ -15,6 +16,7 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import EditAndDelete from "./EditAndDelete"
 
 export default function ActivityList({ formatDate, states, setStates, setDateArray }) {
     const [dateObject, setDateObject] = useState({});
@@ -84,6 +86,7 @@ export default function ActivityList({ formatDate, states, setStates, setDateArr
                     <TableCell align="left">{row.address}</TableCell>
                     <TableCell align="left">{row.startTime}</TableCell>
                     <TableCell align="left">{row.endTime}</TableCell>
+                    <TableCell align="left"><EditAndDelete states={states} setStates={setStates} /></TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -177,6 +180,7 @@ export default function ActivityList({ formatDate, states, setStates, setDateArr
                                         <TableCell>Address</TableCell>
                                         <TableCell>Start Time</TableCell>
                                         <TableCell>End Time</TableCell>
+                                        <TableCell>Settings</TableCell>
                                     </TableRow>
                                     </TableHead>
                                     {dateObject[date]

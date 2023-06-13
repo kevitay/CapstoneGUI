@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useContext } from "react";
 import ActivityList from "./ActivityList";
-import ActivityDetails from "./ActivityDetails";
 import DateSelector from "./DateSelector";
 import CreateNewActivity from "./CreateNewActivity";
 import { fetchFunction, ACTIONS } from "./FetchFunctions";
@@ -47,7 +46,7 @@ return (
 
         <ActivityList formatDate={formatDate} states={states} setStates={setStates} setDateArray={setDateArray}/>
         
-        <ActivityDetails states={states} setStates={setStates}/> 
+        {/* <ActivityDetails states={states} setStates={setStates}/>  */}
     </div>
   );
 }

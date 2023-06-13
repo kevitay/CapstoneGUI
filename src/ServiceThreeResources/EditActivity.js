@@ -2,9 +2,7 @@ import { ACTIONS, fetchFunction } from "./FetchFunctions";
 import Button from "@mui/material/Button";
 import React from "react";
 
-export default function ActivityDetails({states, setStates}) {
-
-
+export default function DateSelector({formatDate, states, setStates}) {
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -26,32 +24,9 @@ export default function ActivityDetails({states, setStates}) {
             setStates.setDisplayActivityDetails(activityJSON)
         }
     }
-
+    
     return (
-        <div>
-
-            {states.userIsOwner && states.displayActivityDetails.id && states.closeActivityDetailsButton && <Button onClick={() => {
-                setStates.setEditForm(true)
-                setStates.setCloseActivityDetailsButton(false);
-            }} variant="contained">Edit Activity</Button>}
-            
-
-
-
-
-            {states.userIsOwner && states.displayActivityDetails.id && states.closeActivityDetailsButton && <Button onClick={() => {
-                const confirmed = window.confirm("Are you sure you want to delete this activity?");
-                if (confirmed) {
-                    fetchFunction({ type: ACTIONS.DELETE_ACTIVITY, payload:states.displayActivityDetails, dispatch: setStates.setItineraryJSON, itinerary: states.itineraryJSON, authState: states.authState });
-                    setStates.setDisplayActivityDetails({});
-                    setStates.setCloseActivityDetailsButton(false);
-                }}} variant="contained">Delete Activity</Button>}
-            
-
-            {/* <ul>
-            {!states.editForm && Object.entries(states.displayActivityDetails).map(([key, value], index) => value && <li key={index}><h4>{key}</h4><p>{value}</p></li>)}
-            </ul> */}
-
+    <div>
             {states.editForm && <div>
             <form onSubmit={(event) => handleSubmit(event)}>
                 <label>Activity Name
@@ -207,6 +182,6 @@ export default function ActivityDetails({states, setStates}) {
                 setStates.setEditForm(false)
             }}>Cancel</Button>
         </div>}
-        </div>
+    </div>
     )
 }
