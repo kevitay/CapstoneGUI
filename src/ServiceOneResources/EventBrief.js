@@ -28,7 +28,6 @@ export default function EventBrief({ event }) {
   }
 
   function locationFormatter(location) {
-    console.log(location)
     if (location === null) {
       return 'TBD';
     } else if (location.address === '') {
