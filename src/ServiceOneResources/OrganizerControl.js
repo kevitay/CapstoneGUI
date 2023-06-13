@@ -7,19 +7,23 @@ import { Button, Divider, Stack, Typography } from "@mui/material";
 function OrganizerControl({ event, setCurrentEvent, editMode, setEditMode }) {
   return (
     <div>
-      <Typography variant='h6' >Organizer Options</Typography>
-      <Divider/>
+      <Typography variant="h6">Organizer Options</Typography>
+      <Divider />
       {/* Show participants moved to Post MVP */}
       {/* <input type='checkbox' id='participants' name='participants' value='participants'></input>
       <label htmlFor='participants'>Show Participants</label> */}
-      
+
       {/* <Link to={`/serviceOne/editEvent/${event.id}`} state={event}>
         <button>Edit Event</button>
       </Link> */}
       <Stack direction="column" spacing={1}>
-      <Button variant="outlined" disabled={editMode} type="button" onClick={() => setEditMode(true)}>Edit Event</Button>
-      <CancelEvent event={event} setCurrentEvent={setCurrentEvent} />
-      <DeleteEvent id={event.id} />
+        <Button size="small" variant="outlined" disabled={editMode} type="button" onClick={() => setEditMode(true)}>
+          Edit Event
+        </Button>
+        {event.status === "cancelled" ?
+          (<></>) : (<CancelEvent event={event} setCurrentEvent={setCurrentEvent} />)
+        }
+        <DeleteEvent id={event.id} />
       </Stack>
     </div>
   );

@@ -186,6 +186,7 @@ export default function Event() {
                   sx={{
                     p: 2,
                     margin: "auto",
+                    height: "auto",
                     maxWidth: "100%",
                     flexGrow: 1,
                     backgroundColor: (theme) =>
@@ -210,7 +211,7 @@ export default function Event() {
                         <Grid item xs>
                           <Typography
                             variant='h4'
-                            sx={{ width: "75%", flexShrink: 0, fontWeight: "bold" }}
+                            sx={{ width: "75%", flexShrink: 0, fontWeight: "bold"}}
                           >
                             {currentEvent.name}
                             <EventImageNav eventId={id}/>
@@ -357,8 +358,8 @@ export default function Event() {
                 borderRadius: "10px",
                 boxShadow: "0px 2px 6px rgba(0, 0, 0, 0.15)",
                 padding: 2,
-                height: "20vh",
-                width: "20vh",
+                height: "25vh",
+                width: "auto",
                 backgroundColor: (theme) => (theme.palette.mode === "dark" ? "#1A2027" : "#fff"),
               }}
             >

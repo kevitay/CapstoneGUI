@@ -34,6 +34,7 @@ export default function CancelEvent({ event, setCurrentEvent }) {
   return (
     <>
       <Button variant='outlined'
+      size='small'
         onClick={() => {
           handleCancelEvent();
         }}
