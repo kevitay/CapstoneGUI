@@ -48,9 +48,9 @@ export default function ActivityDetails({states, setStates}) {
                 }}} variant="contained">Delete Activity</Button>}
             
 
-            <ul>
+            {/* <ul>
             {!states.editForm && Object.entries(states.displayActivityDetails).map(([key, value], index) => value && <li key={index}><h4>{key}</h4><p>{value}</p></li>)}
-            </ul>
+            </ul> */}
 
             {states.editForm && <div>
             <form onSubmit={(event) => handleSubmit(event)}>
@@ -202,10 +202,10 @@ export default function ActivityDetails({states, setStates}) {
 
                 <input value="Save Changes" type="submit" ></input>
             </form>
-            <button onClick={() => {
+            <Button onClick={() => {
                 setStates.setCloseActivityDetailsButton(true);
                 setStates.setEditForm(false)
-            }}>Cancel</button>
+            }}>Cancel</Button>
         </div>}
         </div>
     )

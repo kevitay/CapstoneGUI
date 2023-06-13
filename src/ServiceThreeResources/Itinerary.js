@@ -5,8 +5,7 @@ import DateSelector from "./DateSelector";
 import CreateNewActivity from "./CreateNewActivity";
 import { fetchFunction, ACTIONS } from "./FetchFunctions";
 import AuthContext from '../IdentityResources/Contexts/AuthContext';
-
-
+import Button from "@mui/material/Button";
 
 function Itinerary({eventId, creationStep, setCreationStep, userIsOwner}) {
   const [authState] = useContext(AuthContext);
@@ -27,18 +26,20 @@ const setStates = {setItineraryJSON, setDisplayActivityDetails, setDateArray, se
 
 const formatDate = function(date){
         const tempDate = new Date(date);
+        // tempDate.setHours(23, 59, 59, 999);
         const newDate = tempDate.toLocaleDateString('en-US', {
             year: 'numeric',
             month: 'long',
-            day: 'numeric'
+            day: 'numeric',
+            timeZone: 'UTC'
         });
-
+        // newDate.day++;
         return newDate;
 }
 
 return (
     <div className="Itinerary">
-        {creationStep === 3 && <button onClick={() => setCreationStep(4)}>Next</button>}
+        {creationStep === 3 && <Button onClick={() => setCreationStep(4)}>Next</Button>}
 
         {userIsOwner && <CreateNewActivity states={states} setStates={setStates} eventId={eventId}/>}
 
