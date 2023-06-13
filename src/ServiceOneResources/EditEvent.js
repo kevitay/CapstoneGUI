@@ -118,7 +118,7 @@ function EditEvent({event, setCurrentEvent, setEditMode, editMode}) {
             {/* might include Edit Itinerary component , might need to create logic to flow from editing basic event details to itinerary */}
             <Grid sx={{marginTop: 3, marginBottom: 3}}>
 
-        <Button sx={{ width: '48%', marginRight: 1}} variant="contained">
+        <Button sx={{ width: '48%', marginRight: 1}} variant="contained" type="submit">
                 Submit
               </Button>
               <Button sx={{ width: '48%'}} variant="contained" onClick={() => setEditMode(false)}>
