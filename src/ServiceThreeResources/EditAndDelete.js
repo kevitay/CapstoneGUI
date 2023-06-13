@@ -2,7 +2,7 @@ import { ACTIONS, fetchFunction } from "./FetchFunctions";
 import Button from "@mui/material/Button";
 import React from "react";
 
-export default function EditAndDelete({activity, states, setStates}) {
+export default function EditAndDelete({setCurrentActivity, activity, states, setStates}) {
 
 
 
@@ -13,7 +13,7 @@ export default function EditAndDelete({activity, states, setStates}) {
             {/* EDIT BUTTON */}
             {states.userIsOwner && <Button onClick={() => {
                 setStates.setEditForm(true)
-                {console.log("EDIT FORM", states.editForm)}
+                setCurrentActivity(activity);
             }} variant="contained">Edit Activity</Button>}
 
             {/* DELETE BUTTON */}
