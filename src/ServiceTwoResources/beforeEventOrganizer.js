@@ -1,13 +1,11 @@
 import React from "react";
 import BeforeEvent from "./beforeEvent";
 import { Button, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+
 
 function BeforeEventOrganizer({ eventId, setCreationStep }) {
-    const navigate = useNavigate();
     function handleEventClick() {
         setCreationStep(5);
-        navigate(`/serviceOne/event/${eventId}`);
     }
     return (
         <>
