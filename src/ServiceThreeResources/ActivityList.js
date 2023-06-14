@@ -39,7 +39,7 @@ export default function ActivityList({ formatDate, states, setStates }) {
 
         setDateObject(tempDateObject)
         setStates.setDateArray(tempDateArray)
-    }, [states.itineraryJSON, setDateObject, setStates.setDateArray]);
+    }, [states.itineraryJSON, setDateObject, setStates]);
 
     function createData(activity) {
         return {

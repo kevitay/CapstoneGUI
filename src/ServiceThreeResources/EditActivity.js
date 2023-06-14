@@ -10,8 +10,8 @@ import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
 export default function DateSelector({states, setStates, activity}) {
 
-    const [startTime, setStartTime] = useState(new Date());
-    const [endTime, setEndTime] = useState(new Date());
+    const [setStartTime] = useState(new Date());
+    const [setEndTime] = useState(new Date());
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -150,7 +150,7 @@ export default function DateSelector({states, setStates, activity}) {
             
             <TextField label='Zip Code' name="zip" type="number" id="outlined-size-small" defaultValue={activity.zip} size="small"/>
             
-            <DateTimePicker label='Start Time*' style={{ height: '2.5em' }} onChange={date => setStartTime(date)} id="outlined-size-small" size="small" required />
+            <DateTimePicker label='Start Time*' style={{ height: '2.5em' }} onChange={date => setStartTime(date)} id="outlined-size-small" size="small" required  />
             
             <DateTimePicker label='End Time*' style={{ height: '2.5em' }} onChange={date => setEndTime(date)} id="outlined-size-small" size="small" required/>
 

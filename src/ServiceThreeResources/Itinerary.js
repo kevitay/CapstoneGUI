@@ -5,7 +5,7 @@ import CreateNewActivity from "./CreateNewActivity";
 import { fetchFunction, ACTIONS } from "./FetchFunctions";
 import AuthContext from '../IdentityResources/Contexts/AuthContext';
 import Button from "@mui/material/Button";
-import { Box, FormGroup, FormControl, FormLabel, FormControlLabel, Stack, RadioGroup, Radio, Checkbox, Select, MenuItem } from '@mui/material'
+import { Stack } from '@mui/material'
 
 
 function Itinerary({eventId, creationStep, setCreationStep, userIsOwner}) {
