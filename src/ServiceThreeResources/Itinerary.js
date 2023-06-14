@@ -44,7 +44,7 @@ return (
 
         {userIsOwner && <CreateNewActivity states={states} setStates={setStates} eventId={eventId}/>}
 
-        <DateSelector formatDate={formatDate} states={states} setStates={setStates}/>
+        <DateSelector formatDate={formatDate} states={states} setStates={setStates} />
 
         <ActivityList formatDate={formatDate} states={states} setStates={setStates} setDateArray={setDateArray}/>
 

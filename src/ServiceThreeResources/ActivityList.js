@@ -16,7 +16,7 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 import EditAndDelete from "./EditAndDelete"
 import EditActivity from "./EditActivity"
 
-export default function ActivityList({ formatDate, states, setStates }) {
+export default function ActivityList({ formatDate, states, setStates, setDateArray}) {
     const [dateObject, setDateObject] = useState({});
     const [currentActivity, setCurrentActivity] = useState(0);
 
@@ -38,8 +38,8 @@ export default function ActivityList({ formatDate, states, setStates }) {
         tempDateArray.sort();
 
         setDateObject(tempDateObject)
-        setStates.setDateArray(tempDateArray)
-    }, [states.itineraryJSON, setDateObject, setStates]);
+        setDateArray(tempDateArray)
+    }, [states.itineraryJSON, setDateObject, setDateArray]);
 
     function createData(activity) {
         return {
