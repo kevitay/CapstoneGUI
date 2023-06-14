@@ -34,40 +34,36 @@ export default function ActivityForm({setForm, states, setStates, eventId}) {
             <form onSubmit={(event) => handleSubmit(event)}>
                 <FormControl>
                 <LocalizationProvider dateAdapter={AdapterDayjs}>
-                <Stack spacing={2} sx={{marginBottom: 2}}>
+                <Stack spacing={2} sx={{marginBottom: 2, marginLeft: 4.75}}>
           
                 <TextField label='Activity Name'name="activityName" id="outlined-size-small" defaultValue="" size="small" required/>          
                 <TextField label='Description' multiline name="description" id="outlined-size-small" size="small"/>
                 </Stack>
 
-                <Stack spacing={2}>
-                <FormLabel id="indoor-outdoor-radio-group" sx={{display: 'inline'}}>Indoor/Outdoor</FormLabel>
-                </Stack>
-
-                <Stack spacing={2} sx={{marginBottom: 2}}>
+                <Stack spacing={2} sx={{marginBottom: 2, marginLeft: 4.75}}>
                 <RadioGroup row name="indoor-outdoor-radio-group">
                 <FormControlLabel label='Outdoor' id="outdoor" name="indoor" value="false" control={<Radio />}/>
                 <FormControlLabel label='Indoor' id="indoor" name="indoor" value="true" control={<Radio />}/>
                 </RadioGroup>
                 </Stack>
                 
-                <Stack spacing={2} sx={{marginBottom: 2}}>
+                <Stack spacing={2} sx={{marginBottom: 2, marginLeft: 4.75}}>
                 <TextField label='Image URL' name="imageURL" id="outlined-size-small" defaultValue="" size="small"/>    
                 <TextField label='Important Reminder' name="importantReminder" id="outlined-size-small" defaultValue="" size="small"/>
                 <TextField label='Group Size' name="groupSize" type="number" id="outlined-size-small" defaultValue="" size="small"/>
                 </Stack>
 
-                <Stack spacing={2} sx={{marginBottom: 0}}>
+                <Stack spacing={2} sx={{marginBottom: 0, marginLeft: 4.75}}>
                 <FormLabel id="mandatory-checkbox">Is Activity Mandatory?</FormLabel>
                 </Stack>
               
                 <FormGroup>
-                <Stack spacing={0} sx={{marginBottom: 2}}>
+                <Stack spacing={0} sx={{marginBottom: 2, marginLeft: 4.75}}>
                 <Checkbox label='Mandatory' name="mandatory" value="true" size="small" style={{ width: "20px", padding:2 }}/>
                 </Stack>
                 </FormGroup>
 
-                <Stack spacing={2} sx={{marginBottom: 4}}>
+                <Stack spacing={2} sx={{marginBottom: 4, marginLeft: 4.75}}>
                 <TextField label='Price' name="price" type="number" id="outlined-size-small" defaultValue="" size="small"/>
                 
                 <FormGroup>

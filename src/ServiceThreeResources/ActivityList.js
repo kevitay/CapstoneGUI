@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-// import ActivitySummary from "./ActivitySummary";
-// import Button from "@mui/material/Button";
 import PropTypes from 'prop-types';
 import Box from '@mui/material/Box';
 import Collapse from '@mui/material/Collapse';
@@ -15,9 +13,12 @@ import Typography from '@mui/material/Typography';
 import Paper from '@mui/material/Paper';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import EditAndDelete from "./EditAndDelete"
+import EditActivity from "./EditActivity"
 
-export default function ActivityList({ formatDate, states, setStates, setDateArray }) {
+export default function ActivityList({ formatDate, states, setStates }) {
     const [dateObject, setDateObject] = useState({});
+    const [currentActivity, setCurrentActivity] = useState(0);
 
     useEffect(() => {
         const tempDateObject = {};
@@ -37,8 +38,8 @@ export default function ActivityList({ formatDate, states, setStates, setDateArr
         tempDateArray.sort();
 
         setDateObject(tempDateObject)
-        setDateArray(tempDateArray)
-    }, [states.itineraryJSON, setDateArray, setDateObject]);
+        setStates.setDateArray(tempDateArray)
+    }, [states.itineraryJSON, setDateObject, setStates]);
 
     function createData(activity) {
         return {
@@ -59,13 +60,14 @@ export default function ActivityList({ formatDate, states, setStates, setDateArr
                     zip: activity.zip,
                     activityURL: activity.url,
                     activityType: activity.type,
+                    id: activity.id
                 },
             ],
         };
     }
 
     function Row(props) {
-        const { row } = props;
+        const { row, activity } = props;
         const [open, setOpen] = React.useState(false);
 
         return (
@@ -84,6 +86,7 @@ export default function ActivityList({ formatDate, states, setStates, setDateArr
                     <TableCell align="left">{row.address}</TableCell>
                     <TableCell align="left">{row.startTime}</TableCell>
                     <TableCell align="left">{row.endTime}</TableCell>
+                    <TableCell align="left"><EditAndDelete setCurrentActivity={setCurrentActivity} activity={activity} states={states} setStates={setStates} /></TableCell>
                 </TableRow>
                 <TableRow>
                     <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -177,6 +180,7 @@ export default function ActivityList({ formatDate, states, setStates, setDateArr
                                         <TableCell>Address</TableCell>
                                         <TableCell>Start Time</TableCell>
                                         <TableCell>End Time</TableCell>
+                                        <TableCell></TableCell>
                                     </TableRow>
                                     </TableHead>
                                     {dateObject[date]
@@ -184,11 +188,9 @@ export default function ActivityList({ formatDate, states, setStates, setDateArr
                                             (a, b) =>
                                                 Date.parse(a.startTime) - Date.parse(b.startTime)
                                         )
-                                        .map((item, index) => (
+                                        .map((item) => (
                                             <TableBody>
-                                                {/* <ActivitySummary key={index} activity={item} states={states} setStates={setStates}/> */}
-                                                {console.log("Activity Details", createData(item))}
-                                                <Row key={item.activityName} row={createData(item)} />
+                                                <Row key={item.activityName} activity={item} row={createData(item)} />
                                             </TableBody>
                                         ))}
                                 </Table>
@@ -197,6 +199,9 @@ export default function ActivityList({ formatDate, states, setStates, setDateArr
                     )
                 )}
             </ul>
+            
+
+            {states.editForm && <EditActivity states={states} setStates={setStates} activity={currentActivity} />}
         </div>
     );
 }
