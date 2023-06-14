@@ -40,10 +40,6 @@ export default function ActivityForm({setForm, states, setStates, eventId}) {
                 <TextField label='Description' multiline name="description" id="outlined-size-small" size="small"/>
                 </Stack>
 
-                <Stack spacing={2}>
-                <FormLabel id="indoor-outdoor-radio-group" sx={{display: 'inline', marginLeft: 4.75}}>Indoor/Outdoor</FormLabel>
-                </Stack>
-
                 <Stack spacing={2} sx={{marginBottom: 2, marginLeft: 4.75}}>
                 <RadioGroup row name="indoor-outdoor-radio-group">
                 <FormControlLabel label='Outdoor' id="outdoor" name="indoor" value="false" control={<Radio />}/>

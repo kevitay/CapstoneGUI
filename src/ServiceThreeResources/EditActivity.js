@@ -8,14 +8,13 @@ import { DateTimePicker } from '@mui/x-date-pickers';
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 
-export default function DateSelector({formatDate, states, setStates, activity}) {
+export default function DateSelector({states, setStates, activity}) {
 
     const [startTime, setStartTime] = useState(new Date());
     const [endTime, setEndTime] = useState(new Date());
 
     function handleSubmit(event) {
         event.preventDefault();
-        console.log(activity)
 
         const confirmed = window.confirm("Are you sure you want to edit this activity?");
         if (confirmed) {
@@ -40,12 +39,8 @@ export default function DateSelector({formatDate, states, setStates, activity}) 
             <LocalizationProvider dateAdapter={AdapterDayjs}>
             <Stack spacing={2} sx={{marginBottom: 2, marginLeft: 4.75}}>
       
-            <TextField label='Activity Name'name="activityName" id="outlined-size-small" placeholder={activity.name} size="small" required/>          
-            <TextField label='Description' multiline name="description" id="outlined-size-small" size="small"/>
-            </Stack>
-
-            <Stack spacing={2} sx={{marginLeft: 4.75}}>
-            <FormLabel id="indoor-outdoor-radio-group" sx={{display: 'inline'}}>Indoor/Outdoor</FormLabel>
+            <TextField label='Activity Name'name="activityName" id="outlined-size-small" defaultValue={activity.activityName} placeholder={activity.name} size="small" required/>          
+            <TextField label='Description' name="description" id="outlined-size-small" defaultValue={activity.description} size="small"/>
             </Stack>
 
             <Stack spacing={2} sx={{marginBottom: 2, marginLeft: 4.75}}>
@@ -56,9 +51,9 @@ export default function DateSelector({formatDate, states, setStates, activity}) 
             </Stack>
             
             <Stack spacing={2} sx={{marginBottom: 2, marginLeft: 4.75}}>
-            <TextField label='Image URL' name="imageURL" id="outlined-size-small" defaultValue="" size="small"/>    
-            <TextField label='Important Reminder' name="importantReminder" id="outlined-size-small" defaultValue="" size="small"/>
-            <TextField label='Group Size' name="groupSize" type="number" id="outlined-size-small" defaultValue="" size="small"/>
+            <TextField label='Image URL' name="imageURL" id="outlined-size-small" defaultValue={activity.imageURL} size="small"/>    
+            <TextField label='Important Reminder' name="importantReminder" id="outlined-size-small" defaultValue={activity.importantReminder} size="small"/>
+            <TextField label='Group Size' name="groupSize" type="number" id="outlined-size-small" defaultValue={activity.groupSize} size="small"/>
             </Stack>
 
             <Stack spacing={2} sx={{marginBottom: 0, marginLeft: 4.75}}>
@@ -72,11 +67,11 @@ export default function DateSelector({formatDate, states, setStates, activity}) 
             </FormGroup>
 
             <Stack spacing={2} sx={{marginBottom: 4, marginLeft: 4.75}}>
-            <TextField label='Price' name="price" type="number" id="outlined-size-small" defaultValue="" size="small"/>
+            <TextField label='Price' name="price" type="number" id="outlined-size-small" defaultValue={activity.price} size="small"/>
             
             <FormGroup>
             <FormLabel id="type-select">Activity Type</FormLabel>
-            <Select name="type" variant="outlined" style={{ height: '2.5em' }} defaultValue="">
+            <Select name="type" variant="outlined"  defaultValue={activity.type} style={{ height: '2.5em' }}>
                 <MenuItem value=""></MenuItem>
                 <MenuItem value="Music">Music</MenuItem>
                 <MenuItem value="Sports">Sports</MenuItem>
@@ -89,15 +84,15 @@ export default function DateSelector({formatDate, states, setStates, activity}) 
             </Select>
             </FormGroup>
             
-            <TextField label='Activity URL' name="url" id="outlined-size-small" defaultValue="" size="small"/>
+            <TextField label='Activity URL' name="url" id="outlined-size-small" defaultValue={activity.activityURL} size="small"/>
             
-            <TextField label='Address' name="address" id="outlined-size-small" defaultValue="" size="small"/>
+            <TextField label='Address' name="address" id="outlined-size-small" defaultValue={activity.address} size="small"/>
 
-            <TextField label='City' name="city" id="outlined-size-small" defaultValue="" size="small"/>
+            <TextField label='City' name="city" id="outlined-size-small" defaultValue={activity.city} size="small"/>
       
             <FormGroup>
             <FormLabel id="state-select">State</FormLabel>
-            <Select name="state" style={{ height: '2.5em' }} defaultValue="">
+            <Select name="state" style={{ height: '2.5em' }}defaultValue={activity.state}>
                 <MenuItem value=""></MenuItem>
                 <MenuItem value="AL">Alabama</MenuItem>
                 <MenuItem value="AK">Alaska</MenuItem>
@@ -153,14 +148,14 @@ export default function DateSelector({formatDate, states, setStates, activity}) 
             </Select>
             </FormGroup>
             
-            <TextField label='Zip Code' name="zip" type="number" id="outlined-size-small" defaultValue="" size="small"/>
+            <TextField label='Zip Code' name="zip" type="number" id="outlined-size-small" defaultValue={activity.zip} size="small"/>
             
             <DateTimePicker label='Start Time*' style={{ height: '2.5em' }} onChange={date => setStartTime(date)} id="outlined-size-small" size="small" required />
             
             <DateTimePicker label='End Time*' style={{ height: '2.5em' }} onChange={date => setEndTime(date)} id="outlined-size-small" size="small" required/>
 
             <Button value="Save Activity" type="submit" variant="contained">Save Activity</Button>
-            
+            <Button value="Cancel" variant="outlined" onClick={()=> setStates.setEditForm(false)}>Cancel</Button>
             </Stack>
             </LocalizationProvider>
             </FormControl>

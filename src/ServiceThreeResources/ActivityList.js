@@ -180,7 +180,7 @@ export default function ActivityList({ formatDate, states, setStates }) {
                                         <TableCell>Address</TableCell>
                                         <TableCell>Start Time</TableCell>
                                         <TableCell>End Time</TableCell>
-                                        <TableCell>Settings</TableCell>
+                                        <TableCell></TableCell>
                                     </TableRow>
                                     </TableHead>
                                     {dateObject[date]

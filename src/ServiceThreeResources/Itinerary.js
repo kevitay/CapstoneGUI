@@ -5,6 +5,8 @@ import CreateNewActivity from "./CreateNewActivity";
 import { fetchFunction, ACTIONS } from "./FetchFunctions";
 import AuthContext from '../IdentityResources/Contexts/AuthContext';
 import Button from "@mui/material/Button";
+import { Box, FormGroup, FormControl, FormLabel, FormControlLabel, Stack, RadioGroup, Radio, Checkbox, Select, MenuItem } from '@mui/material'
+
 
 function Itinerary({eventId, creationStep, setCreationStep, userIsOwner}) {
   const [authState] = useContext(AuthContext);
@@ -33,15 +35,21 @@ const formatDate = function(date){
 }
 
 return (
-    <div className="Itinerary">
-        {creationStep === 3 && <Button onClick={() => setCreationStep(4)}>Next</Button>}
+    <Stack  sx={{
+      display: 'flex',
+      alignItems: 'center',
+      justifyContent: 'center',
+    }}
+   className="Itinerary">
 
         {userIsOwner && <CreateNewActivity states={states} setStates={setStates} eventId={eventId}/>}
 
         <DateSelector formatDate={formatDate} states={states} setStates={setStates}/>
 
         <ActivityList formatDate={formatDate} states={states} setStates={setStates} setDateArray={setDateArray}/>
-    </div>
+
+        {creationStep === 3 && <Button display="flex" sx={{ marginBottom: 4}} align="bottom" onClick={() => setCreationStep(4)} variant="contained">Next Step</Button>}
+    </Stack>
   );
 }
 export default Itinerary;
