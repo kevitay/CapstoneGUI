@@ -177,7 +177,7 @@ export default function Event() {
     
     //finally return our desired google map when address is valid.
     else if (location !== null) {
-      const baseUrl = `https://www.google.com/maps/embed/v1/place?key=;
+      const baseUrl = `https://www.google.com/maps/embed/v1/place?key=GOOGLE_MAPS_KEY`;
       const addressComplete = `${location.address},${location.city},${location.state},${location.zipcode}`;
       const params = new URLSearchParams(`q=${addressComplete}`);
       return `${baseUrl}${params.toString()}`;
